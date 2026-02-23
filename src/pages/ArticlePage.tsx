@@ -78,9 +78,13 @@ const ArticlePage = () => {
             <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{section.heading}</h2>
               <div className="text-muted-foreground leading-relaxed space-y-4">
-                {section.content.split("\n\n").map((p, j) => (
-                  <p key={j} dangerouslySetInnerHTML={{ __html: p.replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>') }} />
-                ))}
+                {section.content.split("\n\n").map((p, j) => {
+                  // Process bold and internal links [[text|/path]]
+                  const processed = p
+                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>')
+                    .replace(/\[\[(.*?)\|(.*?)\]\]/g, '<a href="$2" class="text-primary hover:underline font-medium transition-colors">$1</a>');
+                  return <p key={j} dangerouslySetInnerHTML={{ __html: processed }} />;
+                })}
               </div>
             </motion.div>
           ))}
