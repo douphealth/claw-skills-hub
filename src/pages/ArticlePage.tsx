@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
+import SEOHead from "@/components/SEOHead";
 import { getArticleBySlug, articles } from "@/data/articles";
 
 const ArticlePage = () => {
@@ -35,8 +36,27 @@ const ArticlePage = () => {
 
   const otherArticles = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.heroDescription,
+    datePublished: article.publishedDate,
+    dateModified: article.updatedDate,
+    author: { "@type": "Organization", name: "ClawSkills" },
+    publisher: { "@type": "Organization", name: "ClawSkills" },
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={article.metaTitle || article.title}
+        description={article.metaDescription || article.heroDescription}
+        type="article"
+        publishedDate={article.publishedDate}
+        updatedDate={article.updatedDate}
+        jsonLd={articleJsonLd}
+      />
       <Navbar />
 
       {/* Hero */}

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { getSkillBySlug, getRelatedSkills, getCategoryBySlug } from "@/data/skills";
 
 const securityConfig = {
@@ -46,8 +47,38 @@ const SkillDetail = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const faqJsonLd = skill.faqs?.length ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: skill.faqs.map((faq: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  } : undefined;
+
+  const skillJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: skill.name,
+    description: skill.description,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Cross-platform",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: skill.rating,
+      bestRating: "5",
+      worstRating: "1",
+    },
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={`${skill.name} for OpenClaw — Full Guide`}
+        description={`${skill.description} Install with: ${skill.installCmd}. Rating: ${skill.rating}/5.`}
+        jsonLd={faqJsonLd ? [skillJsonLd, faqJsonLd] : skillJsonLd}
+      />
       <Navbar />
 
       {/* Hero */}
