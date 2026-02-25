@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
+
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Eager load the landing page for fast first paint
@@ -37,30 +37,28 @@ const PageLoader = () => (
 );
 
 const App = () => (
-  <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <ErrorBoundary>
-          <BrowserRouter>
-            <Suspense fallback={<PageLoader />}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/skills" element={<SkillsDirectory />} />
-                <Route path="/skills/:categorySlug/:skillSlug" element={<SkillDetail />} />
-                <Route path="/articles" element={<ArticlesIndex />} />
-                <Route path="/articles/:articleSlug" element={<ArticlePage />} />
-                <Route path="/tutorials" element={<TutorialsIndex />} />
-                <Route path="/tutorials/:tutorialSlug" element={<TutorialPage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
-        </ErrorBoundary>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </HelmetProvider>
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <ErrorBoundary>
+        <BrowserRouter>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/skills" element={<SkillsDirectory />} />
+              <Route path="/skills/:categorySlug/:skillSlug" element={<SkillDetail />} />
+              <Route path="/articles" element={<ArticlesIndex />} />
+              <Route path="/articles/:articleSlug" element={<ArticlePage />} />
+              <Route path="/tutorials" element={<TutorialsIndex />} />
+              <Route path="/tutorials/:tutorialSlug" element={<TutorialPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </ErrorBoundary>
+    </TooltipProvider>
+  </QueryClientProvider>
 );
 
 export default App;
