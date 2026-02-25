@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
 
 interface SEOHeadProps {
   title: string;
@@ -14,43 +14,53 @@ const SEOHead = ({
   title,
   description,
   canonical,
-  type = "website",
-  publishedDate,
-  updatedDate,
   jsonLd,
 }: SEOHeadProps) => {
   const fullTitle = title.includes("ClawSkills") ? title : `${title} | ClawSkills`;
   const safeDesc = description.slice(0, 160);
 
-  return (
-    <Helmet>
-      <title>{fullTitle}</title>
-      <meta name="description" content={safeDesc} />
-      {canonical && <link rel="canonical" href={canonical} />}
+  useEffect(() => {
+    document.title = fullTitle;
 
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={safeDesc} />
-      <meta property="og:type" content={type} />
-      {canonical && <meta property="og:url" content={canonical} />}
+    const setMeta = (name: string, content: string, property = false) => {
+      const attr = property ? "property" : "name";
+      let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(attr, name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
 
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={safeDesc} />
+    setMeta("description", safeDesc);
+    setMeta("og:title", fullTitle, true);
+    setMeta("og:description", safeDesc, true);
 
-      {type === "article" && publishedDate && (
-        <meta property="article:published_time" content={publishedDate} />
-      )}
-      {type === "article" && updatedDate && (
-        <meta property="article:modified_time" content={updatedDate} />
-      )}
+    if (canonical) {
+      let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+      if (!link) {
+        link = document.createElement("link");
+        link.setAttribute("rel", "canonical");
+        document.head.appendChild(link);
+      }
+      link.setAttribute("href", canonical);
+    }
 
-      {jsonLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(Array.isArray(jsonLd) ? jsonLd : jsonLd)}
-        </script>
-      )}
-    </Helmet>
-  );
+    if (jsonLd) {
+      const id = "seo-jsonld";
+      let script = document.getElementById(id) as HTMLScriptElement | null;
+      if (!script) {
+        script = document.createElement("script");
+        script.id = id;
+        script.type = "application/ld+json";
+        document.head.appendChild(script);
+      }
+      script.textContent = JSON.stringify(jsonLd);
+    }
+  }, [fullTitle, safeDesc, canonical, jsonLd]);
+
+  return null;
 };
 
 export default SEOHead;
