@@ -4,11 +4,15 @@ import { ArrowLeft, Clock, Star, Terminal, Copy, Check, ArrowRight, Calendar, Re
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
 import SEOHead from "@/components/SEOHead";
 import { getArticleBySlug, articles } from "@/data/articles";
+import { articleJsonLd as makeArticleJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
 
 const ArticlePage = () => {
   const { articleSlug } = useParams<{ articleSlug: string }>();
@@ -36,16 +40,12 @@ const ArticlePage = () => {
 
   const otherArticles = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
 
-  const articleJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.heroDescription,
-    datePublished: article.publishedDate,
-    dateModified: article.updatedDate,
-    author: { "@type": "Organization", name: "ClawSkills" },
-    publisher: { "@type": "Organization", name: "ClawSkills" },
-  };
+  const aJsonLd = makeArticleJsonLd(article);
+  const bJsonLd = breadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: "Articles", url: "/articles" },
+    { name: article.title, url: `/articles/${article.slug}` },
+  ]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -55,7 +55,7 @@ const ArticlePage = () => {
         type="article"
         publishedDate={article.publishedDate}
         updatedDate={article.updatedDate}
-        jsonLd={articleJsonLd}
+        jsonLd={[aJsonLd, bJsonLd]}
       />
       <Navbar />
 
