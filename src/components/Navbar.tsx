@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X, Zap, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import CommandPalette from "@/components/CommandPalette";
 
 const navItems = [
   { label: "Skills", href: "/skills" },
@@ -44,6 +45,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
+          <CommandPalette />
           <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
             Sign in
           </Button>

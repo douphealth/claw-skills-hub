@@ -3,10 +3,15 @@ import { motion } from "framer-motion";
 import { Clock, Calendar, RefreshCw, ArrowRight, BookOpen } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
+import SEOHead from "@/components/SEOHead";
 import { getTutorialBySlug, tutorials } from "@/data/tutorials";
+import { howToJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
 
 const difficultyColor: Record<string, string> = {
   Beginner: "bg-green-400/10 text-green-400 border-green-400/20",
@@ -33,9 +38,20 @@ const TutorialPage = () => {
   }
 
   const otherTutorials = tutorials.filter((t) => t.slug !== tutorial.slug).slice(0, 3);
+  const tJsonLd = howToJsonLd(tutorial);
+  const bJsonLd = breadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: "Tutorials", url: "/tutorials" },
+    { name: tutorial.title, url: `/tutorials/${tutorial.slug}` },
+  ]);
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={tutorial.metaTitle || tutorial.title}
+        description={tutorial.metaDescription || tutorial.heroDescription}
+        jsonLd={[tJsonLd, bJsonLd]}
+      />
       <Navbar />
 
       {/* Hero */}

@@ -6,20 +6,10 @@ import TutorialsSection from "@/components/TutorialsSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { websiteJsonLd } from "@/utils/jsonLd";
 
 const Index = () => {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "ClawSkills",
-    url: "https://clawskills.com",
-    description: "Discover, compare, and install 5,705+ OpenClaw AI agent skills.",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://clawskills.com/skills?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
-  };
+  const jsonLd = websiteJsonLd();
 
   return (
     <div className="min-h-screen bg-background">
