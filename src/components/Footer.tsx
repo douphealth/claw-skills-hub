@@ -1,7 +1,10 @@
 import { Zap } from "lucide-react";
 import { Link } from "react-router-dom";
+import { categories } from "@/data/skills";
 
 const Footer = () => {
+  const topCategories = categories.slice(0, 5);
+
   return (
     <footer className="border-t border-border py-12">
       <div className="container mx-auto px-6">
@@ -24,10 +27,13 @@ const Footer = () => {
             <h4 className="text-sm font-semibold text-foreground mb-3">Directory</h4>
             <ul className="space-y-2">
               <li><Link to="/skills" className="text-xs text-muted-foreground hover:text-primary transition-colors">All Skills</Link></li>
-              <li><Link to="/skills?category=ai-llms" className="text-xs text-muted-foreground hover:text-primary transition-colors">AI & LLMs</Link></li>
-              <li><Link to="/skills?category=devops-cloud" className="text-xs text-muted-foreground hover:text-primary transition-colors">DevOps</Link></li>
-              <li><Link to="/skills?category=productivity" className="text-xs text-muted-foreground hover:text-primary transition-colors">Productivity</Link></li>
-              <li><Link to="/skills?category=marketing-sales" className="text-xs text-muted-foreground hover:text-primary transition-colors">Marketing</Link></li>
+              {topCategories.map((cat) => (
+                <li key={cat.slug}>
+                  <Link to={`/skills/${cat.slug}`} className="text-xs text-muted-foreground hover:text-primary transition-colors">
+                    {cat.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -38,6 +44,7 @@ const Footer = () => {
               <li><Link to="/tutorials" className="text-xs text-muted-foreground hover:text-primary transition-colors">Tutorials</Link></li>
               <li><Link to="/tutorials/openclaw-skill-security-checklist" className="text-xs text-muted-foreground hover:text-primary transition-colors">Security Guide</Link></li>
               <li><a href="/#newsletter" className="text-xs text-muted-foreground hover:text-primary transition-colors">Newsletter</a></li>
+              <li><a href="/llms.txt" className="text-xs text-muted-foreground hover:text-primary transition-colors">llms.txt</a></li>
             </ul>
           </div>
 

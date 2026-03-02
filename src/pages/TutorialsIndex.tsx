@@ -2,9 +2,14 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Clock, BookOpen } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import {
+  Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { tutorials } from "@/data/tutorials";
+import { breadcrumbJsonLd, itemListJsonLd } from "@/utils/jsonLd";
 
 const difficultyColor: Record<string, string> = {
   Beginner: "bg-green-400/10 text-green-400 border-green-400/20",
@@ -14,16 +19,45 @@ const difficultyColor: Record<string, string> = {
 };
 
 const TutorialsIndex = () => {
+  const bJsonLd = breadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: "Tutorials", url: "/tutorials" },
+  ]);
+
+  const listJsonLd = itemListJsonLd(
+    tutorials.map((t, i) => ({
+      name: t.title,
+      url: `/tutorials/${t.slug}`,
+      position: i + 1,
+    }))
+  );
+
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="OpenClaw Tutorials — Step-by-Step Guides for All Levels"
+        description="From installation to building custom skills — step-by-step OpenClaw tutorials for beginner to advanced users."
+        canonical="https://clawskills.com/tutorials"
+        jsonLd={[bJsonLd, listJsonLd]}
+      />
       <Navbar />
 
       <section className="relative pt-28 pb-12 overflow-hidden">
         <div className="absolute inset-0 dot-pattern opacity-15" />
         <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-glow opacity-[0.04] blur-[120px]" />
 
-        <div className="relative z-10 container mx-auto px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="relative z-10 container mx-auto px-6">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem><BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink></BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem><BreadcrumbPage>Tutorials</BreadcrumbPage></BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-3 block">Tutorials</span>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
               Learn <span className="text-gradient">OpenClaw</span>

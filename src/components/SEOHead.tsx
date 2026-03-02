@@ -10,10 +10,15 @@ interface SEOHeadProps {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
+const SITE_URL = "https://clawskills.com";
+
 const SEOHead = ({
   title,
   description,
   canonical,
+  type = "website",
+  publishedDate,
+  updatedDate,
   jsonLd,
 }: SEOHeadProps) => {
   const fullTitle = title.includes("ClawSkills") ? title : `${title} | ClawSkills`;
@@ -33,10 +38,29 @@ const SEOHead = ({
       el.setAttribute("content", content);
     };
 
+    // Standard meta
     setMeta("description", safeDesc);
+
+    // Open Graph
     setMeta("og:title", fullTitle, true);
     setMeta("og:description", safeDesc, true);
+    setMeta("og:type", type, true);
+    if (canonical) {
+      setMeta("og:url", canonical, true);
+    }
 
+    // Twitter Card
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", fullTitle);
+    setMeta("twitter:description", safeDesc);
+
+    // Article dates
+    if (type === "article") {
+      if (publishedDate) setMeta("article:published_time", publishedDate, true);
+      if (updatedDate) setMeta("article:modified_time", updatedDate, true);
+    }
+
+    // Canonical
     if (canonical) {
       let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
       if (!link) {
@@ -47,6 +71,7 @@ const SEOHead = ({
       link.setAttribute("href", canonical);
     }
 
+    // JSON-LD
     if (jsonLd) {
       const id = "seo-jsonld";
       let script = document.getElementById(id) as HTMLScriptElement | null;
@@ -58,7 +83,7 @@ const SEOHead = ({
       }
       script.textContent = JSON.stringify(jsonLd);
     }
-  }, [fullTitle, safeDesc, canonical, jsonLd]);
+  }, [fullTitle, safeDesc, canonical, type, publishedDate, updatedDate, jsonLd]);
 
   return null;
 };
