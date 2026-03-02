@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Terminal, Shield, ShieldCheck, ShieldAlert, Star, Clock, User, ArrowRight, Copy, Check, Monitor, Wrench, GitBranch, Cpu } from "lucide-react";
+import { Terminal, Shield, ShieldCheck, ShieldAlert, Star, Clock, User, ArrowRight, Copy, Check, Monitor, Wrench, GitBranch, Cpu, Download } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { getSkillBySlug, getRelatedSkills, getCategoryBySlug } from "@/data/skills";
 import { skillJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
+import SkillDownloadPanel from "@/components/SkillDownloadPanel";
 
 const securityConfig = {
   verified: { icon: ShieldCheck, label: "Verified", color: "text-green-400", bg: "bg-green-400/10" },
@@ -262,6 +263,8 @@ const SkillDetail = () => {
                   </div>
                 </div>
               </div>
+
+              <SkillDownloadPanel skill={skill} />
 
               {related.length > 0 && (
                 <div className="glass rounded-xl p-6">
