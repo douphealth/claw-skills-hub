@@ -14,6 +14,41 @@ export type Database = {
   }
   public: {
     Tables: {
+      email_events: {
+        Row: {
+          created_at: string
+          email_subject: string | null
+          event_type: string
+          id: string
+          metadata: Json | null
+          subscriber_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email_subject?: string | null
+          event_type: string
+          id?: string
+          metadata?: Json | null
+          subscriber_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email_subject?: string | null
+          event_type?: string
+          id?: string
+          metadata?: Json | null
+          subscriber_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_events_subscriber_id_fkey"
+            columns: ["subscriber_id"]
+            isOneToOne: false
+            referencedRelation: "subscribers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       mc_build_projects: {
         Row: {
           data: Json | null
@@ -212,6 +247,51 @@ export type Database = {
         Update: {
           data?: Json | null
           id?: string
+        }
+        Relationships: []
+      }
+      subscribers: {
+        Row: {
+          confirmation_token: string | null
+          confirmed_at: string | null
+          created_at: string
+          email: string
+          id: string
+          source_page: string | null
+          status: string
+          unsubscribed_at: string | null
+          updated_at: string
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          confirmation_token?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          source_page?: string | null
+          status?: string
+          unsubscribed_at?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          confirmation_token?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          source_page?: string | null
+          status?: string
+          unsubscribed_at?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Relationships: []
       }
