@@ -13,6 +13,7 @@ import Index from "./pages/Index";
 // Lazy load all other routes for code splitting
 const NotFound = lazy(() => import("./pages/NotFound"));
 const SkillsDirectory = lazy(() => import("./pages/SkillsDirectory"));
+const CategoryLanding = lazy(() => import("./pages/CategoryLanding"));
 const SkillDetail = lazy(() => import("./pages/SkillDetail"));
 const ArticlesIndex = lazy(() => import("./pages/ArticlesIndex"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
@@ -47,6 +48,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/skills" element={<SkillsDirectory />} />
+              <Route path="/skills/:categorySlug" element={<CategoryLanding />} />
               <Route path="/skills/:categorySlug/:skillSlug" element={<SkillDetail />} />
               <Route path="/articles" element={<ArticlesIndex />} />
               <Route path="/articles/:articleSlug" element={<ArticlePage />} />

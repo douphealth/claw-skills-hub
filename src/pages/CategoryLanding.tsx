@@ -1,7 +1,7 @@
-import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Search, Star, Shield, ShieldCheck, ShieldAlert, ArrowRight } from "lucide-react";
+import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,20 +11,22 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { skills, categories } from "@/data/skills";
+import { getSkillsByCategory, getCategoryBySlug, categories } from "@/data/skills";
 import { itemListJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
 
-const SkillsDirectory = () => {
+const CategoryLanding = () => {
+  const { categorySlug } = useParams<{ categorySlug: string }>();
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const category = getCategoryBySlug(categorySlug || "");
+  const allSkills = useMemo(() => getSkillsByCategory(categorySlug || ""), [categorySlug]);
 
   const filtered = useMemo(() => {
-    return skills.filter((s) => {
-      const matchesSearch = !search || s.name.toLowerCase().includes(search.toLowerCase()) || s.description.toLowerCase().includes(search.toLowerCase());
-      const matchesCategory = !activeCategory || s.categorySlug === activeCategory;
-      return matchesSearch && matchesCategory;
-    });
-  }, [search, activeCategory]);
+    if (!search) return allSkills;
+    const q = search.toLowerCase();
+    return allSkills.filter(
+      (s) => s.name.toLowerCase().includes(q) || s.description.toLowerCase().includes(q)
+    );
+  }, [allSkills, search]);
 
   const securityIcon = (status: string) => {
     if (status === "verified") return <ShieldCheck className="w-3.5 h-3.5 text-green-400" />;
@@ -32,13 +34,28 @@ const SkillsDirectory = () => {
     return <ShieldAlert className="w-3.5 h-3.5 text-red-400" />;
   };
 
+  if (!category) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="container mx-auto px-6 pt-32 text-center">
+          <h1 className="text-4xl font-bold text-foreground mb-4">Category Not Found</h1>
+          <p className="text-muted-foreground mb-8">This category doesn't exist.</p>
+          <Link to="/skills"><Button>Browse All Skills</Button></Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   const bJsonLd = breadcrumbJsonLd([
     { name: "Home", url: "/" },
-    { name: "Skills Directory", url: "/skills" },
+    { name: "Skills", url: "/skills" },
+    { name: category.name, url: `/skills/${category.slug}` },
   ]);
 
   const listJsonLd = itemListJsonLd(
-    skills.slice(0, 50).map((s, i) => ({
+    allSkills.slice(0, 50).map((s, i) => ({
       name: s.name,
       url: `/skills/${s.categorySlug}/${s.slug}`,
       position: i + 1,
@@ -48,9 +65,9 @@ const SkillsDirectory = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Browse 5,705+ OpenClaw Skills — Full Directory"
-        description="Search, filter, and discover the perfect OpenClaw AI agent skills. Browse by category, security status, and rating."
-        canonical="https://clawskills.com/skills"
+        title={`Best ${category.name} Skills for OpenClaw (${category.count}+ Skills)`}
+        description={category.description}
+        canonical={`https://clawskills.com/skills/${category.slug}`}
         jsonLd={[bJsonLd, listJsonLd]}
       />
       <Navbar />
@@ -65,60 +82,40 @@ const SkillsDirectory = () => {
               <BreadcrumbList>
                 <BreadcrumbItem><BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink></BreadcrumbItem>
                 <BreadcrumbSeparator />
-                <BreadcrumbItem><BreadcrumbPage>Skills Directory</BreadcrumbPage></BreadcrumbItem>
+                <BreadcrumbItem><BreadcrumbLink asChild><Link to="/skills">Skills</Link></BreadcrumbLink></BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem><BreadcrumbPage>{category.name}</BreadcrumbPage></BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-            <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-3 block">Skills Directory</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-3 block">{category.name}</span>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
-              Explore <span className="text-gradient">5,705+</span> Skills
+              Best <span className="text-gradient">{category.name}</span> Skills
             </h1>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-              Search, filter, and discover the perfect OpenClaw skills for your workflow.
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-2">
+              {category.description}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {allSkills.length} skills available · Browse, compare, and install with one command.
             </p>
           </motion.div>
 
-          {/* Search */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="max-w-2xl mx-auto mb-10">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <Input
-                placeholder="Search skills by name or description..."
+                placeholder={`Search ${category.name} skills...`}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="pl-12 h-13 bg-secondary border-border text-foreground text-base"
               />
             </div>
           </motion.div>
-
-          {/* Category filters */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="flex flex-wrap justify-center gap-2 mb-12">
-            <Button
-              variant={activeCategory === null ? "default" : "outline"}
-              size="sm"
-              onClick={() => setActiveCategory(null)}
-              className="rounded-full text-xs"
-            >
-              All ({skills.length})
-            </Button>
-            {categories.map((cat) => (
-              <Link key={cat.slug} to={`/skills/${cat.slug}`}>
-                <Button
-                  variant={activeCategory === cat.slug ? "default" : "outline"}
-                  size="sm"
-                  className="rounded-full text-xs"
-                >
-                  {cat.name}
-                </Button>
-              </Link>
-            ))}
-          </motion.div>
         </div>
       </section>
 
-      {/* Skills Grid */}
       <section className="pb-32">
         <div className="container mx-auto px-6">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -165,8 +162,8 @@ const SkillsDirectory = () => {
           {filtered.length === 0 && (
             <div className="text-center py-20">
               <p className="text-muted-foreground text-lg">No skills found matching your search.</p>
-              <Button variant="outline" className="mt-4" onClick={() => { setSearch(""); setActiveCategory(null); }}>
-                Clear Filters
+              <Button variant="outline" className="mt-4" onClick={() => setSearch("")}>
+                Clear Search
               </Button>
             </div>
           )}
@@ -178,4 +175,4 @@ const SkillsDirectory = () => {
   );
 };
 
-export default SkillsDirectory;
+export default CategoryLanding;

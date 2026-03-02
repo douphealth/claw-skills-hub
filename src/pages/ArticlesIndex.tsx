@@ -2,21 +2,55 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Clock, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import {
+  Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { articles } from "@/data/articles";
+import { breadcrumbJsonLd, itemListJsonLd } from "@/utils/jsonLd";
 
 const ArticlesIndex = () => {
+  const bJsonLd = breadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: "Articles", url: "/articles" },
+  ]);
+
+  const listJsonLd = itemListJsonLd(
+    articles.map((a, i) => ({
+      name: a.title,
+      url: `/articles/${a.slug}`,
+      position: i + 1,
+    }))
+  );
+
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Best OpenClaw Skills — In-Depth Reviews & Comparisons"
+        description="In-depth curated lists and reviews to help you find exactly the right OpenClaw skills for AI, DevOps, productivity, and more."
+        canonical="https://clawskills.com/articles"
+        jsonLd={[bJsonLd, listJsonLd]}
+      />
       <Navbar />
 
       <section className="relative pt-28 pb-12 overflow-hidden">
         <div className="absolute inset-0 grid-pattern opacity-15" />
         <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full bg-glow opacity-[0.04] blur-[100px]" />
 
-        <div className="relative z-10 container mx-auto px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="relative z-10 container mx-auto px-6">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem><BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink></BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem><BreadcrumbPage>Articles</BreadcrumbPage></BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-3 block">Guides & Articles</span>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
               Best Skills for <span className="text-gradient">Every Use Case</span>

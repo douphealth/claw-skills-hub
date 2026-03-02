@@ -52,6 +52,7 @@ const ArticlePage = () => {
       <SEOHead
         title={article.metaTitle || article.title}
         description={article.metaDescription || article.heroDescription}
+        canonical={`https://clawskills.com/articles/${article.slug}`}
         type="article"
         publishedDate={article.publishedDate}
         updatedDate={article.updatedDate}
@@ -65,12 +66,16 @@ const ArticlePage = () => {
         <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-glow opacity-[0.04] blur-[100px]" />
 
         <div className="relative z-10 container mx-auto px-6 max-w-4xl">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-            <span>/</span>
-            <Link to="/articles" className="hover:text-primary transition-colors">Articles</Link>
-            <span>/</span>
-            <span className="text-foreground truncate">{article.title}</span>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem><BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink></BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem><BreadcrumbLink asChild><Link to="/articles">Articles</Link></BreadcrumbLink></BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem><BreadcrumbPage className="truncate max-w-[200px]">{article.title}</BreadcrumbPage></BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -93,13 +98,11 @@ const ArticlePage = () => {
       {/* Content */}
       <section className="pb-16">
         <div className="container mx-auto px-6 max-w-4xl">
-          {/* Intro sections */}
           {article.sections.map((section, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{section.heading}</h2>
               <div className="text-muted-foreground leading-relaxed space-y-4">
                 {section.content.split("\n\n").map((p, j) => {
-                  // Process bold and internal links [[text|/path]]
                   const processed = p
                     .replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>')
                     .replace(/\[\[(.*?)\|(.*?)\]\]/g, '<a href="$2" class="text-primary hover:underline font-medium transition-colors">$1</a>');

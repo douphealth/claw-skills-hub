@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Clock, Calendar, RefreshCw, ArrowRight, BookOpen } from "lucide-react";
+import { Clock, Calendar, RefreshCw, BookOpen } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,6 +50,7 @@ const TutorialPage = () => {
       <SEOHead
         title={tutorial.metaTitle || tutorial.title}
         description={tutorial.metaDescription || tutorial.heroDescription}
+        canonical={`https://clawskills.com/tutorials/${tutorial.slug}`}
         jsonLd={[tJsonLd, bJsonLd]}
       />
       <Navbar />
@@ -60,12 +61,16 @@ const TutorialPage = () => {
         <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full bg-glow opacity-[0.04] blur-[120px]" />
 
         <div className="relative z-10 container mx-auto px-6 max-w-4xl">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-            <span>/</span>
-            <Link to="/tutorials" className="hover:text-primary transition-colors">Tutorials</Link>
-            <span>/</span>
-            <span className="text-foreground truncate">{tutorial.title}</span>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem><BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink></BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem><BreadcrumbLink asChild><Link to="/tutorials">Tutorials</Link></BreadcrumbLink></BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem><BreadcrumbPage className="truncate max-w-[200px]">{tutorial.title}</BreadcrumbPage></BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>

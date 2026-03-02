@@ -10,6 +10,7 @@ export function websiteJsonLd() {
     "@type": "WebSite",
     name: "ClawSkills",
     url: SITE_URL,
+    description: "The definitive directory for OpenClaw AI agent skills. Discover, compare, and install 5,705+ skills.",
     potentialAction: {
       "@type": "SearchAction",
       target: `${SITE_URL}/skills?q={search_term_string}`,
@@ -25,15 +26,22 @@ export function skillJsonLd(skill: Skill) {
     name: skill.name,
     description: skill.description,
     applicationCategory: "DeveloperApplication",
-    operatingSystem: "Cross-platform",
+    applicationSubCategory: "AI Agent Skill",
+    operatingSystem: "Cross-platform (macOS, Linux, Windows WSL)",
     author: { "@type": "Person", name: skill.author },
     softwareVersion: skill.version,
+    dateModified: skill.lastUpdated,
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: skill.rating,
       bestRating: "5",
       worstRating: "1",
       ratingCount: Math.floor(skill.rating * 20 + 10),
+    },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
     },
   };
 }
@@ -72,10 +80,15 @@ export function articleJsonLd(article: Article) {
     description: article.metaDescription,
     datePublished: article.publishedDate,
     dateModified: article.updatedDate,
+    author: { "@type": "Organization", name: "ClawSkills" },
     publisher: {
       "@type": "Organization",
       name: "ClawSkills",
       url: SITE_URL,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/articles/${article.slug}`,
     },
   };
 }
@@ -91,6 +104,19 @@ export function howToJsonLd(tutorial: Tutorial) {
       position: i + 1,
       name: section.heading,
       text: section.content.slice(0, 200),
+    })),
+  };
+}
+
+export function itemListJsonLd(items: { name: string; url: string; position: number }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((item) => ({
+      "@type": "ListItem",
+      position: item.position,
+      name: item.name,
+      url: `${SITE_URL}${item.url}`,
     })),
   };
 }
