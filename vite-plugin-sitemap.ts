@@ -3,7 +3,7 @@ import { skills, categories } from "./src/data/skills";
 import { articles } from "./src/data/articles";
 import { tutorials } from "./src/data/tutorials";
 
-const BASE_URL = "https://clawskills.com";
+const BASE_URL = "https://openclaw-skillshub.com";
 
 interface SitemapEntry {
   loc: string;

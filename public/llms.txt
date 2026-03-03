@@ -34,5 +34,5 @@ ClawSkills is the most comprehensive resource for discovering, comparing, and in
 - Tutorials: Step-by-step guides from beginner to advanced levels
 
 ## Contact
-- Website: https://clawskills.com
+- Website: https://openclaw-skillshub.com
 - Not affiliated with OpenClaw.

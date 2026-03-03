@@ -50,7 +50,7 @@ const SkillsDirectory = () => {
       <SEOHead
         title="Browse 5,705+ OpenClaw Skills — Full Directory"
         description="Search, filter, and discover the perfect OpenClaw AI agent skills. Browse by category, security status, and rating."
-        canonical="https://clawskills.com/skills"
+        canonical="https://openclaw-skillshub.com/skills"
         jsonLd={[bJsonLd, listJsonLd]}
       />
       <Navbar />

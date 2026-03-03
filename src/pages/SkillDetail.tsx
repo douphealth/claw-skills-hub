@@ -67,7 +67,7 @@ const SkillDetail = () => {
       <SEOHead
         title={`${skill.name} for OpenClaw — Full Guide`}
         description={`${skill.name} is a ${skill.securityStatus} OpenClaw skill. ${skill.description} Install with: ${skill.installCmd}. Rating: ${skill.rating}/5.`}
-        canonical={`https://clawskills.com/skills/${skill.categorySlug}/${skill.slug}`}
+        canonical={`https://openclaw-skillshub.com/skills/${skill.categorySlug}/${skill.slug}`}
         jsonLd={allJsonLd}
       />
       <Navbar />

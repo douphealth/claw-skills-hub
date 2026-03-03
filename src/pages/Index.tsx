@@ -16,7 +16,7 @@ const Index = () => {
       <SEOHead
         title="ClawSkills — The Definitive OpenClaw Skills Directory"
         description="Discover, compare, and install 5,705+ OpenClaw AI agent skills. Curated reviews, tutorials, and guides for every use case."
-        canonical="https://clawskills.com/"
+        canonical="https://openclaw-skillshub.com/"
         jsonLd={jsonLd}
       />
       <Navbar />

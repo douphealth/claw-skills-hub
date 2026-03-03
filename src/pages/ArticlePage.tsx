@@ -52,7 +52,7 @@ const ArticlePage = () => {
       <SEOHead
         title={article.metaTitle || article.title}
         description={article.metaDescription || article.heroDescription}
-        canonical={`https://clawskills.com/articles/${article.slug}`}
+        canonical={`https://openclaw-skillshub.com/articles/${article.slug}`}
         type="article"
         publishedDate={article.publishedDate}
         updatedDate={article.updatedDate}

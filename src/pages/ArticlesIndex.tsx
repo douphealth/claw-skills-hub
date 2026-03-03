@@ -30,7 +30,7 @@ const ArticlesIndex = () => {
       <SEOHead
         title="Best OpenClaw Skills — In-Depth Reviews & Comparisons"
         description="In-depth curated lists and reviews to help you find exactly the right OpenClaw skills for AI, DevOps, productivity, and more."
-        canonical="https://clawskills.com/articles"
+        canonical="https://openclaw-skillshub.com/articles"
         jsonLd={[bJsonLd, listJsonLd]}
       />
       <Navbar />
