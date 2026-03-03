@@ -46,9 +46,6 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-3">
           <CommandPalette />
-          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-            Sign in
-          </Button>
           <Link to="/skills">
             <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium">
               Explore Skills
