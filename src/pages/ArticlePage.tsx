@@ -1,7 +1,7 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Clock, Star, Terminal, Copy, Check, ArrowRight, Calendar, RefreshCw } from "lucide-react";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -12,11 +12,13 @@ import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
 import SEOHead from "@/components/SEOHead";
 import { getArticleBySlug, articles } from "@/data/articles";
+import { getSkillBySlug } from "@/data/skills";
 import { articleJsonLd as makeArticleJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
 
 const ArticlePage = () => {
   const { articleSlug } = useParams<{ articleSlug: string }>();
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const navigate = useNavigate();
   const article = getArticleBySlug(articleSlug || "");
 
   const handleCopy = (cmd: string, idx: number) => {
@@ -24,6 +26,20 @@ const ArticlePage = () => {
     setCopiedIdx(idx);
     setTimeout(() => setCopiedIdx(null), 2000);
   };
+
+  // Handle internal [[]] link clicks for SPA navigation
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a[data-internal="true"]');
+      if (target) {
+        e.preventDefault();
+        const href = target.getAttribute("href");
+        if (href) navigate(href);
+      }
+    };
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, [navigate]);
 
   if (!article) {
     return (
@@ -122,7 +138,10 @@ const ArticlePage = () => {
                 {section.content.split("\n\n").map((p, j) => {
                   const processed = p
                     .replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>')
-                    .replace(/\[\[(.*?)\|(.*?)\]\]/g, '<a href="$2" class="text-primary hover:underline font-medium transition-colors">$1</a>');
+                    .replace(
+                      /\[\[(.*?)\|(.*?)\]\]/g,
+                      (_, text, path) => `<a href="${path}" data-internal="true" class="text-primary hover:underline font-medium transition-colors">${text}</a>`
+                    );
                   return <p key={j} dangerouslySetInnerHTML={{ __html: processed }} />;
                 })}
               </div>
@@ -169,9 +188,17 @@ const ArticlePage = () => {
                 </div>
 
                 <div className="mt-4 flex justify-end">
-                  <Link to={`/skills/${skill.slug}`} className="text-sm text-primary hover:underline flex items-center gap-1">
-                    Full skill review <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                  {(() => {
+                    const fullSkill = getSkillBySlug(skill.slug);
+                    const href = fullSkill
+                      ? `/skills/${fullSkill.categorySlug}/${fullSkill.slug}`
+                      : `/skills`;
+                    return (
+                      <Link to={href} className="text-sm text-primary hover:underline flex items-center gap-1">
+                        Full skill review <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    );
+                  })()}
                 </div>
               </motion.div>
             ))}

@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Search, Star, Shield, ShieldCheck, ShieldAlert, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -15,8 +15,9 @@ import { skills, categories } from "@/data/skills";
 import { itemListJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
 
 const SkillsDirectory = () => {
+  const [searchParams] = useSearchParams();
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(searchParams.get("category"));
 
   const filtered = useMemo(() => {
     return skills.filter((s) => {

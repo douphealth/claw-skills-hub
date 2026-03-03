@@ -50,10 +50,10 @@ const Footer = () => {
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-3">Community</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Discord</a></li>
-              <li><a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Telegram</a></li>
-              <li><a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">GitHub</a></li>
-              <li><a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Twitter</a></li>
+              <li><a href="https://discord.gg/openclaw" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">Discord</a></li>
+              <li><a href="https://t.me/openclawcommunity" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">Telegram</a></li>
+              <li><a href="https://github.com/openclaw" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">GitHub</a></li>
+              <li><a href="https://twitter.com/openclaw" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">Twitter</a></li>
             </ul>
           </div>
         </div>
@@ -93,8 +93,8 @@ const Footer = () => {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-xs text-muted-foreground">© 2026 ClawSkills. Not affiliated with OpenClaw.</p>
             <div className="flex gap-4">
-              <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Privacy</a>
-              <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Terms</a>
+              <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
+              <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary transition-colors">Terms</Link>
             </div>
           </div>
         </div>
