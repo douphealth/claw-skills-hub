@@ -40,8 +40,8 @@ const PageLoader = () => (
   </div>
 );
 
-const App = () => (
-    // Initialize Google Analytics on app load
+const App = () => {
+  // Initialize Google Analytics on app load
   useEffect(() => {
     initGA();
   }, []);
@@ -55,30 +55,33 @@ const App = () => (
     window.addEventListener('popstate', handleRouteChange);
     return () => window.removeEventListener('popstate', handleRouteChange);
   }, []);
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <ErrorBoundary>
-        <BrowserRouter>
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/skills" element={<SkillsDirectory />} />
-              <Route path="/skills/compare" element={<SkillCompare />} />
-              <Route path="/skills/:categorySlug" element={<CategoryLanding />} />
-              <Route path="/skills/:categorySlug/:skillSlug" element={<SkillDetail />} />
-              <Route path="/articles" element={<ArticlesIndex />} />
-              <Route path="/articles/:articleSlug" element={<ArticlePage />} />
-              <Route path="/tutorials" element={<TutorialsIndex />} />
-              <Route path="/tutorials/:tutorialSlug" element={<TutorialPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-      </ErrorBoundary>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <ErrorBoundary>
+          <BrowserRouter>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/skills" element={<SkillsDirectory />} />
+                <Route path="/skills/compare" element={<SkillCompare />} />
+                <Route path="/skills/:categorySlug" element={<CategoryLanding />} />
+                <Route path="/skills/:categorySlug/:skillSlug" element={<SkillDetail />} />
+                <Route path="/articles" element={<ArticlesIndex />} />
+                <Route path="/articles/:articleSlug" element={<ArticlePage />} />
+                <Route path="/tutorials" element={<TutorialsIndex />} />
+                <Route path="/tutorials/:tutorialSlug" element={<TutorialPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+        </ErrorBoundary>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
