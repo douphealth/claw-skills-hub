@@ -10,7 +10,7 @@ interface SEOHeadProps {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const SITE_URL = "https://clawskills.com";
+const SITE_URL = "https://openclaw-skillshub.com";
 
 const SEOHead = ({
   title,

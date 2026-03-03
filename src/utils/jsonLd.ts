@@ -2,7 +2,7 @@ import type { Skill } from "@/data/skills";
 import type { Article } from "@/data/articles";
 import type { Tutorial } from "@/data/tutorials";
 
-const SITE_URL = "https://clawskills.com";
+const SITE_URL = "https://openclaw-skillshub.com";
 
 export function websiteJsonLd() {
   return {

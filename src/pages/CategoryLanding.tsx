@@ -67,7 +67,7 @@ const CategoryLanding = () => {
       <SEOHead
         title={`Best ${category.name} Skills for OpenClaw (${category.count}+ Skills)`}
         description={category.description}
-        canonical={`https://clawskills.com/skills/${category.slug}`}
+        canonical={`https://openclaw-skillshub.com/skills/${category.slug}`}
         jsonLd={[bJsonLd, listJsonLd]}
       />
       <Navbar />

@@ -50,7 +50,7 @@ const TutorialPage = () => {
       <SEOHead
         title={tutorial.metaTitle || tutorial.title}
         description={tutorial.metaDescription || tutorial.heroDescription}
-        canonical={`https://clawskills.com/tutorials/${tutorial.slug}`}
+        canonical={`https://openclaw-skillshub.com/tutorials/${tutorial.slug}`}
         jsonLd={[tJsonLd, bJsonLd]}
       />
       <Navbar />

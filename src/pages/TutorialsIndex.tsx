@@ -37,7 +37,7 @@ const TutorialsIndex = () => {
       <SEOHead
         title="OpenClaw Tutorials — Step-by-Step Guides for All Levels"
         description="From installation to building custom skills — step-by-step OpenClaw tutorials for beginner to advanced users."
-        canonical="https://clawskills.com/tutorials"
+        canonical="https://openclaw-skillshub.com/tutorials"
         jsonLd={[bJsonLd, listJsonLd]}
       />
       <Navbar />
