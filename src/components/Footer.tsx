@@ -59,11 +59,44 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-muted-foreground">© 2026 ClawSkills. Not affiliated with OpenClaw.</p>
-          <div className="flex gap-4">
-            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Privacy</a>
-            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Terms</a>
+        <div className="border-t border-border pt-8 pb-2">
+          <div className="flex flex-col items-center gap-4 mb-6">
+            <p className="text-xs text-muted-foreground font-medium">
+              Created by <span className="text-foreground font-semibold">Alexios Papaioannou</span>
+            </p>
+            <div className="flex flex-wrap justify-center gap-x-3 gap-y-1.5 max-w-lg">
+              {[
+                { name: "GearUpToFit", url: "https://gearuptofit.com" },
+                { name: "AffiliateMarketingForSuccess", url: "https://affiliatemarketingforsuccess.com" },
+                { name: "MysticalDigits", url: "https://mysticaldigits.com" },
+                { name: "FrenchyFab", url: "https://frenchyfab.com" },
+                { name: "MiceGoneGuide", url: "https://micegoneguide.com" },
+                { name: "GearUpToGrow", url: "https://gearuptogrow.com" },
+                { name: "PlantasticHaven", url: "https://plantastichaven.com" },
+                { name: "EfficientGPTPrompts", url: "https://efficientgptprompts.com" },
+                { name: "OutdoorMisting", url: "https://outdoormisting.com" },
+              ].map((site, i, arr) => (
+                <span key={site.url} className="text-[11px]">
+                  <a
+                    href={site.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary/70 hover:text-primary transition-colors"
+                  >
+                    {site.name}
+                  </a>
+                  {i < arr.length - 1 && <span className="text-muted-foreground/40 ml-1">·</span>}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-muted-foreground">© 2026 ClawSkills. Not affiliated with OpenClaw.</p>
+            <div className="flex gap-4">
+              <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Privacy</a>
+              <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Terms</a>
+            </div>
           </div>
         </div>
       </div>
