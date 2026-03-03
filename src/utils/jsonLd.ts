@@ -4,6 +4,26 @@ import type { Tutorial } from "@/data/tutorials";
 
 const SITE_URL = "https://openclaw-skillshub.com";
 
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "ClawSkills",
+    url: SITE_URL,
+    logo: `${SITE_URL}/og-image.png`,
+    description: "The definitive directory for OpenClaw AI agent skills. Discover, compare, and install 5,705+ skills.",
+    sameAs: [
+      "https://github.com/openclaw",
+      "https://twitter.com/openclaw",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      url: `${SITE_URL}/`,
+    },
+  };
+}
+
 export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",

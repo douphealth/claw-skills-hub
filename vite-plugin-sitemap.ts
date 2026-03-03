@@ -2,6 +2,7 @@ import type { Plugin } from "vite";
 import { skills, categories } from "./src/data/skills";
 import { articles } from "./src/data/articles";
 import { tutorials } from "./src/data/tutorials";
+import { glossaryEntries } from "./src/data/glossary";
 
 const BASE_URL = "https://openclaw-skillshub.com";
 
@@ -54,6 +55,16 @@ function buildEntries(): SitemapEntry[] {
     entries.push({
       loc: `/tutorials/${tutorial.slug}`,
       lastmod: tutorial.updatedDate,
+      changefreq: "monthly",
+      priority: 0.7,
+    });
+  });
+
+  // Glossary pages
+  entries.push({ loc: "/glossary", changefreq: "weekly", priority: 0.8 });
+  glossaryEntries.forEach((entry) => {
+    entries.push({
+      loc: `/glossary/${entry.slug}`,
       changefreq: "monthly",
       priority: 0.7,
     });

@@ -90,6 +90,23 @@ const TutorialPage = () => {
         </div>
       </section>
 
+      {/* TL;DR Summary for AI extraction */}
+      <section className="pb-4">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+            className="glass rounded-xl p-6 border-l-4 border-primary"
+          >
+            <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">TL;DR — What You'll Learn</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              {tutorial.metaDescription || tutorial.heroDescription}{" "}
+              This {tutorial.difficulty.toLowerCase()}-level tutorial covers {tutorial.sections.length} steps
+              including {tutorial.sections.slice(0, 3).map(s => s.heading).join(", ")}
+              {tutorial.sections.length > 3 ? `, and ${tutorial.sections.length - 3} more` : ""}.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Table of Contents */}
       <section className="pb-8">
         <div className="container mx-auto px-6 max-w-4xl">

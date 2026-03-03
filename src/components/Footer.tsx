@@ -40,6 +40,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><Link to="/articles" className="text-xs text-muted-foreground hover:text-primary transition-colors">Best Skills Lists</Link></li>
               <li><Link to="/tutorials" className="text-xs text-muted-foreground hover:text-primary transition-colors">Tutorials</Link></li>
+              <li><Link to="/glossary" className="text-xs text-muted-foreground hover:text-primary transition-colors">Glossary</Link></li>
               <li><Link to="/tutorials/openclaw-skill-security-checklist" className="text-xs text-muted-foreground hover:text-primary transition-colors">Security Guide</Link></li>
               <li><a href="/#newsletter" className="text-xs text-muted-foreground hover:text-primary transition-colors">Newsletter</a></li>
               <li><a href="/llms.txt" className="text-xs text-muted-foreground hover:text-primary transition-colors">llms.txt</a></li>
