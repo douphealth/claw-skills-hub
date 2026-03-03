@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Menu, X, Zap, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import CommandPalette from "@/components/CommandPalette";
+import logoIcon from "@/assets/logo-icon.png";
 
 const navItems = [
   { label: "Skills", href: "/skills" },
@@ -24,9 +25,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between h-16 px-6">
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <Zap className="w-4 h-4 text-primary-foreground" />
-          </div>
+          <img src={logoIcon} alt="ClawSkills logo" className="w-8 h-8 rounded-lg" />
           <span className="text-lg font-bold text-foreground">
             Claw<span className="text-primary">Skills</span>
           </span>

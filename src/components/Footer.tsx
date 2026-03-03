@@ -1,6 +1,6 @@
-import { Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import { categories } from "@/data/skills";
+import logoIcon from "@/assets/logo-icon.png";
 
 const Footer = () => {
   const topCategories = categories.slice(0, 5);
@@ -11,9 +11,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center">
-                <Zap className="w-3.5 h-3.5 text-primary-foreground" />
-              </div>
+              <img src={logoIcon} alt="ClawSkills logo" className="w-7 h-7 rounded-md" />
               <span className="text-base font-bold text-foreground">
                 Claw<span className="text-primary">Skills</span>
               </span>
