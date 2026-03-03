@@ -13,6 +13,7 @@ import SEOHead from "@/components/SEOHead";
 import { getSkillBySlug, getRelatedSkills, getCategoryBySlug } from "@/data/skills";
 import { skillJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
 import SkillDownloadPanel from "@/components/SkillDownloadPanel";
+import { SecurityInfoPanel } from "@/components/SecurityBadge";
 
 const securityConfig = {
   verified: { icon: ShieldCheck, label: "Verified", color: "text-green-400", bg: "bg-green-400/10" },
@@ -263,6 +264,8 @@ const SkillDetail = () => {
                   </div>
                 </div>
               </div>
+
+              <SecurityInfoPanel status={skill.securityStatus} />
 
               <SkillDownloadPanel skill={skill} />
 

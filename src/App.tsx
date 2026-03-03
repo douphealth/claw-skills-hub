@@ -15,6 +15,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const SkillsDirectory = lazy(() => import("./pages/SkillsDirectory"));
 const CategoryLanding = lazy(() => import("./pages/CategoryLanding"));
 const SkillDetail = lazy(() => import("./pages/SkillDetail"));
+const SkillCompare = lazy(() => import("./pages/SkillCompare"));
 const ArticlesIndex = lazy(() => import("./pages/ArticlesIndex"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
 const TutorialsIndex = lazy(() => import("./pages/TutorialsIndex"));
@@ -48,6 +49,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/skills" element={<SkillsDirectory />} />
+              <Route path="/skills/compare" element={<SkillCompare />} />
               <Route path="/skills/:categorySlug" element={<CategoryLanding />} />
               <Route path="/skills/:categorySlug/:skillSlug" element={<SkillDetail />} />
               <Route path="/articles" element={<ArticlesIndex />} />
