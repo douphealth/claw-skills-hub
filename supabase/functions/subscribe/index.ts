@@ -75,7 +75,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "ClawSkills <hello@clawskills.com>",
+        from: "ClawSkills <hello@openclaw-skillshub.com>",
         to: [email],
         subject: "Confirm your subscription to ClawSkills 🐾",
         html: `

@@ -280,7 +280,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "ClawSkills <hello@clawskills.com>",
+        from: "ClawSkills <hello@openclaw-skillshub.com>",
         to: [email],
         subject: seqItem.subject,
         html: seqItem.html(email, unsubUrl),
