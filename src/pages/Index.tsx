@@ -6,10 +6,10 @@ import TutorialsSection from "@/components/TutorialsSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { websiteJsonLd } from "@/utils/jsonLd";
+import { websiteJsonLd, organizationJsonLd } from "@/utils/jsonLd";
 
 const Index = () => {
-  const jsonLd = websiteJsonLd();
+  const jsonLd = [websiteJsonLd(), organizationJsonLd()];
 
   return (
     <div className="min-h-screen bg-background">

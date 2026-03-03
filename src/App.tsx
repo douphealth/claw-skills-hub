@@ -22,6 +22,8 @@ const ArticlesIndex = lazy(() => import("./pages/ArticlesIndex"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
 const TutorialsIndex = lazy(() => import("./pages/TutorialsIndex"));
 const TutorialPage = lazy(() => import("./pages/TutorialPage"));
+const GlossaryIndex = lazy(() => import("./pages/GlossaryIndex"));
+const GlossaryPage = lazy(() => import("./pages/GlossaryPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -74,6 +76,8 @@ const App = () => {
                 <Route path="/articles/:articleSlug" element={<ArticlePage />} />
                 <Route path="/tutorials" element={<TutorialsIndex />} />
                 <Route path="/tutorials/:tutorialSlug" element={<TutorialPage />} />
+                <Route path="/glossary" element={<GlossaryIndex />} />
+                <Route path="/glossary/:glossarySlug" element={<GlossaryPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>

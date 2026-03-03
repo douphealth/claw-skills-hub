@@ -7,10 +7,12 @@ interface SEOHeadProps {
   type?: "website" | "article";
   publishedDate?: string;
   updatedDate?: string;
+  ogImage?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const SITE_URL = "https://openclaw-skillshub.com";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 const SEOHead = ({
   title,
@@ -19,6 +21,7 @@ const SEOHead = ({
   type = "website",
   publishedDate,
   updatedDate,
+  ogImage,
   jsonLd,
 }: SEOHeadProps) => {
   const fullTitle = title.includes("ClawSkills") ? title : `${title} | ClawSkills`;
@@ -42,9 +45,14 @@ const SEOHead = ({
     setMeta("description", safeDesc);
 
     // Open Graph
+    const ogImg = ogImage || DEFAULT_OG_IMAGE;
     setMeta("og:title", fullTitle, true);
     setMeta("og:description", safeDesc, true);
     setMeta("og:type", type, true);
+    setMeta("og:image", ogImg, true);
+    setMeta("og:image:width", "1200", true);
+    setMeta("og:image:height", "630", true);
+    setMeta("og:site_name", "ClawSkills", true);
     if (canonical) {
       setMeta("og:url", canonical, true);
     }
@@ -53,6 +61,7 @@ const SEOHead = ({
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", fullTitle);
     setMeta("twitter:description", safeDesc);
+    setMeta("twitter:image", ogImg);
 
     // Article dates
     if (type === "article") {
@@ -83,7 +92,7 @@ const SEOHead = ({
       }
       script.textContent = JSON.stringify(jsonLd);
     }
-  }, [fullTitle, safeDesc, canonical, type, publishedDate, updatedDate, jsonLd]);
+  }, [fullTitle, safeDesc, canonical, type, publishedDate, updatedDate, ogImage, jsonLd]);
 
   return null;
 };
