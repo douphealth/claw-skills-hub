@@ -4,6 +4,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { initGA, trackPageView } from "./lib/googleAnalytics";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
 
@@ -39,6 +41,20 @@ const PageLoader = () => (
 );
 
 const App = () => (
+    // Initialize Google Analytics on app load
+  useEffect(() => {
+    initGA();
+  }, []);
+
+  // Track page changes
+  useEffect(() => {
+    const handleRouteChange = () => {
+      trackPageView(window.location.pathname);
+    };
+    
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
