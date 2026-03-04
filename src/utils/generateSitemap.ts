@@ -1,6 +1,7 @@
 import { skills, categories } from "@/data/skills";
 import { articles } from "@/data/articles";
 import { tutorials } from "@/data/tutorials";
+import { glossaryEntries } from "@/data/glossary";
 
 const BASE_URL = "https://openclaw-skillshub.com";
 
@@ -18,12 +19,15 @@ export function generateSitemapEntries(): SitemapEntry[] {
     { loc: "/skills/compare", changefreq: "weekly", priority: 0.7 },
     { loc: "/articles", changefreq: "weekly", priority: 0.8 },
     { loc: "/tutorials", changefreq: "weekly", priority: 0.8 },
+    { loc: "/glossary", changefreq: "weekly", priority: 0.8 },
+    { loc: "/privacy", changefreq: "monthly", priority: 0.3 },
+    { loc: "/terms", changefreq: "monthly", priority: 0.3 },
   ];
 
-  // Category pages
+  // Category landing pages
   categories.forEach((cat) => {
     entries.push({
-      loc: `/skills?category=${cat.slug}`,
+      loc: `/skills/${cat.slug}`,
       changefreq: "weekly",
       priority: 0.7,
     });
@@ -54,6 +58,15 @@ export function generateSitemapEntries(): SitemapEntry[] {
     entries.push({
       loc: `/tutorials/${tutorial.slug}`,
       lastmod: tutorial.updatedDate,
+      changefreq: "monthly",
+      priority: 0.7,
+    });
+  });
+
+  // Glossary pages
+  glossaryEntries.forEach((entry) => {
+    entries.push({
+      loc: `/glossary/${entry.slug}`,
       changefreq: "monthly",
       priority: 0.7,
     });
