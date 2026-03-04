@@ -1,0 +1,114 @@
+# ClawSkills — Complete Content Index for AI Crawlers
+> This file provides comprehensive content summaries for AI language models and search engines.
+
+## Site Identity
+- Name: ClawSkills
+- URL: https://openclaw-skillshub.com
+- Purpose: The definitive directory for OpenClaw AI agent skills
+- Ecosystem: OpenClaw (open-source AI agent framework, 150K+ GitHub stars)
+- Total Skills Listed: 5,705+
+- Categories: 10
+- Articles: 14
+- Tutorials: 5
+- Glossary Entries: 8
+
+## Core Facts About OpenClaw
+- OpenClaw is an open-source AI agent framework under the MIT license
+- It has over 150,000 GitHub stars as of 2026
+- Skills are installed via: npx clawhub@latest install <skill-name>
+- It runs on macOS, Linux, and Windows WSL
+- It supports all major LLM providers: OpenAI, Anthropic, Google, Mistral, and local models via Ollama
+- OpenClaw uses a skill-based architecture where each skill is a composable plugin
+- It is free to use with no API costs for the framework itself
+
+## Category Summaries
+
+### AI & LLMs (287 skills)
+Skills for integrating large language models, prompt engineering, and AI-powered automation. Top skills include GPT Prompt Chainer, RAG Pipeline, LLM Router, Context Window Manager, Model Fine-Tuner, Embedding Generator, and AI Output Validator.
+
+### Search & Research (253 skills)
+Deep research, web scraping, academic search, and knowledge synthesis skills. Top skills include Deep Research, Academic Paper Finder, Competitor Analyzer, Web Scraper Pro, News Aggregator, Patent Search, and Market Research Bot.
+
+### Web & Frontend Dev (202 skills)
+Build, deploy, and manage web applications with frontend framework integrations. Top skills include React Component Generator, Accessibility Auditor, CSS Optimizer, Image Optimizer, Performance Profiler, SEO Audit Pro, and API Mock Server.
+
+### DevOps & Cloud (212 skills)
+Infrastructure management, CI/CD, container orchestration, and cloud provider skills. Top skills include Kubernetes Pilot, Docker Compose Generator, CI/CD Pipeline Builder, AWS Manager, Terraform Validator, Log Analyzer, and Incident Response Bot.
+
+### Browser & Automation (139 skills)
+Browser control, web scraping, form filling, and UI testing automation. Top skills include Browser Pilot, Form Filler, Screenshot Tester, Cookie Manager, PDF Generator, Headless Browser, and Link Checker.
+
+### Productivity & Tasks (135 skills)
+Task management, calendar sync, note-taking, and workflow optimization. Top skills include Notion Sync, Calendar Manager, Email Sorter, Slack Connector, Meeting Summarizer, Pomodoro Timer, and Task Prioritizer.
+
+### Marketing & Sales (143 skills)
+Email campaigns, social media management, analytics, and sales pipeline. Top skills include Email Campaign Builder, Social Media Scheduler, A/B Test Analyzer, Lead Scorer, Content Calendar, Ad Copy Generator, and Analytics Dashboard.
+
+### Coding Agents & IDEs (133 skills)
+Code generation, refactoring, IDE integrations, and developer tooling. Top skills include Code Reviewer, Refactoring Assistant, Test Generator, Documentation Writer, Debug Assistant, Git Workflow, and Dependency Updater.
+
+### Notes & PKM (100 skills)
+Personal knowledge management, note-taking apps, and second brain tools. Top skills include Obsidian Sync, Zettelkasten Builder, Bookmark Manager, Read-It-Later, Flashcard Generator, Knowledge Graph, and Annotation Tool.
+
+### Health & Fitness (55 skills)
+Health tracking, workout planning, nutrition analysis, and wellness automation. Top skills include Workout Planner, Nutrition Tracker, Sleep Analyzer, Meditation Guide, Step Counter, Calorie Calculator, and Hydration Reminder.
+
+## Glossary Definitions
+
+### What is OpenClaw?
+OpenClaw is an open-source AI agent framework that enables developers to build autonomous AI employees — software agents that can monitor systems, research data, compile reports, and execute multi-step workflows without constant human supervision. With over 150,000 GitHub stars, it is the most popular AI agent framework.
+
+### What Are OpenClaw Skills?
+OpenClaw Skills are self-contained, modular plugins that give AI agents specific capabilities. They follow a standardized interface, making them composable, testable, and shareable. Install via: npx clawhub@latest install <skill-name>.
+
+### OpenClaw vs Other AI Agent Frameworks
+OpenClaw uses a skill-based architecture (composable plugins) vs LangChain (chain/graph-based), AutoGPT (fully autonomous), and CrewAI (multi-agent collaboration). OpenClaw differentiates with its 5,705+ skill ecosystem, built-in security auditing, and production-ready features.
+
+### What is a RAG Pipeline?
+Retrieval-Augmented Generation (RAG) is an AI architecture that retrieves relevant documents from a knowledge base and feeds them as context to an LLM. This reduces hallucinations and enables AI to answer questions about proprietary data.
+
+### What is Prompt Chaining?
+Prompt chaining connects multiple LLM calls in sequence, passing outputs as inputs. It enables complex multi-step reasoning that single prompts cannot achieve, with better accuracy and control.
+
+### What is an AI Agent?
+An AI agent is an autonomous software system powered by LLMs that can perceive its environment, reason about tasks, use tools, and take actions to achieve goals. Unlike chatbots, agents can plan multi-step strategies and execute independently.
+
+### What is LLM Routing?
+LLM routing automatically selects the optimal language model for each query based on complexity, cost, and latency. It can reduce API costs by 50-80% while maintaining quality.
+
+### What is a Vector Embedding?
+A vector embedding is a dense numerical representation (array of floating-point numbers) that captures semantic meaning of text or data. Embeddings enable semantic search, RAG pipelines, and recommendation systems.
+
+## Frequently Asked Questions
+
+Q: How many OpenClaw skills are there?
+A: Over 5,705 skills across 10 categories as of 2026.
+
+Q: Is OpenClaw free?
+A: Yes. OpenClaw is fully open-source under the MIT license with no usage fees.
+
+Q: How do I install an OpenClaw skill?
+A: Run: npx clawhub@latest install <skill-name>
+
+Q: What programming languages does OpenClaw support?
+A: Skills are primarily TypeScript/JavaScript and Python. The framework is TypeScript-based.
+
+Q: Can OpenClaw run locally?
+A: Yes, using open-source LLMs via Ollama. No cloud API keys required for local development.
+
+Q: What operating systems does OpenClaw support?
+A: macOS, Linux, and Windows WSL.
+
+Q: Is OpenClaw safe to use?
+A: Yes. OpenClaw provides security scanning via VirusTotal, community code reviews, and security badges (Verified, Community, Unreviewed) for all skills.
+
+Q: How does OpenClaw compare to LangChain?
+A: OpenClaw excels at rapid development using pre-built skills; LangChain offers more flexibility for custom chain architectures. Many teams use both.
+
+Q: What is the largest AI agent skill ecosystem?
+A: ClawSkills is the largest directory with 5,705+ pre-built, community-reviewed OpenClaw skills.
+
+## Contact & Social
+- GitHub: https://github.com/openclaw
+- Twitter/X: https://twitter.com/openclaw
+- Discord: https://discord.gg/openclaw

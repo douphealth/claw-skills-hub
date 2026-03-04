@@ -65,7 +65,7 @@ const SkillDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${skill.name} for OpenClaw — Full Guide`}
+        title={`${skill.name} for OpenClaw — Full Review & Guide`}
         description={`${skill.name} is a ${skill.securityStatus} OpenClaw skill. ${skill.description} Install with: ${skill.installCmd}. Rating: ${skill.rating}/5.`}
         canonical={`https://openclaw-skillshub.com/skills/${skill.categorySlug}/${skill.slug}`}
         jsonLd={allJsonLd}

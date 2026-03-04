@@ -12,7 +12,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { getSkillsByCategory, getCategoryBySlug, categories } from "@/data/skills";
-import { itemListJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
+import { itemListJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/utils/jsonLd";
 
 const CategoryLanding = () => {
   const { categorySlug } = useParams<{ categorySlug: string }>();
@@ -62,13 +62,20 @@ const CategoryLanding = () => {
     }))
   );
 
+  const categoryFaqs = [
+    { question: `How many ${category.name} skills are available for OpenClaw?`, answer: `There are ${allSkills.length}+ ${category.name} skills available in the ClawSkills directory. ${category.description}` },
+    { question: `How do I install a ${category.name} skill?`, answer: `Install any ${category.name} skill with a single command: npx clawhub@latest install <skill-name>. The skill is immediately available to your AI agents.` },
+    { question: `Are ${category.name} skills free?`, answer: `The vast majority of ${category.name} skills in the ClawSkills directory are free and open-source under the MIT license.` },
+  ];
+  const faq = faqJsonLd(categoryFaqs);
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`Best ${category.name} Skills for OpenClaw (${category.count}+ Skills)`}
         description={category.description}
         canonical={`https://openclaw-skillshub.com/skills/${category.slug}`}
-        jsonLd={[bJsonLd, listJsonLd]}
+        jsonLd={[bJsonLd, listJsonLd, ...(faq ? [faq] : [])]}
       />
       <Navbar />
 

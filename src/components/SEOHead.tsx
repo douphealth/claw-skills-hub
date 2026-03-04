@@ -69,6 +69,9 @@ const SEOHead = ({
       if (updatedDate) setMeta("article:modified_time", updatedDate, true);
     }
 
+    // Robots
+    setMeta("robots", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
+
     // Canonical
     if (canonical) {
       let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
@@ -78,6 +81,16 @@ const SEOHead = ({
         document.head.appendChild(link);
       }
       link.setAttribute("href", canonical);
+
+      // hreflang
+      let hreflang = document.querySelector('link[rel="alternate"][hreflang="en"]') as HTMLLinkElement | null;
+      if (!hreflang) {
+        hreflang = document.createElement("link");
+        hreflang.setAttribute("rel", "alternate");
+        hreflang.setAttribute("hreflang", "en");
+        document.head.appendChild(hreflang);
+      }
+      hreflang.setAttribute("href", canonical);
     }
 
     // JSON-LD
