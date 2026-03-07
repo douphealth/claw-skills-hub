@@ -18,11 +18,24 @@ ClawSkills is the most comprehensive resource for discovering, comparing, and in
 - /skills/notes-pkm — Notes & PKM skills: Notion, Obsidian, personal knowledge management
 - /skills/health-fitness — Health & Fitness skills: tracking, nutrition, workout planning
 - /articles — In-depth reviews and "best skills for X" comparison articles
+- /articles/openclaw-skills-security — Are OpenClaw skills safe? Complete security guide
+- /articles/how-to-create-openclaw-skills — How to create custom OpenClaw skills with examples
+- /articles/best-openclaw-skills-for-developers — Best OpenClaw skills for software developers
+- /articles/best-openclaw-skills-for-founders — Best OpenClaw skills for startup founders
+- /articles/openclaw-gmail-skill — OpenClaw Gmail skill: AI email automation
+- /articles/openclaw-slack-skill — OpenClaw Slack skill: AI-powered team communication
+- /articles/openclaw-mcp-vs-skills — MCP vs Skills: when to use each
+- /articles/openclaw-skills-examples — 20+ real-world OpenClaw skill examples
 - /tutorials — Step-by-step installation and development guides for all skill levels
 - /glossary — Canonical definitions of key OpenClaw terms and concepts
 - /glossary/what-is-openclaw — What is OpenClaw? Comprehensive explainer
 - /glossary/what-are-openclaw-skills — What are OpenClaw Skills? Plugin system explained
 - /glossary/openclaw-vs-other-frameworks — OpenClaw vs LangChain, AutoGPT, CrewAI comparison
+- /glossary/what-is-rag-pipeline — What is a RAG Pipeline? Definition and architecture
+- /glossary/what-is-prompt-chaining — What is Prompt Chaining? Technique explained
+- /glossary/what-is-ai-agent — What is an AI Agent? Autonomous systems overview
+- /glossary/what-is-llm-routing — What is LLM Routing? Cost optimization explained
+- /glossary/what-is-vector-embedding — What is a Vector Embedding? Semantic search explained
 
 ## Key Features
 - One-click install commands: `npx clawhub@latest install <skill-name>`
