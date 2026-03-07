@@ -484,6 +484,325 @@ export const articles: Article[] = [
       { name: "Notion Sync", slug: "notion-sync", description: "Connect OpenClaw to your Notion workspace.", installCmd: "npx clawhub@latest install notion-sync", whyPicked: "If you use Notion, this skill is a must. Create and query pages with natural language.", rating: 4.8 },
     ],
   },
+
+  // ═══════════════════════════════════════════════════════════════
+  // 15. OpenClaw Skills Security — Are OpenClaw Skills Safe?
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "openclaw-skills-security",
+    title: "OpenClaw Skills Security: Are OpenClaw Skills Safe to Install?",
+    metaTitle: "OpenClaw Skills Security — Are OpenClaw Skills Safe? (2026 Guide)",
+    metaDescription: "Are OpenClaw skills safe? Learn how to audit permissions, verify skill safety, and install OpenClaw skills securely. Complete security guide with actionable checklist.",
+    tag: "Security",
+    readTime: "16 min read",
+    publishedDate: "2026-03-01",
+    updatedDate: "2026-03-07",
+    heroDescription: "OpenClaw skills can access your filesystem, run system commands, and reach external APIs. This guide covers how to evaluate skill safety, audit permissions in SKILL.md files, understand security statuses (verified vs community vs unreviewed), and install skills without exposing your system to risk.",
+    sections: [
+      {
+        heading: "Are OpenClaw Skills Safe? The Short Answer",
+        content: "OpenClaw skills are as safe as you make them. Skills are open-source packages that extend what OpenClaw can do — but like any software you install, they carry risk if you don't evaluate them first. The OpenClaw ecosystem uses a three-tier trust model: **verified** skills have been audited by the OpenClaw security team, **community** skills have peer review but no formal audit, and **unreviewed** skills should be treated with caution.\n\nThe critical thing to understand: skills declared in `SKILL.md` can request powerful permissions including `system.run` (execute shell commands), network access (reach external APIs), and filesystem access. A malicious or poorly written skill with these permissions could exfiltrate data, modify your system, or run arbitrary code.\n\nThis is not theoretical. In early 2026, security researchers identified malicious skills in community registries that exfiltrated environment variables. The OpenClaw team responded by strengthening the [[verification process|/skills]] and adding permission transparency to the skill registry."
+      },
+      {
+        heading: "How to Audit OpenClaw Skill Permissions Before Installing",
+        content: "Before running `npx clawhub@latest install <skill-name>`, follow this 5-step audit:\n\n**Step 1: Check the security status.** Look for the security badge on the [[skill's directory page|/skills]]. Verified skills (green shield) have passed a formal audit. Community skills (yellow) have peer review. Unreviewed skills (red) have no formal review.\n\n**Step 2: Read the SKILL.md file.** Every skill declares its permissions in SKILL.md. Look for `system.run`, `network`, and `filesystem` permissions. A [[Notion Sync|/skills/productivity/notion-sync]] skill needs network access — that's expected. A CSS generator requesting `system.run` is a red flag.\n\n**Step 3: Check the source code.** All skills in the [[ClawSkills directory|/skills]] link to their source repository. Review the code, especially any files that handle credentials or make network requests.\n\n**Step 4: Review the dependency tree.** Use `npm audit` or similar tools to check for known vulnerabilities in the skill's dependencies.\n\n**Step 5: Test in a sandbox.** Run new skills in an isolated environment before deploying to production. Use Docker or a VM for testing skills with elevated permissions."
+      },
+      {
+        heading: "Understanding OpenClaw Security Statuses: Verified vs Community vs Unreviewed",
+        content: "The [[ClawSkills directory|/skills]] assigns every skill a security status:\n\n**Verified (Green Shield):** These skills have been formally audited by the OpenClaw security team or a trusted third party. The audit covers permission scoping, data handling, network behavior, and dependency safety. Examples include [[LLM Router|/skills/ai-llms/llm-router]], [[RAG Pipeline|/skills/ai-llms/rag-pipeline]], and [[Deep Research|/skills/search-research/deep-research]].\n\n**Community (Yellow Shield):** These skills have been reviewed by community members but haven't undergone a formal security audit. They're generally safe but should be evaluated more carefully for production use. Most skills in the directory fall into this category.\n\n**Unreviewed (Red Shield):** These skills have no formal review. They may work perfectly well, but you should audit them yourself before installing. Never run unreviewed skills in production environments without thorough testing.\n\nFor a detailed security audit workflow, see our [[security checklist tutorial|/tutorials/openclaw-skills-security-checklist]]."
+      },
+      {
+        heading: "How to Install OpenClaw Skills Safely: Best Practices",
+        content: "Follow these best practices for safe skill installation:\n\n**1. Use verified skills whenever possible.** The [[skills directory|/skills]] lets you filter by security status. Start with verified skills for critical workflows.\n\n**2. Pin skill versions.** Use specific versions in your install commands to prevent unexpected updates: `npx clawhub@latest install skill-name@1.2.3`.\n\n**3. Review changelogs before updating.** Skill updates can introduce new permissions. Check the changelog before upgrading, especially for skills with `system.run` access.\n\n**4. Use least-privilege principles.** Only install skills with the permissions your workflow actually needs. If you only need web search, use [[Semantic Search|/skills/search-research/semantic-search]] instead of a skill that also requests filesystem access.\n\n**5. Monitor skill behavior.** Use [[Log Analyzer|/skills/devops-cloud/log-analyzer]] to track what your installed skills are actually doing. Unexpected network connections or file access patterns are warning signs.\n\n**6. Report suspicious skills.** If you find a skill behaving unexpectedly, report it through the OpenClaw security disclosure process."
+      },
+      {
+        heading: "OpenClaw Skills Malware Risks: What You Need to Know",
+        content: "The biggest risks in the OpenClaw skill ecosystem mirror those in npm and other package registries:\n\n**Supply chain attacks:** A skill dependency gets compromised, injecting malicious code into an otherwise safe skill. This is why dependency auditing (Step 4 above) matters.\n\n**Typosquatting:** Malicious skills with names similar to popular ones (e.g., `broser-pilot` instead of `browser-pilot`). Always copy install commands from the [[official directory|/skills]] rather than typing them manually.\n\n**Permission escalation:** A skill requests more permissions than it needs, then uses the extra access for data collection. Compare the declared permissions against the skill's stated purpose.\n\n**Abandoned skills:** Skills that are no longer maintained may have unpatched vulnerabilities. Check the 'last updated' date on the [[skill detail page|/skills]] — skills not updated in 6+ months may need extra scrutiny.\n\nFor enterprise environments, consider implementing a skill allowlist and requiring security review before any new skill installation."
+      },
+      {
+        heading: "FAQ: OpenClaw Skills Security",
+        content: "**Are OpenClaw skills safe to use?**\nVerified skills in the [[ClawSkills directory|/skills]] have been formally audited and are safe for production use. Community and unreviewed skills should be evaluated using the 5-step audit process described above.\n\n**Can OpenClaw skills access my files?**\nYes, if the skill declares filesystem permissions in its SKILL.md. Verified skills scope filesystem access to the minimum required. Always review permissions before installing.\n\n**Has there been malware in OpenClaw skills?**\nYes, security researchers have identified malicious skills in community registries. The OpenClaw team actively removes malicious skills and has strengthened verification processes. Using verified skills and the [[ClawSkills directory|/skills]] significantly reduces risk.\n\n**How do I report a suspicious OpenClaw skill?**\nReport suspicious skills through the OpenClaw security disclosure process on GitHub, or contact the ClawSkills team. Include the skill name, observed behavior, and any logs.\n\n**Should I use unreviewed OpenClaw skills?**\nOnly after thorough manual review. Unreviewed skills may work perfectly but haven't been audited. For production environments, stick to verified skills."
+      },
+    ],
+    skills: [
+      { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with OWASP vulnerability detection.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "Detects security vulnerabilities, hardcoded secrets, SQL injection, and XSS patterns. Essential for auditing skill source code before installation.", rating: 4.8 },
+      { name: "Log Analyzer", slug: "log-analyzer", description: "Monitor skill behavior with anomaly detection.", installCmd: "npx clawhub@latest install log-analyzer", whyPicked: "Track what installed skills are actually doing. Detects unexpected network connections, file access patterns, and suspicious process execution.", rating: 4.6 },
+      { name: "RAG Pipeline", slug: "rag-pipeline", description: "Document processing with configurable data residency.", installCmd: "npx clawhub@latest install rag-pipeline", whyPicked: "Verified skill with full data residency controls. Process sensitive documents without data leaving your infrastructure.", rating: 4.9 },
+      { name: "Notification Hub", slug: "notification-hub", description: "Security alert routing to Slack, email, or PagerDuty.", installCmd: "npx clawhub@latest install notification-hub", whyPicked: "Route security alerts based on severity. Get notified immediately when a skill exhibits suspicious behavior.", rating: 4.5 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // 16. How to Create OpenClaw Skills
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "how-to-create-openclaw-skills",
+    title: "How to Create OpenClaw Skills: Complete Guide with Examples",
+    metaTitle: "How to Create OpenClaw Skills — Step-by-Step Guide (2026)",
+    metaDescription: "Learn how to create custom OpenClaw skills from scratch. Includes SKILL.md syntax, permission declarations, examples, templates, and publishing to the skill registry.",
+    tag: "Tutorial",
+    readTime: "20 min read",
+    publishedDate: "2026-03-02",
+    updatedDate: "2026-03-07",
+    heroDescription: "Build your own OpenClaw skills from scratch. This guide covers SKILL.md syntax, permission declarations, tool definitions, input/output schemas, testing, and publishing. Includes 5 complete skill templates you can use as starting points.",
+    sections: [
+      {
+        heading: "What Are OpenClaw Skills and How Do They Work?",
+        content: "OpenClaw skills are modular capabilities defined in SKILL.md files that tell OpenClaw how to perform specific tasks. Each skill declares its name, description, required permissions, available tools, and behavioral instructions. When you install a skill with `npx clawhub@latest install <skill-name>`, the SKILL.md file is added to your OpenClaw configuration, extending the agent's capabilities.\n\nSkills can range from simple prompt templates (a few lines of SKILL.md) to complex multi-tool systems with API integrations, custom schemas, and orchestration logic. The [[ClawSkills directory|/skills]] hosts over 5,705 community and verified skills across [[10 categories|/skills]]."
+      },
+      {
+        heading: "SKILL.md Anatomy: Structure and Syntax",
+        content: "Every OpenClaw skill starts with a SKILL.md file. Here's the essential structure:\n\n```\n---\nname: my-custom-skill\ndescription: What this skill does in one sentence\nversion: 1.0.0\nauthor: your-name\ntags: [category, use-case]\npermissions:\n  - network       # Access external APIs\n  - filesystem    # Read/write local files\n  - system.run    # Execute shell commands (use sparingly)\n---\n\n# My Custom Skill\n\nYou are an expert at [task]. When the user asks you to [action], follow these steps:\n\n1. First, [step one]\n2. Then, [step two]\n3. Finally, [step three]\n\n## Tools\n\n- `tool_name`: Description of what this tool does\n```\n\nThe frontmatter section defines metadata and permissions. The markdown body contains behavioral instructions — this is effectively the system prompt that guides OpenClaw when the skill is active. For examples of well-structured skills, browse the [[AI & LLM skills|/articles/best-ai-llm-skills-openclaw]] or [[productivity skills|/articles/best-productivity-skills-openclaw]]."
+      },
+      {
+        heading: "OpenClaw Skill Examples: 5 Templates to Start From",
+        content: "**Example 1: Simple Prompt Skill** — A skill that formats meeting notes. No permissions needed, just instructions.\n\n**Example 2: API Integration Skill** — A skill that queries a weather API. Requires `network` permission.\n\n**Example 3: File Processing Skill** — A skill that converts CSV files to formatted reports. Requires `filesystem` permission.\n\n**Example 4: Multi-Tool Skill** — A skill like [[GPT Prompt Chainer|/skills/ai-llms/gpt-prompt-chainer]] that defines multiple tools for chaining prompts, managing context, and handling errors.\n\n**Example 5: Full-Stack Skill** — A skill like [[Browser Pilot|/skills/browser-automation/browser-pilot]] that combines network access, system execution, and complex orchestration logic.\n\nEach template is available in our [[GitHub repository|https://github.com/openclaw]] with full documentation and tests."
+      },
+      {
+        heading: "Permission Declarations: What to Request and Why",
+        content: "Permissions are the most important security decision in skill creation. Request only what your skill needs:\n\n**`network`** — Required for any skill that calls external APIs. Used by skills like [[Deep Research|/skills/search-research/deep-research]] and [[Slack Connector|/skills/productivity/slack-connector]].\n\n**`filesystem`** — Required for reading/writing local files. Used by skills like [[PDF Generator|/skills/browser-automation/pdf-generator]] and [[Markdown Formatter|/skills/notes-pkm/markdown-formatter]].\n\n**`system.run`** — Execute shell commands. The most powerful and dangerous permission. Used by skills like [[Docker Captain|/skills/devops-cloud/docker-captain]] and [[Git Assistant|/skills/coding-agents/git-assistant]]. Only request this if absolutely necessary.\n\nSkills requesting fewer permissions are easier to get [[verified|/articles/openclaw-skills-security]] and more likely to be trusted by users. Over-requesting permissions is the #1 reason skills get rejected from the verified registry."
+      },
+      {
+        heading: "Testing and Publishing Your OpenClaw Skill",
+        content: "Before publishing, test your skill thoroughly:\n\n1. **Local testing:** Install your skill locally with `npx clawhub@latest install ./path/to/skill` and verify all tools work as expected.\n\n2. **Edge cases:** Test with unexpected inputs, large files, API failures, and permission boundaries.\n\n3. **Security review:** Run your skill through the [[5-point security audit|/articles/openclaw-skills-security]] from the security guide.\n\n4. **Documentation:** Write clear usage examples and include them in your README.\n\n5. **Publishing:** Submit to the ClawHub registry with `npx clawhub@latest publish`. Your skill will appear in the [[ClawSkills directory|/skills]] after review.\n\nTo aim for verified status, follow the security best practices in our [[security guide|/articles/openclaw-skills-security]] and submit your skill for formal audit through the OpenClaw GitHub repository."
+      },
+    ],
+    skills: [
+      { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Multi-step prompt chaining — great example of a multi-tool skill.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "Study this skill's structure to learn how to define multiple tools, handle context passing, and implement error recovery in your own skills.", rating: 4.8 },
+      { name: "Code Reviewer", slug: "code-reviewer", description: "Use it to audit your own skill code before publishing.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "Run your skill's source code through automated security scanning before publishing. Catches hardcoded secrets, unsafe patterns, and dependency vulnerabilities.", rating: 4.8 },
+      { name: "Browser Pilot", slug: "browser-pilot", description: "A complex full-stack skill — study its architecture.", installCmd: "npx clawhub@latest install browser-pilot", whyPicked: "One of the most sophisticated skills in the directory. Study how it combines network access, system execution, and visual processing for complex multi-tool architectures.", rating: 4.8 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // 17. Best OpenClaw Skills for Developers
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "best-openclaw-skills-for-developers",
+    title: "Best OpenClaw Skills for Developers: Code, Deploy, Automate",
+    metaTitle: "Best OpenClaw Skills for Developers — Coding, GitHub & DevOps (2026)",
+    metaDescription: "The best OpenClaw skills for software developers. Code review, GitHub automation, CI/CD, testing, debugging, and deployment skills curated for dev workflows.",
+    tag: "For Developers",
+    readTime: "15 min read",
+    publishedDate: "2026-03-03",
+    updatedDate: "2026-03-07",
+    heroDescription: "Developers get the most value from OpenClaw. This guide covers the best skills for code review, GitHub workflow automation, CI/CD pipelines, testing, debugging, and deployment — everything you need to 10x your development velocity.",
+    sections: [
+      {
+        heading: "Why Developers Should Use OpenClaw Skills",
+        content: "OpenClaw skills turn repetitive development tasks into one-command automations. Instead of manually reviewing PRs, writing tests, debugging logs, and managing deployments, you can install skills that handle each task with AI-powered precision.\n\nThe [[coding agents category|/skills/coding-agents]] alone has 50+ skills covering code generation, review, testing, debugging, and refactoring. Combined with [[DevOps skills|/skills/devops-cloud]] for infrastructure and [[web development skills|/skills/web-frontend]] for frontend work, OpenClaw becomes a complete developer productivity platform.\n\nHere are the skills that the most productive OpenClaw developers install first."
+      },
+      {
+        heading: "Code Review and Quality: Ship Better Code Faster",
+        content: "**[[Code Reviewer|/skills/coding-agents/code-reviewer]]** is the must-have for any developer. It analyzes PRs for bugs, security vulnerabilities (OWASP Top 10), style issues, and anti-patterns. It generates inline comments and auto-fix patches, saving hours of review time.\n\nPair it with **[[Test Generator|/skills/coding-agents/test-generator]]** to automatically generate unit and integration tests for new code. It understands Jest, Vitest, Pytest, and Go testing frameworks.\n\n**[[Debug Assistant|/skills/coding-agents/debug-assistant]]** helps when things break — paste an error and get root cause analysis with fix suggestions. It's like Stack Overflow but specific to your codebase.\n\nSee the full [[coding agents guide|/articles/best-coding-agent-skills-openclaw]] for all 50+ development skills."
+      },
+      {
+        heading: "GitHub Automation: PRs, Issues, and Workflows",
+        content: "**[[GitHub Manager|/skills/coding-agents/github-manager]]** automates the busywork: create branches, manage PRs, triage issues, and update project boards through conversation. Combined with **[[Git Assistant|/skills/coding-agents/git-assistant]]** for complex git operations (interactive rebasing, cherry-picking, conflict resolution), you can manage your entire GitHub workflow from OpenClaw.\n\nFor open source maintainers, the combination of **GitHub Manager** + **[[Code Reviewer|/skills/coding-agents/code-reviewer]]** + **[[Test Generator|/skills/coding-agents/test-generator]]** creates an automated contribution pipeline: new PRs get reviewed, tested, and categorized automatically."
+      },
+      {
+        heading: "DevOps and Deployment: Infrastructure as Conversation",
+        content: "**[[Docker Captain|/skills/devops-cloud/docker-captain]]** manages your containers — build, run, compose, and debug Dockerfiles through conversation. **[[Kubernetes Pilot|/skills/devops-cloud/kubernetes-pilot]]** handles K8s operations with natural language commands instead of kubectl.\n\n**[[CI/CD Builder|/skills/devops-cloud/cicd-builder]]** generates and maintains GitHub Actions, GitLab CI, and Jenkins pipelines. Tell it what you want deployed and where, and it creates the entire pipeline.\n\nFor deployment, **[[Vercel Deploy|/skills/devops-cloud/vercel-deploy]]** handles frontend deployments while **[[Cloud Deployer|/skills/devops-cloud/cloud-deployer]]** manages AWS, GCP, and Azure resources.\n\nSee the full [[DevOps skills guide|/articles/best-devops-cloud-skills-openclaw]] for infrastructure automation."
+      },
+    ],
+    skills: [
+      { name: "Code Reviewer", slug: "code-reviewer", description: "AI code review with security scanning and auto-fix.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "The #1 skill for developers. Catches bugs, security issues, and anti-patterns in every PR. Supports 20+ languages.", rating: 4.8 },
+      { name: "GitHub Manager", slug: "github-manager", description: "Manage PRs, issues, and repos through conversation.", installCmd: "npx clawhub@latest install github-manager", whyPicked: "Automates the GitHub busywork. Create branches, review PRs, triage issues, and manage project boards without leaving your terminal.", rating: 4.7 },
+      { name: "Test Generator", slug: "test-generator", description: "Auto-generate unit and integration tests.", installCmd: "npx clawhub@latest install test-generator", whyPicked: "Generates comprehensive test suites from your code. Supports Jest, Vitest, Pytest, and Go tests with edge case coverage.", rating: 4.7 },
+      { name: "Docker Captain", slug: "docker-captain", description: "Container management through natural language.", installCmd: "npx clawhub@latest install docker-captain", whyPicked: "Build, run, and debug Docker containers through conversation. Generates optimized Dockerfiles and docker-compose configs.", rating: 4.6 },
+      { name: "Debug Assistant", slug: "debug-assistant", description: "Root cause analysis and fix suggestions for errors.", installCmd: "npx clawhub@latest install debug-assistant", whyPicked: "Paste any error and get root cause analysis with fix suggestions specific to your stack. Like having a senior developer on call.", rating: 4.7 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // 18. Best OpenClaw Skills for Founders
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "best-openclaw-skills-for-founders",
+    title: "Best OpenClaw Skills for Founders: Automate Sales, Ops & Growth",
+    metaTitle: "Best OpenClaw Skills for Founders & Startups (2026)",
+    metaDescription: "The best OpenClaw skills for startup founders and indie hackers. Automate email outreach, sales pipelines, content creation, research, and operations.",
+    tag: "For Founders",
+    readTime: "14 min read",
+    publishedDate: "2026-03-03",
+    updatedDate: "2026-03-07",
+    heroDescription: "Founders wear every hat. OpenClaw skills let you automate the tasks that don't need your brain — email outreach, competitive research, content creation, lead generation, and operational workflows. Here are the skills that solo founders and small teams use to compete with companies 10x their size.",
+    sections: [
+      {
+        heading: "Why Founders Need OpenClaw Skills",
+        content: "As a founder, your time is your scarcest resource. Every hour spent on manual research, email follow-ups, content scheduling, and data entry is an hour not spent on product, customers, or strategy.\n\nOpenClaw skills automate the operational overhead that bogs down early-stage teams. The difference between a founder using OpenClaw and one who isn't: the first ships features while the second writes outreach emails.\n\nThe skills below are specifically chosen for founder workflows — they're high-impact, quick to set up, and work together to create compound productivity gains."
+      },
+      {
+        heading: "Sales & Outreach: Fill Your Pipeline on Autopilot",
+        content: "**[[Lead Generator|/skills/marketing-sales/lead-generator]]** identifies potential customers from LinkedIn, Twitter, Product Hunt, and industry databases. Feed it your ICP and it returns qualified leads with contact information.\n\n**[[Email Campaign|/skills/marketing-sales/email-campaign]]** manages cold outreach sequences with personalization. It generates unique, non-spammy messages based on prospect research and handles follow-up scheduling.\n\n**[[CRM Sync|/skills/marketing-sales/crm-sync]]** keeps your pipeline synced across HubSpot, Pipedrive, or Notion. No more manual deal tracking.\n\nFor founders who sell through content, **[[Content Calendar|/skills/marketing-sales/content-calendar]]** plans and schedules posts across LinkedIn, Twitter, and your blog. See the full [[marketing skills guide|/articles/best-marketing-sales-skills-openclaw]]."
+      },
+      {
+        heading: "Research & Competitive Intelligence",
+        content: "**[[Deep Research|/skills/search-research/deep-research]]** is the founder's secret weapon. Ask it to research a market, competitor, or technology and get a synthesized report with citations in minutes — work that would take an analyst hours.\n\n**[[News Aggregator|/skills/search-research/news-aggregator]]** monitors your industry across 50,000+ sources. Set up alerts for competitor mentions, funding rounds, product launches, and regulatory changes.\n\n**[[Web Scraper Pro|/skills/search-research/web-scraper-pro]]** extracts structured data from competitor websites, pricing pages, and review sites. Build competitive intelligence databases without manual copy-pasting.\n\nFor a deeper dive, see our [[research skills guide|/articles/best-search-research-skills-openclaw]]."
+      },
+      {
+        heading: "Operations: Run Lean Without an Ops Team",
+        content: "**[[Notion Sync|/skills/productivity/notion-sync]]** turns your Notion workspace into a command center. Create pages, update databases, and query information through conversation.\n\n**[[Slack Connector|/skills/productivity/slack-connector]]** integrates OpenClaw into your team communication. Get AI-powered summaries, automated status updates, and intelligent notifications.\n\n**[[Browser Pilot|/skills/browser-automation/browser-pilot]]** handles repetitive web tasks: filling forms, downloading reports, updating spreadsheets, and navigating SaaS dashboards.\n\nThe combination of these three skills replaces a virtual assistant for most founder workflows."
+      },
+    ],
+    skills: [
+      { name: "Lead Generator", slug: "lead-generator", description: "Find qualified leads from LinkedIn, Twitter, and industry databases.", installCmd: "npx clawhub@latest install lead-generator", whyPicked: "Build prospect lists automatically. Feed it your ideal customer profile and get targeted leads with contact info and company data.", rating: 4.6 },
+      { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "Replace hours of manual research with automated synthesis. Perfect for market analysis, competitor research, and due diligence.", rating: 4.9 },
+      { name: "Email Campaign", slug: "email-campaign", description: "Personalized outreach sequences with follow-up automation.", installCmd: "npx clawhub@latest install email-campaign", whyPicked: "Generate personalized, non-spammy outreach emails with automatic follow-up scheduling. Integrates with Gmail and Outlook.", rating: 4.5 },
+      { name: "Notion Sync", slug: "notion-sync", description: "Two-way Notion integration for workspace automation.", installCmd: "npx clawhub@latest install notion-sync", whyPicked: "If you run your startup on Notion, this is essential. Create pages, query databases, and manage projects through conversation.", rating: 4.8 },
+      { name: "Browser Pilot", slug: "browser-pilot", description: "Visual browser automation for repetitive web tasks.", installCmd: "npx clawhub@latest install browser-pilot", whyPicked: "Automate form filling, report downloading, and SaaS navigation. Replaces a virtual assistant for most web-based operational tasks.", rating: 4.8 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // 19. OpenClaw Gmail Skill
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "openclaw-gmail-skill",
+    title: "OpenClaw Gmail Skill: AI Email Automation for Gmail",
+    metaTitle: "OpenClaw Gmail Skill — AI Email Automation & Management (2026)",
+    metaDescription: "Automate Gmail with OpenClaw. Draft replies, sort inbox, schedule sends, extract data from emails, and build email workflows with the Gmail Connector skill.",
+    tag: "Integrations",
+    readTime: "12 min read",
+    publishedDate: "2026-03-04",
+    updatedDate: "2026-03-07",
+    heroDescription: "The OpenClaw Gmail Connector skill turns Gmail into an AI-powered communication hub. Draft contextual replies, auto-sort your inbox, extract data from emails, schedule sends, and build email automation workflows — all through conversation with OpenClaw.",
+    sections: [
+      {
+        heading: "What Is the OpenClaw Gmail Skill?",
+        content: "The Gmail Connector is an OpenClaw skill that integrates your Gmail account with OpenClaw's AI capabilities. Once installed with `npx clawhub@latest install gmail-connector`, you can manage your email through natural language commands.\n\nThe skill uses the Gmail API with OAuth2 authentication — your email credentials are never stored or exposed. It supports reading, composing, replying, labeling, searching, and extracting data from emails.\n\nFor founders managing sales outreach, pair the Gmail skill with **[[Email Campaign|/skills/marketing-sales/email-campaign]]** for automated sequences. For developers managing notifications, combine it with **[[Notification Hub|/skills/productivity/notification-hub]]** for smart routing."
+      },
+      {
+        heading: "Key Capabilities: What You Can Automate",
+        content: "**Smart Inbox Triage:** The Gmail skill categorizes incoming emails by priority, topic, and required action. It can auto-label, archive, or flag emails based on rules you define in conversation.\n\n**Contextual Reply Drafting:** Say 'draft a reply to John's email about the Q3 report' and get a context-aware response based on the email thread. Review and send with one confirmation.\n\n**Email Data Extraction:** Extract structured data from recurring emails — invoices, shipping notifications, meeting invitations — and pipe it to [[Notion Sync|/skills/productivity/notion-sync]] or [[CRM Sync|/skills/marketing-sales/crm-sync]].\n\n**Scheduled Sends & Follow-ups:** Schedule emails for optimal send times and set up automatic follow-ups if you don't get a reply within a specified timeframe.\n\n**Search & Summarize:** Search across your email history and get AI-generated summaries of long threads or conversations with specific contacts."
+      },
+      {
+        heading: "Gmail + OpenClaw Workflow Examples",
+        content: "**Sales Follow-up Workflow:** Combine [[Gmail Connector|/skills/productivity/gmail-connector]] + [[Lead Generator|/skills/marketing-sales/lead-generator]] + [[CRM Sync|/skills/marketing-sales/crm-sync]]. Generate leads, send personalized outreach via Gmail, track responses in your CRM, and auto-follow-up on non-replies.\n\n**Customer Support Triage:** Use the Gmail skill to categorize support emails, draft initial responses using [[RAG Pipeline|/skills/ai-llms/rag-pipeline]] (grounded in your knowledge base), and route complex issues to your team via [[Slack Connector|/skills/productivity/slack-connector]].\n\n**Research Inbox:** Set up the Gmail skill to extract links, attachments, and key information from newsletters and research emails, then save them to [[Notion Sync|/skills/productivity/notion-sync]] for later review.\n\nFor more email automation strategies, see our [[marketing skills guide|/articles/best-marketing-sales-skills-openclaw]] and [[productivity skills guide|/articles/best-productivity-skills-openclaw]]."
+      },
+    ],
+    skills: [
+      { name: "Gmail Connector", slug: "gmail-connector", description: "Full Gmail integration — read, compose, reply, label, and search.", installCmd: "npx clawhub@latest install gmail-connector", whyPicked: "Complete Gmail automation with OAuth2 security. Draft replies, sort inbox, extract data, and build email workflows through conversation.", rating: 4.6 },
+      { name: "Email Campaign", slug: "email-campaign", description: "Personalized email sequences with follow-up automation.", installCmd: "npx clawhub@latest install email-campaign", whyPicked: "Build outreach sequences that send through Gmail. Personalized messaging with automatic follow-ups for non-replies.", rating: 4.5 },
+      { name: "Notification Hub", slug: "notification-hub", description: "Route email notifications to Slack, SMS, or other channels.", installCmd: "npx clawhub@latest install notification-hub", whyPicked: "Stop checking email constantly. Route important emails to Slack, SMS, or other channels based on sender, subject, and content.", rating: 4.5 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // 20. OpenClaw Slack Skill
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "openclaw-slack-skill",
+    title: "OpenClaw Slack Skill: AI-Powered Team Communication",
+    metaTitle: "OpenClaw Slack Skill — AI Bot for Teams & Automation (2026)",
+    metaDescription: "Build AI-powered Slack bots with OpenClaw. Channel summaries, smart notifications, automated standup reports, and team workflow automation.",
+    tag: "Integrations",
+    readTime: "12 min read",
+    publishedDate: "2026-03-04",
+    updatedDate: "2026-03-07",
+    heroDescription: "The OpenClaw Slack Connector skill brings AI capabilities directly into your team's communication hub. Summarize channels, automate standup reports, route intelligent notifications, answer team questions using your knowledge base, and build custom Slack workflows.",
+    sections: [
+      {
+        heading: "What Is the OpenClaw Slack Skill?",
+        content: "The Slack Connector skill integrates OpenClaw with your Slack workspace. Install it with `npx clawhub@latest install slack-connector` and authenticate with your workspace's OAuth credentials. Once connected, OpenClaw can read channels, post messages, create threads, manage reactions, and build interactive workflows.\n\nUnlike simple Slack bots, the OpenClaw Slack skill has access to all your other installed skills. This means it can answer questions using [[Deep Research|/skills/search-research/deep-research]], create tasks in [[Notion Sync|/skills/productivity/notion-sync]], or review code with [[Code Reviewer|/skills/coding-agents/code-reviewer]] — all triggered from Slack messages."
+      },
+      {
+        heading: "Key Capabilities for Teams",
+        content: "**Channel Summaries:** Get daily or on-demand summaries of any Slack channel. Stop scrolling through hundreds of messages to figure out what happened while you were away.\n\n**Automated Standups:** The skill collects standup responses from team members, synthesizes them, and posts a formatted summary to your standup channel. No more scheduling meetings for status updates.\n\n**Smart Notifications:** Route alerts from GitHub, monitoring tools, and CI/CD pipelines through Slack with AI-powered filtering. Only get pinged for things that actually need your attention.\n\n**Knowledge Base Q&A:** Combine the Slack skill with [[RAG Pipeline|/skills/ai-llms/rag-pipeline]] and your team can ask questions in Slack and get answers grounded in your documentation, wikis, and code.\n\n**Workflow Automation:** Create custom Slack workflows triggered by messages, emoji reactions, or scheduled events."
+      },
+      {
+        heading: "Slack + OpenClaw for Engineering Teams",
+        content: "Engineering teams get the most value from combining the Slack skill with development tools:\n\n**PR Notifications:** [[GitHub Manager|/skills/coding-agents/github-manager]] + Slack = intelligent PR notifications that include AI-generated summaries, risk assessments, and review suggestions.\n\n**Incident Response:** [[Log Analyzer|/skills/devops-cloud/log-analyzer]] detects anomalies and routes alerts to the on-call channel with context and suggested remediation steps.\n\n**Deployment Updates:** [[Vercel Deploy|/skills/devops-cloud/vercel-deploy]] and [[Docker Captain|/skills/devops-cloud/docker-captain]] post deployment status updates with links to previews and logs.\n\nFor the full development workflow setup, see our [[developer skills guide|/articles/best-openclaw-skills-for-developers]] and [[DevOps guide|/articles/best-devops-cloud-skills-openclaw]]."
+      },
+    ],
+    skills: [
+      { name: "Slack Connector", slug: "slack-connector", description: "Full Slack workspace integration with AI capabilities.", installCmd: "npx clawhub@latest install slack-connector", whyPicked: "Two-way Slack integration with channel reading, posting, thread management, and interactive workflows. The foundation for AI-powered team communication.", rating: 4.7 },
+      { name: "Notification Hub", slug: "notification-hub", description: "Intelligent alert routing across channels.", installCmd: "npx clawhub@latest install notification-hub", whyPicked: "Smart notification routing that prevents alert fatigue. Filter, prioritize, and route alerts based on severity, content, and on-call schedules.", rating: 4.5 },
+      { name: "RAG Pipeline", slug: "rag-pipeline", description: "Knowledge base Q&A for Slack.", installCmd: "npx clawhub@latest install rag-pipeline", whyPicked: "Let your team ask questions in Slack and get answers grounded in your documentation. Reduces repetitive questions and knowledge silos.", rating: 4.9 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // 21. OpenClaw MCP vs Skills
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "openclaw-mcp-vs-skills",
+    title: "OpenClaw MCP vs Skills: When to Use Each (Complete Comparison)",
+    metaTitle: "OpenClaw MCP vs Skills — Differences, When to Use Each (2026)",
+    metaDescription: "What's the difference between OpenClaw MCP servers and skills? Complete comparison of architecture, use cases, security, and when to use MCP vs skills.",
+    tag: "Comparison",
+    readTime: "14 min read",
+    publishedDate: "2026-03-05",
+    updatedDate: "2026-03-07",
+    heroDescription: "OpenClaw supports both MCP (Model Context Protocol) servers and skills. They solve different problems: MCP servers provide tool-level integrations through a standardized protocol, while skills provide behavioral instructions and orchestration logic. This guide explains the differences, trade-offs, and when to use each.",
+    sections: [
+      {
+        heading: "MCP vs Skills: The Key Difference",
+        content: "**MCP (Model Context Protocol) servers** are external processes that expose tools, resources, and prompts through a standardized JSON-RPC protocol. They run as separate processes and communicate with OpenClaw over stdio or HTTP. MCP servers are language-agnostic — you can write them in Python, TypeScript, Go, or any language.\n\n**OpenClaw skills** are SKILL.md files that define behavioral instructions, tool descriptions, and orchestration logic directly in the OpenClaw configuration. They don't run as separate processes — they're instructions that tell OpenClaw how to behave.\n\nThink of it this way: MCP servers are like APIs (they provide capabilities), while skills are like playbooks (they provide instructions on how to use capabilities)."
+      },
+      {
+        heading: "When to Use MCP Servers",
+        content: "Use MCP servers when you need:\n\n**Custom tool implementations.** If you need OpenClaw to call a proprietary API, query a database, or interact with a system that requires custom code, build an MCP server. The server handles the implementation; OpenClaw calls the exposed tools.\n\n**Language-specific processing.** Need Python for data science, Go for high-performance processing, or Rust for systems work? MCP servers let you write tools in any language.\n\n**Shared infrastructure.** MCP servers can serve multiple AI clients, not just OpenClaw. If you're building a tool that Claude, GPT, and OpenClaw should all use, MCP is the standard.\n\n**Heavy computation.** MCP servers run as separate processes with their own memory and CPU allocation. For resource-intensive tasks, this isolation is beneficial.\n\nPopular MCP integrations include database connectors, file system access, web search, and cloud API wrappers."
+      },
+      {
+        heading: "When to Use OpenClaw Skills",
+        content: "Use skills when you need:\n\n**Behavioral orchestration.** Skills excel at defining multi-step workflows, decision trees, and coordination between tools. The [[Agent Orchestrator|/skills/ai-llms/agent-orchestrator]] skill coordinates multiple agents — that's orchestration logic, not a tool implementation.\n\n**Prompt engineering.** Skills like [[GPT Prompt Chainer|/skills/ai-llms/gpt-prompt-chainer]] and [[Prompt Optimizer|/skills/ai-llms/prompt-optimizer]] improve how OpenClaw interacts with LLMs. These are behavioral modifications, not external tools.\n\n**Quick setup.** Skills install with one command (`npx clawhub@latest install`) and require no separate process management. MCP servers need to be started and managed.\n\n**Community ecosystem.** The [[skills directory|/skills]] has 5,705+ pre-built skills. For common use cases, a skill likely already exists.\n\n**No-code customization.** Non-developers can create and modify skills by editing SKILL.md files. MCP servers require programming knowledge."
+      },
+      {
+        heading: "Using MCP and Skills Together",
+        content: "The most powerful OpenClaw setups combine both. A common pattern:\n\n1. **MCP servers** provide the low-level tools: database queries, API calls, file operations.\n2. **Skills** provide the high-level orchestration: when to call which tool, how to process results, and how to handle errors.\n\nExample: An MCP server exposes tools for querying your PostgreSQL database. A skill defines a 'Sales Report Generator' workflow that uses the database tools to pull data, the [[GPT Prompt Chainer|/skills/ai-llms/gpt-prompt-chainer]] to analyze trends, and the [[PDF Generator|/skills/browser-automation/pdf-generator]] to create a formatted report.\n\nFor more on building custom skills that leverage MCP servers, see our [[skill creation guide|/articles/how-to-create-openclaw-skills]]."
+      },
+      {
+        heading: "Security Comparison: MCP vs Skills",
+        content: "**MCP Security:**\n- Runs as a separate process with OS-level isolation\n- Permissions are defined per-server in the MCP configuration\n- Can access any system resource the server process has access to\n- Harder to audit — requires reading server source code\n\n**Skill Security:**\n- Runs within the OpenClaw process\n- Permissions declared in SKILL.md are transparent and auditable\n- The [[ClawSkills directory|/skills]] provides security status badges (verified, community, unreviewed)\n- Easier to audit — SKILL.md files are human-readable\n\nFor a comprehensive security guide covering both MCP servers and skills, see our [[security article|/articles/openclaw-skills-security]].\n\n**FAQ: OpenClaw MCP vs Skills**\n\n**Can I convert an MCP server to an OpenClaw skill?**\nNot directly — they solve different problems. But you can create a skill that orchestrates calls to an MCP server's tools.\n\n**Are MCP servers more secure than skills?**\nThey offer process isolation, which is a security advantage. But skills offer transparency through SKILL.md declarations. Both require evaluation.\n\n**Which is better for beginners?**\nSkills. They install with one command, require no coding, and the [[ClawSkills directory|/skills]] has thousands of ready-to-use options."
+      },
+    ],
+    skills: [
+      { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Example of a pure-skill orchestration pattern.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "Demonstrates the power of skills for orchestration — no MCP server needed. Chains prompts, manages context, and handles errors through SKILL.md instructions.", rating: 4.8 },
+      { name: "Agent Orchestrator", slug: "agent-orchestrator", description: "Multi-agent coordination — a skill that works alongside MCP.", installCmd: "npx clawhub@latest install agent-orchestrator", whyPicked: "Shows how skills and MCP complement each other. The orchestrator skill coordinates agents that may use tools from multiple MCP servers.", rating: 4.8 },
+      { name: "Deep Research", slug: "deep-research", description: "Skill + tool integration for multi-source research.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "Combines skill-level orchestration (research workflow) with tool-level capabilities (web search, document retrieval) — a perfect example of the hybrid approach.", rating: 4.9 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // 22. OpenClaw Skills Examples
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "openclaw-skills-examples",
+    title: "OpenClaw Skills Examples: 20+ Real-World Use Cases",
+    metaTitle: "OpenClaw Skills Examples — 20+ Real-World Use Cases (2026)",
+    metaDescription: "See OpenClaw skills in action. 20+ real-world examples across AI automation, research, development, marketing, and productivity workflows.",
+    tag: "Examples",
+    readTime: "16 min read",
+    publishedDate: "2026-03-05",
+    updatedDate: "2026-03-07",
+    heroDescription: "Want to see what OpenClaw skills can actually do? This collection covers 20+ real-world examples across AI automation, research, development, sales, and productivity. Each example includes the skills used, the workflow, and the install commands to replicate it.",
+    sections: [
+      {
+        heading: "AI & Research Examples",
+        content: "**Example 1: Automated Literature Review**\nSkills: [[Deep Research|/skills/search-research/deep-research]] + [[Academic Search|/skills/search-research/academic-search]] + [[Knowledge Graph|/skills/search-research/knowledge-graph]]\nWorkflow: Deep Research searches across academic databases and web sources. Academic Search pulls papers with citation data. Knowledge Graph maps relationships between findings. Output: a synthesized literature review with citations and an entity relationship map.\nInstall: `npx clawhub@latest install deep-research academic-search knowledge-graph`\n\n**Example 2: Multi-Model AI Pipeline**\nSkills: [[LLM Router|/skills/ai-llms/llm-router]] + [[GPT Prompt Chainer|/skills/ai-llms/gpt-prompt-chainer]] + [[Token Counter|/skills/ai-llms/token-counter]]\nWorkflow: LLM Router selects the optimal model for each step. Prompt Chainer handles the multi-step logic. Token Counter tracks costs in real-time. Use case: content generation at scale with automatic cost optimization.\nInstall: `npx clawhub@latest install llm-router gpt-prompt-chainer token-counter`\n\n**Example 3: RAG-Powered Q&A System**\nSkills: [[RAG Pipeline|/skills/ai-llms/rag-pipeline]] + [[Embeddings Manager|/skills/ai-llms/embeddings-manager]] + [[Context Window Manager|/skills/ai-llms/context-window-manager]]\nWorkflow: Ingest documents, generate embeddings, and answer questions grounded in your data with citations.\nInstall: `npx clawhub@latest install rag-pipeline embeddings-manager context-window-manager`"
+      },
+      {
+        heading: "Developer Workflow Examples",
+        content: "**Example 4: Automated PR Review Pipeline**\nSkills: [[Code Reviewer|/skills/coding-agents/code-reviewer]] + [[Test Generator|/skills/coding-agents/test-generator]] + [[GitHub Manager|/skills/coding-agents/github-manager]]\nWorkflow: When a PR is opened, Code Reviewer analyzes the diff for bugs and security issues, Test Generator creates tests for new code, and GitHub Manager posts review comments and manages labels.\nInstall: `npx clawhub@latest install code-reviewer test-generator github-manager`\n\n**Example 5: Full-Stack App Scaffolding**\nSkills: [[React Scaffolder|/skills/web-frontend/react-scaffolder]] + [[CSS Generator|/skills/web-frontend/css-generator]] + [[API Generator|/skills/coding-agents/api-generator]]\nWorkflow: Describe your app and get a complete React frontend with styled components and a backend API. See the [[web development guide|/articles/best-web-frontend-skills-openclaw]] for more.\nInstall: `npx clawhub@latest install react-scaffolder css-generator api-generator`\n\n**Example 6: Docker + K8s Deployment**\nSkills: [[Docker Captain|/skills/devops-cloud/docker-captain]] + [[Kubernetes Pilot|/skills/devops-cloud/kubernetes-pilot]] + [[CI/CD Builder|/skills/devops-cloud/cicd-builder]]\nWorkflow: Containerize your app, deploy to K8s, and set up automated CI/CD — all through conversation.\nInstall: `npx clawhub@latest install docker-captain kubernetes-pilot cicd-builder`"
+      },
+      {
+        heading: "Sales & Marketing Examples",
+        content: "**Example 7: Automated Lead Generation**\nSkills: [[Lead Generator|/skills/marketing-sales/lead-generator]] + [[Email Campaign|/skills/marketing-sales/email-campaign]] + [[CRM Sync|/skills/marketing-sales/crm-sync]]\nWorkflow: Generate targeted leads, send personalized outreach sequences, and track responses in your CRM. See the [[founder's guide|/articles/best-openclaw-skills-for-founders]] for the complete setup.\nInstall: `npx clawhub@latest install lead-generator email-campaign crm-sync`\n\n**Example 8: Content Marketing Pipeline**\nSkills: [[Take the Wheel|/skills/ai-llms/take-the-wheel]] + [[SEO Analyzer|/skills/marketing-sales/seo-analyzer]] + [[Content Calendar|/skills/marketing-sales/content-calendar]]\nWorkflow: Generate SEO-optimized articles, analyze keyword targeting, and schedule publication across channels.\nInstall: `npx clawhub@latest install take-the-wheel seo-analyzer content-calendar`\n\n**Example 9: Competitive Intelligence Dashboard**\nSkills: [[Web Scraper Pro|/skills/search-research/web-scraper-pro]] + [[News Aggregator|/skills/search-research/news-aggregator]] + [[Notion Sync|/skills/productivity/notion-sync]]\nWorkflow: Monitor competitor websites and news mentions, extract pricing and feature data, and maintain a live dashboard in Notion.\nInstall: `npx clawhub@latest install web-scraper-pro news-aggregator notion-sync`"
+      },
+      {
+        heading: "Productivity & Automation Examples",
+        content: "**Example 10: AI-Powered Inbox Management**\nSkills: [[Gmail Connector|/skills/productivity/gmail-connector]] + [[Notification Hub|/skills/productivity/notification-hub]] + [[Todoist Sync|/skills/productivity/todoist-sync]]\nWorkflow: Auto-categorize incoming emails, route important ones to Slack, and create tasks from action items. See the [[Gmail guide|/articles/openclaw-gmail-skill]] for setup details.\nInstall: `npx clawhub@latest install gmail-connector notification-hub todoist-sync`\n\n**Example 11: Meeting → Action Items Pipeline**\nSkills: [[Calendar Sync|/skills/productivity/calendar-sync]] + [[Notion Sync|/skills/productivity/notion-sync]] + [[Slack Connector|/skills/productivity/slack-connector]]\nWorkflow: After meetings, extract action items from notes, create Notion tasks, and post assignments to the team Slack channel.\nInstall: `npx clawhub@latest install calendar-sync notion-sync slack-connector`\n\n**Example 12: Browser Automation Suite**\nSkills: [[Browser Pilot|/skills/browser-automation/browser-pilot]] + [[Screenshot Capture|/skills/browser-automation/screenshot-capture]] + [[PDF Generator|/skills/browser-automation/pdf-generator]]\nWorkflow: Navigate websites, capture screenshots for documentation, and generate PDF reports. See the [[browser automation guide|/articles/best-browser-automation-skills-openclaw]].\nInstall: `npx clawhub@latest install browser-pilot screenshot-capture pdf-generator`"
+      },
+    ],
+    skills: [
+      { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "Featured in 4 of the 12 examples above. The most versatile skill for any workflow involving information gathering and analysis.", rating: 4.9 },
+      { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Chain prompts for multi-step AI workflows.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "The backbone of most multi-skill workflows. Connects skills together with context passing and error handling.", rating: 4.8 },
+      { name: "Browser Pilot", slug: "browser-pilot", description: "Visual browser automation for any website.", installCmd: "npx clawhub@latest install browser-pilot", whyPicked: "The 'Swiss Army knife' of automation. Any task that involves a web browser can be automated with this skill.", rating: 4.8 },
+      { name: "Notion Sync", slug: "notion-sync", description: "Two-way Notion workspace integration.", installCmd: "npx clawhub@latest install notion-sync", whyPicked: "The output hub for most workflows. Research results, generated content, and extracted data all flow into Notion for organization and review.", rating: 4.8 },
+      { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "Essential for any developer workflow. Catches bugs, security issues, and anti-patterns before they reach production.", rating: 4.8 },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
