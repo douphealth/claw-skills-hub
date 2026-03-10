@@ -43,8 +43,8 @@ const HeroSection = () => {
           transition={{ delay: 0.5 }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          The curated OpenClaw skills directory with verified security reviews.<br className="hidden sm:block" />
-          Discover, install, and compare 5,705+ skills across 10 categories — safely.
+          The curated registry with verified security reviews and one-command installs.<br className="hidden sm:block" />
+          Search 5,705+ skills across 10 categories. Compare, audit, and ship safely.
         </motion.p>
 
         <motion.div
