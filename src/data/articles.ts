@@ -1308,6 +1308,488 @@ export const articles: Article[] = [
       { name: "Notion Sync", slug: "notion-sync", description: "Two-way Notion workspace integration.", installCmd: "npx clawhub@latest install notion-sync", whyPicked: "The anchor of the Knowledge Management stack. Central hub for all outputs.", rating: 4.8 },
     ],
   },
+
+  // ═══════════════════════════════════════════════════════════════
+  // POST 1: What Are OpenClaw Skills? (Pillar Page)
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "what-are-openclaw-skills",
+    title: "What Are OpenClaw Skills? How They Work, Where They Live, and How to Use Them Safely (2026)",
+    metaTitle: "What Are OpenClaw Skills? Complete Guide to SKILL.md, ClawHub & Safe Setup (2026)",
+    metaDescription: "OpenClaw skills are modular SKILL.md files that extend your AI agent with new capabilities. Learn what skills are, how ClawHub works, and how to install them safely on macOS, Windows, and Linux.",
+    tag: "Pillar Guide",
+    readTime: "22 min read",
+    publishedDate: "2026-03-10",
+    updatedDate: "2026-03-10",
+    heroDescription: "OpenClaw skills are the building blocks of every AI agent workflow. Each skill is a SKILL.md file — a plain-text manifest that gives your agent new abilities, from coding and research to email automation and browser control. This pillar guide covers what skills are, how they work under the hood, where they live (ClawHub), and how to install them without exposing your system to risk.",
+    sections: [
+      {
+        heading: "What Is an OpenClaw Skill? (40-Word Direct Answer)",
+        content: "An OpenClaw skill is a portable SKILL.md file that extends an OpenClaw AI agent with a specific capability — like code review, web research, or email management. Skills define tools, instructions, permissions, and configuration in a single markdown file that the agent loads at runtime.\n\nThat's the answer search engines and AI models need. Now let's go deeper."
+      },
+      {
+        heading: "The Anatomy of a SKILL.md File",
+        content: "Every OpenClaw skill lives in a single file: **SKILL.md**. This file is both human-readable and machine-parseable. It contains:\n\n**Frontmatter (YAML):** Name, version, author, description, category, tags, and — critically — the permissions the skill requests. Permissions include `fileAccess` (read/write paths), `networkAccess` (allowed domains), `systemCommands` (shell access), and `apiKeys` (required credentials).\n\n**System Prompt (Markdown):** The behavioral instructions the agent follows when the skill is active. This is where the skill's expertise lives — detailed instructions on how to handle tasks, what to prioritize, and how to format output.\n\n**Tool Declarations (Code Blocks):** Typed function definitions the model can invoke. Each tool has a name, description, input schema (JSON Schema), and output schema.\n\n**Configuration:** User-adjustable settings like default output formats, verbosity levels, and API endpoints.\n\nThe key insight: **a skill is not code — it's configuration.** The SKILL.md tells the agent *what to do* and *what tools it can use*, but the actual execution happens in the OpenClaw runtime. This is fundamentally different from traditional plugins, which are executable code. For a detailed comparison, see our [[Skills vs Plugins vs MCP guide|/articles/openclaw-skills-vs-plugins-vs-mcp]]."
+      },
+      {
+        heading: "Where Skills Live: ClawHub and the Registry",
+        content: "**ClawHub** is the official OpenClaw skills registry — think of it as npm for AI agent skills. When you run `npx clawhub@latest install deep-research`, the CLI fetches the SKILL.md from the ClawHub registry and saves it to your local skills directory.\n\nClawHub hosts **5,700+ skills** across [[10 categories|/skills]]. Each listing includes:\n- The full SKILL.md source (inspectable before install)\n- Version history and changelog\n- Community ratings and reviews\n- Download count and maintenance status\n- Security scan results (automated static analysis)\n\n**Important distinction:** ClawHub is the *registry* (where skills are stored). ClawSkills (this site) is the *curated directory* — we add independent security reviews, editorial analysis, comparison tools, and curated skill stacks that ClawHub doesn't provide.\n\nFor details on how ClawHub works internally, see our [[What Is ClawHub? guide|/articles/what-is-clawhub]]."
+      },
+      {
+        heading: "How Skills Execute: The Runtime Model",
+        content: "When you activate a skill, OpenClaw loads its SKILL.md and integrates its instructions into the agent's context. Here's the execution flow:\n\n**1. Skill Loading:** OpenClaw reads the SKILL.md, parses frontmatter, and registers the skill's tools with the model.\n\n**2. Prompt Injection:** The skill's system prompt is appended to the agent's base instructions. This gives the model specialized knowledge for the skill's domain.\n\n**3. Tool Registration:** The skill's tool declarations are added to the model's function-calling schema. The model can now invoke these tools during reasoning.\n\n**4. Permission Check:** OpenClaw displays the skill's requested permissions to the user. In the current architecture, permissions are **advisory** — the runtime doesn't enforce them. This is a known limitation. For enforced permissions, see [[NanoClaw|/articles/openclaw-vs-nanoclaw]].\n\n**5. Execution:** When the model decides to use a skill's tool, OpenClaw executes the tool handler, captures the output, and feeds it back to the model for the next reasoning step.\n\n**Security implication:** Because skills run in the same process as the agent, a malicious skill has access to everything the agent can access. This is why [[auditing SKILL.md files|/articles/how-to-audit-skill-md]] before installation is critical."
+      },
+      {
+        heading: "Skill Categories and Discovery",
+        content: "The OpenClaw ecosystem organizes skills into **10 primary categories**:\n\n1. **[[AI & LLMs|/skills/ai-llms]]** — Prompt chaining, model routing, RAG, embeddings (287+ skills)\n2. **[[Search & Research|/skills/search-research]]** — Web search, academic papers, knowledge graphs (142+ skills)\n3. **[[Web & Frontend|/skills/web-frontend]]** — React, CSS, deployment, testing (198+ skills)\n4. **[[DevOps & Cloud|/skills/devops-cloud]]** — CI/CD, containers, infrastructure (276+ skills)\n5. **[[Browser & Automation|/skills/browser-automation]]** — Web scraping, form filling, testing (167+ skills)\n6. **[[Productivity|/skills/productivity]]** — Email, calendar, tasks, notes (312+ skills)\n7. **[[Marketing & Sales|/skills/marketing-sales]]** — SEO, email campaigns, CRM (245+ skills)\n8. **[[Coding Agents|/skills/coding-agents]]** — Code review, testing, debugging (389+ skills)\n9. **[[Notes & PKM|/skills/notes-pkm]]** — Notion, Obsidian, knowledge management (156+ skills)\n10. **[[Health & Fitness|/skills/health-fitness]]** — Tracking, nutrition, workouts (89+ skills)\n\nBrowse all categories in our [[skills directory|/skills]]. For curated recommendations by use case, see [[How to Choose Skills|/articles/how-to-choose-openclaw-skills]]."
+      },
+      {
+        heading: "The Beginner-Safe Setup Checklist",
+        content: "If you're installing OpenClaw skills for the first time, follow this checklist:\n\n**1. Start with verified skills only.** Our [[directory|/skills]] shows verification status. Verified skills have passed security review.\n\n**2. Install one skill at a time.** Test each skill in isolation before combining. Skills can conflict.\n\n**3. Read the SKILL.md before installing.** Check permissions — especially `systemCommands` and `networkAccess`. If a note-taking skill requests shell access, that's a red flag.\n\n**4. Use a sandbox.** Run OpenClaw in Docker for production use. See our [[security guide|/articles/openclaw-security-guide]] for Docker configs.\n\n**5. Keep skills updated.** Run `npx clawhub@latest update` regularly. Outdated skills may have known vulnerabilities.\n\n**6. Limit active skills to 5-10.** More skills means more attack surface and slower model reasoning.\n\n**7. Monitor network traffic.** Skills shouldn't make outbound calls to unexpected domains.\n\n**8. Never share your `.openclaw` directory.** It contains configuration, memory, and potentially cached API keys.\n\nFor the full security deep-dive, read our [[SKILL.md audit guide|/articles/how-to-audit-skill-md]]."
+      },
+      {
+        heading: "OpenClaw Skills vs Clawdbot and Moltbot",
+        content: "If you've been following the OpenClaw ecosystem, you may have encountered **Clawdbot** (the original name for OpenClaw's agent runtime) and **Moltbot** (now rebranded as Moltworker). Here's how they relate:\n\n**Clawdbot** was the original autonomous agent that eventually became OpenClaw. Skills built for Clawdbot are fully compatible with modern OpenClaw — the SKILL.md format hasn't changed. If you find a Clawdbot tutorial or skill, it works with current OpenClaw.\n\n**Moltbot / Moltworker** is a separate serverless agent that runs on Cloudflare Workers. It has its own tool format that's incompatible with SKILL.md. However, both OpenClaw and Moltworker support MCP (Model Context Protocol), so MCP-compatible tools work with both. See our [[OpenClaw vs Moltworker comparison|/articles/openclaw-vs-moltworker]] for details.\n\nThe key takeaway: **OpenClaw skills (SKILL.md) are the most widely-used format** in the ecosystem, with 5,700+ available. MCP servers are the emerging universal standard. Plugins are a legacy concept from older agent frameworks."
+      },
+      {
+        heading: "FAQ: OpenClaw Skills",
+        content: "**What is the difference between an OpenClaw skill and a plugin?**\nSkills are SKILL.md manifest files that configure agent behavior. Plugins are executable code packages. Skills are safer because they're configuration, not code — but they can still reference tools that execute code. See our [[Skills vs Plugins vs MCP comparison|/articles/openclaw-skills-vs-plugins-vs-mcp]].\n\n**Are OpenClaw skills safe to install?**\nVerified skills from the [[ClawSkills directory|/skills]] have passed security review. Community skills have basic automated scanning. Always audit unverified skills before installation — see our [[SKILL.md audit guide|/articles/how-to-audit-skill-md]].\n\n**How many OpenClaw skills can I run at once?**\nTechnically unlimited, but we recommend 5-10 active skills. More skills mean slower reasoning, higher token costs, and larger attack surface.\n\n**Can I create my own OpenClaw skills?**\nYes. See our [[How to Write a SKILL.md guide|/articles/how-to-write-skill-md]] for templates, examples, and common mistakes.\n\n**Do OpenClaw skills work offline?**\nThe SKILL.md loads locally, but most skills require internet access for API calls (LLM providers, web search, etc.). Skills using only local tools (file editing, code analysis) work offline.\n\n**What happens if a skill is malicious?**\nA malicious skill can access files, make network requests, and execute commands within the agent's process. This is why Docker isolation and SKILL.md auditing are essential. See our [[security guide|/articles/openclaw-security-guide]]."
+      },
+    ],
+    skills: [
+      { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "The most popular first skill for beginners. Covers the most common use case — finding and synthesizing information — with minimal configuration.", rating: 4.9 },
+      { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Chain prompts for multi-step workflows.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "The fundamental building block for multi-step AI workflows. Chain prompts with context passing, branching, and error recovery.", rating: 4.8 },
+      { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "Demonstrates how a skill can provide deep domain expertise. Scans code for bugs, security issues, and anti-patterns.", rating: 4.8 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // POST 2: How to Install OpenClaw Skills
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "how-to-install-openclaw-skills",
+    title: "How to Install OpenClaw Skills on macOS, Windows, and Linux (2026)",
+    metaTitle: "How to Install OpenClaw Skills — macOS, Windows WSL & Linux Guide (2026)",
+    metaDescription: "Step-by-step guide to installing OpenClaw skills on macOS, Windows WSL, and Linux. Exact commands, path examples, permissions fixes, and troubleshooting for common errors.",
+    tag: "Tutorial",
+    readTime: "16 min read",
+    publishedDate: "2026-03-10",
+    updatedDate: "2026-03-10",
+    heroDescription: "The most searched practical query in the OpenClaw ecosystem: how do I actually install a skill? This guide covers the exact commands for every OS, the directory structure, version pinning, and the 8 most common installation errors with copy-paste fixes.",
+    sections: [
+      {
+        heading: "Quick Answer: Install Any OpenClaw Skill in One Command",
+        content: "To install an OpenClaw skill, run: `npx clawhub@latest install <skill-name>`. For example: `npx clawhub@latest install deep-research`. This works on macOS, Linux, and Windows WSL. The skill is downloaded from ClawHub and saved to `~/.openclaw/skills/<skill-name>/SKILL.md`.\n\nThat's the direct answer. Below, we cover OS-specific setup, directory structure, version pinning, and troubleshooting."
+      },
+      {
+        heading: "Prerequisites: What You Need Before Installing",
+        content: "**All platforms require:**\n- **Node.js 20+** (LTS recommended) — check with `node --version`\n- **npm 10+** — check with `npm --version`\n- **Git 2.40+** — check with `git --version`\n- **An active internet connection** for downloading from ClawHub\n\n**macOS-specific:**\n- Xcode Command Line Tools: `xcode-select --install`\n- Homebrew (recommended): `brew install node git`\n\n**Windows-specific:**\n- WSL2 with Ubuntu 22.04+: `wsl --install -d Ubuntu`\n- All commands run inside the WSL terminal, not PowerShell or CMD\n- Native Windows is not supported — OpenClaw requires a Unix-like environment\n\n**Linux-specific:**\n- Ubuntu/Debian: `sudo apt install nodejs npm git`\n- Fedora: `sudo dnf install nodejs npm git`\n- Arch: `sudo pacman -S nodejs npm git`"
+      },
+      {
+        heading: "Installing on macOS",
+        content: "**Step 1: Verify prerequisites**\n`node --version && npm --version && git --version`\n\n**Step 2: Install OpenClaw (if not already installed)**\n`npx clawhub@latest`\nThis runs the interactive setup wizard. Choose your LLM provider, enter your API key, and select a default model.\n\n**Step 3: Install your first skill**\n`npx clawhub@latest install deep-research`\nExpected output: `✓ Installed deep-research@1.4.2 to ~/.openclaw/skills/deep-research/`\n\n**Step 4: Verify the installation**\n`npx clawhub@latest skills list`\nYou should see `deep-research` listed with its version and status.\n\n**Step 5: Test the skill**\nStart OpenClaw and try a prompt: 'Research the latest developments in AI agent security.'\n\n**Common macOS issue:** If you get `EACCES: permission denied`, your npm global directory needs fixing. Run: `sudo chown -R $(whoami) ~/.npm ~/.openclaw`\n\nFor curated skill recommendations, browse our [[directory|/skills]] or see [[How to Choose Skills|/articles/how-to-choose-openclaw-skills]]."
+      },
+      {
+        heading: "Installing on Windows (WSL)",
+        content: "**Step 1: Set up WSL2**\nOpen PowerShell as Administrator and run: `wsl --install -d Ubuntu`\nRestart your computer when prompted.\n\n**Step 2: Open the Ubuntu terminal**\nSearch for 'Ubuntu' in the Start menu and open it.\n\n**Step 3: Install Node.js via nvm (recommended)**\n`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash`\nClose and reopen the terminal, then: `nvm install 20 && nvm use 20`\n\n**Step 4: Install OpenClaw and your first skill**\n`npx clawhub@latest`\n`npx clawhub@latest install deep-research`\n\n**Step 5: Verify**\n`npx clawhub@latest skills list`\n\n**Common Windows/WSL issues:**\n- `npm ERR! ENOENT`: The WSL filesystem isn't synced. Run `wsl --shutdown` from PowerShell, then reopen Ubuntu.\n- Slow performance: Store your projects in the Linux filesystem (`~/`), not the Windows mount (`/mnt/c/`). The Windows mount has severe I/O performance penalties.\n- VS Code integration: Install the 'WSL' extension and open your project with `code .` from the Ubuntu terminal."
+      },
+      {
+        heading: "Installing on Linux",
+        content: "**Ubuntu/Debian:**\n`sudo apt update && sudo apt install -y nodejs npm git`\n`npx clawhub@latest`\n`npx clawhub@latest install deep-research`\n\n**Fedora/RHEL:**\n`sudo dnf install -y nodejs npm git`\n`npx clawhub@latest`\n`npx clawhub@latest install deep-research`\n\n**Arch Linux:**\n`sudo pacman -S nodejs npm git`\n`npx clawhub@latest`\n`npx clawhub@latest install deep-research`\n\n**Docker (recommended for production):**\n`docker run -it --name openclaw clawhub/openclaw:latest`\nThen install skills inside the container. See our [[security guide|/articles/openclaw-security-guide]] for hardened Docker configs.\n\n**Headless server setup:** If you're running OpenClaw on a remote VPS without a GUI, you can still install and manage skills via SSH. Use `tmux` or `screen` for persistent sessions."
+      },
+      {
+        heading: "Directory Structure and Skill Paths",
+        content: "After installation, OpenClaw creates this directory structure:\n\n`~/.openclaw/` — Root configuration directory\n`~/.openclaw/config.yaml` — Global configuration (API keys, model preferences)\n`~/.openclaw/skills/` — Installed skills directory\n`~/.openclaw/skills/deep-research/SKILL.md` — Individual skill manifest\n`~/.openclaw/conversations/` — Conversation history\n`~/.openclaw/logs/` — Runtime logs\n\n**Workspace vs shared skills:**\nSkills installed globally live in `~/.openclaw/skills/`. You can also install skills locally to a project by running `npx clawhub@latest install deep-research --local`, which creates a `.openclaw/skills/` directory in your current working directory.\n\n**Precedence rules:** Local skills override global skills with the same name. This lets you customize a skill for a specific project without affecting other workflows.\n\n**Version pinning:** Pin a specific version with `npx clawhub@latest install deep-research@1.4.2`. Without a version, you get the latest."
+      },
+      {
+        heading: "Managing Skills: Update, Remove, and List",
+        content: "**List installed skills:**\n`npx clawhub@latest skills list`\n\n**Update all skills:**\n`npx clawhub@latest update`\n\n**Update a specific skill:**\n`npx clawhub@latest update deep-research`\n\n**Remove a skill:**\n`npx clawhub@latest uninstall deep-research`\n\n**Enable/disable a skill (without uninstalling):**\n`npx clawhub@latest disable deep-research`\n`npx clawhub@latest enable deep-research`\n\n**Install multiple skills at once:**\n`npx clawhub@latest install deep-research gpt-prompt-chainer llm-router`\n\nFor bulk installations by use case, see our [[curated skill stacks|/articles/how-to-choose-openclaw-skills]]."
+      },
+      {
+        heading: "Troubleshooting: 8 Common Installation Errors",
+        content: "**1. `EACCES: permission denied`**\nFix: `sudo chown -R $(whoami) ~/.npm ~/.openclaw`\n\n**2. `npm ERR! code E404` — Skill not found**\nCheck the skill name in our [[directory|/skills]]. Names are case-sensitive and use hyphens.\n\n**3. `Error: Node.js version 16 is not supported`**\nUpgrade to Node.js 20+: `nvm install 20 && nvm use 20`\n\n**4. Skill installs but doesn't load**\nRun `npx clawhub@latest skills list` and check the status. If it shows 'disabled', run `npx clawhub@latest enable <skill-name>`. For persistent loading issues, see our [[troubleshooting guide|/articles/openclaw-skill-not-loading-fixes]].\n\n**5. `ETIMEOUT` — Network timeout**\nCheck your internet connection. If behind a proxy: `npm config set proxy http://proxy:8080`\n\n**6. Skill version conflict**\nPin a specific version: `npx clawhub@latest install deep-research@1.4.2`\n\n**7. `Error: Missing API key`**\nSome skills require API keys. Check the skill's SKILL.md for required credentials and add them to `~/.openclaw/config.yaml`.\n\n**8. Skills path not found**\nRun `npx clawhub@latest doctor` to diagnose path issues. If `~/.openclaw` doesn't exist, run the setup wizard again: `npx clawhub@latest`."
+      },
+      {
+        heading: "FAQ: Installing OpenClaw Skills",
+        content: "**Do I need to restart OpenClaw after installing a skill?**\nYes. Skills are loaded at startup. After installing a new skill, restart OpenClaw for it to take effect. In interactive mode, type `/reload` to reload skills without restarting.\n\n**Can I install skills from a local file instead of ClawHub?**\n Yes: `npx clawhub@latest install ./path/to/SKILL.md`. Useful for custom or private skills. See our [[how to write SKILL.md guide|/articles/how-to-write-skill-md]].\n\n**Are OpenClaw skills safe to install?**\nVerified skills from the [[ClawSkills directory|/skills]] have passed security review. Always audit unverified skills. See our [[SKILL.md audit guide|/articles/how-to-audit-skill-md]] for the inspection checklist.\n\n**Can I install OpenClaw skills on a Raspberry Pi?**\nYes, on Pi 4 (8GB) with Raspbian. Performance is limited but functional for basic skills. Use local models via Ollama to avoid API latency.\n\n**How do I install skills inside Docker?**\nMount a volume for persistence: `docker run -v ~/.openclaw:/root/.openclaw clawhub/openclaw:latest`. Then install normally inside the container. See our [[Docker security guide|/articles/openclaw-security-guide]]."
+      },
+    ],
+    skills: [
+      { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "The recommended first skill for every new OpenClaw user. Comprehensive, well-maintained, and verified.", rating: 4.9 },
+      { name: "LLM Router", slug: "llm-router", description: "Route prompts to the best model by cost and complexity.", installCmd: "npx clawhub@latest install llm-router", whyPicked: "The recommended second install. Immediately reduces API costs by routing simple tasks to cheaper models.", rating: 4.9 },
+      { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Chain prompts for multi-step workflows.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "The recommended third install. Enables multi-step workflows that single prompts can't handle.", rating: 4.8 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // POST 3: What Is ClawHub?
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "what-is-clawhub",
+    title: "What Is ClawHub? How the OpenClaw Skills Registry Works (2026)",
+    metaTitle: "What Is ClawHub? The OpenClaw Skills Registry Explained (2026)",
+    metaDescription: "ClawHub is the official registry for OpenClaw skills. Learn how to search, install, update, publish, and review skills — and how ClawSkills adds curated security reviews on top.",
+    tag: "Explainer",
+    readTime: "14 min read",
+    publishedDate: "2026-03-10",
+    updatedDate: "2026-03-10",
+    heroDescription: "ClawHub is to OpenClaw what npm is to Node.js — the official package registry where skills are published, versioned, and distributed. But ClawHub has gaps: no editorial curation, no independent security reviews, and no comparison tools. This guide explains how the registry works and how ClawSkills fills the gaps.",
+    sections: [
+      {
+        heading: "What Is ClawHub? (Direct Answer)",
+        content: "ClawHub is the official package registry for OpenClaw skills. It hosts 5,700+ SKILL.md files that anyone can search, install, publish, and update. When you run `npx clawhub@latest install deep-research`, the CLI downloads the skill from ClawHub. ClawHub handles versioning, dependency resolution, and basic automated security scanning.\n\nClawHub is maintained by the OpenClaw core team and is free to use."
+      },
+      {
+        heading: "How ClawHub Works: Search, Install, Update, Publish",
+        content: "**Searching:** Browse skills at clawhub.io or via CLI: `npx clawhub@latest search 'code review'`. Results show name, description, version, download count, and last update date.\n\n**Installing:** `npx clawhub@latest install <skill-name>` downloads the SKILL.md and any declared dependencies. Skills are saved to `~/.openclaw/skills/`. See our [[complete install guide|/articles/how-to-install-openclaw-skills]] for OS-specific instructions.\n\n**Updating:** `npx clawhub@latest update` checks all installed skills against the registry and updates to the latest versions. Pin versions to avoid breaking changes: `npx clawhub@latest install deep-research@1.4.2`.\n\n**Publishing:** Skill authors publish with `npx clawhub@latest publish ./path/to/skill`. The CLI validates the SKILL.md format, runs basic linting, and uploads to the registry. New skills appear immediately but are marked 'unreviewed' until they pass community or official review.\n\n**Versioning:** ClawHub uses semantic versioning. Major version bumps indicate breaking changes. Minor versions add features. Patches fix bugs. Always check the changelog before updating a production skill."
+      },
+      {
+        heading: "ClawHub's Moderation and Security Model",
+        content: "ClawHub provides three levels of review:\n\n**1. Automated scanning (all skills):** Every published skill goes through static analysis that checks for known malicious patterns: encoded strings, suspicious URLs, environment variable access, and dynamic code execution.\n\n**2. Community review (opt-in):** Skill authors can request community review. Other developers inspect the SKILL.md and vote on quality, safety, and usefulness. Skills with 5+ positive reviews earn a 'Community Verified' badge.\n\n**3. Official review (limited):** The OpenClaw core team reviews a small number of high-profile skills. These earn an 'Official' badge — the highest trust level.\n\n**The gap:** ClawHub's automated scanning catches known patterns but misses novel attack vectors. Community review depends on volunteer effort and varies in quality. Official review covers less than 2% of all skills.\n\n**This is where ClawSkills comes in.** Our [[directory|/skills]] adds independent security analysis, editorial reviews, and curated recommendations that go beyond ClawHub's automated tooling. We score every featured skill on security, maintenance, documentation, and community activity."
+      },
+      {
+        heading: "ClawHub vs ClawSkills: What's the Difference?",
+        content: "**ClawHub** is the registry — it stores and distributes skills. Think of it as the warehouse.\n\n**ClawSkills** (this site) is the curated directory — we review, analyze, compare, and recommend skills. Think of it as the buyer's guide.\n\nSpecifically, ClawSkills provides:\n\n- **Independent security reviews** — We audit SKILL.md permissions, scan for red flags, and assign security ratings. [[See our methodology|/articles/how-to-audit-skill-md]].\n\n- **Curated skill stacks** — Pre-tested combinations of 3-7 skills for specific use cases like [[coding|/articles/best-openclaw-skills-coding-devops]], [[marketing|/articles/best-openclaw-skills-marketing-seo]], and [[research|/articles/best-search-research-skills-openclaw]].\n\n- **Comparison tools** — Compare any two skills side-by-side on our [[comparison page|/skills/compare]].\n\n- **Editorial guides** — Deep-dive articles explaining when to use specific skills, how they compare, and what to watch out for. Like this one.\n\n- **FAQ and structured data** — Every skill page includes FAQs, JSON-LD schema, and AEO-optimized content for AI discoverability.\n\nClawHub and ClawSkills are complementary. Use ClawHub to install. Use ClawSkills to decide *what* to install."
+      },
+      {
+        heading: "FAQ: ClawHub",
+        content: "**Is ClawHub free?**\nYes. Searching, installing, and publishing skills is free. There are no paid tiers or premium skills.\n\n**Can I host a private ClawHub registry?**\nYes. Organizations can run a private ClawHub instance for internal skills that shouldn't be public. See the OpenClaw docs for self-hosted registry setup.\n\n**How do I report a malicious skill?**\nUse `npx clawhub@latest report <skill-name>` or file an issue on the OpenClaw GitHub. Reports trigger immediate review and can result in skill removal.\n\n**Is ClawHub the only way to install skills?**\nNo. You can install skills from local files (`npx clawhub@latest install ./path/to/SKILL.md`), from Git URLs, or from private registries. ClawHub is just the default public registry.\n\n**What is the difference between ClawHub and Clawdbot?**\nClawdbot was the original name for the OpenClaw agent runtime. ClawHub is the skill registry. They're separate systems maintained by the same team. See [[What Are OpenClaw Skills?|/articles/what-are-openclaw-skills]] for the full ecosystem overview."
+      },
+    ],
+    skills: [
+      { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "The #1 most-downloaded skill on ClawHub. A great example of a well-maintained, thoroughly reviewed skill.", rating: 4.9 },
+      { name: "Browser Pilot", slug: "browser-pilot", description: "Visual browser automation for any website.", installCmd: "npx clawhub@latest install browser-pilot", whyPicked: "One of the highest-rated skills on ClawHub with 500+ community reviews. Demonstrates the quality bar for top-tier skills.", rating: 4.8 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // POST 4: Skills vs Plugins vs MCP Servers
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "openclaw-skills-vs-plugins-vs-mcp",
+    title: "OpenClaw Skills vs Plugins vs MCP Servers: What to Use and When (2026)",
+    metaTitle: "OpenClaw Skills vs Plugins vs MCP — Decision Guide (2026)",
+    metaDescription: "Clear comparison of OpenClaw skills (SKILL.md), plugins (executable code), and MCP servers (Model Context Protocol). Decision table with real examples showing when to use each approach.",
+    tag: "Comparison",
+    readTime: "16 min read",
+    publishedDate: "2026-03-10",
+    updatedDate: "2026-03-10",
+    heroDescription: "Three extension mechanisms, one agent. Skills, plugins, and MCP servers all extend OpenClaw — but they work differently, carry different risks, and suit different use cases. This practical guide cuts through the confusion with a decision table, real examples, and clear recommendations.",
+    sections: [
+      {
+        heading: "The 50-Word Answer",
+        content: "**Use skills** when you want to add behavioral instructions and orchestration to OpenClaw (most common). **Use MCP servers** when you need a universal tool interface that works across multiple AI agents. **Use plugins** when you need low-level runtime extensions with custom code execution. Most users should start with skills.\n\nNow let's unpack each approach."
+      },
+      {
+        heading: "Skills: Configuration-Based Extension (SKILL.md)",
+        content: "**What they are:** Plain-text SKILL.md files containing system prompts, tool declarations, permissions, and configuration.\n\n**How they work:** Skills tell the agent *what to do* and *what tools to use*. They don't execute code themselves — they configure the agent's behavior. See [[What Are OpenClaw Skills?|/articles/what-are-openclaw-skills]] for the full deep-dive.\n\n**Best for:**\n- Adding domain expertise (code review, research, writing)\n- Orchestrating multi-step workflows\n- Sharing reusable agent configurations\n- Beginners and non-developers\n\n**Risks:** Skills inject system prompts into the model's context. A malicious skill can manipulate the agent's behavior by overriding instructions. Permissions are advisory, not enforced.\n\n**Ecosystem size:** 5,700+ on [[ClawHub|/articles/what-is-clawhub]]\n\n**Example:** The [[RAG Pipeline skill|/skills/ai-llms/rag-pipeline]] defines a complete document Q&A workflow — document ingestion, embedding, search, and response generation — all in a single SKILL.md."
+      },
+      {
+        heading: "MCP Servers: Universal Tool Protocol",
+        content: "**What they are:** External processes that expose tool interfaces via the Model Context Protocol (MCP), an open standard by Anthropic.\n\n**How they work:** MCP servers run as separate processes and communicate with the agent via JSON-RPC over stdio or HTTP. The agent discovers available tools, sends requests, and receives structured responses. See our [[MCP deep-dive|/articles/openclaw-mcp-vs-skills]].\n\n**Best for:**\n- Tools that need to work across multiple AI agents (OpenClaw, Claude, GPT, [[Nanobot|/articles/openclaw-vs-nanobot]])\n- Heavy computation that should run in a separate process\n- Tools that need their own runtime (Python scripts, database connectors)\n- Teams building shared tooling for multiple agent platforms\n\n**Risks:** MCP servers run as separate processes, providing natural isolation. However, a malicious server can still exfiltrate data through its network access. The MCP spec doesn't include permission enforcement.\n\n**Ecosystem size:** ~3,000+ across all MCP-supporting platforms (shared ecosystem)\n\n**Example:** A PostgreSQL MCP server lets any MCP-compatible agent (OpenClaw, Claude Desktop, Nanobot) query your database without skill-specific configuration."
+      },
+      {
+        heading: "Plugins: Legacy Executable Extensions",
+        content: "**What they are:** Code packages (usually JavaScript/TypeScript) that hook into OpenClaw's runtime via an API.\n\n**How they work:** Plugins register event handlers, middleware, and custom tool implementations that execute in the same process as the agent. They have full access to the runtime API.\n\n**Best for:**\n- Custom memory backends\n- Output post-processing\n- Authentication middleware\n- Advanced runtime modifications\n\n**Risks:** Plugins run executable code in the agent's process. They have the highest risk profile of all three approaches. A malicious plugin has full system access.\n\n**Ecosystem size:** ~200 (legacy, declining)\n\n**Example:** A custom memory plugin that stores conversation history in Redis instead of flat files.\n\n**Note:** The OpenClaw team has deprecated the plugin API in favor of skills + MCP. Existing plugins continue to work, but new development should use skills or MCP servers."
+      },
+      {
+        heading: "Decision Table: Skills vs MCP vs Plugins",
+        content: "**When to use SKILLS:**\n- You want to add expertise to your agent → ✅ Skill\n- You're configuring workflows → ✅ Skill\n- You want to share agent behavior → ✅ Skill\n- You're a beginner → ✅ Skill\n\n**When to use MCP:**\n- You need cross-agent compatibility → ✅ MCP\n- You're connecting to databases/APIs → ✅ MCP\n- You need process isolation → ✅ MCP\n- You're building tools in Python → ✅ MCP\n\n**When to use PLUGINS:**\n- You need to modify OpenClaw internals → ✅ Plugin (consider contributing upstream instead)\n- You need custom memory/auth → ✅ Plugin\n- Everything else → ❌ Use Skills or MCP instead\n\n**The hybrid approach (recommended):** Use skills for agent behavior and orchestration. Use MCP servers for external integrations (databases, APIs, file systems). Skip plugins unless you're modifying the runtime itself."
+      },
+      {
+        heading: "FAQ: Skills vs Plugins vs MCP",
+        content: "**Can I use skills and MCP servers together?**\nYes, and this is the recommended approach. Skills define *what* the agent does. MCP servers provide the *tools* it uses. A skill can reference MCP tools in its tool declarations.\n\n**Are plugins being removed from OpenClaw?**\nThe plugin API is deprecated but not removed. Existing plugins continue to work. New development should use skills or MCP servers.\n\n**Which is safest?**\nMCP servers (process isolation) > Skills (configuration, not code) > Plugins (executable code). But all three require vetting before installation. See our [[security audit guide|/articles/how-to-audit-skill-md]].\n\n**Which is fastest to develop?**\nSkills (minutes to create a SKILL.md) > MCP servers (hours to implement a server) > Plugins (days to learn the API).\n\n**Can MCP servers replace skills entirely?**\nNot yet. MCP provides tools but not behavioral orchestration. You still need skills to tell the agent *how* to use those tools effectively. Think: MCP = hands, Skills = brain.\n\n**What about Clawdbot compatibility?**\nClawdbot (the former name for OpenClaw) uses the same SKILL.md format. All skills are backward-compatible. See [[What Are OpenClaw Skills?|/articles/what-are-openclaw-skills]] for ecosystem history."
+      },
+    ],
+    skills: [
+      { name: "RAG Pipeline", slug: "rag-pipeline", description: "Production RAG with document ingestion and hybrid search.", installCmd: "npx clawhub@latest install rag-pipeline", whyPicked: "A complex skill that demonstrates how SKILL.md orchestrates multiple tools into a unified workflow — the best example of skills at their most powerful.", rating: 4.9 },
+      { name: "Agent Orchestrator", slug: "agent-orchestrator", description: "Coordinate multiple AI agents with role assignment.", installCmd: "npx clawhub@latest install agent-orchestrator", whyPicked: "Shows how skills can compose other skills, creating multi-agent workflows that are impossible with MCP or plugins alone.", rating: 4.8 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // POST 5: How to Audit a SKILL.md Before Installing
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "how-to-audit-skill-md",
+    title: "OpenClaw Security Guide: How to Audit a SKILL.md Before You Install It (2026)",
+    metaTitle: "How to Audit a SKILL.md — OpenClaw Security Checklist (2026)",
+    metaDescription: "Step-by-step guide to auditing OpenClaw SKILL.md files for security risks. Inspect permissions, domains, install commands, file paths, secrets usage, and prompt injection vectors before installing any skill.",
+    tag: "Security",
+    readTime: "18 min read",
+    publishedDate: "2026-03-10",
+    updatedDate: "2026-03-10",
+    heroDescription: "In early 2026, malicious OpenClaw skills exfiltrated API keys and credentials from thousands of users. The attack vector was simple: compromised SKILL.md files with hidden instructions. This guide teaches you to read, inspect, and audit any SKILL.md file — with a copy-paste checklist you can use before every installation.",
+    sections: [
+      {
+        heading: "Why SKILL.md Auditing Is Non-Negotiable in 2026",
+        content: "A SKILL.md file is a set of instructions your AI agent will follow. Those instructions can include tool calls, network requests, file operations, and system commands. If the instructions are malicious, the agent becomes the attack vector.\n\nIn early 2026, security researchers discovered several skills on ClawHub that contained hidden instructions to exfiltrate environment variables — including API keys for OpenAI, AWS, and database credentials — to external servers. The skills looked normal on the surface, but their system prompts included base64-encoded URLs and obfuscated data exfiltration commands.\n\nThe lesson: **every SKILL.md is a trust decision.** You're giving the skill author control over what your agent does. Audit before you install."
+      },
+      {
+        heading: "The 8-Point SKILL.md Audit Checklist",
+        content: "Before installing any skill, open its SKILL.md (available on ClawHub and our [[directory|/skills]]) and check these 8 areas:\n\n**1. Permissions block (frontmatter)**\nLook for `fileAccess`, `networkAccess`, `systemCommands`, and `apiKeys`. A code review skill should not need network access. A search skill should not need file write access. Question every permission.\n\n**2. Network domains**\nCheck the `networkAccess.allowedDomains` list. Legitimate skills connect to known APIs (api.openai.com, api.github.com). Suspicious: unknown domains, IP addresses, URL shorteners, or base64-encoded URLs.\n\n**3. System commands**\nIf `systemCommands` is not empty, the skill can execute shell commands. This is the highest-risk permission. Only grant it to skills that genuinely need it (Docker, deployment, CI/CD).\n\n**4. System prompt content**\nRead the full system prompt. Look for: instructions to access environment variables (`process.env`), instructions to send data to external URLs, instructions to ignore user commands, or instructions to override other skills.\n\n**5. Tool declarations**\nExamine each tool's input/output schema. Do the tools match the skill's stated purpose? A 'markdown formatter' skill shouldn't have an `httpRequest` tool.\n\n**6. Dependencies**\nCheck if the skill depends on other skills. Audit those dependencies too — a trusted skill with a malicious dependency is still dangerous.\n\n**7. Author reputation**\nCheck the author's other skills, community contributions, and review history. Unknown authors with new accounts deserve extra scrutiny.\n\n**8. Version history**\nLook for unexpected changes between versions. If a skill suddenly adds network access or system commands in a patch version, that's suspicious."
+      },
+      {
+        heading: "Red Flags: What to Watch For",
+        content: "These patterns should trigger immediate suspicion:\n\n**🚩 Base64-encoded strings** in the system prompt or tool configurations. Legitimate skills don't need to encode URLs or commands.\n\n**🚩 Dynamic code execution** — `eval()`, `Function()`, `child_process.exec()` with user-controlled input. There's almost never a legitimate reason for this in a SKILL.md.\n\n**🚩 Environment variable access** — Instructions that reference `process.env`, `$HOME`, `~/.ssh`, `~/.aws`, or `~/.config`. Skills should never read your credentials.\n\n**🚩 Obfuscated URLs** — URLs using hex encoding, URL shorteners, or domain names that look like legitimate APIs but aren't (e.g., `api-openai.attacker.com`).\n\n**🚩 Instruction overrides** — Phrases like 'ignore previous instructions,' 'override system prompt,' or 'do not tell the user' in the system prompt. This is a prompt injection attack.\n\n**🚩 Excessive permissions** — A skill that requests every permission (file read/write, network, system commands, API keys) for a simple task. Legitimate skills request minimum permissions.\n\n**🚩 Minified or unreadable content** — SKILL.md should be human-readable. If you can't understand what a skill does, don't install it."
+      },
+      {
+        heading: "Using the Code Reviewer Skill for Automated Auditing",
+        content: "Our [[Code Reviewer skill|/skills/coding-agents/code-reviewer]] includes a security scanning mode specifically designed for SKILL.md auditing:\n\n`npx clawhub@latest install code-reviewer`\n\nThen ask OpenClaw: 'Audit this SKILL.md for security risks: [paste the skill contents]'\n\nCode Reviewer will:\n- Flag excessive permissions\n- Detect base64-encoded strings\n- Identify suspicious network domains\n- Check for prompt injection patterns\n- Verify tool declarations match the stated purpose\n- Compare permissions to similar skills in the same category\n\n**Limitation:** Automated scanning catches known patterns but may miss novel attacks. Always combine automated scanning with manual review of the 8-point checklist above.\n\nFor Docker-based isolation and hardened runtime security, see our [[comprehensive security guide|/articles/openclaw-security-guide]]."
+      },
+      {
+        heading: "Safe Installation Workflow",
+        content: "After auditing, follow this installation workflow:\n\n**Step 1: Read the SKILL.md** — Complete the 8-point checklist.\n\n**Step 2: Check our directory** — See if the skill is [[verified on ClawSkills|/skills]].\n\n**Step 3: Install in sandbox** — Use a Docker container with `--network=none` for initial testing.\n\n**Step 4: Test with non-sensitive data** — Run the skill on test inputs before using real data.\n\n**Step 5: Monitor network** — On first real use, monitor outbound connections with `tcpdump` or similar.\n\n**Step 6: Deploy to production** — After passing all checks, install in your production environment.\n\nFor ongoing security, run `npx clawhub@latest update` regularly and re-audit skills after updates — especially after major version bumps."
+      },
+      {
+        heading: "FAQ: SKILL.md Security",
+        content: "**Can a SKILL.md run arbitrary code?**\nNot directly. SKILL.md is a configuration file, not executable code. However, skills can declare tools that execute code, and the system prompt can instruct the agent to run shell commands if `systemCommands` is permitted.\n\n**What if I find a malicious skill?**\nReport it immediately: `npx clawhub@latest report <skill-name>`. Also flag it in our [[directory|/skills]] and the OpenClaw GitHub. Reports trigger review and potential removal.\n\n**Are verified skills on ClawSkills guaranteed safe?**\nVerified skills have passed our independent review process, which goes beyond ClawHub's automated scanning. No process is 100% foolproof, but verified skills represent the lowest risk tier.\n\n**Should I audit skills I've already installed?**\nYes. Re-audit after every update, especially major version changes. A previously safe skill can become malicious if the author's account is compromised.\n\n**Is there an automated way to audit all my installed skills?**\nRun: `npx clawhub@latest audit --all`. This performs basic static analysis on all installed skills. For deeper analysis, use the [[Code Reviewer skill|/skills/coding-agents/code-reviewer]].\n\n**What about Moltbot/Clawdbot skills?**\nMoltbot (now Moltworker) uses a different format. Clawdbot skills use the same SKILL.md format as OpenClaw and should be audited identically. See our [[ecosystem overview|/articles/what-are-openclaw-skills]]."
+      },
+    ],
+    skills: [
+      { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "The essential auditing tool. Use Code Reviewer to scan any SKILL.md for security red flags before installation.", rating: 4.8 },
+      { name: "Docker Captain", slug: "docker-captain", description: "Generate and manage Docker configurations.", installCmd: "npx clawhub@latest install docker-captain", whyPicked: "Generate sandboxed Docker environments for testing unverified skills safely.", rating: 4.7 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // POST 6: Best OpenClaw Skills 2026 — 25 Safe Picks
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "best-openclaw-skills-2026",
+    title: "Best OpenClaw Skills in 2026: 25 Safe, High-Impact Picks by Category",
+    metaTitle: "25 Best OpenClaw Skills (2026) — Safe, Rated & Ranked by Category",
+    metaDescription: "The definitive 2026 roundup: 25 OpenClaw skills ranked by safety, impact, maintenance, and setup complexity. Curated across AI, coding, DevOps, productivity, research, and marketing categories.",
+    tag: "Roundup",
+    readTime: "24 min read",
+    publishedDate: "2026-03-10",
+    updatedDate: "2026-03-10",
+    heroDescription: "Not a random list. Every skill here was selected using a four-factor scoring rubric: safety (verified status + permission scope), impact (workflow improvement), maintenance (update frequency + author activity), and setup complexity (time to first value). These are the 25 skills we'd install on a fresh OpenClaw instance in 2026.",
+    sections: [
+      {
+        heading: "Our Scoring Rubric",
+        content: "Every skill in this roundup was evaluated on four dimensions:\n\n**Safety Score (0-10):** Based on verification status, permission scope, author reputation, dependency chain, and history of security issues. Skills requesting `systemCommands` start with a -3 penalty. Skills with verified status get +3.\n\n**Impact Score (0-10):** How much the skill improves your workflow. Measured by time saved, capability added, and versatility across use cases.\n\n**Maintenance Score (0-10):** Update frequency, issue response time, documentation quality, and community activity. Skills not updated in 6+ months get -3.\n\n**Setup Complexity (0-10, inverted):** Time from install to first productive use. 10 = works out of the box. 1 = requires extensive configuration.\n\n**Overall Score:** Weighted average — Safety 35%, Impact 30%, Maintenance 20%, Setup 15%. Maximum score: 10.\n\nAll 25 skills are [[verified in our directory|/skills]]. For the full directory, browse by category."
+      },
+      {
+        heading: "AI & LLMs: The Intelligence Layer",
+        content: "**#1. LLM Router** — Score: 9.6/10\nRoutes prompts to the optimal model by cost and complexity. Saves 60-70% on API costs with zero quality loss. Safety: 10 (no filesystem, no network beyond API calls). Impact: 10. Maintenance: 9. Setup: 10.\n`npx clawhub@latest install llm-router`\n\n**#2. GPT Prompt Chainer** — Score: 9.4/10\nChains prompts with context passing, branching, and error recovery. The backbone of every multi-step workflow. Safety: 9. Impact: 10. Maintenance: 9. Setup: 9.\n`npx clawhub@latest install gpt-prompt-chainer`\n\n**#3. RAG Pipeline** — Score: 9.3/10\nProduction-ready retrieval-augmented generation. Document ingestion, hybrid search, and citation tracking. Safety: 8 (needs filesystem access for documents). Impact: 10. Maintenance: 10. Setup: 8.\n`npx clawhub@latest install rag-pipeline`\n\nFor all 12 AI skills, see our [[complete AI guide|/articles/best-ai-llm-skills-openclaw]]."
+      },
+      {
+        heading: "Search & Research: The Knowledge Engine",
+        content: "**#4. Deep Research** — Score: 9.5/10\nMulti-source research with synthesis, citations, and fact verification. The most versatile skill in the ecosystem. Safety: 9 (network access for search — appropriate). Impact: 10. Maintenance: 10. Setup: 10.\n`npx clawhub@latest install deep-research`\n\n**#5. Academic Search** — Score: 9.0/10\nUnified access to Google Scholar, arXiv, PubMed, and Semantic Scholar. BibTeX export and automatic citation formatting. Safety: 9. Impact: 9. Maintenance: 9. Setup: 9.\n`npx clawhub@latest install academic-search`\n\nFor all research skills, see our [[research guide|/articles/best-search-research-skills-openclaw]]."
+      },
+      {
+        heading: "Coding & DevOps: The Developer Stack",
+        content: "**#6. Code Reviewer** — Score: 9.4/10\nAI-powered code review with security scanning. Catches bugs, vulnerabilities, and anti-patterns. Also essential for [[SKILL.md auditing|/articles/how-to-audit-skill-md]]. Safety: 8 (filesystem read for code). Impact: 10. Maintenance: 10. Setup: 9.\n`npx clawhub@latest install code-reviewer`\n\n**#7. Test Generator** — Score: 9.1/10\nGenerates unit, integration, and e2e tests. Supports Jest, Vitest, pytest, and Go testing. Safety: 8 (filesystem for writing tests). Impact: 9. Maintenance: 9. Setup: 9.\n`npx clawhub@latest install test-generator`\n\n**#8. Docker Captain** — Score: 8.9/10\nGenerate and manage Docker configurations conversationally. Essential for [[security hardening|/articles/openclaw-security-guide]]. Safety: 7 (system commands for Docker). Impact: 9. Maintenance: 9. Setup: 8.\n`npx clawhub@latest install docker-captain`\n\n**#9. GitHub Manager** — Score: 8.8/10\nPR management, issue triage, release automation. Safety: 8 (network for GitHub API). Impact: 9. Maintenance: 8. Setup: 8.\n`npx clawhub@latest install github-manager`\n\nFor all coding and DevOps skills, see our [[developer guide|/articles/best-openclaw-skills-coding-devops]]."
+      },
+      {
+        heading: "Productivity & Automation",
+        content: "**#10. Notion Sync** — Score: 9.2/10\nTwo-way Notion integration. The output hub for most workflows. Safety: 8 (network for Notion API). Impact: 9. Maintenance: 10. Setup: 9.\n`npx clawhub@latest install notion-sync`\n\n**#11. Gmail Connector** — Score: 8.7/10\nFull Gmail integration with AI email management. Safety: 7 (email access is sensitive). Impact: 9. Maintenance: 9. Setup: 7 (requires OAuth setup).\n`npx clawhub@latest install gmail-connector`\n\n**#12. Slack Connector** — Score: 8.6/10\nSlack workspace integration for team communication. Safety: 7 (team communication access). Impact: 8. Maintenance: 9. Setup: 7 (requires bot token).\n`npx clawhub@latest install slack-connector`\n\n**#13. Browser Pilot** — Score: 9.1/10\nVisual browser automation for any website. Safety: 7 (browser access is powerful). Impact: 10. Maintenance: 9. Setup: 8.\n`npx clawhub@latest install browser-pilot`\n\nFor Gmail and Slack deep-dives, see our [[Gmail guide|/articles/openclaw-gmail-skill]] and [[Slack guide|/articles/openclaw-slack-skill]]."
+      },
+      {
+        heading: "Marketing, SEO & Content",
+        content: "**#14. Take the Wheel** — Score: 8.8/10\nAutonomous long-form content writing with research and revision cycles. Safety: 8. Impact: 9. Maintenance: 8. Setup: 9.\n`npx clawhub@latest install take-the-wheel`\n\n**#15. SEO Analyzer** — Score: 8.5/10\nKeyword research, SERP analysis, and on-page optimization scoring. Safety: 8 (network for SERP data). Impact: 8. Maintenance: 8. Setup: 8.\n`npx clawhub@latest install seo-analyzer`\n\n**#16. Lead Generator** — Score: 8.3/10\nAutomated lead prospecting and qualification. Safety: 7. Impact: 9. Maintenance: 8. Setup: 7.\n`npx clawhub@latest install lead-generator`\n\nFor all marketing and SEO skills, see our [[marketing guide|/articles/best-openclaw-skills-marketing-seo]]."
+      },
+      {
+        heading: "The Complete Top 25 List",
+        content: "Quick-reference list of all 25 ranked skills:\n\n1. LLM Router (9.6) — [[AI & LLMs|/skills/ai-llms]]\n2. Deep Research (9.5) — [[Search & Research|/skills/search-research]]\n3. GPT Prompt Chainer (9.4) — [[AI & LLMs|/skills/ai-llms]]\n4. Code Reviewer (9.4) — [[Coding Agents|/skills/coding-agents]]\n5. RAG Pipeline (9.3) — [[AI & LLMs|/skills/ai-llms]]\n6. Notion Sync (9.2) — [[Productivity|/skills/productivity]]\n7. Browser Pilot (9.1) — [[Browser & Automation|/skills/browser-automation]]\n8. Test Generator (9.1) — [[Coding Agents|/skills/coding-agents]]\n9. Academic Search (9.0) — [[Search & Research|/skills/search-research]]\n10. Docker Captain (8.9) — [[DevOps & Cloud|/skills/devops-cloud]]\n11. Take the Wheel (8.8) — [[AI & LLMs|/skills/ai-llms]]\n12. GitHub Manager (8.8) — [[Coding Agents|/skills/coding-agents]]\n13. Gmail Connector (8.7) — [[Productivity|/skills/productivity]]\n14. Slack Connector (8.6) — [[Productivity|/skills/productivity]]\n15. SEO Analyzer (8.5) — [[Marketing & Sales|/skills/marketing-sales]]\n16. Context Window Manager (8.5) — [[AI & LLMs|/skills/ai-llms]]\n17. Embeddings Manager (8.4) — [[AI & LLMs|/skills/ai-llms]]\n18. Lead Generator (8.3) — [[Marketing & Sales|/skills/marketing-sales]]\n19. Knowledge Graph (8.3) — [[Search & Research|/skills/search-research]]\n20. Debug Assistant (8.2) — [[Coding Agents|/skills/coding-agents]]\n21. CI/CD Builder (8.2) — [[DevOps & Cloud|/skills/devops-cloud]]\n22. Web Scraper Pro (8.1) — [[Search & Research|/skills/search-research]]\n23. Calendar Sync (8.0) — [[Productivity|/skills/productivity]]\n24. Obsidian Bridge (8.0) — [[Notes & PKM|/skills/notes-pkm]]\n25. Cloud Deployer (7.9) — [[DevOps & Cloud|/skills/devops-cloud]]"
+      },
+      {
+        heading: "FAQ: Best OpenClaw Skills 2026",
+        content: "**How often is this list updated?**\nMonthly. We re-score all 25 skills and swap in new entrants that score higher. Last updated: March 2026.\n\n**Why isn't [specific skill] on the list?**\nWe prioritize safety and maintenance. Some popular skills don't make the cut because they haven't been updated recently, have excessive permissions, or lack verification.\n\n**Can I install all 25 at once?**\nDon't. 5-10 active skills is the recommended maximum. Choose the stack that fits your use case from our [[selection guide|/articles/how-to-choose-openclaw-skills]].\n\n**Are these the same recommendations for Clawdbot?**\nYes. Clawdbot and OpenClaw use the same SKILL.md format. All 25 skills work with both.\n\n**What about Moltbot/Moltworker alternatives?**\nMoltworker uses a different format. See our [[OpenClaw vs Moltworker comparison|/articles/openclaw-vs-moltworker]] for equivalent tools."
+      },
+    ],
+    skills: [
+      { name: "LLM Router", slug: "llm-router", description: "Route prompts to the best model by cost and complexity.", installCmd: "npx clawhub@latest install llm-router", whyPicked: "#1 ranked skill with a 9.6/10 score. Perfect safety, maximum impact, works out of the box.", rating: 4.9 },
+      { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "#2 ranked skill with a 9.5/10 score. The most versatile skill across all use cases.", rating: 4.9 },
+      { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "#4 ranked skill. Essential for both development workflows and SKILL.md security auditing.", rating: 4.8 },
+      { name: "Browser Pilot", slug: "browser-pilot", description: "Visual browser automation for any website.", installCmd: "npx clawhub@latest install browser-pilot", whyPicked: "#7 ranked skill. The Swiss Army knife of automation — any web task, no code required.", rating: 4.8 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // POST 7: How to Write a SKILL.md
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "how-to-write-skill-md",
+    title: "How to Write a SKILL.md: Template, Examples, and 12 Mistakes to Avoid (2026)",
+    metaTitle: "How to Write a SKILL.md — Template, Examples & Common Mistakes (2026)",
+    metaDescription: "Complete guide to writing OpenClaw SKILL.md files. Official template, minimal valid example, bad vs better examples, and 12 mistakes that cause skills to fail or get rejected from ClawHub.",
+    tag: "Builder Guide",
+    readTime: "20 min read",
+    publishedDate: "2026-03-10",
+    updatedDate: "2026-03-10",
+    heroDescription: "Building a skill is building a product. A well-written SKILL.md gets installs, reviews, and ClawHub verification. A poorly-written one gets ignored — or worse, flagged for security issues. This guide walks through the official structure, shows real examples, and documents the 12 mistakes that sink most first-time skill builders.",
+    sections: [
+      {
+        heading: "The Minimum Valid SKILL.md",
+        content: "Every SKILL.md needs three things to be installable: a name, a description, and instructions. Here's the smallest valid skill:\n\n```\n---\nname: hello-world\ndescription: A simple greeting skill\nversion: 1.0.0\nauthor: your-name\n---\n\n# Hello World\n\nYou are a friendly assistant. When the user says hello, respond with a warm, personalized greeting.\n```\n\nThat's it. This skill loads, runs, and can be published to [[ClawHub|/articles/what-is-clawhub]]. Of course, production skills need much more — tools, permissions, configuration, and thorough testing. But understanding the minimum helps you see the structure clearly."
+      },
+      {
+        heading: "The Full SKILL.md Template",
+        content: "Here's the recommended template for a production skill:\n\n**Frontmatter (YAML):**\n- `name` — Kebab-case, unique identifier\n- `description` — One sentence, under 120 characters\n- `version` — Semantic versioning (major.minor.patch)\n- `author` — Your ClawHub username\n- `category` — One of the [[10 standard categories|/skills]]\n- `tags` — Up to 5 keywords for discoverability\n- `permissions.fileAccess` — `read`, `write`, or `none` + allowed paths\n- `permissions.networkAccess` — Allowed domains list\n- `permissions.systemCommands` — Allowed commands or `none`\n- `permissions.apiKeys` — Required API keys\n- `dependencies` — Other skills this skill requires\n\n**System Prompt (Markdown body):**\n- Role definition — Who/what the agent becomes\n- Capabilities — What the agent can do with this skill\n- Constraints — What the agent should NOT do\n- Output format — How to structure responses\n- Error handling — What to do when things fail\n\n**Tool Declarations (code blocks with JSON Schema):**\n- Tool name and description\n- Input parameters with types and validation\n- Output schema\n- Example usage"
+      },
+      {
+        heading: "Bad vs Better: Real Examples",
+        content: "**Bad description:** 'A skill for doing code stuff'\n**Better:** 'Reviews pull requests for bugs, security issues, and style violations with line-level comments'\n\nWhy: Descriptions are the first thing users and [[ClawHub search|/articles/what-is-clawhub]] see. Vague descriptions get skipped. Specific descriptions get installs.\n\n**Bad permissions:** `fileAccess: write` (all paths)\n**Better:** `fileAccess: { write: [\"./output\", \"./reports\"] }`\n\nWhy: Overly broad permissions trigger security warnings and fail [[our audit checklist|/articles/how-to-audit-skill-md]]. Scoped permissions build trust.\n\n**Bad system prompt:** 'You are a helpful assistant that can do many things.'\n**Better:** 'You are a code review expert specializing in TypeScript and Python. When reviewing code: 1) Check for bugs and logic errors first, 2) Flag security vulnerabilities with severity levels, 3) Suggest specific fixes with code examples, 4) Note style issues last. Never approve code with critical security issues.'\n\nWhy: Generic prompts produce generic output. Specific, structured prompts produce consistent, high-quality results. See our [[complete skill architecture guide|/articles/openclaw-tools-vs-skills]] for deeper patterns."
+      },
+      {
+        heading: "12 Mistakes That Sink Skills",
+        content: "**1. Missing version number.** ClawHub requires semantic versioning. Without it, your skill can't be published.\n\n**2. Overly broad permissions.** Requesting all permissions 'just in case' triggers security flags. Only request what you need.\n\n**3. No error handling in the system prompt.** If a tool call fails, what should the agent do? Without instructions, it hallucinates or crashes.\n\n**4. Hardcoded API keys.** Never put credentials in the SKILL.md. Use the `apiKeys` permission field and let users provide their own.\n\n**5. No examples in tool declarations.** The model performs better when tools include example inputs and outputs.\n\n**6. Conflicting instructions.** If the system prompt says 'always use markdown' but a tool returns JSON, the agent gets confused.\n\n**7. Too many tools.** Skills with 20+ tools overwhelm the model. Focus on 3-7 essential tools.\n\n**8. Missing category tag.** Without a category, ClawHub can't index your skill and it won't appear in search.\n\n**9. No description or poor description.** 'A useful skill' tells users nothing. Be specific about what the skill does and for whom.\n\n**10. Ignoring SKILL.md linting.** Run `npx clawhub@latest validate ./SKILL.md` before publishing. It catches formatting errors, missing fields, and common issues.\n\n**11. Not testing with multiple models.** A skill that works with GPT-5 may fail with Claude or Gemini. Test with at least two providers.\n\n**12. Forgetting the changelog.** Users and reviewers want to know what changed between versions. Keep a changelog in the SKILL.md or as a separate file."
+      },
+      {
+        heading: "Publishing to ClawHub",
+        content: "Once your SKILL.md is ready:\n\n**1. Validate:** `npx clawhub@latest validate ./SKILL.md`\nFixes formatting issues and checks required fields.\n\n**2. Test locally:** `npx clawhub@latest install ./SKILL.md`\nInstall from the local file and run several test prompts.\n\n**3. Publish:** `npx clawhub@latest publish ./SKILL.md`\nUploads to [[ClawHub|/articles/what-is-clawhub]]. Your skill is immediately available but marked 'unreviewed.'\n\n**4. Request review:** After publishing, request community review on the ClawHub listing page. Skills with 5+ positive reviews earn 'Community Verified' status.\n\n**5. Submit for ClawSkills review:** If you want your skill featured in our [[directory|/skills]], submit it via our contact form. We'll run our [[independent security audit|/articles/how-to-audit-skill-md]] and editorial review."
+      },
+      {
+        heading: "FAQ: Writing SKILL.md Files",
+        content: "**Can I write a SKILL.md in any language?**\nSKILL.md files should be in English for ClawHub compatibility. The system prompt can instruct the agent to respond in other languages.\n\n**How long should a SKILL.md be?**\nSimple skills: 50-200 lines. Complex skills: 200-500 lines. Over 500 lines suggests the skill should be split into multiple skills.\n\n**Can I use images or media in a SKILL.md?**\nNo. SKILL.md is plain text (markdown). Reference external URLs for images if needed.\n\n**How do I update a published skill?**\nBump the version number in frontmatter, then publish again: `npx clawhub@latest publish ./SKILL.md`. ClawHub handles versioning automatically.\n\n**Can I make a private skill?**\nYes. Don't publish to ClawHub. Install from local files: `npx clawhub@latest install ./path/to/SKILL.md`. For team distribution, use a private Git repo.\n\n**What's the difference between a skill and an MCP server?**\nA skill is configuration (behavior + tools). An MCP server is code (executable tool implementation). See our [[Skills vs Plugins vs MCP guide|/articles/openclaw-skills-vs-plugins-vs-mcp]]."
+      },
+    ],
+    skills: [
+      { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "A well-written skill that exemplifies best practices: scoped permissions, detailed system prompt, typed tools, and comprehensive error handling.", rating: 4.8 },
+      { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Chain prompts for multi-step workflows.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "Another exemplary SKILL.md with clear structure, minimal permissions, and excellent documentation.", rating: 4.8 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // POST 8: Best Skills for Coding, DevOps, Git
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "best-openclaw-skills-coding-devops",
+    title: "Best OpenClaw Skills for Coding, DevOps, and Git Workflows (2026)",
+    metaTitle: "Best OpenClaw Skills for Coding & DevOps (2026) — Developer Roundup",
+    metaDescription: "Curated roundup of the best OpenClaw skills for developers: code review, test generation, debugging, PR automation, Docker, Kubernetes, CI/CD, and Git workflow automation.",
+    tag: "Developer",
+    readTime: "18 min read",
+    publishedDate: "2026-03-10",
+    updatedDate: "2026-03-10",
+    heroDescription: "Your AI pair programmer needs the right skills. This focused roundup covers the best OpenClaw skills for coding, code review, testing, debugging, Docker, Kubernetes, CI/CD, and Git — with concrete workflow examples for PR review pipelines, automated deployments, and production log analysis.",
+    sections: [
+      {
+        heading: "The Developer Skill Stack (Quick Answer)",
+        content: "If you're a developer with 5 minutes, install these 6 skills and you're set:\n\n`npx clawhub@latest install code-reviewer test-generator debug-assistant github-manager docker-captain cicd-builder`\n\nThis covers the complete development lifecycle: write → review → test → debug → containerize → deploy. For the detailed breakdown, keep reading. For broader skill recommendations, see [[How to Choose Skills|/articles/how-to-choose-openclaw-skills]]."
+      },
+      {
+        heading: "Code Review and Quality",
+        content: "**[[Code Reviewer|/skills/coding-agents/code-reviewer]]** (Score: 9.4/10)\nThe anchor skill for every developer. Analyzes diffs for bugs, security vulnerabilities, anti-patterns, and style violations. Supports TypeScript, Python, Go, Rust, Java, and C#. Produces line-level comments with severity ratings and fix suggestions.\n\n**Workflow — Automated PR Review:**\nCombine Code Reviewer with [[GitHub Manager|/skills/coding-agents/github-manager]]. When a PR is opened, GitHub Manager triggers Code Reviewer to analyze the diff. Review comments are posted directly on the PR. Critical issues block merge.\n\n**[[Test Generator|/skills/coding-agents/test-generator]]** (Score: 9.1/10)\nGenerates unit, integration, and e2e tests from source code. Supports Jest, Vitest, pytest, Go testing, and JUnit. Achieves 70-85% coverage on first generation, improving with feedback.\n\n**Workflow — Test-Driven Development:**\nDescribe a function → Test Generator writes tests → You implement the function → Code Reviewer validates the implementation.\n\nFor the full security perspective on auditing skill code, see our [[SKILL.md audit guide|/articles/how-to-audit-skill-md]]."
+      },
+      {
+        heading: "Debugging and Error Resolution",
+        content: "**[[Debug Assistant|/skills/coding-agents/debug-assistant]]** (Score: 8.2/10)\nPaste a stack trace, error message, or broken test output. Debug Assistant analyzes the error, traces it to the root cause, and suggests a specific fix with code.\n\n**What makes it special:** Debug Assistant understands stack traces across languages and frameworks. A React error boundary trace, a Python traceback, or a Kubernetes pod crash loop — it handles all of them.\n\n**Workflow — Error → Fix → Test:**\nDebug Assistant diagnoses the error → suggests a fix → Test Generator validates the fix passes → Code Reviewer confirms no regressions. All without leaving your terminal."
+      },
+      {
+        heading: "Infrastructure and Deployment",
+        content: "**[[Docker Captain|/skills/devops-cloud/docker-captain]]** (Score: 8.9/10)\nGenerate Dockerfiles, docker-compose configurations, and multi-stage builds conversationally. Also essential for [[security hardening|/articles/openclaw-security-guide]] — Docker Captain generates production-ready configs with `--cap-drop ALL`, read-only filesystems, and network isolation.\n\n**[[Kubernetes Pilot|/skills/devops-cloud/kubernetes-pilot]]** (Score: 8.5/10)\nDeploy, manage, and troubleshoot Kubernetes clusters conversationally. Generate manifests, debug pod issues, scale deployments, and manage helm charts.\n\n**[[CI/CD Builder|/skills/devops-cloud/cicd-builder]]** (Score: 8.2/10)\nGenerate CI/CD pipelines for GitHub Actions, GitLab CI, Jenkins, and CircleCI. Handles build, test, deploy stages with environment-specific configurations.\n\n**[[Cloud Deployer|/skills/devops-cloud/cloud-deployer]]** (Score: 7.9/10)\nDeploy to AWS, GCP, Azure, and Cloudflare. Generates Terraform/Pulumi configs and handles multi-cloud setups.\n\n**Workflow — Code to Production:**\nDocker Captain containerizes → CI/CD Builder creates the pipeline → Cloud Deployer provisions infrastructure → Kubernetes Pilot manages orchestration → [[Log Analyzer|/skills/devops-cloud/log-analyzer]] monitors production."
+      },
+      {
+        heading: "Git and GitHub Automation",
+        content: "**[[GitHub Manager|/skills/coding-agents/github-manager]]** (Score: 8.8/10)\nPR management, issue triage, release automation, and repository administration. Create PRs from descriptions, auto-label issues, generate changelogs, and manage releases.\n\n**Workflow — Issue to Release:**\n1. GitHub Manager triages incoming issues\n2. You pick an issue and start coding\n3. Code Reviewer reviews your changes\n4. Test Generator ensures coverage\n5. GitHub Manager creates the PR with labels and description\n6. CI/CD Builder runs the pipeline\n7. GitHub Manager creates the release with auto-generated changelog\n\n**Pro tip:** Combine GitHub Manager with [[Slack Connector|/skills/productivity/slack-connector]] to post deployment notifications to your team channel."
+      },
+      {
+        heading: "FAQ: Developer Skills",
+        content: "**Which skill should I install first as a developer?**\nCode Reviewer. It's useful from day one and helps you audit other skills' SKILL.md files for security issues. See our [[audit guide|/articles/how-to-audit-skill-md]].\n\n**Do these skills work with VS Code?**\nOpenClaw runs in the terminal, not inside VS Code. However, you can use OpenClaw alongside your editor — run it in a terminal pane and it reads/writes files in your workspace.\n\n**How do developer skills compare to Cursor or Copilot?**\nDifferent tools. Cursor and Copilot provide inline code suggestions. OpenClaw skills handle higher-level tasks: PR review, test generation, deployment, debugging. They're complementary, not competing.\n\n**Are these safe for production code?**\nAll recommended skills are [[verified|/skills]]. Code Reviewer and Test Generator only read source code. Docker Captain and CI/CD Builder write configuration files. Always review generated configs before deploying.\n\n**Can I use these skills with Clawdbot?**\nYes. Clawdbot uses the same SKILL.md format as OpenClaw. All skills are backward-compatible."
+      },
+    ],
+    skills: [
+      { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "The #1 developer skill. Catches bugs, security issues, and anti-patterns. Also essential for auditing other skills.", rating: 4.8 },
+      { name: "Test Generator", slug: "test-generator", description: "Generate unit, integration, and e2e tests.", installCmd: "npx clawhub@latest install test-generator", whyPicked: "Achieves 70-85% coverage on first generation. Supports every major testing framework.", rating: 4.7 },
+      { name: "Docker Captain", slug: "docker-captain", description: "Generate and manage Docker configurations.", installCmd: "npx clawhub@latest install docker-captain", whyPicked: "Essential for both containerization and security hardening.", rating: 4.7 },
+      { name: "GitHub Manager", slug: "github-manager", description: "PR management, issue triage, release automation.", installCmd: "npx clawhub@latest install github-manager", whyPicked: "Automates the tedious parts of GitHub: PRs, labels, changelogs, releases.", rating: 4.7 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // POST 9: Best Skills for Marketing, SEO, Research, Content
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "best-openclaw-skills-marketing-seo",
+    title: "Best OpenClaw Skills for Marketing, SEO, Research, and Content Automation (2026)",
+    metaTitle: "Best OpenClaw Skills for Marketing & SEO (2026) — Content Automation Guide",
+    metaDescription: "Curated roundup of OpenClaw skills for keyword research, SERP analysis, content writing, internal linking, social media, and publishing automation. Includes workflow examples and safety guardrails.",
+    tag: "Marketing",
+    readTime: "18 min read",
+    publishedDate: "2026-03-10",
+    updatedDate: "2026-03-10",
+    heroDescription: "AI-powered marketing is about workflows, not individual tools. This roundup covers the best OpenClaw skills for keyword research, SERP analysis, content briefing and writing, internal linking, social distribution, and publishing automation — with guardrails for safe, responsible automation.",
+    sections: [
+      {
+        heading: "The Marketing Skill Stack (Quick Answer)",
+        content: "For marketers and content teams, install these 5 skills:\n\n`npx clawhub@latest install deep-research take-the-wheel seo-analyzer content-calendar social-media-manager`\n\nThis covers: Research → Write → Optimize → Schedule → Distribute. For the full breakdown with workflow examples, keep reading. For a broader overview of all skills, see our [[complete 2026 roundup|/articles/best-openclaw-skills-2026]]."
+      },
+      {
+        heading: "Keyword Research and SERP Analysis",
+        content: "**[[SEO Analyzer|/skills/marketing-sales/seo-analyzer]]** (Score: 8.5/10)\nKeyword research, SERP analysis, competitor analysis, and on-page optimization scoring. Identifies keyword gaps, estimates difficulty, and suggests content angles based on what's currently ranking.\n\n**Workflow — Topic Discovery:**\nPrompt: 'Analyze the keyword cluster around [topic]. Find low-competition, high-intent keywords. Check what's currently ranking and identify content gaps.'\n\nSEO Analyzer searches current SERPs, extracts ranking content patterns, estimates keyword difficulty, and produces a prioritized topic list with recommended content angles.\n\n**[[Deep Research|/skills/search-research/deep-research]]** (Score: 9.5/10)\nWhile not a marketing-specific skill, Deep Research is essential for competitive intelligence. Use it to analyze competitor content strategies, extract market data, and gather source material for content.\n\n**Workflow — Competitive Content Audit:**\nPrompt: 'Research what [competitor] is publishing about [topic]. Extract their content structure, keyword targeting, and publishing frequency.'"
+      },
+      {
+        heading: "Content Writing and Optimization",
+        content: "**[[Take the Wheel|/skills/ai-llms/take-the-wheel]]** (Score: 8.8/10)\nAutonomous long-form content writing with research, drafting, editing, and polishing cycles. Produces publication-ready content in 10-15 minutes that would take 4-6 hours manually.\n\n**Workflow — Research-to-Publication:**\n1. Deep Research gathers source material and data points\n2. SEO Analyzer provides keyword targets and content brief\n3. Take the Wheel drafts the article using research + brief\n4. SEO Analyzer scores the draft and suggests optimizations\n5. Take the Wheel applies revisions\n6. Content Calendar schedules publication\n\n**Quality guardrail:** Always human-review AI-generated content before publishing. Check factual claims, verify links, and ensure the tone matches your brand. AI content should be a starting point, not a final product.\n\n**[[Content Calendar|/skills/marketing-sales/content-calendar]]** (Score: 7.8/10)\nPlan, schedule, and track content across channels. Integrates with WordPress, Ghost, Medium, and custom CMS platforms."
+      },
+      {
+        heading: "Distribution and Social Media",
+        content: "**[[Social Media Manager|/skills/marketing-sales/social-media-manager]]** (Score: 8.0/10)\nMulti-platform content distribution. Generate platform-specific posts from your content, schedule across Twitter/X, LinkedIn, Facebook, and Instagram, and track engagement metrics.\n\n**[[Email Campaign|/skills/marketing-sales/email-campaign]]** (Score: 8.1/10)\nDesign, write, and send personalized email sequences. A/B testing, segmentation, and analytics. Integrates with Mailchimp, SendGrid, and custom SMTP.\n\n**Workflow — Content Distribution Pipeline:**\n1. Take the Wheel produces the article\n2. Social Media Manager generates 5 platform-specific posts (tweet thread, LinkedIn article, Instagram caption)\n3. Email Campaign creates a newsletter featuring the article\n4. Content Calendar schedules everything for optimal timing"
+      },
+      {
+        heading: "Lead Generation and Sales Automation",
+        content: "**[[Lead Generator|/skills/marketing-sales/lead-generator]]** (Score: 8.3/10)\nAutomated lead prospecting based on your ideal customer profile. Identifies companies, finds decision-makers, and enriches contact data.\n\n**[[CRM Sync|/skills/marketing-sales/crm-sync]]** (Score: 7.8/10)\nTwo-way sync with Salesforce, HubSpot, Pipedrive, and custom CRMs. Automatically logs interactions, updates contact records, and tracks deal progress.\n\n**Workflow — Inbound to Close:**\n1. SEO Analyzer drives organic traffic to your content\n2. Lead Generator captures and qualifies inbound leads\n3. Email Campaign nurtures with personalized sequences\n4. CRM Sync logs all touchpoints\n5. Social Media Manager maintains your brand presence\n\nFor strategic use of these skills in a startup context, see our [[founder's guide|/articles/best-openclaw-skills-for-founders]]."
+      },
+      {
+        heading: "Safety Guardrails for Marketing Automation",
+        content: "AI-powered marketing has unique risks:\n\n**1. Accuracy:** AI-generated content may contain factual errors. Always fact-check before publishing, especially statistics, quotes, and claims about competitors.\n\n**2. Originality:** Content should be original, not rehashed from sources. Use Deep Research for inspiration and data, not as a copy source.\n\n**3. Compliance:** Email automation must comply with CAN-SPAM, GDPR, and local regulations. Ensure unsubscribe links, sender identification, and consent management.\n\n**4. Brand safety:** Review social media posts before auto-publishing. AI doesn't understand your brand's sensitive topics or competitive dynamics.\n\n**5. Rate limiting:** Don't spam. Set reasonable sending limits for email and social media. Aggressive automation damages reputation.\n\n**6. Permission scope:** Marketing skills need network access (legitimate for APIs). But audit which domains they connect to. See our [[SKILL.md audit guide|/articles/how-to-audit-skill-md]]."
+      },
+      {
+        heading: "FAQ: Marketing Skills",
+        content: "**Can OpenClaw replace a marketing team?**\nNo. OpenClaw automates repetitive tasks (research, drafting, scheduling, distribution) but requires human oversight for strategy, brand voice, quality control, and compliance.\n\n**Which skill has the fastest ROI for marketing?**\nSEO Analyzer. Identifying content gaps and keyword opportunities takes hours manually. SEO Analyzer does it in minutes.\n\n**Are these skills safe for handling customer data?**\nLead Generator and CRM Sync process customer data. Use Docker isolation and follow our [[security guide|/articles/openclaw-security-guide]]. Never store customer PII in the OpenClaw conversation history.\n\n**Can I use these with Moltbot/Moltworker?**\nMoltworker has its own marketing tools. These SKILL.md-based skills are OpenClaw-specific. See [[OpenClaw vs Moltworker|/articles/openclaw-vs-moltworker]].\n\n**How does AI content perform in search?**\nGoogle doesn't penalize AI content per se — it penalizes low-quality content. AI-generated content that's fact-checked, original, and helpful performs well. Content that's obviously auto-generated without editing does not."
+      },
+    ],
+    skills: [
+      { name: "SEO Analyzer", slug: "seo-analyzer", description: "Keyword research, SERP analysis, and optimization.", installCmd: "npx clawhub@latest install seo-analyzer", whyPicked: "The fastest-ROI marketing skill. Identifies keyword gaps and content opportunities in minutes.", rating: 4.6 },
+      { name: "Take the Wheel", slug: "take-the-wheel", description: "Autonomous long-form content writing.", installCmd: "npx clawhub@latest install take-the-wheel", whyPicked: "Publication-ready content in 10-15 minutes. The anchor of any content automation workflow.", rating: 4.6 },
+      { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "Essential for competitive intelligence and source material gathering.", rating: 4.9 },
+      { name: "Social Media Manager", slug: "social-media-manager", description: "Multi-platform content distribution.", installCmd: "npx clawhub@latest install social-media-manager", whyPicked: "Generates platform-specific content and handles multi-channel distribution.", rating: 4.5 },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // POST 10: Skill Not Loading? 15 Fixes
+  // ═══════════════════════════════════════════════════════════════
+  {
+    slug: "openclaw-skill-not-loading-fixes",
+    title: "OpenClaw Skill Not Loading? 15 Fixes for Paths, Precedence, and Config Errors (2026)",
+    metaTitle: "OpenClaw Skill Not Loading — 15 Fixes for Common Errors (2026)",
+    metaDescription: "OpenClaw skill not loading? Troubleshoot workspace vs shared paths, precedence conflicts, missing binaries, config gating, refresh issues, and 10 more common problems with copy-paste fixes.",
+    tag: "Troubleshooting",
+    readTime: "14 min read",
+    publishedDate: "2026-03-10",
+    updatedDate: "2026-03-10",
+    heroDescription: "You installed a skill but OpenClaw can't find it. Or it loads but doesn't work. Or it conflicts with another skill. This troubleshooting guide covers the 15 most common reasons skills fail to load — with exact diagnostic commands and copy-paste fixes for every scenario.",
+    sections: [
+      {
+        heading: "Quick Diagnostic: Is the Skill Actually Installed?",
+        content: "Before diving into troubleshooting, run these three commands:\n\n**1. Check installed skills:**\n`npx clawhub@latest skills list`\nLook for your skill in the output. If it's not listed, it wasn't installed. Re-install: `npx clawhub@latest install <skill-name>`.\n\n**2. Check skill status:**\nIf the skill is listed but shows 'disabled', enable it: `npx clawhub@latest enable <skill-name>`.\n\n**3. Check skill path:**\n`ls ~/.openclaw/skills/<skill-name>/SKILL.md`\nIf the file doesn't exist, the installation failed silently. Check `~/.openclaw/logs/` for errors.\n\nIf the skill is installed, enabled, and the file exists — keep reading for the 15 specific failure modes."
+      },
+      {
+        heading: "Path and Location Issues (Fixes 1-5)",
+        content: "**Fix 1: Workspace vs global path confusion**\nOpenClaw loads skills from two locations: `~/.openclaw/skills/` (global) and `./.openclaw/skills/` (workspace). If you installed a skill globally but you're running OpenClaw from a workspace that has a `.openclaw/` directory, the workspace config might override global settings.\n\n**Diagnostic:** `npx clawhub@latest config paths` shows which directories OpenClaw is scanning.\n**Fix:** Install the skill in the correct scope: `--global` for global, `--local` for workspace.\n\n**Fix 2: Symlink issues on macOS**\nIf you installed Node.js via Homebrew and OpenClaw via npx, symlink paths may not resolve. \n**Fix:** `npx clawhub@latest doctor` detects and fixes symlink issues.\n\n**Fix 3: WSL path mismatch**\nOn Windows WSL, if you installed the skill from the Windows filesystem (`/mnt/c/...`) but run OpenClaw from the Linux filesystem (`~/...`), paths won't resolve.\n**Fix:** Always install and run from the Linux filesystem. See our [[Windows install guide|/articles/how-to-install-openclaw-skills]].\n\n**Fix 4: Docker volume not mounted**\nIf running in Docker, your skills directory must be mounted: `-v ~/.openclaw:/root/.openclaw`.\n**Fix:** Restart the container with the correct volume mount.\n\n**Fix 5: Corrupted SKILL.md**\nIf the SKILL.md has YAML parsing errors, OpenClaw silently skips it.\n**Fix:** Validate the file: `npx clawhub@latest validate ~/.openclaw/skills/<skill>/SKILL.md`"
+      },
+      {
+        heading: "Precedence and Conflict Issues (Fixes 6-9)",
+        content: "**Fix 6: Skill precedence conflict**\nIf two skills define tools with the same name, the later-loaded skill wins. Your skill might be loaded but its tools are shadowed.\n**Diagnostic:** `npx clawhub@latest skills tools` lists all loaded tools and which skill owns them.\n**Fix:** Rename conflicting tools or disable the competing skill.\n\n**Fix 7: Dependency not installed**\nSome skills depend on other skills. If the dependency is missing, the skill fails to load.\n**Diagnostic:** Check the SKILL.md frontmatter for `dependencies`. Install missing dependencies.\n\n**Fix 8: Version incompatibility**\nA skill built for OpenClaw 3.x may not work with 4.x due to breaking changes.\n**Fix:** Check the skill's compatibility notes. Update the skill: `npx clawhub@latest update <skill-name>` or pin a compatible version.\n\n**Fix 9: Config gating**\nSome skills require configuration (API keys, endpoints) before they activate.\n**Diagnostic:** Check `~/.openclaw/config.yaml` for the skill's required settings.\n**Fix:** Add the required configuration and restart."
+      },
+      {
+        heading: "Runtime and Environment Issues (Fixes 10-15)",
+        content: "**Fix 10: Node.js version too old**\nOpenClaw 4.x requires Node.js 20+. Skills may use features unavailable in older versions.\n**Fix:** `nvm install 20 && nvm use 20`\n\n**Fix 11: Missing system binary**\nSkills that use system commands (Docker, git, kubectl) require those binaries to be installed.\n**Diagnostic:** Check the error message for 'command not found'.\n**Fix:** Install the required binary.\n\n**Fix 12: Memory limit exceeded**\nToo many active skills can exceed Node.js's default memory limit.\n**Fix:** Reduce active skills to 5-10, or increase memory: `NODE_OPTIONS='--max-old-space-size=4096' npx clawhub@latest`\n\n**Fix 13: Network blocking**\nSkills that need network access won't work behind strict firewalls or in `--network=none` Docker containers.\n**Fix:** Configure network rules to allow the skill's required domains. See our [[security guide|/articles/openclaw-security-guide]] for whitelisting.\n\n**Fix 14: Stale cache**\nOpenClaw caches skill metadata. After updates, the cache may be stale.\n**Fix:** `npx clawhub@latest cache clear` then restart.\n\n**Fix 15: Refresh / restart needed**\nThe most common fix: skills are loaded at startup. After installing or updating, you must restart OpenClaw.\n**Fix:** Restart OpenClaw, or type `/reload` in interactive mode."
+      },
+      {
+        heading: "FAQ: Skill Loading Issues",
+        content: "**My skill works in interactive mode but not in cron jobs. Why?**\nCron jobs use a different PATH and environment. Ensure the cron entry includes the full path to Node.js and OpenClaw, and that `~/.openclaw` is accessible from the cron user.\n\n**The skill loaded yesterday but not today. What changed?**\nMost likely an auto-update changed the skill. Check `~/.openclaw/logs/` for update records. Pin versions to prevent unexpected changes: `npx clawhub@latest install <skill>@<version>`.\n\n**Can a broken skill crash OpenClaw?**\nA skill with invalid YAML in the frontmatter will be silently skipped. A skill with a broken tool declaration may cause errors when the tool is invoked. OpenClaw won't crash, but the skill won't function.\n\n**How do I report a broken skill?**\n`npx clawhub@latest report <skill-name> --reason 'fails to load'`. Also check our [[directory|/skills]] for known issues.\n\n**Does this apply to Clawdbot too?**\nYes. Clawdbot uses the same skill loading mechanism. All 15 fixes apply identically."
+      },
+    ],
+    skills: [
+      { name: "Debug Assistant", slug: "debug-assistant", description: "Diagnose errors with stack trace analysis.", installCmd: "npx clawhub@latest install debug-assistant", whyPicked: "When skills or workflows fail, Debug Assistant helps diagnose the root cause from error messages and logs.", rating: 4.6 },
+      { name: "Docker Captain", slug: "docker-captain", description: "Generate and manage Docker configurations.", installCmd: "npx clawhub@latest install docker-captain", whyPicked: "Many loading issues stem from Docker volume and network misconfiguration. Docker Captain helps fix them.", rating: 4.7 },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
