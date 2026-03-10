@@ -32,9 +32,9 @@ const HeroSection = () => {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight mb-6"
         >
-          <span className="text-foreground">Browse Curated</span><br />
-          <span className="text-gradient">OpenClaw Skills</span><br />
-          <span className="text-foreground">by Category & Safety</span>
+          <span className="text-foreground">Discover, Install &</span><br />
+          <span className="text-gradient">Audit OpenClaw Skills</span><br />
+          <span className="text-foreground">Before You Ship</span>
         </motion.h1>
 
         <motion.p
@@ -43,8 +43,8 @@ const HeroSection = () => {
           transition={{ delay: 0.5 }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          The curated OpenClaw skills directory with verified security reviews.<br className="hidden sm:block" />
-          Discover, install, and compare 5,705+ skills across 10 categories — safely.
+          The curated registry with verified security reviews and one-command installs.<br className="hidden sm:block" />
+          Search 5,705+ skills across 10 categories. Compare, audit, and ship safely.
         </motion.p>
 
         <motion.div

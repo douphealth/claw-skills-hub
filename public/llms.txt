@@ -36,6 +36,16 @@ ClawSkills is the most comprehensive resource for discovering, comparing, and in
 - /articles/openclaw-security-guide — OpenClaw security guide: sandboxing, permissions, VPS hardening
 - /articles/openclaw-setup-guide-2026 — OpenClaw setup guide: install, configure, automate
 - /articles/best-openclaw-skills-by-use-case — Best OpenClaw skills by use case: curated bundles
+- /articles/what-are-openclaw-skills — What are OpenClaw skills? Pillar guide covering SKILL.md, ClawHub, safe setup
+- /articles/how-to-install-openclaw-skills — How to install OpenClaw skills on macOS, Windows WSL, and Linux
+- /articles/what-is-clawhub — What is ClawHub? The OpenClaw skills registry explained
+- /articles/openclaw-skills-vs-plugins-vs-mcp — Skills vs Plugins vs MCP Servers: decision guide
+- /articles/how-to-audit-skill-md — How to audit a SKILL.md before installing — security checklist
+- /articles/best-openclaw-skills-2026 — 25 best OpenClaw skills in 2026 ranked by safety and impact
+- /articles/how-to-write-skill-md — How to write a SKILL.md: template, examples, 12 mistakes to avoid
+- /articles/best-openclaw-skills-coding-devops — Best OpenClaw skills for coding, DevOps, and Git workflows
+- /articles/best-openclaw-skills-marketing-seo — Best OpenClaw skills for marketing, SEO, and content automation
+- /articles/openclaw-skill-not-loading-fixes — Skill not loading? 15 fixes for paths, precedence, and config errors
 - /tutorials — Step-by-step installation and development guides for all skill levels
 - /glossary — Canonical definitions of key OpenClaw terms and concepts
 - /glossary/what-is-openclaw — What is OpenClaw? Comprehensive explainer

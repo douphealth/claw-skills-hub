@@ -14,6 +14,7 @@ import SEOHead from "@/components/SEOHead";
 import { getArticleBySlug, articles } from "@/data/articles";
 import { getSkillBySlug } from "@/data/skills";
 import { articleJsonLd as makeArticleJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
+import { articleHeroImages } from "@/data/articleImages";
 
 const ArticlePage = () => {
   const { articleSlug } = useParams<{ articleSlug: string }>();
@@ -78,8 +79,25 @@ const ArticlePage = () => {
 
       {/* Hero */}
       <section className="relative pt-28 pb-16 overflow-hidden">
-        <div className="absolute inset-0 grid-pattern opacity-15" />
-        <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-glow opacity-[0.04] blur-[100px]" />
+        {articleHeroImages[article.slug] ? (
+          <>
+            <div className="absolute inset-0">
+              <img
+                src={articleHeroImages[article.slug]}
+                alt={`${article.title} — hero illustration`}
+                className="w-full h-full object-cover opacity-25"
+                loading="eager"
+                decoding="async"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="absolute inset-0 grid-pattern opacity-15" />
+            <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-glow opacity-[0.04] blur-[100px]" />
+          </>
+        )}
 
         <div className="relative z-10 container mx-auto px-6 max-w-4xl">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
@@ -102,7 +120,7 @@ const ArticlePage = () => {
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
               {article.heroDescription}
             </p>
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" />{article.readTime}</span>
               <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" />Published {article.publishedDate}</span>
               <span className="flex items-center gap-1.5"><RefreshCw className="w-3.5 h-3.5" />Updated {article.updatedDate}</span>
