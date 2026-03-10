@@ -32,9 +32,9 @@ const HeroSection = () => {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight mb-6"
         >
-          <span className="text-foreground">Browse Curated</span><br />
-          <span className="text-gradient">OpenClaw Skills</span><br />
-          <span className="text-foreground">by Category & Safety</span>
+          <span className="text-foreground">Discover, Install &</span><br />
+          <span className="text-gradient">Audit OpenClaw Skills</span><br />
+          <span className="text-foreground">Before You Ship</span>
         </motion.h1>
 
         <motion.p
