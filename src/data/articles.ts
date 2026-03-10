@@ -8,6 +8,7 @@ export interface Article {
   publishedDate: string;
   updatedDate: string;
   heroDescription: string;
+  heroImage?: string;
   sections: ArticleSection[];
   skills: ArticleSkill[];
 }
