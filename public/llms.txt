@@ -26,6 +26,16 @@ ClawSkills is the most comprehensive resource for discovering, comparing, and in
 - /articles/openclaw-slack-skill — OpenClaw Slack skill: AI-powered team communication
 - /articles/openclaw-mcp-vs-skills — MCP vs Skills: when to use each
 - /articles/openclaw-skills-examples — 20+ real-world OpenClaw skill examples
+- /articles/best-openclaw-alternatives — Best OpenClaw Alternatives in 2026: 17 Autonomous AI Agents Compared (PILLAR)
+- /articles/openclaw-vs-nanoclaw — OpenClaw vs NanoClaw: security-focused agent comparison
+- /articles/openclaw-vs-moltworker — OpenClaw vs Moltworker: local vs Cloudflare serverless agent
+- /articles/openclaw-vs-nanobot — OpenClaw vs Nanobot: lightweight agent with MCP support
+- /articles/openclaw-vs-memu — OpenClaw vs memU: long-term memory architecture comparison
+- /articles/openclaw-tools-vs-skills — OpenClaw Tools vs Skills: architecture deep-dive
+- /articles/how-to-choose-openclaw-skills — How to choose the best OpenClaw skills by use case
+- /articles/openclaw-security-guide — OpenClaw security guide: sandboxing, permissions, VPS hardening
+- /articles/openclaw-setup-guide-2026 — OpenClaw setup guide: install, configure, automate
+- /articles/best-openclaw-skills-by-use-case — Best OpenClaw skills by use case: curated bundles
 - /tutorials — Step-by-step installation and development guides for all skill levels
 - /glossary — Canonical definitions of key OpenClaw terms and concepts
 - /glossary/what-is-openclaw — What is OpenClaw? Comprehensive explainer
