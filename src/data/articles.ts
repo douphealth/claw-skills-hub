@@ -292,6 +292,10 @@ export const articles: Article[] = [
       { name: "Lead Scorer", slug: "lead-scorer", description: "AI-powered lead scoring with behavior, fit, and intent analysis.", installCmd: "npx clawhub@latest install lead-scorer", whyPicked: "Automatically prioritize leads based on website visits, email engagement, and firmographic data. Triggers nurture sequences for low-score leads.", rating: 4.4 },
       { name: "CRM Connector", slug: "crm-connector", description: "HubSpot, Salesforce, and Pipedrive management with AI assistance.", installCmd: "npx clawhub@latest install crm-connector", whyPicked: "Unified CRM access with AI-powered data entry, deal predictions, and pipeline analytics across HubSpot, Salesforce, and Pipedrive.", rating: 4.6 },
     ],
+    videos: [
+      { id: "91GGf_2TOhY", title: "How AI Agents Automate SEO, Ads & Growth" },
+      { id: "OITqlgDee0Y", title: "Top 5 AI Tools for Marketing in 2026" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
