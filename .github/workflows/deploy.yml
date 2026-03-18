@@ -52,3 +52,32 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=claw-skills-hub
+
+      - name: Ping IndexNow for fast indexing
+        if: success()
+        run: |
+          curl -sf -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "host": "openclaw-skillshub.com",
+              "key": "${{ secrets.INDEXNOW_KEY }}",
+              "keyLocation": "https://openclaw-skillshub.com/${{ secrets.INDEXNOW_KEY }}.txt",
+              "urlList": [
+                "https://openclaw-skillshub.com/",
+                "https://openclaw-skillshub.com/skills",
+                "https://openclaw-skillshub.com/articles",
+                "https://openclaw-skillshub.com/articles/best-openclaw-skills-2026",
+                "https://openclaw-skillshub.com/articles/what-are-openclaw-skills",
+                "https://openclaw-skillshub.com/articles/how-to-install-openclaw-skills",
+                "https://openclaw-skillshub.com/articles/how-to-audit-skill-md",
+                "https://openclaw-skillshub.com/articles/openclaw-skills-vs-plugins-vs-mcp",
+                "https://openclaw-skillshub.com/tutorials",
+                "https://openclaw-skillshub.com/glossary"
+              ]
+            }' || echo "IndexNow ping failed (non-critical)"
+
+      - name: Ping search engine sitemaps
+        if: success()
+        run: |
+          curl -sf "https://www.google.com/ping?sitemap=https://openclaw-skillshub.com/sitemap.xml" || true
+          curl -sf "https://www.bing.com/ping?sitemap=https://openclaw-skillshub.com/sitemap.xml" || true

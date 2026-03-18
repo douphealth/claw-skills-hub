@@ -49,6 +49,75 @@ export type Database = {
           },
         ]
       }
+      generated_blog_posts: {
+        Row: {
+          content: string
+          created_at: string | null
+          generated_at: string | null
+          id: string
+          internal_links: Json | null
+          item_id: string
+          meta_description: string | null
+          model: string | null
+          neuronwriter_data: Json | null
+          neuronwriter_query_id: string | null
+          primary_keyword: string
+          quality_score: Json | null
+          schema: Json | null
+          secondary_keywords: Json | null
+          seo_title: string | null
+          serp_analysis: Json | null
+          slug: string | null
+          title: string
+          updated_at: string | null
+          word_count: number | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          generated_at?: string | null
+          id?: string
+          internal_links?: Json | null
+          item_id: string
+          meta_description?: string | null
+          model?: string | null
+          neuronwriter_data?: Json | null
+          neuronwriter_query_id?: string | null
+          primary_keyword: string
+          quality_score?: Json | null
+          schema?: Json | null
+          secondary_keywords?: Json | null
+          seo_title?: string | null
+          serp_analysis?: Json | null
+          slug?: string | null
+          title: string
+          updated_at?: string | null
+          word_count?: number | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          generated_at?: string | null
+          id?: string
+          internal_links?: Json | null
+          item_id?: string
+          meta_description?: string | null
+          model?: string | null
+          neuronwriter_data?: Json | null
+          neuronwriter_query_id?: string | null
+          primary_keyword?: string
+          quality_score?: Json | null
+          schema?: Json | null
+          secondary_keywords?: Json | null
+          seo_title?: string | null
+          serp_analysis?: Json | null
+          slug?: string | null
+          title?: string
+          updated_at?: string | null
+          word_count?: number | null
+        }
+        Relationships: []
+      }
       mc_build_projects: {
         Row: {
           data: Json | null

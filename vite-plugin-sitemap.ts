@@ -17,11 +17,14 @@ function buildEntries(): SitemapEntry[] {
   const entries: SitemapEntry[] = [
     { loc: "/", changefreq: "daily", priority: 1.0 },
     { loc: "/skills", changefreq: "daily", priority: 0.9 },
+    { loc: "/skills/compare", changefreq: "weekly", priority: 0.7 },
     { loc: "/articles", changefreq: "weekly", priority: 0.8 },
     { loc: "/tutorials", changefreq: "weekly", priority: 0.8 },
+    { loc: "/glossary", changefreq: "weekly", priority: 0.8 },
+    { loc: "/privacy", changefreq: "monthly", priority: 0.3 },
+    { loc: "/terms", changefreq: "monthly", priority: 0.3 },
   ];
 
-  // Category landing pages
   categories.forEach((cat) => {
     entries.push({
       loc: `/skills/${cat.slug}`,
@@ -30,7 +33,6 @@ function buildEntries(): SitemapEntry[] {
     });
   });
 
-  // Individual skill pages
   skills.forEach((skill) => {
     entries.push({
       loc: `/skills/${skill.categorySlug}/${skill.slug}`,
@@ -40,7 +42,6 @@ function buildEntries(): SitemapEntry[] {
     });
   });
 
-  // Article pages
   articles.forEach((article) => {
     entries.push({
       loc: `/articles/${article.slug}`,
@@ -50,7 +51,6 @@ function buildEntries(): SitemapEntry[] {
     });
   });
 
-  // Tutorial pages
   tutorials.forEach((tutorial) => {
     entries.push({
       loc: `/tutorials/${tutorial.slug}`,
@@ -60,8 +60,6 @@ function buildEntries(): SitemapEntry[] {
     });
   });
 
-  // Glossary pages
-  entries.push({ loc: "/glossary", changefreq: "weekly", priority: 0.8 });
   glossaryEntries.forEach((entry) => {
     entries.push({
       loc: `/glossary/${entry.slug}`,
@@ -87,6 +85,7 @@ function toXML(entries: SitemapEntry[]): string {
 export default function sitemapPlugin(): Plugin {
   return {
     name: "vite-plugin-sitemap",
+    apply: "build",
     generateBundle() {
       const entries = buildEntries();
       const xml = toXML(entries);
@@ -95,7 +94,7 @@ export default function sitemapPlugin(): Plugin {
         fileName: "sitemap.xml",
         source: xml,
       });
-      console.log(`[Sitemap] Generated sitemap with ${entries.length} URLs`);
+      console.log(`[Sitemap] Generated sitemap.xml with ${entries.length} URLs`);
     },
-  };
+  } as unknown as Plugin;
 }
