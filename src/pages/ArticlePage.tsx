@@ -13,8 +13,25 @@ import NewsletterSection from "@/components/NewsletterSection";
 import SEOHead from "@/components/SEOHead";
 import { getArticleBySlug, articles, type ArticleVideo } from "@/data/articles";
 import { getSkillBySlug } from "@/data/skills";
-import { articleJsonLd as makeArticleJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
+import { articleJsonLd as makeArticleJsonLd, breadcrumbJsonLd, faqJsonLd, videoObjectJsonLd } from "@/utils/jsonLd";
 import { articleHeroImages } from "@/data/articleImages";
+
+/** Extract Q&A pairs from FAQ sections using the **Question?**\nAnswer format */
+function extractFaqsFromArticle(sections: { heading: string; content: string }[]) {
+  const faqs: { question: string; answer: string }[] = [];
+  sections.forEach((s) => {
+    if (!s.heading.toLowerCase().startsWith("faq")) return;
+    const regex = /\*\*(.+?\?)\*\*\n(.+?)(?=\n\n\*\*|\n*$)/gs;
+    let m: RegExpExecArray | null;
+    while ((m = regex.exec(s.content)) !== null) {
+      faqs.push({
+        question: m[1].trim(),
+        answer: m[2].replace(/\[\[([^|]+)\|[^\]]+\]\]/g, "$1").trim(),
+      });
+    }
+  });
+  return faqs;
+}
 
 const ArticlePage = () => {
   const { articleSlug } = useParams<{ articleSlug: string }>();
