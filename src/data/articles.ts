@@ -1561,6 +1561,10 @@ export const articles: Article[] = [
       { name: "RAG Pipeline", slug: "rag-pipeline", description: "Production RAG with document ingestion and hybrid search.", installCmd: "npx clawhub@latest install rag-pipeline", whyPicked: "A complex skill that demonstrates how SKILL.md orchestrates multiple tools into a unified workflow — the best example of skills at their most powerful.", rating: 4.9 },
       { name: "Agent Orchestrator", slug: "agent-orchestrator", description: "Coordinate multiple AI agents with role assignment.", installCmd: "npx clawhub@latest install agent-orchestrator", whyPicked: "Shows how skills can compose other skills, creating multi-agent workflows that are impossible with MCP or plugins alone.", rating: 4.8 },
     ],
+    videos: [
+      { id: "N3vHJcHBS-w", title: "Model Context Protocol (MCP) Explained in 20 Minutes" },
+      { id: "sMqlObpNz64", title: "Build ANYTHING with MCP Servers — Coding Tutorial" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
