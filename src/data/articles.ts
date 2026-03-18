@@ -1471,6 +1471,10 @@ export const articles: Article[] = [
       { name: "LLM Router", slug: "llm-router", description: "Route prompts to the best model by cost and complexity.", installCmd: "npx clawhub@latest install llm-router", whyPicked: "The recommended second install. Immediately reduces API costs by routing simple tasks to cheaper models.", rating: 4.9 },
       { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Chain prompts for multi-step workflows.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "The recommended third install. Enables multi-step workflows that single prompts can't handle.", rating: 4.8 },
     ],
+    videos: [
+      { id: "6EFOT6hjvAU", title: "Claude Plugins & Skills Tutorial (All Updates Combined)" },
+      { id: "sHDCgAWWpNQ", title: "Essential AI Skills For 2026" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
