@@ -1610,6 +1610,10 @@ export const articles: Article[] = [
       { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "The essential auditing tool. Use Code Reviewer to scan any SKILL.md for security red flags before installation.", rating: 4.8 },
       { name: "Docker Captain", slug: "docker-captain", description: "Generate and manage Docker configurations.", installCmd: "npx clawhub@latest install docker-captain", whyPicked: "Generate sandboxed Docker environments for testing unverified skills safely.", rating: 4.7 },
     ],
+    videos: [
+      { id: "TdHg9ee56Iw", title: "Don't Use Any AI Agents Until You Watch This — Security Deep Dive" },
+      { id: "GcNu6wrLTJc", title: "Understanding CLAUDE.md and AGENT.md Files" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
