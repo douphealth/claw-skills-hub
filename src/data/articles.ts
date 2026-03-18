@@ -75,6 +75,11 @@ export const articles: Article[] = [
       { name: "Model Evaluator", slug: "model-evaluator", description: "Benchmark and compare models with automated evaluation and A/B testing.", installCmd: "npx clawhub@latest install model-evaluator", whyPicked: "Detect quality regressions, validate fine-tuned models, and run statistically significant A/B tests. Critical for maintaining production quality.", rating: 4.6 },
       { name: "Take the Wheel", slug: "take-the-wheel", description: "Autonomous long-form content writing with research and revision cycles.", installCmd: "npx clawhub@latest install take-the-wheel", whyPicked: "Give it a topic and get publication-ready content in minutes. Handles research, drafting, editing, and polishing. Perfect for content teams scaling output.", rating: 4.6 },
     ],
+    videos: [
+      { id: "Jsu7NaGMc48", title: "Agent Skills Explained: AI Agents Can Learn Now" },
+      { id: "4Q7gUXAveL0", title: "The 8 AI Skills That Will Separate Winners From Losers in 2026" },
+      { id: "63B-3rqRFbQ", title: "RAG Tutorial: Complete Introduction to Retrieval Augmented Generation" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
