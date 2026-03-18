@@ -802,6 +802,11 @@ export const articles: Article[] = [
       { name: "Agent Orchestrator", slug: "agent-orchestrator", description: "Multi-agent coordination — a skill that works alongside MCP.", installCmd: "npx clawhub@latest install agent-orchestrator", whyPicked: "Shows how skills and MCP complement each other. The orchestrator skill coordinates agents that may use tools from multiple MCP servers.", rating: 4.8 },
       { name: "Deep Research", slug: "deep-research", description: "Skill + tool integration for multi-source research.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "Combines skill-level orchestration (research workflow) with tool-level capabilities (web search, document retrieval) — a perfect example of the hybrid approach.", rating: 4.9 },
     ],
+    videos: [
+      { id: "N3vHJcHBS-w", title: "Model Context Protocol (MCP) Explained in 20 Minutes" },
+      { id: "Eby_icnBLBk", title: "MCP Explained: How to Use MCP Servers" },
+      { id: "VChRPFUzJGA", title: "Model Context Protocol: The Key To Agentic AI" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
