@@ -182,6 +182,10 @@ export const articles: Article[] = [
       { name: "Cloudflare Worker", slug: "cloudflare-worker", description: "Deploy Workers, manage KV, R2, D1, and Pages.", installCmd: "npx clawhub@latest install cloudflare-worker", whyPicked: "Full Cloudflare ecosystem management. Deploy edge functions, manage storage, and monitor analytics — all conversationally.", rating: 4.5 },
       { name: "Log Analyzer", slug: "log-analyzer", description: "AI-powered log analysis with anomaly detection and root cause analysis.", installCmd: "npx clawhub@latest install log-analyzer", whyPicked: "Ingest logs from any source, detect anomalies, correlate events across services, and get AI-generated root cause analysis with runbooks.", rating: 4.6 },
     ],
+    videos: [
+      { id: "C20NP5pPXCY", title: "Creating An AI DevOps Agent (2025 Getting Started)" },
+      { id: "eKsWS7OM5oY", title: "Complete Guide to K8sGPT: Simplify Kubernetes Troubleshooting with AI" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
