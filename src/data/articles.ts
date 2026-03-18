@@ -1825,6 +1825,11 @@ export const articles: Article[] = [
       { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "Essential for competitive intelligence and source material gathering.", rating: 4.9 },
       { name: "Social Media Manager", slug: "social-media-manager", description: "Multi-platform content distribution.", installCmd: "npx clawhub@latest install social-media-manager", whyPicked: "Generates platform-specific content and handles multi-channel distribution.", rating: 4.5 },
     ],
+    videos: [
+      { id: "91GGf_2TOhY", title: "How AI Agents Automate SEO, Ads & Growth" },
+      { id: "1q0Bx_7CxJs", title: "How to Create High-Quality SEO Content FAST with AI Agents" },
+      { id: "UWHcOQCw4NU", title: "The SEO Playbook That Actually Works in 2026" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
