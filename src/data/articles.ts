@@ -421,6 +421,10 @@ export const articles: Article[] = [
       { name: "RAG Pipeline", slug: "rag-pipeline", description: "Ground agent responses in your data with retrieval-augmented generation.", installCmd: "npx clawhub@latest install rag-pipeline", whyPicked: "Ensures agents work with accurate, grounded information rather than hallucinating. Citation tracking maintains accountability.", rating: 4.9 },
       { name: "Model Evaluator", slug: "model-evaluator", description: "Validate multi-agent output quality with automated evaluation.", installCmd: "npx clawhub@latest install model-evaluator", whyPicked: "Quality assurance for multi-agent systems. Detect regressions and validate output against defined rubrics.", rating: 4.6 },
     ],
+    videos: [
+      { id: "E_m_UDCTj7E", title: "LangGraph vs CrewAI vs AutoGen (2026) — Best Multi-Agent Framework" },
+      { id: "KDiO7Zg2N0E", title: "Best Multi-Agent Framework in 2025? Full Head-to-Head Comparison" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
