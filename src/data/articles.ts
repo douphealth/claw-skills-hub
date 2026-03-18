@@ -1,3 +1,8 @@
+export interface ArticleVideo {
+  id: string;           // YouTube video ID
+  title: string;        // accessible title
+}
+
 export interface Article {
   slug: string;
   title: string;
@@ -11,6 +16,7 @@ export interface Article {
   heroImage?: string;
   sections: ArticleSection[];
   skills: ArticleSkill[];
+  videos?: ArticleVideo[];
 }
 
 export interface ArticleSection {
