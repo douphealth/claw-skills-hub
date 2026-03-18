@@ -235,6 +235,218 @@ export const glossaryEntries: GlossaryEntry[] = [
       { question: "Where are vector embeddings stored?", answer: "Embeddings are stored in vector databases like Pinecone, Weaviate, Qdrant, ChromaDB, or pgvector (PostgreSQL extension). For small datasets, in-memory storage works. For production, use a managed vector database." },
     ],
   },
+
+  // ═══════════════ NEW ENTRIES ═══════════════
+
+  {
+    slug: "what-is-skill-md",
+    term: "SKILL.md",
+    metaTitle: "What is SKILL.md? — OpenClaw Skill Manifest Explained | ClawSkills",
+    metaDescription: "SKILL.md is the manifest file that defines an OpenClaw skill's capabilities, permissions, and behavior. Learn the format, required fields, and security implications.",
+    shortDefinition: "SKILL.md is the declarative manifest file that defines an OpenClaw skill's name, description, permissions, tools, and behavioral instructions.",
+    sections: [
+      { heading: "What is SKILL.md?", content: "**SKILL.md** is the standardized manifest format used by OpenClaw to define AI agent skills. Every skill in the OpenClaw ecosystem is described by a single SKILL.md file that declares what the skill does, what permissions it needs, what tools it provides, and how the agent should behave when using it.\n\nThe format is human-readable Markdown with structured frontmatter, making it easy to audit, version-control, and share. When you run `npx clawhub@latest install <skill-name>`, the SKILL.md file is downloaded and added to your OpenClaw configuration." },
+      { heading: "SKILL.md Structure", content: "A typical SKILL.md file contains:\n\n- **Name & Description** — Human-readable identity of the skill\n- **Permissions** — Filesystem, network, and system access declarations\n- **Tools** — Named functions the skill exposes to the AI agent\n- **Instructions** — Behavioral guidelines for how the agent should use the skill\n- **Input/Output Schema** — Optional structured data definitions\n\nThe permission declarations are critical for security. They tell users exactly what system resources the skill will access, enabling informed trust decisions before installation." },
+      { heading: "Security Implications", content: "SKILL.md's transparency is a key security feature. Unlike opaque plugin binaries, SKILL.md files are plain text that anyone can read and audit. The ClawSkills directory uses SKILL.md content to generate security ratings and permission summaries.\n\nFor a detailed guide on auditing SKILL.md files, see our security audit article." },
+    ],
+    relatedTerms: ["what-are-openclaw-skills", "what-is-openclaw"],
+    faqs: [
+      { question: "Is SKILL.md the same as a README?", answer: "No. A README documents a project for humans. SKILL.md is a machine-readable manifest that OpenClaw parses to understand a skill's capabilities and constraints. It's closer to a package.json than a README." },
+      { question: "Can I write my own SKILL.md?", answer: "Yes. Any developer can create a SKILL.md file and publish it as an OpenClaw skill. See our guide on how to create OpenClaw skills for templates and examples." },
+      { question: "What happens if SKILL.md declares wrong permissions?", answer: "If a skill accesses resources not declared in its SKILL.md, it's a red flag. Verified skills in the ClawSkills directory have been audited for permission accuracy." },
+    ],
+  },
+
+  {
+    slug: "what-is-mcp-server",
+    term: "MCP Server",
+    metaTitle: "What is an MCP Server? — Model Context Protocol Explained | ClawSkills",
+    metaDescription: "An MCP server exposes tools and data to AI agents via the Model Context Protocol. Learn how MCP servers work, how they compare to OpenClaw skills, and when to use each.",
+    shortDefinition: "An MCP (Model Context Protocol) server is a standalone process that exposes tools, resources, and prompts to AI agents via a standardized JSON-RPC protocol.",
+    sections: [
+      { heading: "What is an MCP Server?", content: "**MCP (Model Context Protocol)** servers are standalone processes that expose capabilities to AI agents through a standardized protocol developed by Anthropic. Each MCP server runs as its own process, communicating with AI agents via JSON-RPC over stdin/stdout or HTTP.\n\nMCP servers can provide **tools** (executable functions), **resources** (data sources), and **prompts** (reusable templates). This separation of concerns allows AI agents to access external systems — databases, APIs, file systems — through a unified interface." },
+      { heading: "MCP vs OpenClaw Skills", content: "While both extend AI agent capabilities, they take fundamentally different approaches:\n\n- **MCP servers** run as separate processes with OS-level isolation. They're language-agnostic and can be written in Python, TypeScript, Rust, etc.\n- **OpenClaw skills** are declarative SKILL.md files that run within the OpenClaw process. They're simpler to install and audit but less isolated.\n\nFor a detailed comparison, see our MCP vs Skills article." },
+      { heading: "When to Use MCP Servers", content: "MCP servers are ideal when you need:\n\n- **Process isolation** — The tool runs in its own sandbox\n- **Language flexibility** — Write server logic in any language\n- **Shared infrastructure** — Multiple AI agents can connect to the same MCP server\n- **Stateful operations** — Long-running connections to databases or APIs" },
+    ],
+    relatedTerms: ["what-are-openclaw-skills", "what-is-openclaw"],
+    faqs: [
+      { question: "Do MCP servers work with OpenClaw?", answer: "Yes. OpenClaw supports MCP servers as tool providers alongside native skills. You can use both simultaneously in the same agent configuration." },
+      { question: "Are MCP servers more secure than skills?", answer: "MCP servers provide process-level isolation, which limits the blast radius of vulnerabilities. However, skills offer transparency through auditable SKILL.md declarations. Both approaches have trade-offs." },
+      { question: "How do I install an MCP server?", answer: "MCP servers are typically installed via npm (npx) or pip, then configured in your AI client's MCP settings file. The setup varies by server and client." },
+    ],
+  },
+
+  {
+    slug: "what-is-agent-sandboxing",
+    term: "Agent Sandboxing",
+    metaTitle: "What is Agent Sandboxing? — AI Safety Explained | ClawSkills",
+    metaDescription: "Agent sandboxing isolates AI agents from critical systems to prevent unintended actions. Learn sandboxing techniques for OpenClaw and other AI agent frameworks.",
+    shortDefinition: "Agent sandboxing is the practice of isolating AI agents within restricted execution environments to prevent unintended or malicious actions on the host system.",
+    sections: [
+      { heading: "What is Agent Sandboxing?", content: "**Agent sandboxing** refers to the security practice of running AI agents in isolated, restricted environments where they cannot access critical system resources without explicit permission. This is crucial for production AI deployments where agents execute code, access databases, or interact with external APIs.\n\nSandboxing techniques include containerization (Docker), virtual machines, restricted shell environments, and permission-based access control like OpenClaw's SKILL.md declarations." },
+      { heading: "Sandboxing in OpenClaw", content: "OpenClaw implements sandboxing through its **permission model**. Each skill declares the system resources it needs in its SKILL.md file — filesystem paths, network endpoints, environment variables. The OpenClaw runtime can enforce these boundaries, rejecting undeclared access attempts.\n\nFor higher isolation, OpenClaw agents can run inside Docker containers or cloud sandboxes like E2B, Fly.io Machines, or Modal." },
+    ],
+    relatedTerms: ["what-is-openclaw", "what-is-skill-md", "what-is-ai-agent"],
+    faqs: [
+      { question: "Can OpenClaw agents escape their sandbox?", answer: "If properly configured, OpenClaw's permission model prevents undeclared resource access. However, no sandbox is 100% escape-proof — defense-in-depth with container isolation is recommended for high-security environments." },
+      { question: "What sandboxing solutions work with OpenClaw?", answer: "Docker containers, E2B sandboxes, Fly.io Machines, and Modal are popular choices. OpenClaw's own SKILL.md permission system also provides application-level sandboxing." },
+    ],
+  },
+
+  {
+    slug: "what-is-prompt-injection",
+    term: "Prompt Injection",
+    metaTitle: "What is Prompt Injection? — AI Security Threat Explained | ClawSkills",
+    metaDescription: "Prompt injection is an attack that manipulates AI agent behavior by inserting malicious instructions. Learn how it works and how to defend your OpenClaw agents.",
+    shortDefinition: "Prompt injection is an attack technique where malicious instructions are inserted into an AI agent's input to manipulate its behavior, bypass safety controls, or exfiltrate data.",
+    sections: [
+      { heading: "What is Prompt Injection?", content: "**Prompt injection** is the most prevalent security vulnerability in AI agent systems. It occurs when an attacker crafts input that causes an AI model to interpret malicious instructions as part of its system prompt or task instructions.\n\nFor AI agents like those built with OpenClaw, prompt injection is especially dangerous because agents have access to tools — a successful injection could cause the agent to delete files, send emails, or access restricted APIs." },
+      { heading: "Types of Prompt Injection", content: "**Direct injection** — The attacker directly provides malicious instructions in the prompt input.\n\n**Indirect injection** — Malicious instructions are hidden in data the agent processes — web pages, documents, emails, or database records. The agent reads the poisoned content and follows the embedded instructions." },
+      { heading: "Defenses for OpenClaw Agents", content: "No defense is perfect, but layered approaches reduce risk:\n\n- **Input sanitization** — Strip known injection patterns\n- **Output filtering** — Validate agent actions before execution\n- **Least-privilege permissions** — Use SKILL.md to restrict capabilities\n- **Human-in-the-loop** — Require approval for sensitive actions\n- **Guardrail models** — Use a secondary model to classify inputs as safe/unsafe" },
+    ],
+    relatedTerms: ["what-is-agent-sandboxing", "what-is-ai-agent", "what-is-openclaw"],
+    faqs: [
+      { question: "Can prompt injection affect OpenClaw skills?", answer: "Yes. If a skill processes untrusted input (web content, user messages, documents), prompt injection is a risk. Limiting skill permissions via SKILL.md reduces the potential damage." },
+      { question: "Is there a complete defense against prompt injection?", answer: "No. Prompt injection is an inherent challenge of language model architecture. The best approach is defense-in-depth: input filtering, output validation, permission restrictions, and human oversight for critical actions." },
+    ],
+  },
+
+  {
+    slug: "what-is-tool-calling",
+    term: "Tool Calling",
+    metaTitle: "What is Tool Calling in AI? — Function Calling Explained | ClawSkills",
+    metaDescription: "Tool calling (function calling) lets AI models invoke external tools and APIs. Learn how OpenClaw uses tool calling to give agents real-world capabilities.",
+    shortDefinition: "Tool calling (also called function calling) is the ability of an LLM to invoke external functions, APIs, or system commands as part of its reasoning and response generation.",
+    sections: [
+      { heading: "What is Tool Calling?", content: "**Tool calling** is the mechanism that allows AI models to go beyond text generation and interact with the real world. When an LLM has access to tools, it can decide to invoke them during a conversation — searching the web, querying a database, running code, or calling an API.\n\nOpenAI calls this 'function calling,' Anthropic calls it 'tool use,' and Google calls it 'function declarations.' The concept is the same: the model outputs a structured request (function name + arguments), the runtime executes the function, and the result is fed back to the model." },
+      { heading: "Tool Calling in OpenClaw", content: "OpenClaw skills are fundamentally a tool-calling abstraction. Each skill declares tools in its SKILL.md manifest, and OpenClaw registers them with the connected LLM. When the agent needs a capability, the LLM generates a tool call, OpenClaw executes it, and returns the result." },
+    ],
+    relatedTerms: ["what-is-ai-agent", "what-is-openclaw", "what-are-openclaw-skills"],
+    faqs: [
+      { question: "Do all LLMs support tool calling?", answer: "No. Tool calling requires specific model training. Most major commercial models (GPT-4, Claude 3, Gemini) support it, as do some open-source models (Llama 3, Mistral)." },
+      { question: "What's the difference between tool calling and RAG?", answer: "Tool calling lets the model invoke functions to perform actions. RAG retrieves relevant documents to augment context. They're complementary — an agent might use RAG to find information and tool calling to act on it." },
+    ],
+  },
+
+  {
+    slug: "what-is-agent-memory",
+    term: "Agent Memory",
+    metaTitle: "What is Agent Memory? — AI Agent Context & Persistence | ClawSkills",
+    metaDescription: "Agent memory allows AI agents to retain context across conversations and tasks. Learn about short-term, long-term, and episodic memory in OpenClaw agents.",
+    shortDefinition: "Agent memory is the ability of an AI agent to store, retrieve, and use information from past interactions, enabling contextual awareness and learning over time.",
+    sections: [
+      { heading: "What is Agent Memory?", content: "**Agent memory** enables AI agents to retain and recall information beyond a single conversation turn. Without memory, every interaction starts from scratch — the agent has no knowledge of past tasks, user preferences, or accumulated context.\n\nIn the OpenClaw ecosystem, memory is implemented through skills that provide storage and retrieval capabilities." },
+      { heading: "Types of Agent Memory", content: "**Short-term (working) memory** — The current conversation context. Limited by the model's context window.\n\n**Long-term memory** — Persistent storage using vector databases, key-value stores, or structured databases.\n\n**Episodic memory** — Records of past interactions and outcomes.\n\n**Semantic memory** — Factual knowledge stored as embeddings for semantic similarity search." },
+    ],
+    relatedTerms: ["what-is-ai-agent", "what-is-rag-pipeline", "what-is-vector-embedding"],
+    faqs: [
+      { question: "Do OpenClaw agents have memory by default?", answer: "OpenClaw agents have short-term memory (conversation context) by default. For long-term memory, you need to install a memory skill or configure a vector database." },
+      { question: "How much memory can an agent have?", answer: "Short-term memory is limited by the LLM's context window. Long-term memory is limited only by your storage infrastructure." },
+    ],
+  },
+
+  {
+    slug: "what-is-llm-orchestration",
+    term: "LLM Orchestration",
+    metaTitle: "What is LLM Orchestration? — Multi-Step AI Workflows | ClawSkills",
+    metaDescription: "LLM orchestration coordinates multiple AI model calls, tool invocations, and decision points into coherent workflows. Learn how OpenClaw handles orchestration.",
+    shortDefinition: "LLM orchestration is the coordination of multiple language model calls, tool invocations, and control flow decisions into coherent multi-step AI agent workflows.",
+    sections: [
+      { heading: "What is LLM Orchestration?", content: "**LLM orchestration** is the process of managing complex AI workflows that involve multiple steps, model calls, tool invocations, and decision points. Orchestration frameworks like OpenClaw handle the complexity of sequencing these steps, managing errors, retrying failures, and maintaining context across the workflow." },
+      { heading: "How OpenClaw Orchestrates", content: "OpenClaw's orchestration is **skill-driven**. Developers install skills that give the agent capabilities, and the LLM decides the optimal sequence of actions. OpenClaw handles tool sequencing, error recovery, context management, and output formatting." },
+    ],
+    relatedTerms: ["what-is-ai-agent", "what-is-openclaw", "what-is-prompt-chaining"],
+    faqs: [
+      { question: "Is OpenClaw an orchestration framework?", answer: "Yes. OpenClaw is primarily an LLM orchestration framework that uses skills to define agent capabilities and lets the LLM orchestrate multi-step workflows autonomously." },
+      { question: "How is orchestration different from prompt chaining?", answer: "Prompt chaining is a specific technique where outputs from one LLM call feed into the next. Orchestration is broader — it includes prompt chaining plus tool calling, error handling, branching logic, and state management." },
+    ],
+  },
+
+  {
+    slug: "what-is-clawhub",
+    term: "ClawHub",
+    metaTitle: "What is ClawHub? — OpenClaw Skill Registry Explained | ClawSkills",
+    metaDescription: "ClawHub is the official registry for distributing and installing OpenClaw skills. Learn how it works, how it relates to ClawSkills, and how to publish skills.",
+    shortDefinition: "ClawHub is the official package registry for OpenClaw skills, providing centralized distribution, versioning, and discovery of SKILL.md-based agent capabilities.",
+    sections: [
+      { heading: "What is ClawHub?", content: "**ClawHub** is the official registry and distribution platform for OpenClaw skills. It serves as the centralized repository where skill authors publish their SKILL.md files and where developers discover and install skills using `npx clawhub@latest install <skill-name>`.\n\nThink of ClawHub as the npm registry for AI agent skills." },
+      { heading: "ClawHub vs ClawSkills", content: "**ClawHub** is the registry — it stores and distributes skills. Think of it as the warehouse.\n\n**ClawSkills** (this site) is the curated directory — we review, analyze, compare, and recommend skills. Think of it as the buyer's guide.\n\nClawSkills adds independent security reviews, curated skill stacks, comparison tools, editorial guides, and structured data for AI discoverability." },
+    ],
+    relatedTerms: ["what-is-openclaw", "what-are-openclaw-skills", "what-is-skill-md"],
+    faqs: [
+      { question: "Is ClawHub free?", answer: "Yes. ClawHub is free to use for both installing and publishing skills. The OpenClaw ecosystem is open-source." },
+      { question: "How do I publish a skill to ClawHub?", answer: "Create a SKILL.md file, test it locally with OpenClaw, then publish using the ClawHub CLI." },
+      { question: "What's the difference between ClawHub and ClawSkills?", answer: "ClawHub is the registry (stores/distributes skills). ClawSkills is the curated directory (reviews, compares, and recommends skills)." },
+    ],
+  },
+
+  {
+    slug: "what-is-openclaw-permissions",
+    term: "OpenClaw Permissions",
+    metaTitle: "What are OpenClaw Permissions? — Skill Security Model | ClawSkills",
+    metaDescription: "OpenClaw permissions control what system resources AI agent skills can access. Learn about filesystem, network, and environment variable permissions in SKILL.md.",
+    shortDefinition: "OpenClaw permissions are declarations in SKILL.md files that specify which system resources (filesystem, network, environment variables) a skill is allowed to access.",
+    sections: [
+      { heading: "What are OpenClaw Permissions?", content: "**OpenClaw permissions** are security declarations in SKILL.md files that explicitly state what system resources a skill needs to function. Permissions cover filesystem access, network endpoints, and environment variables." },
+      { heading: "Why Permissions Matter", content: "Without declared permissions, an AI skill could silently access any system resource. OpenClaw's permission model provides transparency, auditability, and least-privilege enforcement. The ClawSkills directory uses permission analysis to generate security ratings." },
+    ],
+    relatedTerms: ["what-is-skill-md", "what-is-openclaw", "what-is-agent-sandboxing"],
+    faqs: [
+      { question: "Can a skill access resources not listed in its permissions?", answer: "Permission declarations are advisory — they document intent but aren't enforced at the OS level. Container-based sandboxing can enforce hard boundaries." },
+      { question: "What permissions should raise red flags?", answer: "Be cautious of skills requesting broad filesystem access, unrestricted network access, access to sensitive environment variables, or shell execution permissions." },
+    ],
+  },
+
+  {
+    slug: "what-is-multi-agent-system",
+    term: "Multi-Agent System",
+    metaTitle: "What is a Multi-Agent System? — AI Agent Collaboration | ClawSkills",
+    metaDescription: "Multi-agent systems coordinate multiple specialized AI agents to solve complex tasks. Learn how OpenClaw supports multi-agent architectures.",
+    shortDefinition: "A multi-agent system is an AI architecture where multiple specialized agents collaborate, delegate tasks, and communicate to solve problems beyond a single agent's capability.",
+    sections: [
+      { heading: "What is a Multi-Agent System?", content: "**Multi-agent systems (MAS)** deploy multiple AI agents, each with specialized skills and roles, that work together to accomplish complex tasks. This mirrors how human teams work — a project might involve a researcher, writer, designer, and reviewer." },
+      { heading: "Multi-Agent Patterns", content: "**Supervisor pattern** — A boss agent routes tasks to specialists.\n\n**Peer-to-peer pattern** — Agents communicate directly.\n\n**Pipeline pattern** — Agents arranged in sequence, each enriching output.\n\n**Debate pattern** — Agents propose solutions and critique each other." },
+    ],
+    relatedTerms: ["what-is-ai-agent", "what-is-openclaw", "what-is-llm-orchestration"],
+    faqs: [
+      { question: "When should I use multi-agent vs single agent?", answer: "Use multi-agent when the task requires diverse expertise, parallel processing, or review/critique steps. Use single agent for focused tasks that one set of skills can handle." },
+      { question: "Does OpenClaw support multi-agent systems?", answer: "OpenClaw supports running multiple agent instances with different skill configurations. For coordination, pair OpenClaw with frameworks like CrewAI or AutoGen." },
+    ],
+  },
+
+  {
+    slug: "what-is-context-window",
+    term: "Context Window",
+    metaTitle: "What is a Context Window? — LLM Token Limits Explained | ClawSkills",
+    metaDescription: "The context window is the maximum text an LLM can process at once. Learn how context windows affect OpenClaw agents and strategies for managing them.",
+    shortDefinition: "The context window is the maximum number of tokens that a language model can process in a single interaction, including both input and output.",
+    sections: [
+      { heading: "What is a Context Window?", content: "The **context window** defines how much information an LLM can 'see' at once. It includes the system prompt, conversation history, tool definitions, tool results, and the model's response.\n\nContext window sizes vary: GPT-4o has 128K tokens, Claude 3.5 Sonnet has 200K, Gemini 1.5 Pro has 1M+, and Llama 3 (8B) has 8K tokens." },
+      { heading: "Context Windows and OpenClaw", content: "When running OpenClaw with multiple installed skills, each skill's instructions consume context tokens. An agent with 20 skills might use 10-20K tokens just for skill definitions.\n\nOptimization strategies include installing only needed skills, using larger-context models, enabling dynamic skill selection, and summarizing long conversations." },
+    ],
+    relatedTerms: ["what-is-ai-agent", "what-is-llm-routing", "what-is-agent-memory"],
+    faqs: [
+      { question: "What happens when the context window is full?", answer: "The model either truncates older messages, throws an error, or the framework automatically summarizes the conversation. OpenClaw handles context management automatically for most use cases." },
+      { question: "Do bigger context windows mean better agents?", answer: "Not necessarily. Larger windows can increase latency and cost, and models tend to lose focus in very long contexts. Right-sized context is often better than maximum context." },
+    ],
+  },
+
+  {
+    slug: "what-are-ai-guardrails",
+    term: "AI Guardrails",
+    metaTitle: "What are AI Guardrails? — Safety Controls for AI Agents | ClawSkills",
+    metaDescription: "AI guardrails are safety mechanisms that constrain AI agent behavior to prevent harmful outputs and actions. Learn how to implement guardrails in OpenClaw agents.",
+    shortDefinition: "AI guardrails are safety mechanisms — input validators, output filters, and behavioral constraints — that prevent AI agents from producing harmful outputs or taking dangerous actions.",
+    sections: [
+      { heading: "What are AI Guardrails?", content: "**AI guardrails** are safety systems that monitor and constrain AI agent behavior. They act as checkpoints that validate inputs before processing and outputs before execution." },
+      { heading: "Types of Guardrails", content: "**Input guardrails** — Validate and sanitize inputs. Detect prompt injection or offensive content.\n\n**Output guardrails** — Check outputs before execution. Validate code safety and API authorization.\n\n**Behavioral guardrails** — System-level constraints: rate limiting, spending caps, approval workflows.\n\n**Content guardrails** — Filter responses for harmful, biased, or confidential content." },
+    ],
+    relatedTerms: ["what-is-prompt-injection", "what-is-agent-sandboxing", "what-is-ai-agent"],
+    faqs: [
+      { question: "Are guardrails built into OpenClaw?", answer: "OpenClaw provides basic guardrails through its permission model. For advanced guardrails (content filtering, spending caps), install dedicated safety skills or integrate third-party services." },
+      { question: "Do guardrails slow down AI agents?", answer: "Guardrails add 50-200ms per check, negligible compared to LLM response times of 1-10 seconds. Critical safety is worth the small performance cost." },
+    ],
+  },
 ];
 
 export function getGlossaryEntryBySlug(slug: string): GlossaryEntry | undefined {

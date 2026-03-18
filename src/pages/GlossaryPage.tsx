@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
 import SEOHead from "@/components/SEOHead";
 import { getGlossaryEntryBySlug, glossaryEntries } from "@/data/glossary";
-import { faqJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
+import { faqJsonLd, breadcrumbJsonLd, definedTermJsonLd } from "@/utils/jsonLd";
 import { Button } from "@/components/ui/button";
 
 const GlossaryPage = () => {
@@ -35,7 +35,8 @@ const GlossaryPage = () => {
     { name: "Glossary", url: "/glossary" },
     { name: entry.term, url: `/glossary/${entry.slug}` },
   ]);
-  const jsonLdArray = [bJsonLd, ...(fJsonLd ? [fJsonLd] : [])];
+  const dtJsonLd = definedTermJsonLd(entry.term, entry.shortDefinition, `/glossary/${entry.slug}`);
+  const jsonLdArray = [bJsonLd, dtJsonLd, ...(fJsonLd ? [fJsonLd] : [])];
   const relatedEntries = glossaryEntries.filter((e) => entry.relatedTerms.includes(e.slug));
 
   return (
