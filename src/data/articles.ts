@@ -897,6 +897,10 @@ export const articles: Article[] = [
       { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "Evaluate the source code of any alternative agent. Code Reviewer can analyze repositories for security patterns, code quality, and architectural decisions.", rating: 4.8 },
       { name: "Browser Pilot", slug: "browser-pilot", description: "Visual browser automation for any website.", installCmd: "npx clawhub@latest install browser-pilot", whyPicked: "Test any alternative agent's web-based demos and documentation automatically. Navigate, screenshot, and extract information from competitor sites.", rating: 4.8 },
     ],
+    videos: [
+      { id: "8HqeY5v0ohM", title: "AutoGen vs CrewAI vs LangGraph — Best AI Agent Framework In 2025" },
+      { id: "JFYG4mKPE6s", title: "LangGraph vs LangChain vs AutoGen vs CrewAI: Which Framework to Choose?" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
