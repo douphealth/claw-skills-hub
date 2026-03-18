@@ -329,6 +329,11 @@ export const articles: Article[] = [
       { name: "Refactor Agent", slug: "refactor-agent", description: "Intelligent codebase refactoring with AST analysis and test verification.", installCmd: "npx clawhub@latest install refactor-agent", whyPicked: "Safe, large-scale refactoring using AST analysis and type checking. Verifies behavior preservation by running existing tests.", rating: 4.6 },
       { name: "Docs Generator", slug: "docs-generator", description: "Generate API docs, READMEs, and OpenAPI specs from code.", installCmd: "npx clawhub@latest install docs-generator", whyPicked: "Automatic documentation from code: API references, README files, JSDoc comments, and OpenAPI specs. Updates automatically in CI.", rating: 4.5 },
     ],
+    videos: [
+      { id: "RKbmqSRc0z0", title: "Best AI Coding Tools for Developers in 2026" },
+      { id: "EUmSTacO1Mo", title: "Claude Code vs GitHub Copilot vs Cursor — The Honest Truth (2026)" },
+      { id: "ri7rPglW96U", title: "GitHub Copilot vs Cursor vs Windsurf (2026) — Which One Is Best?" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
