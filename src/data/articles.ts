@@ -652,6 +652,10 @@ export const articles: Article[] = [
       { name: "Docker Captain", slug: "docker-captain", description: "Container management through natural language.", installCmd: "npx clawhub@latest install docker-captain", whyPicked: "Build, run, and debug Docker containers through conversation. Generates optimized Dockerfiles and docker-compose configs.", rating: 4.6 },
       { name: "Debug Assistant", slug: "debug-assistant", description: "Root cause analysis and fix suggestions for errors.", installCmd: "npx clawhub@latest install debug-assistant", whyPicked: "Paste any error and get root cause analysis with fix suggestions specific to your stack. Like having a senior developer on call.", rating: 4.7 },
     ],
+    videos: [
+      { id: "RKbmqSRc0z0", title: "Best AI Coding Tools for Developers in 2026" },
+      { id: "pbAqx8B6NVc", title: "Build Your Own AI Agent from Scratch (Mastra + TypeScript)" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
