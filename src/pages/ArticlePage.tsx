@@ -81,6 +81,19 @@ const ArticlePage = () => {
     { name: article.title, url: `/articles/${article.slug}` },
   ]);
 
+  // Extract FAQs from FAQ-headed sections for rich results
+  const extractedFaqs = extractFaqsFromArticle(article.sections);
+  const fJsonLd = extractedFaqs.length > 0 ? faqJsonLd(extractedFaqs) : undefined;
+
+  // VideoObject schema for embedded YouTube videos
+  const vJsonLd = article.videos?.length
+    ? article.videos.map((v) =>
+        videoObjectJsonLd(v.id, v.title, article.title, article.publishedDate)
+      )
+    : [];
+
+  const allJsonLd = [aJsonLd, bJsonLd, ...(fJsonLd ? [fJsonLd] : []), ...vJsonLd];
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -90,7 +103,7 @@ const ArticlePage = () => {
         type="article"
         publishedDate={article.publishedDate}
         updatedDate={article.updatedDate}
-        jsonLd={[aJsonLd, bJsonLd]}
+        jsonLd={allJsonLd}
       />
       <Navbar />
 

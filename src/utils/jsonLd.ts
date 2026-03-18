@@ -140,3 +140,36 @@ export function itemListJsonLd(items: { name: string; url: string; position: num
     })),
   };
 }
+
+export function definedTermJsonLd(term: string, definition: string, url: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    name: term,
+    description: definition,
+    url: `${SITE_URL}${url}`,
+    inDefinedTermSet: {
+      "@type": "DefinedTermSet",
+      name: "OpenClaw Glossary",
+      url: `${SITE_URL}/glossary`,
+    },
+  };
+}
+
+export function videoObjectJsonLd(
+  videoId: string,
+  name: string,
+  articleTitle: string,
+  uploadDate: string
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name,
+    description: `Video related to ${articleTitle}`,
+    thumbnailUrl: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+    uploadDate,
+    contentUrl: `https://www.youtube.com/watch?v=${videoId}`,
+    embedUrl: `https://www.youtube.com/embed/${videoId}`,
+  };
+}

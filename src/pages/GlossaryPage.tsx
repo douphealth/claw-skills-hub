@@ -35,7 +35,8 @@ const GlossaryPage = () => {
     { name: "Glossary", url: "/glossary" },
     { name: entry.term, url: `/glossary/${entry.slug}` },
   ]);
-  const jsonLdArray = [bJsonLd, ...(fJsonLd ? [fJsonLd] : [])];
+  const dtJsonLd = definedTermJsonLd(entry.term, entry.shortDefinition, `/glossary/${entry.slug}`);
+  const jsonLdArray = [bJsonLd, dtJsonLd, ...(fJsonLd ? [fJsonLd] : [])];
   const relatedEntries = glossaryEntries.filter((e) => entry.relatedTerms.includes(e.slug));
 
   return (
