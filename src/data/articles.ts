@@ -219,6 +219,10 @@ export const articles: Article[] = [
       { name: "Screenshot Tool", slug: "screenshot-tool", description: "Full-page screenshots with annotation, diffs, and batch capture.", installCmd: "npx clawhub@latest install screenshot-tool", whyPicked: "Pixel-perfect captures from 320px to 4K. Visual diff comparison, annotation tools, and scheduled batch captures for monitoring.", rating: 4.4 },
       { name: "Email Automator", slug: "email-automator", description: "Send, receive, and process emails programmatically.", installCmd: "npx clawhub@latest install email-automator", whyPicked: "Complete email automation: templated sends, inbox monitoring, AI classification, attachment extraction, and workflow triggers. Supports Gmail, Outlook, and SMTP.", rating: 4.5 },
     ],
+    videos: [
+      { id: "2716IUeCIQo", title: "Playwright MCP: How AI Agents Can Control Your Browser" },
+      { id: "PDs3Ion8FAY", title: "Web Scraping With Vision AI & Playwright Changes Everything" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
