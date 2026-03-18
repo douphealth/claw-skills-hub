@@ -166,6 +166,30 @@ const ArticlePage = () => {
             </motion.div>
           ))}
 
+          {/* YouTube Videos */}
+          {article.videos && article.videos.length > 0 && (
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
+              <h2 className="text-2xl font-bold text-foreground mb-6">📺 Watch: Related Videos</h2>
+              <div className="grid gap-6 sm:grid-cols-2">
+                {article.videos.map((video) => (
+                  <div key={video.id} className="glass rounded-xl overflow-hidden">
+                    <div className="aspect-video">
+                      <iframe
+                        src={`https://www.youtube-nocookie.com/embed/${video.id}`}
+                        title={video.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        loading="lazy"
+                        className="w-full h-full border-0"
+                      />
+                    </div>
+                    <p className="px-4 py-3 text-sm font-medium text-foreground">{video.title}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
           {/* Skills */}
           <div className="space-y-8">
             {article.skills.map((skill, i) => (
