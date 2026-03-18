@@ -566,6 +566,10 @@ export const articles: Article[] = [
       { name: "RAG Pipeline", slug: "rag-pipeline", description: "Document processing with configurable data residency.", installCmd: "npx clawhub@latest install rag-pipeline", whyPicked: "Verified skill with full data residency controls. Process sensitive documents without data leaving your infrastructure.", rating: 4.9 },
       { name: "Notification Hub", slug: "notification-hub", description: "Security alert routing to Slack, email, or PagerDuty.", installCmd: "npx clawhub@latest install notification-hub", whyPicked: "Route security alerts based on severity. Get notified immediately when a skill exhibits suspicious behavior.", rating: 4.5 },
     ],
+    videos: [
+      { id: "TdHg9ee56Iw", title: "Don't Use Any AI Agents or Browsers Until You Watch This" },
+      { id: "z5eREfBlI5k", title: "The Practical Application Of Indirect Prompt Injection Attacks" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
