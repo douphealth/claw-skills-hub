@@ -75,6 +75,11 @@ export const articles: Article[] = [
       { name: "Model Evaluator", slug: "model-evaluator", description: "Benchmark and compare models with automated evaluation and A/B testing.", installCmd: "npx clawhub@latest install model-evaluator", whyPicked: "Detect quality regressions, validate fine-tuned models, and run statistically significant A/B tests. Critical for maintaining production quality.", rating: 4.6 },
       { name: "Take the Wheel", slug: "take-the-wheel", description: "Autonomous long-form content writing with research and revision cycles.", installCmd: "npx clawhub@latest install take-the-wheel", whyPicked: "Give it a topic and get publication-ready content in minutes. Handles research, drafting, editing, and polishing. Perfect for content teams scaling output.", rating: 4.6 },
     ],
+    videos: [
+      { id: "Jsu7NaGMc48", title: "Agent Skills Explained: AI Agents Can Learn Now" },
+      { id: "4Q7gUXAveL0", title: "The 8 AI Skills That Will Separate Winners From Losers in 2026" },
+      { id: "63B-3rqRFbQ", title: "RAG Tutorial: Complete Introduction to Retrieval Augmented Generation" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -177,6 +182,10 @@ export const articles: Article[] = [
       { name: "Cloudflare Worker", slug: "cloudflare-worker", description: "Deploy Workers, manage KV, R2, D1, and Pages.", installCmd: "npx clawhub@latest install cloudflare-worker", whyPicked: "Full Cloudflare ecosystem management. Deploy edge functions, manage storage, and monitor analytics — all conversationally.", rating: 4.5 },
       { name: "Log Analyzer", slug: "log-analyzer", description: "AI-powered log analysis with anomaly detection and root cause analysis.", installCmd: "npx clawhub@latest install log-analyzer", whyPicked: "Ingest logs from any source, detect anomalies, correlate events across services, and get AI-generated root cause analysis with runbooks.", rating: 4.6 },
     ],
+    videos: [
+      { id: "C20NP5pPXCY", title: "Creating An AI DevOps Agent (2025 Getting Started)" },
+      { id: "eKsWS7OM5oY", title: "Complete Guide to K8sGPT: Simplify Kubernetes Troubleshooting with AI" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -209,6 +218,10 @@ export const articles: Article[] = [
       { name: "PDF Generator", slug: "pdf-generator", description: "Generate professional PDFs from HTML, Markdown, or templates.", installCmd: "npx clawhub@latest install pdf-generator", whyPicked: "Production-quality PDF generation with headers, footers, charts, custom fonts, and watermarks. Merge, split, and manipulate existing PDFs.", rating: 4.6 },
       { name: "Screenshot Tool", slug: "screenshot-tool", description: "Full-page screenshots with annotation, diffs, and batch capture.", installCmd: "npx clawhub@latest install screenshot-tool", whyPicked: "Pixel-perfect captures from 320px to 4K. Visual diff comparison, annotation tools, and scheduled batch captures for monitoring.", rating: 4.4 },
       { name: "Email Automator", slug: "email-automator", description: "Send, receive, and process emails programmatically.", installCmd: "npx clawhub@latest install email-automator", whyPicked: "Complete email automation: templated sends, inbox monitoring, AI classification, attachment extraction, and workflow triggers. Supports Gmail, Outlook, and SMTP.", rating: 4.5 },
+    ],
+    videos: [
+      { id: "2716IUeCIQo", title: "Playwright MCP: How AI Agents Can Control Your Browser" },
+      { id: "PDs3Ion8FAY", title: "Web Scraping With Vision AI & Playwright Changes Everything" },
     ],
   },
 
@@ -279,6 +292,10 @@ export const articles: Article[] = [
       { name: "Lead Scorer", slug: "lead-scorer", description: "AI-powered lead scoring with behavior, fit, and intent analysis.", installCmd: "npx clawhub@latest install lead-scorer", whyPicked: "Automatically prioritize leads based on website visits, email engagement, and firmographic data. Triggers nurture sequences for low-score leads.", rating: 4.4 },
       { name: "CRM Connector", slug: "crm-connector", description: "HubSpot, Salesforce, and Pipedrive management with AI assistance.", installCmd: "npx clawhub@latest install crm-connector", whyPicked: "Unified CRM access with AI-powered data entry, deal predictions, and pipeline analytics across HubSpot, Salesforce, and Pipedrive.", rating: 4.6 },
     ],
+    videos: [
+      { id: "91GGf_2TOhY", title: "How AI Agents Automate SEO, Ads & Growth" },
+      { id: "OITqlgDee0Y", title: "Top 5 AI Tools for Marketing in 2026" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -311,6 +328,11 @@ export const articles: Article[] = [
       { name: "Debug Assistant", slug: "debug-assistant", description: "AI debugging with error analysis, bug tracing, and fix suggestions.", installCmd: "npx clawhub@latest install debug-assistant", whyPicked: "Codebase-aware debugging that traces through files and understands your architecture. Far more effective than general-purpose AI assistants.", rating: 4.7 },
       { name: "Refactor Agent", slug: "refactor-agent", description: "Intelligent codebase refactoring with AST analysis and test verification.", installCmd: "npx clawhub@latest install refactor-agent", whyPicked: "Safe, large-scale refactoring using AST analysis and type checking. Verifies behavior preservation by running existing tests.", rating: 4.6 },
       { name: "Docs Generator", slug: "docs-generator", description: "Generate API docs, READMEs, and OpenAPI specs from code.", installCmd: "npx clawhub@latest install docs-generator", whyPicked: "Automatic documentation from code: API references, README files, JSDoc comments, and OpenAPI specs. Updates automatically in CI.", rating: 4.5 },
+    ],
+    videos: [
+      { id: "RKbmqSRc0z0", title: "Best AI Coding Tools for Developers in 2026" },
+      { id: "EUmSTacO1Mo", title: "Claude Code vs GitHub Copilot vs Cursor — The Honest Truth (2026)" },
+      { id: "ri7rPglW96U", title: "GitHub Copilot vs Cursor vs Windsurf (2026) — Which One Is Best?" },
     ],
   },
 
@@ -399,6 +421,10 @@ export const articles: Article[] = [
       { name: "RAG Pipeline", slug: "rag-pipeline", description: "Ground agent responses in your data with retrieval-augmented generation.", installCmd: "npx clawhub@latest install rag-pipeline", whyPicked: "Ensures agents work with accurate, grounded information rather than hallucinating. Citation tracking maintains accountability.", rating: 4.9 },
       { name: "Model Evaluator", slug: "model-evaluator", description: "Validate multi-agent output quality with automated evaluation.", installCmd: "npx clawhub@latest install model-evaluator", whyPicked: "Quality assurance for multi-agent systems. Detect regressions and validate output against defined rubrics.", rating: 4.6 },
     ],
+    videos: [
+      { id: "E_m_UDCTj7E", title: "LangGraph vs CrewAI vs AutoGen (2026) — Best Multi-Agent Framework" },
+      { id: "KDiO7Zg2N0E", title: "Best Multi-Agent Framework in 2025? Full Head-to-Head Comparison" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -426,6 +452,9 @@ export const articles: Article[] = [
       { name: "SEO Optimizer", slug: "seo-optimizer", description: "Keyword research, content scoring, and technical SEO.", installCmd: "npx clawhub@latest install seo-optimizer", whyPicked: "Research keywords, score content quality, generate meta tags, and track rankings. Essential for any content that needs to rank.", rating: 4.7 },
       { name: "Social Media Manager", slug: "social-media-manager", description: "Multi-platform publishing with AI content generation.", installCmd: "npx clawhub@latest install social-media-manager", whyPicked: "Publish to all major platforms with platform-optimized formatting. AI generates hashtags, optimal timing, and engagement-optimized copy.", rating: 4.6 },
       { name: "GA4 Analytics", slug: "ga4-analytics", description: "Natural language analytics queries and automated reports.", installCmd: "npx clawhub@latest install ga4-analytics", whyPicked: "Query traffic data conversationally. Automated weekly reports and AI-powered content performance insights.", rating: 4.5 },
+    ],
+    videos: [
+      { id: "I9G5G6d21ag", title: "The ABSOLUTE BEST AI Tools for Content Creators in 2026" },
     ],
   },
 
@@ -537,6 +566,10 @@ export const articles: Article[] = [
       { name: "RAG Pipeline", slug: "rag-pipeline", description: "Document processing with configurable data residency.", installCmd: "npx clawhub@latest install rag-pipeline", whyPicked: "Verified skill with full data residency controls. Process sensitive documents without data leaving your infrastructure.", rating: 4.9 },
       { name: "Notification Hub", slug: "notification-hub", description: "Security alert routing to Slack, email, or PagerDuty.", installCmd: "npx clawhub@latest install notification-hub", whyPicked: "Route security alerts based on severity. Get notified immediately when a skill exhibits suspicious behavior.", rating: 4.5 },
     ],
+    videos: [
+      { id: "TdHg9ee56Iw", title: "Don't Use Any AI Agents or Browsers Until You Watch This" },
+      { id: "z5eREfBlI5k", title: "The Practical Application Of Indirect Prompt Injection Attacks" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -618,6 +651,10 @@ export const articles: Article[] = [
       { name: "Test Generator", slug: "test-generator", description: "Auto-generate unit and integration tests.", installCmd: "npx clawhub@latest install test-generator", whyPicked: "Generates comprehensive test suites from your code. Supports Jest, Vitest, Pytest, and Go tests with edge case coverage.", rating: 4.7 },
       { name: "Docker Captain", slug: "docker-captain", description: "Container management through natural language.", installCmd: "npx clawhub@latest install docker-captain", whyPicked: "Build, run, and debug Docker containers through conversation. Generates optimized Dockerfiles and docker-compose configs.", rating: 4.6 },
       { name: "Debug Assistant", slug: "debug-assistant", description: "Root cause analysis and fix suggestions for errors.", installCmd: "npx clawhub@latest install debug-assistant", whyPicked: "Paste any error and get root cause analysis with fix suggestions specific to your stack. Like having a senior developer on call.", rating: 4.7 },
+    ],
+    videos: [
+      { id: "RKbmqSRc0z0", title: "Best AI Coding Tools for Developers in 2026" },
+      { id: "pbAqx8B6NVc", title: "Build Your Own AI Agent from Scratch (Mastra + TypeScript)" },
     ],
   },
 
@@ -769,6 +806,11 @@ export const articles: Article[] = [
       { name: "Agent Orchestrator", slug: "agent-orchestrator", description: "Multi-agent coordination — a skill that works alongside MCP.", installCmd: "npx clawhub@latest install agent-orchestrator", whyPicked: "Shows how skills and MCP complement each other. The orchestrator skill coordinates agents that may use tools from multiple MCP servers.", rating: 4.8 },
       { name: "Deep Research", slug: "deep-research", description: "Skill + tool integration for multi-source research.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "Combines skill-level orchestration (research workflow) with tool-level capabilities (web search, document retrieval) — a perfect example of the hybrid approach.", rating: 4.9 },
     ],
+    videos: [
+      { id: "N3vHJcHBS-w", title: "Model Context Protocol (MCP) Explained in 20 Minutes" },
+      { id: "Eby_icnBLBk", title: "MCP Explained: How to Use MCP Servers" },
+      { id: "VChRPFUzJGA", title: "Model Context Protocol: The Key To Agentic AI" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -858,6 +900,10 @@ export const articles: Article[] = [
       { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "The #1 skill for evaluating AI agents. Use Deep Research to compare frameworks, read documentation, and synthesize findings automatically.", rating: 4.9 },
       { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "Evaluate the source code of any alternative agent. Code Reviewer can analyze repositories for security patterns, code quality, and architectural decisions.", rating: 4.8 },
       { name: "Browser Pilot", slug: "browser-pilot", description: "Visual browser automation for any website.", installCmd: "npx clawhub@latest install browser-pilot", whyPicked: "Test any alternative agent's web-based demos and documentation automatically. Navigate, screenshot, and extract information from competitor sites.", rating: 4.8 },
+    ],
+    videos: [
+      { id: "8HqeY5v0ohM", title: "AutoGen vs CrewAI vs LangGraph — Best AI Agent Framework In 2025" },
+      { id: "JFYG4mKPE6s", title: "LangGraph vs LangChain vs AutoGen vs CrewAI: Which Framework to Choose?" },
     ],
   },
 
@@ -1194,6 +1240,10 @@ export const articles: Article[] = [
       { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "Scan skill source code for security red flags before installation. Detects environment variable access, unauthorized network calls, and obfuscated code.", rating: 4.8 },
       { name: "Cloud Deployer", slug: "cloud-deployer", description: "Deploy to any cloud with infrastructure-as-code.", installCmd: "npx clawhub@latest install cloud-deployer", whyPicked: "Automate VPS hardening with pre-built security templates. Supports AWS, GCP, Azure, and bare-metal VPS providers.", rating: 4.7 },
     ],
+    videos: [
+      { id: "TdHg9ee56Iw", title: "Don't Use Any AI Agents or Browsers Until You Watch This" },
+      { id: "BT7wIAxxdu8", title: "AI Hacking: What is Prompt Injection?" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -1367,6 +1417,10 @@ export const articles: Article[] = [
       { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Chain prompts for multi-step workflows.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "The fundamental building block for multi-step AI workflows. Chain prompts with context passing, branching, and error recovery.", rating: 4.8 },
       { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "Demonstrates how a skill can provide deep domain expertise. Scans code for bugs, security issues, and anti-patterns.", rating: 4.8 },
     ],
+    videos: [
+      { id: "Jsu7NaGMc48", title: "Agent Skills Explained: AI Agents Can Learn Now" },
+      { id: "LWJuNRPdJ1M", title: "Turn Your Workflows Into An AI Agent With Skills" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -1424,6 +1478,10 @@ export const articles: Article[] = [
       { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "The recommended first skill for every new OpenClaw user. Comprehensive, well-maintained, and verified.", rating: 4.9 },
       { name: "LLM Router", slug: "llm-router", description: "Route prompts to the best model by cost and complexity.", installCmd: "npx clawhub@latest install llm-router", whyPicked: "The recommended second install. Immediately reduces API costs by routing simple tasks to cheaper models.", rating: 4.9 },
       { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Chain prompts for multi-step workflows.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "The recommended third install. Enables multi-step workflows that single prompts can't handle.", rating: 4.8 },
+    ],
+    videos: [
+      { id: "6EFOT6hjvAU", title: "Claude Plugins & Skills Tutorial (All Updates Combined)" },
+      { id: "sHDCgAWWpNQ", title: "Essential AI Skills For 2026" },
     ],
   },
 
@@ -1511,6 +1569,10 @@ export const articles: Article[] = [
       { name: "RAG Pipeline", slug: "rag-pipeline", description: "Production RAG with document ingestion and hybrid search.", installCmd: "npx clawhub@latest install rag-pipeline", whyPicked: "A complex skill that demonstrates how SKILL.md orchestrates multiple tools into a unified workflow — the best example of skills at their most powerful.", rating: 4.9 },
       { name: "Agent Orchestrator", slug: "agent-orchestrator", description: "Coordinate multiple AI agents with role assignment.", installCmd: "npx clawhub@latest install agent-orchestrator", whyPicked: "Shows how skills can compose other skills, creating multi-agent workflows that are impossible with MCP or plugins alone.", rating: 4.8 },
     ],
+    videos: [
+      { id: "N3vHJcHBS-w", title: "Model Context Protocol (MCP) Explained in 20 Minutes" },
+      { id: "sMqlObpNz64", title: "Build ANYTHING with MCP Servers — Coding Tutorial" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -1555,6 +1617,10 @@ export const articles: Article[] = [
     skills: [
       { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "The essential auditing tool. Use Code Reviewer to scan any SKILL.md for security red flags before installation.", rating: 4.8 },
       { name: "Docker Captain", slug: "docker-captain", description: "Generate and manage Docker configurations.", installCmd: "npx clawhub@latest install docker-captain", whyPicked: "Generate sandboxed Docker environments for testing unverified skills safely.", rating: 4.7 },
+    ],
+    videos: [
+      { id: "TdHg9ee56Iw", title: "Don't Use Any AI Agents Until You Watch This — Security Deep Dive" },
+      { id: "GcNu6wrLTJc", title: "Understanding CLAUDE.md and AGENT.md Files" },
     ],
   },
 
@@ -1610,6 +1676,11 @@ export const articles: Article[] = [
       { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "#2 ranked skill with a 9.5/10 score. The most versatile skill across all use cases.", rating: 4.9 },
       { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "#4 ranked skill. Essential for both development workflows and SKILL.md security auditing.", rating: 4.8 },
       { name: "Browser Pilot", slug: "browser-pilot", description: "Visual browser automation for any website.", installCmd: "npx clawhub@latest install browser-pilot", whyPicked: "#7 ranked skill. The Swiss Army knife of automation — any web task, no code required.", rating: 4.8 },
+    ],
+    videos: [
+      { id: "jm2jBW462bU", title: "Essential AI Skills For 2026" },
+      { id: "4Q7gUXAveL0", title: "The 8 AI Skills That Will Separate Winners From Losers in 2026" },
+      { id: "BpibZSMGtdY", title: "Prompting Split Into 4 Skills — Here's Why You Need All of Them in 2026" },
     ],
   },
 
@@ -1753,6 +1824,11 @@ export const articles: Article[] = [
       { name: "Take the Wheel", slug: "take-the-wheel", description: "Autonomous long-form content writing.", installCmd: "npx clawhub@latest install take-the-wheel", whyPicked: "Publication-ready content in 10-15 minutes. The anchor of any content automation workflow.", rating: 4.6 },
       { name: "Deep Research", slug: "deep-research", description: "Multi-source research with synthesis and citations.", installCmd: "npx clawhub@latest install deep-research", whyPicked: "Essential for competitive intelligence and source material gathering.", rating: 4.9 },
       { name: "Social Media Manager", slug: "social-media-manager", description: "Multi-platform content distribution.", installCmd: "npx clawhub@latest install social-media-manager", whyPicked: "Generates platform-specific content and handles multi-channel distribution.", rating: 4.5 },
+    ],
+    videos: [
+      { id: "91GGf_2TOhY", title: "How AI Agents Automate SEO, Ads & Growth" },
+      { id: "1q0Bx_7CxJs", title: "How to Create High-Quality SEO Content FAST with AI Agents" },
+      { id: "UWHcOQCw4NU", title: "The SEO Playbook That Actually Works in 2026" },
     ],
   },
 
