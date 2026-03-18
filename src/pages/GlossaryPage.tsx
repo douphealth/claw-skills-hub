@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
 import SEOHead from "@/components/SEOHead";
 import { getGlossaryEntryBySlug, glossaryEntries } from "@/data/glossary";
-import { faqJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
+import { faqJsonLd, breadcrumbJsonLd, definedTermJsonLd } from "@/utils/jsonLd";
 import { Button } from "@/components/ui/button";
 
 const GlossaryPage = () => {

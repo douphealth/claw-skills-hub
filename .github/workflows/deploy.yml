@@ -56,25 +56,34 @@ jobs:
       - name: Ping IndexNow for fast indexing
         if: success()
         run: |
-          curl -sf -X POST "https://api.indexnow.org/indexnow" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "host": "openclaw-skillshub.com",
-              "key": "${{ secrets.INDEXNOW_KEY }}",
-              "keyLocation": "https://openclaw-skillshub.com/${{ secrets.INDEXNOW_KEY }}.txt",
-              "urlList": [
-                "https://openclaw-skillshub.com/",
-                "https://openclaw-skillshub.com/skills",
-                "https://openclaw-skillshub.com/articles",
-                "https://openclaw-skillshub.com/articles/best-openclaw-skills-2026",
-                "https://openclaw-skillshub.com/articles/what-are-openclaw-skills",
-                "https://openclaw-skillshub.com/articles/how-to-install-openclaw-skills",
-                "https://openclaw-skillshub.com/articles/how-to-audit-skill-md",
-                "https://openclaw-skillshub.com/articles/openclaw-skills-vs-plugins-vs-mcp",
-                "https://openclaw-skillshub.com/tutorials",
-                "https://openclaw-skillshub.com/glossary"
-              ]
-            }' || echo "IndexNow ping failed (non-critical)"
+          if [ -f dist/indexnow-urls.json ]; then
+            # Split into batches of 10000 (IndexNow max)
+            TOTAL=$(python3 -c "import json; print(len(json.load(open('dist/indexnow-urls.json'))))")
+            echo "Submitting $TOTAL URLs to IndexNow..."
+            python3 -c "
+          import json, urllib.request
+          urls = json.load(open('dist/indexnow-urls.json'))
+          batch_size = 10000
+          key = '${{ secrets.INDEXNOW_KEY }}'
+          for i in range(0, len(urls), batch_size):
+              batch = urls[i:i+batch_size]
+              payload = json.dumps({
+                  'host': 'openclaw-skillshub.com',
+                  'key': key,
+                  'keyLocation': f'https://openclaw-skillshub.com/{key}.txt',
+                  'urlList': batch
+              }).encode()
+              req = urllib.request.Request('https://api.indexnow.org/indexnow',
+                  data=payload, headers={'Content-Type': 'application/json'})
+              try:
+                  urllib.request.urlopen(req)
+                  print(f'Batch {i//batch_size+1}: {len(batch)} URLs submitted')
+              except Exception as e:
+                  print(f'Batch {i//batch_size+1} failed: {e}')
+          " || echo "IndexNow ping failed (non-critical)"
+          else
+            echo "No indexnow-urls.json found, skipping"
+          fi
 
       - name: Ping search engine sitemaps
         if: success()
