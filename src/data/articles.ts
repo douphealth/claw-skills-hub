@@ -1669,6 +1669,11 @@ export const articles: Article[] = [
       { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "#4 ranked skill. Essential for both development workflows and SKILL.md security auditing.", rating: 4.8 },
       { name: "Browser Pilot", slug: "browser-pilot", description: "Visual browser automation for any website.", installCmd: "npx clawhub@latest install browser-pilot", whyPicked: "#7 ranked skill. The Swiss Army knife of automation — any web task, no code required.", rating: 4.8 },
     ],
+    videos: [
+      { id: "jm2jBW462bU", title: "Essential AI Skills For 2026" },
+      { id: "4Q7gUXAveL0", title: "The 8 AI Skills That Will Separate Winners From Losers in 2026" },
+      { id: "BpibZSMGtdY", title: "Prompting Split Into 4 Skills — Here's Why You Need All of Them in 2026" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
