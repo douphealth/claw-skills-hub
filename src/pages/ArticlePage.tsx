@@ -11,7 +11,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
 import SEOHead from "@/components/SEOHead";
-import { getArticleBySlug, articles } from "@/data/articles";
+import { getArticleBySlug, articles, type ArticleVideo } from "@/data/articles";
 import { getSkillBySlug } from "@/data/skills";
 import { articleJsonLd as makeArticleJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
 import { articleHeroImages } from "@/data/articleImages";
