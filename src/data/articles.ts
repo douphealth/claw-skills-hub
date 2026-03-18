@@ -1236,6 +1236,10 @@ export const articles: Article[] = [
       { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "Scan skill source code for security red flags before installation. Detects environment variable access, unauthorized network calls, and obfuscated code.", rating: 4.8 },
       { name: "Cloud Deployer", slug: "cloud-deployer", description: "Deploy to any cloud with infrastructure-as-code.", installCmd: "npx clawhub@latest install cloud-deployer", whyPicked: "Automate VPS hardening with pre-built security templates. Supports AWS, GCP, Azure, and bare-metal VPS providers.", rating: 4.7 },
     ],
+    videos: [
+      { id: "TdHg9ee56Iw", title: "Don't Use Any AI Agents or Browsers Until You Watch This" },
+      { id: "BT7wIAxxdu8", title: "AI Hacking: What is Prompt Injection?" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
