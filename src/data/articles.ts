@@ -453,6 +453,9 @@ export const articles: Article[] = [
       { name: "Social Media Manager", slug: "social-media-manager", description: "Multi-platform publishing with AI content generation.", installCmd: "npx clawhub@latest install social-media-manager", whyPicked: "Publish to all major platforms with platform-optimized formatting. AI generates hashtags, optimal timing, and engagement-optimized copy.", rating: 4.6 },
       { name: "GA4 Analytics", slug: "ga4-analytics", description: "Natural language analytics queries and automated reports.", installCmd: "npx clawhub@latest install ga4-analytics", whyPicked: "Query traffic data conversationally. Automated weekly reports and AI-powered content performance insights.", rating: 4.5 },
     ],
+    videos: [
+      { id: "I9G5G6d21ag", title: "The ABSOLUTE BEST AI Tools for Content Creators in 2026" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
