@@ -86,16 +86,15 @@ export default function sitemapPlugin(): Plugin {
   return {
     name: "vite-plugin-sitemap",
     apply: "build",
-    closeBundle() {
-      // Use closeBundle instead of generateBundle to avoid TS errors with emitFile
+    generateBundle() {
       const entries = buildEntries();
       const xml = toXML(entries);
-      const fs = require("fs");
-      const path = require("path");
-      const outDir = path.resolve(process.cwd(), "dist");
-      fs.mkdirSync(outDir, { recursive: true });
-      fs.writeFileSync(path.join(outDir, "sitemap.xml"), xml);
+      this.emitFile({
+        type: "asset",
+        fileName: "sitemap.xml",
+        source: xml,
+      });
       console.log(`[Sitemap] Generated sitemap.xml with ${entries.length} URLs`);
     },
-  } as Plugin;
+  } as unknown as Plugin;
 }
