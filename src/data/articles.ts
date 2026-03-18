@@ -1409,6 +1409,10 @@ export const articles: Article[] = [
       { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Chain prompts for multi-step workflows.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "The fundamental building block for multi-step AI workflows. Chain prompts with context passing, branching, and error recovery.", rating: 4.8 },
       { name: "Code Reviewer", slug: "code-reviewer", description: "AI-powered code review with security scanning.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "Demonstrates how a skill can provide deep domain expertise. Scans code for bugs, security issues, and anti-patterns.", rating: 4.8 },
     ],
+    videos: [
+      { id: "Jsu7NaGMc48", title: "Agent Skills Explained: AI Agents Can Learn Now" },
+      { id: "LWJuNRPdJ1M", title: "Turn Your Workflows Into An AI Agent With Skills" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════
