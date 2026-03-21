@@ -1,73 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Loader2, Sparkles, Mail, ArrowRight, CheckCircle } from "lucide-react";
-import ReactMarkdown from "react-markdown";
+import { X, Send, Loader2, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { cn } from "@/lib/utils";
-
-type Msg = { role: "user" | "assistant"; content: string };
-
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-assistant`;
-
-const QUICK_ACTIONS = [
-  { label: "🔍 Browse Skills", msg: "Show me the skills directory" },
-  { label: "🚀 Get Started", msg: "How do I get started with OpenClaw?" },
-  { label: "📚 Tutorials", msg: "What tutorials do you have?" },
-  { label: "🔒 Security", msg: "How do I know if a skill is safe?" },
-];
-
-async function streamChat({
-  messages,
-  onDelta,
-  onDone,
-  onError,
-}: {
-  messages: Msg[];
-  onDelta: (t: string) => void;
-  onDone: () => void;
-  onError: (e: string) => void;
-}) {
-  const resp = await fetch(CHAT_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-    },
-    body: JSON.stringify({ messages }),
-  });
-
-  if (!resp.ok) {
-    const data = await resp.json().catch(() => ({}));
-    onError(data.error || "Something went wrong. Try again!");
-    return;
-  }
-  if (!resp.body) { onError("No response"); return; }
-
-  const reader = resp.body.getReader();
-  const decoder = new TextDecoder();
-  let buf = "";
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    buf += decoder.decode(value, { stream: true });
-
-    let nl: number;
-    while ((nl = buf.indexOf("\n")) !== -1) {
-      let line = buf.slice(0, nl);
-      buf = buf.slice(nl + 1);
-      if (line.endsWith("\r")) line = line.slice(0, -1);
-      if (line.startsWith(":") || !line.trim() || !line.startsWith("data: ")) continue;
-      const json = line.slice(6).trim();
-      if (json === "[DONE]") { onDone(); return; }
-      try {
-        const c = JSON.parse(json).choices?.[0]?.delta?.content;
-        if (c) onDelta(c);
-      } catch { buf = line + "\n" + buf; break; }
-    }
-  }
-  onDone();
-}
+import { Msg, QUICK_ACTIONS } from "./chat/types";
+import { streamChat } from "./chat/streamChat";
+import ChatMessage from "./chat/ChatMessage";
+import EmailCaptureCard from "./chat/EmailCaptureCard";
+import TypingIndicator from "./chat/TypingIndicator";
 
 const ChatWidget = () => {
   const [open, setOpen] = useState(false);
@@ -75,31 +14,37 @@ const ChatWidget = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showEmailCapture, setShowEmailCapture] = useState(false);
-  const [email, setEmail] = useState("");
-  const [emailStatus, setEmailStatus] = useState<"idle" | "loading" | "done">("idle");
+  const [emailCaptured, setEmailCaptured] = useState(
+    () => !!localStorage.getItem("clawskills_subscriber_email")
+  );
   const [msgCount, setMsgCount] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
-  const isSubscribed = typeof window !== "undefined" && !!localStorage.getItem("clawskills_subscriber_email");
-
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, showEmailCapture]);
 
   useEffect(() => {
     if (open && inputRef.current) inputRef.current.focus();
   }, [open]);
 
-  // Show email capture after 3 messages if not subscribed
+  // Show email capture after 3 user messages if not already subscribed
   useEffect(() => {
-    if (msgCount >= 3 && !isSubscribed && !showEmailCapture && emailStatus !== "done") {
+    if (msgCount >= 3 && !emailCaptured && !showEmailCapture) {
       setShowEmailCapture(true);
     }
-  }, [msgCount, isSubscribed, showEmailCapture, emailStatus]);
+  }, [msgCount, emailCaptured, showEmailCapture]);
+
+  const handleLinkClick = useCallback((href: string) => {
+    if (href.startsWith("/")) {
+      navigate(href);
+      setOpen(false);
+    } else {
+      window.open(href, "_blank");
+    }
+  }, [navigate]);
 
   const send = useCallback(async (text: string) => {
     if (!text.trim() || loading) return;
@@ -109,15 +54,16 @@ const ChatWidget = () => {
     setLoading(true);
     setMsgCount(c => c + 1);
 
-    let assistantSoFar = "";
+    let buffer = "";
     const upsert = (chunk: string) => {
-      assistantSoFar += chunk;
+      buffer += chunk;
+      const snapshot = buffer;
       setMessages(prev => {
         const last = prev[prev.length - 1];
         if (last?.role === "assistant") {
-          return prev.map((m, i) => i === prev.length - 1 ? { ...m, content: assistantSoFar } : m);
+          return prev.map((m, i) => i === prev.length - 1 ? { ...m, content: snapshot } : m);
         }
-        return [...prev, { role: "assistant", content: assistantSoFar }];
+        return [...prev, { role: "assistant", content: snapshot }];
       });
     };
 
@@ -125,48 +71,18 @@ const ChatWidget = () => {
       messages: [...messages, userMsg],
       onDelta: upsert,
       onDone: () => setLoading(false),
-      onError: (e) => {
-        upsert(e);
-        setLoading(false);
-      },
+      onError: (e) => { upsert(e); setLoading(false); },
     });
   }, [messages, loading]);
 
-  const handleEmailSubmit = async () => {
-    if (!email || emailStatus === "loading") return;
-    setEmailStatus("loading");
-    try {
-      const res = await fetch(CHAT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-        },
-        body: JSON.stringify({ captureEmail: email }),
-      });
-      if (res.ok) {
-        setEmailStatus("done");
-        setShowEmailCapture(false);
-        localStorage.setItem("clawskills_subscriber_email", email);
-        setMessages(prev => [...prev, {
-          role: "assistant",
-          content: "🎉 **You're almost in!** Check your inbox for a confirmation email. Once confirmed, you'll get the best OpenClaw skill delivered weekly. Now, what else can I help you with?"
-        }]);
-      }
-    } catch {
-      setEmailStatus("idle");
-    }
-  };
-
-  // Handle markdown link clicks for internal navigation
-  const handleLinkClick = (href: string) => {
-    if (href.startsWith("/")) {
-      navigate(href);
-      setOpen(false);
-    } else {
-      window.open(href, "_blank");
-    }
-  };
+  const handleEmailSubscribed = useCallback((email: string) => {
+    setEmailCaptured(true);
+    setShowEmailCapture(false);
+    setMessages(prev => [...prev, {
+      role: "assistant",
+      content: "🎉 **You're almost in!** Check your inbox for a confirmation email. Once confirmed, you'll get the best OpenClaw skill delivered weekly.\n\nNow, what else can I help you with?"
+    }]);
+  }, []);
 
   return (
     <>
@@ -224,7 +140,9 @@ const ChatWidget = () => {
                 <div className="space-y-3">
                   <div className="bg-secondary/50 rounded-xl p-3 text-sm text-foreground">
                     <p className="font-medium mb-1">Hey there! 🐾</p>
-                    <p className="text-muted-foreground text-[13px]">I'm Claw, your AI guide to 5,700+ OpenClaw skills. Ask me anything or pick a quick action:</p>
+                    <p className="text-muted-foreground text-[13px]">
+                      I'm Claw, your AI guide to 5,700+ OpenClaw skills. Ask me anything or pick a quick action:
+                    </p>
                   </div>
                   <div className="grid grid-cols-2 gap-1.5">
                     {QUICK_ACTIONS.map(a => (
@@ -241,86 +159,16 @@ const ChatWidget = () => {
               )}
 
               {messages.map((m, i) => (
-                <div key={i} className={cn("flex", m.role === "user" ? "justify-end" : "justify-start")}>
-                  <div className={cn(
-                    "max-w-[85%] rounded-xl px-3 py-2 text-[13px] leading-relaxed",
-                    m.role === "user"
-                      ? "bg-primary text-primary-foreground rounded-br-sm"
-                      : "bg-secondary/60 text-foreground rounded-bl-sm"
-                  )}>
-                    {m.role === "assistant" ? (
-                      <ReactMarkdown
-                        components={{
-                          a: ({ href, children }) => (
-                            <button
-                              onClick={() => href && handleLinkClick(href)}
-                              className="text-primary hover:underline font-medium inline"
-                            >
-                              {children}
-                            </button>
-                          ),
-                          p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
-                          strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
-                          ul: ({ children }) => <ul className="list-disc pl-4 mb-1.5 space-y-0.5">{children}</ul>,
-                          ol: ({ children }) => <ol className="list-decimal pl-4 mb-1.5 space-y-0.5">{children}</ol>,
-                          code: ({ children }) => <code className="bg-background/50 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
-                        }}
-                      >
-                        {m.content}
-                      </ReactMarkdown>
-                    ) : m.content}
-                  </div>
-                </div>
+                <ChatMessage key={i} message={m} onLinkClick={handleLinkClick} />
               ))}
 
-              {loading && messages[messages.length - 1]?.role === "user" && (
-                <div className="flex justify-start">
-                  <div className="bg-secondary/60 rounded-xl rounded-bl-sm px-3 py-2">
-                    <div className="flex gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: "0ms" }} />
-                      <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: "150ms" }} />
-                      <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: "300ms" }} />
-                    </div>
-                  </div>
-                </div>
-              )}
+              {loading && messages[messages.length - 1]?.role === "user" && <TypingIndicator />}
 
-              {/* Email capture card */}
-              {showEmailCapture && emailStatus !== "done" && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-br from-primary/10 via-secondary/50 to-secondary/30 rounded-xl p-3 border border-primary/20"
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <Mail className="w-4 h-4 text-primary" />
-                    <span className="text-xs font-semibold text-foreground">Get the best skills weekly</span>
-                  </div>
-                  <p className="text-[11px] text-muted-foreground mb-2">Free "Skill of the Week" newsletter — no spam, ever.</p>
-                  <div className="flex gap-1.5">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      onKeyDown={e => e.key === "Enter" && handleEmailSubmit()}
-                      placeholder="your@email.com"
-                      className="flex-1 bg-background/60 border border-border rounded-lg px-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                    />
-                    <button
-                      onClick={handleEmailSubmit}
-                      disabled={emailStatus === "loading"}
-                      className="bg-primary text-primary-foreground rounded-lg px-3 py-1.5 text-xs font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center gap-1"
-                    >
-                      {emailStatus === "loading" ? <Loader2 className="w-3 h-3 animate-spin" /> : <ArrowRight className="w-3 h-3" />}
-                    </button>
-                  </div>
-                  <button
-                    onClick={() => setShowEmailCapture(false)}
-                    className="text-[10px] text-muted-foreground hover:text-foreground mt-1.5 block"
-                  >
-                    Maybe later
-                  </button>
-                </motion.div>
+              {showEmailCapture && !emailCaptured && (
+                <EmailCaptureCard
+                  onSubscribed={handleEmailSubscribed}
+                  onDismiss={() => setShowEmailCapture(false)}
+                />
               )}
             </div>
 
