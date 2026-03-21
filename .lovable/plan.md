@@ -1,39 +1,37 @@
 
+Goal: make the latest changes reliably appear on the website and remove the “stale deploy” loop.
 
-## Diagnosis
+What I found (from code + live fetch):
+1) Current code includes `ChatWidget` in `src/App.tsx` (line ~89), so the floating assistant should appear.
+2) Live site snapshot (`openclaw-skillshub.com`) does not show that widget, which indicates the live frontend bundle is older than current code.
+3) Your current preview route is `/index`, but the app only defines `/` (not `/index`). That can show the wrong page/state and make it feel like updates didn’t apply.
+4) Production deploy is separate (GitHub Actions → Cloudflare Pages) from Lovable publish flow, so either publish path can be “up” while the other is stale.
 
-The **chat-assistant Edge Function was never deployed** to Supabase. The widget code exists in the frontend, but every request to `/functions/v1/chat-assistant` was failing silently because the function didn't exist on the server.
+Implementation plan:
+1) Fix routing ambiguity
+- Add a redirect route from `/index` → `/` so opening `/index` never shows stale/incorrect state.
 
-I just deployed it — the function is now live.
+2) Add build fingerprint visibility
+- Inject a small build/version marker (commit hash + build time) in the UI footer and in console startup logs.
+- This makes it instantly obvious whether the page is running the new build.
 
-## What Still Needs to Happen
+3) Harden deploy verification
+- Ensure both deployment paths expose the same version marker:
+  - Lovable published URL (`claw-compass.lovable.app`)
+  - Production domain (`openclaw-skillshub.com`)
+- If versions differ, we know immediately it is a CI/CD sync issue, not caching.
 
-### 1. Verify the frontend is published
-The chat widget code (`ChatWidget.tsx`, `EmailCaptureCard.tsx`, etc.) is in the codebase but needs to be published to your Lovable preview domain. Click **"Update"** in the publish dialog to push the latest frontend.
+4) Add deployment guardrails
+- Update CI workflow to emit deployed commit SHA in logs/artifact.
+- Add a quick post-deploy check script that fetches homepage and validates the expected build marker exists.
 
-### 2. Confirm LOVABLE_API_KEY secret exists
-The Edge Function requires a `LOVABLE_API_KEY` secret for the AI gateway. Without it, chat responses will fail with a 500 error.
+5) Validation checklist after rollout
+- Open `/` (not `/index`) on both domains.
+- Confirm same build marker on both.
+- Confirm ChatWidget FAB is visible at bottom-right.
+- Confirm assistant request reaches `/functions/v1/chat-assistant`.
 
-**Action:** Check Supabase Dashboard → Settings → Edge Functions → Secrets and confirm `LOVABLE_API_KEY` is set.
-
-### 3. Hard refresh the preview
-After publishing, do a hard refresh (Ctrl+Shift+R / Cmd+Shift+R) to bypass any cached assets.
-
----
-
-## Technical Summary
-
-| Component | Status |
-|-----------|--------|
-| `chat-assistant` Edge Function | ✅ Just deployed |
-| `subscribe` Edge Function | Needs verification |
-| Frontend widget code | Exists — needs publish |
-| `LOVABLE_API_KEY` secret | Needs verification |
-
-## Implementation Steps
-
-1. **Deploy the `subscribe` function** too (used by email capture card)
-2. **Verify secrets** — `LOVABLE_API_KEY` and `RESEND_API_KEY` must be set in Supabase Edge Function secrets
-3. **Publish frontend** — click Update in the publish dialog
-4. **Test end-to-end** — open widget, send a message, trigger email capture, submit email
-
+Technical details:
+- Root issue is most likely stale frontend artifact in one deployment path, not runtime widget logic.
+- `/index` is a concrete routing bug and should be normalized.
+- Build fingerprinting is the fastest long-term fix for “I updated but don’t see it” incidents.
