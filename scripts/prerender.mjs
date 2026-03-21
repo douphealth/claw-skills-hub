@@ -79,7 +79,7 @@ function injectMeta(html, { title, description, canonical, type = 'website', jso
 
   // Inject JSON-LD before </head>
   if (jsonLd) {
-    const ldScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`;
+    const ldScript = `<script id="seo-jsonld" type="application/ld+json">${JSON.stringify(jsonLd)}</script>`;
     html = html.replace('</head>', `${ldScript}\n</head>`);
   }
 
