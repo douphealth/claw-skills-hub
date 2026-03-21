@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { initGA, trackPageView } from "./lib/googleAnalytics";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
+import ChatWidget from "@/components/ChatWidget";
 
 // Eager load the landing page for fast first paint
 import Index from "./pages/Index";
@@ -85,6 +86,7 @@ const App = () => {
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
+            <ChatWidget />
           </BrowserRouter>
         </ErrorBoundary>
       </TooltipProvider>
