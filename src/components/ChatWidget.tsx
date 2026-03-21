@@ -8,16 +8,25 @@ import ChatMessage from "./chat/ChatMessage";
 import EmailCaptureCard from "./chat/EmailCaptureCard";
 import TypingIndicator from "./chat/TypingIndicator";
 
+type CaptureReason = "intent" | "engaged" | "manual" | "exit";
+
+const LEAD_INTENT_REGEX = /(recommend|best|compare|which|install|seo|marketing|automation|workflow|tutorial|integrat|strategy|optimi)/i;
+const CAPTURE_DISMISS_KEY = "clawskills_capture_dismiss_count";
+
 const ChatWidget = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showEmailCapture, setShowEmailCapture] = useState(false);
+  const [captureReason, setCaptureReason] = useState<CaptureReason>("engaged");
   const [emailCaptured, setEmailCaptured] = useState(
     () => !!localStorage.getItem("clawskills_subscriber_email")
   );
   const [msgCount, setMsgCount] = useState(0);
+  const [captureDismissCount, setCaptureDismissCount] = useState(
+    () => Number(localStorage.getItem(CAPTURE_DISMISS_KEY) || "0")
+  );
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -30,12 +39,28 @@ const ChatWidget = () => {
     if (open && inputRef.current) inputRef.current.focus();
   }, [open]);
 
-  // Show email capture after 3 user messages if not already subscribed
-  useEffect(() => {
-    if (msgCount >= 3 && !emailCaptured && !showEmailCapture) {
-      setShowEmailCapture(true);
+  const openCapture = useCallback((reason: CaptureReason) => {
+    if (emailCaptured || showEmailCapture) return;
+    setCaptureReason(reason);
+    setShowEmailCapture(true);
+  }, [emailCaptured, showEmailCapture]);
+
+  const handleEmailDismiss = useCallback(() => {
+    setShowEmailCapture(false);
+    setCaptureDismissCount(prev => {
+      const next = prev + 1;
+      localStorage.setItem(CAPTURE_DISMISS_KEY, String(next));
+      return next;
+    });
+  }, []);
+
+  const handleClose = useCallback(() => {
+    if (!emailCaptured && messages.length > 0 && !showEmailCapture && captureDismissCount < 2) {
+      openCapture("exit");
+      return;
     }
-  }, [msgCount, emailCaptured, showEmailCapture]);
+    setOpen(false);
+  }, [captureDismissCount, emailCaptured, messages.length, openCapture, showEmailCapture]);
 
   const handleLinkClick = useCallback((href: string) => {
     if (href.startsWith("/")) {
@@ -47,12 +72,24 @@ const ChatWidget = () => {
   }, [navigate]);
 
   const send = useCallback(async (text: string) => {
-    if (!text.trim() || loading) return;
-    const userMsg: Msg = { role: "user", content: text.trim() };
+    const cleaned = text.trim();
+    if (!cleaned || loading) return;
+
+    const userMsg: Msg = { role: "user", content: cleaned };
+    const nextCount = msgCount + 1;
+
+    if (!emailCaptured && !showEmailCapture) {
+      if (LEAD_INTENT_REGEX.test(cleaned)) {
+        openCapture("intent");
+      } else if (nextCount >= 2 && captureDismissCount === 0) {
+        openCapture("engaged");
+      }
+    }
+
     setMessages(prev => [...prev, userMsg]);
     setInput("");
     setLoading(true);
-    setMsgCount(c => c + 1);
+    setMsgCount(nextCount);
 
     let buffer = "";
     const upsert = (chunk: string) => {
@@ -73,11 +110,13 @@ const ChatWidget = () => {
       onDone: () => setLoading(false),
       onError: (e) => { upsert(e); setLoading(false); },
     });
-  }, [messages, loading]);
+  }, [captureDismissCount, emailCaptured, loading, messages, msgCount, openCapture, showEmailCapture]);
 
   const handleEmailSubscribed = useCallback((email: string) => {
     setEmailCaptured(true);
     setShowEmailCapture(false);
+    localStorage.setItem(CAPTURE_DISMISS_KEY, "0");
+    setCaptureDismissCount(0);
     setMessages(prev => [...prev, {
       role: "assistant",
       content: "🎉 **You're almost in!** Check your inbox for a confirmation email. Once confirmed, you'll get the best OpenClaw skill delivered weekly.\n\nNow, what else can I help you with?"
@@ -127,7 +166,7 @@ const ChatWidget = () => {
                 </div>
               </div>
               <button
-                onClick={() => setOpen(false)}
+                onClick={handleClose}
                 className="w-7 h-7 rounded-full hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
               >
                 <X className="w-4 h-4" />
@@ -164,10 +203,20 @@ const ChatWidget = () => {
 
               {loading && messages[messages.length - 1]?.role === "user" && <TypingIndicator />}
 
+              {!showEmailCapture && !emailCaptured && messages.length > 0 && (
+                <button
+                  onClick={() => openCapture("manual")}
+                  className="w-full text-left text-[11px] px-3 py-2 rounded-lg border border-primary/30 bg-primary/5 hover:bg-primary/10 text-foreground transition-colors"
+                >
+                  📩 Get one curated Skill of the Week in your inbox
+                </button>
+              )}
+
               {showEmailCapture && !emailCaptured && (
                 <EmailCaptureCard
+                  reason={captureReason}
                   onSubscribed={handleEmailSubscribed}
-                  onDismiss={() => setShowEmailCapture(false)}
+                  onDismiss={handleEmailDismiss}
                 />
               )}
             </div>

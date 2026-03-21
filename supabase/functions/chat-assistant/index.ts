@@ -57,25 +57,39 @@ When the conversation naturally allows (not forced), mention the free weekly "Sk
 2. If you don't know something, say so — don't hallucinate
 3. Format skill install commands in code blocks
 4. When comparing skills, suggest the [Compare page](/skills/compare)
-5. For "how do I get started" questions, recommend a specific tutorial from /tutorials`;
+5. For "how do I get started" questions, recommend a specific tutorial from /tutorials
+6. Never invent skill names or category counts that are not listed here
+7. For short or ambiguous user queries (1-3 words), answer with one direct recommendation + one best link + one clarifying question`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { messages, captureEmail } = await req.json();
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
+    const {
+      messages,
+      captureEmail,
+      source_page,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+    } = await req.json();
 
     // If this is an email capture request, handle it
     if (captureEmail) {
-      const email = captureEmail;
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      const normalizedEmail = String(captureEmail).trim().toLowerCase();
+      if (!normalizedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
         return new Response(JSON.stringify({ error: "Valid email required" }), {
           status: 400,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
+
+      const trackingContext = {
+        source_page: source_page || "chat-assistant",
+        utm_source: utm_source || "chat-widget",
+        utm_medium: utm_medium || "conversational",
+        utm_campaign: utm_campaign || "claw-assistant-lead-capture",
+      };
 
       const supabase = createClient(
         Deno.env.get("SUPABASE_URL")!,
@@ -85,7 +99,7 @@ serve(async (req) => {
       const { data: existing } = await supabase
         .from("subscribers")
         .select("id, status")
-        .eq("email", email.toLowerCase().trim())
+        .eq("email", normalizedEmail)
         .maybeSingle();
 
       if (existing?.status === "confirmed") {
@@ -97,10 +111,20 @@ serve(async (req) => {
 
       if (!existing) {
         await supabase.from("subscribers").insert({
-          email: email.toLowerCase().trim(),
-          source_page: "chat-assistant",
+          email: normalizedEmail,
+          ...trackingContext,
           status: "pending",
         });
+      } else if (existing.status !== "confirmed") {
+        await supabase
+          .from("subscribers")
+          .update({
+            ...trackingContext,
+            status: "pending",
+            unsubscribed_at: null,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", existing.id);
       }
 
       // Trigger the subscribe function to send confirmation email
@@ -112,17 +136,33 @@ serve(async (req) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}`,
           },
-          body: JSON.stringify({ email: email.toLowerCase().trim(), source_page: "chat-assistant" }),
+          body: JSON.stringify({
+            email: normalizedEmail,
+            ...trackingContext,
+          }),
         }
       );
 
-      const subData = await subRes.json();
+      const subData = await subRes.json().catch(() => ({}));
+
+      if (!subRes.ok) {
+        return new Response(JSON.stringify({
+          emailResult: "captured_pending",
+          message: "You're on the list. We couldn't send the confirmation email yet — please retry in a moment.",
+        }), {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
 
       return new Response(JSON.stringify({ emailResult: "subscribed", message: subData.message }), {
         status: 200,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return new Response(JSON.stringify({ error: "Messages required" }), {
