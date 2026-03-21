@@ -86,7 +86,7 @@ export default function sitemapPlugin(): Plugin {
   return {
     name: "vite-plugin-sitemap",
     apply: "build",
-    generateBundle(_options, bundle) {
+    generateBundle(_options: unknown, bundle: Record<string, unknown>) {
       const entries = buildEntries();
       const xml = toXML(entries);
       (bundle as Record<string, unknown>)["sitemap.xml"] = {
