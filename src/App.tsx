@@ -45,10 +45,14 @@ const PageLoader = () => (
   </div>
 );
 
+const BUILD_VERSION = "1.0.5";
+const BUILD_TIME = "2026-03-21T12:00:00Z";
+
 const App = () => {
-  // Initialize Google Analytics on app load
+  // Initialize Google Analytics and log build info on app load
   useEffect(() => {
     initGA();
+    console.log(`🚀 ClawSkills v${BUILD_VERSION} | Built: ${BUILD_TIME} | Env: ${import.meta.env.MODE}`);
   }, []);
 
   // Track page changes
