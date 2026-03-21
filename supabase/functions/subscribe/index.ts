@@ -11,8 +11,9 @@ serve(async (req) => {
 
   try {
     const { email, source_page, utm_source, utm_medium, utm_campaign } = await req.json();
+    const normalizedEmail = String(email || "").trim().toLowerCase();
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!normalizedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
       return new Response(JSON.stringify({ error: "Valid email required" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -28,7 +29,7 @@ serve(async (req) => {
     const { data: existing } = await supabase
       .from("subscribers")
       .select("id, status, confirmation_token")
-      .eq("email", email.toLowerCase().trim())
+      .eq("email", normalizedEmail)
       .maybeSingle();
 
     if (existing?.status === "confirmed") {
@@ -39,26 +40,42 @@ serve(async (req) => {
     }
 
     let token: string;
+    let subscriberId: string;
 
     if (existing) {
-      // Re-send confirmation for pending subscriber
-      token = existing.confirmation_token;
+      subscriberId = existing.id;
+      token = existing.confirmation_token || crypto.randomUUID();
+
+      await supabase
+        .from("subscribers")
+        .update({
+          source_page: source_page || existing.status === "unsubscribed" ? "chat-assistant" : null,
+          utm_source: utm_source || null,
+          utm_medium: utm_medium || null,
+          utm_campaign: utm_campaign || null,
+          status: existing.status === "unsubscribed" ? "pending" : existing.status,
+          unsubscribed_at: existing.status === "unsubscribed" ? null : undefined,
+          confirmation_token: token,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", existing.id);
     } else {
       // Insert new subscriber
       const { data: newSub, error: insertError } = await supabase
         .from("subscribers")
         .insert({
-          email: email.toLowerCase().trim(),
+          email: normalizedEmail,
           source_page: source_page || null,
           utm_source: utm_source || null,
           utm_medium: utm_medium || null,
           utm_campaign: utm_campaign || null,
           status: "pending",
         })
-        .select("confirmation_token")
+        .select("id, confirmation_token")
         .single();
 
       if (insertError) throw insertError;
+      subscriberId = newSub.id;
       token = newSub.confirmation_token;
     }
 
@@ -68,7 +85,7 @@ serve(async (req) => {
 
     const confirmUrl = `${Deno.env.get("SUPABASE_URL")}/functions/v1/confirm?token=${token}`;
 
-    const emailRes = await fetch("https://api.resend.com/emails", {
+    const sendConfirmation = () => fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${RESEND_API_KEY}`,
@@ -76,7 +93,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         from: "ClawSkills <hello@openclaw-skillshub.com>",
-        to: [email],
+        to: [normalizedEmail],
         subject: "Confirm your subscription to ClawSkills 🐾",
         html: `
 <!DOCTYPE html>
@@ -121,6 +138,11 @@ serve(async (req) => {
       }),
     });
 
+    let emailRes = await sendConfirmation();
+    if (!emailRes.ok && (emailRes.status === 429 || emailRes.status >= 500)) {
+      emailRes = await sendConfirmation();
+    }
+
     if (!emailRes.ok) {
       const errText = await emailRes.text();
       console.error("Resend error:", errText);
@@ -129,7 +151,7 @@ serve(async (req) => {
 
     // Track the event
     await supabase.from("email_events").insert({
-      subscriber_id: existing?.id || undefined,
+      subscriber_id: subscriberId,
       event_type: "confirmation_sent",
       email_subject: "Confirm your subscription to ClawSkills 🐾",
     });
