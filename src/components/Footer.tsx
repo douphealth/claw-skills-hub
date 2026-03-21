@@ -91,7 +91,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-muted-foreground">© 2026 ClawSkills. Not affiliated with OpenClaw.</p>
+            <p className="text-xs text-muted-foreground">© 2026 ClawSkills. Not affiliated with OpenClaw. <span className="text-muted-foreground/50">v1.0.5</span></p>
             <div className="flex gap-4">
               <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
               <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary transition-colors">Terms</Link>
