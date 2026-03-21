@@ -49,12 +49,12 @@ serve(async (req) => {
       await supabase
         .from("subscribers")
         .update({
-          source_page: source_page || existing.status === "unsubscribed" ? "chat-assistant" : null,
+          source_page: source_page || "chat-assistant",
           utm_source: utm_source || null,
           utm_medium: utm_medium || null,
           utm_campaign: utm_campaign || null,
-          status: existing.status === "unsubscribed" ? "pending" : existing.status,
-          unsubscribed_at: existing.status === "unsubscribed" ? null : undefined,
+          status: "pending",
+          unsubscribed_at: null,
           confirmation_token: token,
           updated_at: new Date().toISOString(),
         })
