@@ -1,17 +1,40 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Loader2, ArrowRight } from "lucide-react";
-import { SUBSCRIBE_URL, AUTH_HEADER } from "./types";
+import { CHAT_URL, AUTH_HEADER } from "./types";
+
+type CaptureReason = "intent" | "engaged" | "manual" | "exit";
 
 interface EmailCaptureCardProps {
+  reason?: CaptureReason;
   onSubscribed: (email: string) => void;
   onDismiss: () => void;
 }
 
-const EmailCaptureCard = ({ onSubscribed, onDismiss }: EmailCaptureCardProps) => {
+const COPY_BY_REASON: Record<CaptureReason, { title: string; description: string }> = {
+  intent: {
+    title: "Get a tailored weekly skill pick",
+    description: "Based on what you asked, we'll send one high-impact skill each week.",
+  },
+  engaged: {
+    title: "Get the best skills weekly",
+    description: "Free \"Skill of the Week\" newsletter — useful, concise, no spam.",
+  },
+  manual: {
+    title: "Want weekly expert picks?",
+    description: "One practical skill recommendation every Thursday with real use-cases.",
+  },
+  exit: {
+    title: "Before you go: keep the best picks",
+    description: "Get a weekly curated skill so you never miss high-value new releases.",
+  },
+};
+
+const EmailCaptureCard = ({ reason = "engaged", onSubscribed, onDismiss }: EmailCaptureCardProps) => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const copy = COPY_BY_REASON[reason];
 
   const handleSubmit = async () => {
     const trimmed = email.trim().toLowerCase();
@@ -26,20 +49,25 @@ const EmailCaptureCard = ({ onSubscribed, onDismiss }: EmailCaptureCardProps) =>
     setErrorMsg("");
 
     try {
-      const res = await fetch(SUBSCRIBE_URL, {
+      const sendLead = () => fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: AUTH_HEADER,
         },
         body: JSON.stringify({
-          email: trimmed,
+          captureEmail: trimmed,
           source_page: "chat-assistant",
           utm_source: "chat-widget",
           utm_medium: "conversational",
-          utm_campaign: "claw-assistant",
+          utm_campaign: `claw-assistant-${reason}`,
         }),
       });
+
+      let res = await sendLead();
+      if (!res.ok && res.status >= 500) {
+        res = await sendLead();
+      }
 
       if (res.ok) {
         localStorage.setItem("clawskills_subscriber_email", trimmed);
@@ -63,10 +91,10 @@ const EmailCaptureCard = ({ onSubscribed, onDismiss }: EmailCaptureCardProps) =>
     >
       <div className="flex items-center gap-2 mb-2">
         <Mail className="w-4 h-4 text-primary" />
-        <span className="text-xs font-semibold text-foreground">Get the best skills weekly</span>
+        <span className="text-xs font-semibold text-foreground">{copy.title}</span>
       </div>
       <p className="text-[11px] text-muted-foreground mb-2">
-        Free "Skill of the Week" newsletter — no spam, ever.
+        {copy.description}
       </p>
       <div className="flex gap-1.5">
         <input
@@ -80,9 +108,16 @@ const EmailCaptureCard = ({ onSubscribed, onDismiss }: EmailCaptureCardProps) =>
         <button
           onClick={handleSubmit}
           disabled={status === "loading"}
-          className="bg-primary text-primary-foreground rounded-lg px-3 py-1.5 text-xs font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center gap-1"
+          className="bg-primary text-primary-foreground rounded-lg px-2.5 py-1.5 text-xs font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center gap-1"
         >
-          {status === "loading" ? <Loader2 className="w-3 h-3 animate-spin" /> : <ArrowRight className="w-3 h-3" />}
+          {status === "loading" ? (
+            <Loader2 className="w-3 h-3 animate-spin" />
+          ) : (
+            <>
+              Join
+              <ArrowRight className="w-3 h-3" />
+            </>
+          )}
         </button>
       </div>
       {errorMsg && <p className="text-[10px] text-destructive mt-1">{errorMsg}</p>}
