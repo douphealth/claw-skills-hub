@@ -83,6 +83,7 @@ const App = () => {
                 <Route path="/glossary/:glossarySlug" element={<GlossaryPage />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
+                <Route path="/index" element={<Navigate to="/" replace />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
