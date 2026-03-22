@@ -1,13 +1,24 @@
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
 Allow: /
 
 User-agent: GPTBot
@@ -25,7 +36,41 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: DeepSeekBot
+Allow: /
+
 User-agent: *
 Allow: /
 
 Sitemap: https://openclaw-skillshub.com/sitemap.xml
+
+# AI Content Files
+# llms.txt: https://openclaw-skillshub.com/llms.txt
+# llms-full.txt: https://openclaw-skillshub.com/llms-full.txt
