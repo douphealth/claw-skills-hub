@@ -1,11 +1,11 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react";
 import { initGA, trackPageView } from "./lib/googleAnalytics";
+import { buildInfo } from "./lib/buildInfo";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ChatWidget from "@/components/ChatWidget";
@@ -45,14 +45,13 @@ const PageLoader = () => (
   </div>
 );
 
-const BUILD_VERSION = "1.0.5";
-const BUILD_TIME = "2026-03-21T12:00:00Z";
-
 const App = () => {
   // Initialize Google Analytics and log build info on app load
   useEffect(() => {
     initGA();
-    console.log(`🚀 ClawSkills v${BUILD_VERSION} | Built: ${BUILD_TIME} | Env: ${import.meta.env.MODE}`);
+    console.log(
+      `🚀 ClawSkills v${buildInfo.version} | Commit: ${buildInfo.commit.slice(0, 12)} | Built: ${buildInfo.time} | Env: ${buildInfo.env}`,
+    );
   }, []);
 
   // Track page changes

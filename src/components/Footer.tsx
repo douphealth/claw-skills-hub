@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { categories } from "@/data/skills";
 import logoIcon from "@/assets/logo-icon.png";
+import { buildInfo } from "@/lib/buildInfo";
 
 const Footer = () => {
   const topCategories = categories.slice(0, 5);
@@ -91,7 +92,15 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-muted-foreground">© 2026 ClawSkills. Not affiliated with OpenClaw. <span className="text-muted-foreground/50">v1.0.5</span></p>
+              <p className="text-xs text-muted-foreground">
+                © 2026 ClawSkills. Not affiliated with OpenClaw.{" "}
+                <span
+                  className="text-muted-foreground/50"
+                  title={`Commit: ${buildInfo.commit} • Built: ${buildInfo.time}`}
+                >
+                  v{buildInfo.version}
+                </span>
+              </p>
             <div className="flex gap-4">
               <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
               <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary transition-colors">Terms</Link>
