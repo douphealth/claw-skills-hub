@@ -43,6 +43,7 @@ const SEOHead = ({
 
     // Standard meta
     setMeta("description", safeDesc);
+    setMeta("author", "ClawSkills");
 
     // Open Graph
     const ogImg = ogImage || DEFAULT_OG_IMAGE;
@@ -53,6 +54,7 @@ const SEOHead = ({
     setMeta("og:image:width", "1200", true);
     setMeta("og:image:height", "630", true);
     setMeta("og:site_name", "ClawSkills", true);
+    setMeta("og:locale", "en_US", true);
     if (canonical) {
       setMeta("og:url", canonical, true);
     }
@@ -62,11 +64,14 @@ const SEOHead = ({
     setMeta("twitter:title", fullTitle);
     setMeta("twitter:description", safeDesc);
     setMeta("twitter:image", ogImg);
+    setMeta("twitter:site", "@openclaw");
 
     // Article dates
     if (type === "article") {
       if (publishedDate) setMeta("article:published_time", publishedDate, true);
       if (updatedDate) setMeta("article:modified_time", updatedDate, true);
+      setMeta("article:author", "ClawSkills", true);
+      setMeta("article:section", "Technology", true);
     }
 
     // Robots
@@ -91,6 +96,16 @@ const SEOHead = ({
         document.head.appendChild(hreflang);
       }
       hreflang.setAttribute("href", canonical);
+
+      // x-default hreflang
+      let xDefault = document.querySelector('link[rel="alternate"][hreflang="x-default"]') as HTMLLinkElement | null;
+      if (!xDefault) {
+        xDefault = document.createElement("link");
+        xDefault.setAttribute("rel", "alternate");
+        xDefault.setAttribute("hreflang", "x-default");
+        document.head.appendChild(xDefault);
+      }
+      xDefault.setAttribute("href", canonical);
     }
 
     // JSON-LD

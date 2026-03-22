@@ -48,11 +48,16 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "ClawSkills",
+        "alternateName": ["ClawSkills Directory", "OpenClaw Skills Hub"],
         "url": "https://openclaw-skillshub.com",
         "description": "The definitive directory for OpenClaw AI agent skills. 5,705+ skills across 10 categories with security reviews.",
+        "inLanguage": "en-US",
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://openclaw-skillshub.com/skills?q={search_term_string}",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://openclaw-skillshub.com/skills?q={search_term_string}"
+          },
           "query-input": "required name=search_term_string"
         }
       },
@@ -63,9 +68,20 @@
         "url": "https://openclaw-skillshub.com",
         "logo": "https://openclaw-skillshub.com/og-image.png",
         "description": "The definitive directory for OpenClaw AI agent skills. Discover, compare, and install 5,705+ skills.",
+        "foundingDate": "2025",
         "sameAs": [
           "https://github.com/openclaw",
-          "https://twitter.com/openclaw"
+          "https://twitter.com/openclaw",
+          "https://discord.gg/openclaw"
+        ],
+        "knowsAbout": [
+          "OpenClaw AI Agent Framework",
+          "AI Agent Skills",
+          "SKILL.md",
+          "ClawHub",
+          "MCP Servers",
+          "Prompt Chaining",
+          "RAG Pipelines"
         ]
       }
     ]

@@ -9,7 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { articles } from "@/data/articles";
-import { breadcrumbJsonLd, itemListJsonLd } from "@/utils/jsonLd";
+import { breadcrumbJsonLd, itemListJsonLd, collectionPageJsonLd } from "@/utils/jsonLd";
 
 const ArticlesIndex = () => {
   const bJsonLd = breadcrumbJsonLd([
@@ -25,13 +25,20 @@ const ArticlesIndex = () => {
     }))
   );
 
+  const pageJsonLd = collectionPageJsonLd(
+    "OpenClaw Skills Articles & Reviews",
+    "In-depth curated lists, reviews, and comparisons to help you find the right OpenClaw skills for AI, DevOps, productivity, and more.",
+    "/articles",
+    articles.length
+  );
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Best OpenClaw Skills — In-Depth Reviews & Comparisons"
         description="In-depth curated lists and reviews to help you find exactly the right OpenClaw skills for AI, DevOps, productivity, and more."
         canonical="https://openclaw-skillshub.com/articles"
-        jsonLd={[bJsonLd, listJsonLd]}
+        jsonLd={[bJsonLd, listJsonLd, pageJsonLd]}
       />
       <Navbar />
 
