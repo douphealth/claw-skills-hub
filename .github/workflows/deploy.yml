@@ -11,6 +11,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      build_time: ${{ steps.meta.outputs.build_time }}
+      short_sha: ${{ steps.meta.outputs.short_sha }}
+      full_sha: ${{ steps.meta.outputs.full_sha }}
     
     steps:
       - name: Checkout code
@@ -21,17 +25,34 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+
+      - name: Compute build metadata
+        id: meta
+        run: |
+          echo "build_time=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
+          echo "short_sha=${GITHUB_SHA::12}" >> "$GITHUB_OUTPUT"
+          echo "full_sha=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
       
       - name: Install dependencies
-        run: npm ci
+        run: npm install --no-audit --no-fund
       
       - name: Build the project
+        env:
+          VITE_BUILD_VERSION: ${{ steps.meta.outputs.short_sha }}
+          VITE_BUILD_TIME: ${{ steps.meta.outputs.build_time }}
+          VITE_BUILD_COMMIT: ${{ steps.meta.outputs.full_sha }}
         run: npm run build
       
       - name: Log deployed commit
         run: |
-          echo "Deployed commit: ${{ github.sha }}"
-          echo "Build time: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "Deployed commit: ${{ steps.meta.outputs.full_sha }}"
+          echo "Build time: ${{ steps.meta.outputs.build_time }}"
+
+      - name: Write build fingerprint artifact
+        run: |
+          cat > dist/build-info.json << EOF
+          {"version":"${{ steps.meta.outputs.short_sha }}","buildTime":"${{ steps.meta.outputs.build_time }}","commit":"${{ steps.meta.outputs.full_sha }}","source":"github-actions"}
+          EOF
       
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -57,6 +78,12 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=claw-skills-hub
+
+      - name: Verify live deployment fingerprint
+        env:
+          VERIFY_TIMEOUT_MS: '180000'
+          VERIFY_POLL_MS: '5000'
+        run: node scripts/verify-deploy.mjs https://openclaw-skillshub.com ${{ needs.build.outputs.full_sha }}
 
       - name: Ping IndexNow for fast indexing
         if: success()
