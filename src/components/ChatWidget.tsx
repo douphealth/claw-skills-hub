@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { X, Send, Loader2, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Msg, QUICK_ACTIONS } from "./chat/types";
@@ -13,6 +13,22 @@ type CaptureReason = "intent" | "engaged" | "manual" | "exit";
 const LEAD_INTENT_REGEX = /(recommend|best|compare|which|install|seo|marketing|automation|workflow|tutorial|integrat|strategy|optimi)/i;
 const CAPTURE_DISMISS_KEY = "clawskills_capture_dismiss_count";
 
+const safeStorageGet = (key: string): string | null => {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+
+const safeStorageSet = (key: string, value: string): void => {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // no-op: storage may be blocked in hardened browser/privacy modes
+  }
+};
+
 const ChatWidget = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -21,11 +37,11 @@ const ChatWidget = () => {
   const [showEmailCapture, setShowEmailCapture] = useState(false);
   const [captureReason, setCaptureReason] = useState<CaptureReason>("engaged");
   const [emailCaptured, setEmailCaptured] = useState(
-    () => !!localStorage.getItem("clawskills_subscriber_email")
+    () => !!safeStorageGet("clawskills_subscriber_email")
   );
   const [msgCount, setMsgCount] = useState(0);
   const [captureDismissCount, setCaptureDismissCount] = useState(
-    () => Number(localStorage.getItem(CAPTURE_DISMISS_KEY) || "0")
+    () => Number(safeStorageGet(CAPTURE_DISMISS_KEY) || "0")
   );
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -49,7 +65,7 @@ const ChatWidget = () => {
     setShowEmailCapture(false);
     setCaptureDismissCount(prev => {
       const next = prev + 1;
-      localStorage.setItem(CAPTURE_DISMISS_KEY, String(next));
+      safeStorageSet(CAPTURE_DISMISS_KEY, String(next));
       return next;
     });
   }, []);
@@ -115,7 +131,7 @@ const ChatWidget = () => {
   const handleEmailSubscribed = useCallback((email: string) => {
     setEmailCaptured(true);
     setShowEmailCapture(false);
-    localStorage.setItem(CAPTURE_DISMISS_KEY, "0");
+    safeStorageSet(CAPTURE_DISMISS_KEY, "0");
     setCaptureDismissCount(0);
     setMessages(prev => [...prev, {
       role: "assistant",
@@ -126,34 +142,29 @@ const ChatWidget = () => {
   return (
     <>
       {/* FAB */}
-      <AnimatePresence>
-        {!open && (
-          <motion.button
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setOpen(true)}
-            className="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 flex items-center justify-center group"
-            aria-label="Open assistant"
-          >
-            <Sparkles className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-background animate-pulse" />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {!open && (
+        <motion.button
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setOpen(true)}
+          className="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 flex items-center justify-center group"
+          aria-label="Open assistant"
+        >
+          <Sparkles className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+          <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-background animate-pulse" />
+        </motion.button>
+      )}
 
       {/* Chat panel */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed bottom-5 right-5 z-50 w-[370px] max-w-[calc(100vw-2.5rem)] h-[560px] max-h-[calc(100vh-5rem)] flex flex-col rounded-2xl border border-border bg-card shadow-2xl shadow-black/40 overflow-hidden"
-          >
+      {open && (
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ type: "spring", damping: 25, stiffness: 300 }}
+          className="fixed bottom-5 right-5 z-50 w-[370px] max-w-[calc(100vw-2.5rem)] h-[560px] max-h-[calc(100vh-5rem)] flex flex-col rounded-2xl border border-border bg-card shadow-2xl shadow-black/40 overflow-hidden"
+        >
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-gradient-to-r from-primary/10 to-transparent">
               <div className="flex items-center gap-2.5">
@@ -246,9 +257,8 @@ const ChatWidget = () => {
               </form>
               <p className="text-[10px] text-muted-foreground text-center mt-1.5">Powered by AI • May make mistakes</p>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </motion.div>
+      )}
     </>
   );
 };
