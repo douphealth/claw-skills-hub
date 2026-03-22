@@ -1,5 +1,4 @@
-import { memo } from "react";
-import ReactMarkdown from "react-markdown";
+import { Fragment, memo, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import type { Msg } from "./types";
 
@@ -7,6 +6,61 @@ interface ChatMessageProps {
   message: Msg;
   onLinkClick: (href: string) => void;
 }
+
+const INLINE_TOKEN_REGEX = /(\[\[[^\]|]+\|[^\]]+\]\]|\[[^\]]+\]\([^\)]+\)|\*\*[^*]+\*\*|`[^`]+`)/g;
+
+const renderInline = (text: string, onLinkClick: (href: string) => void): ReactNode[] => {
+  const parts = text.split(INLINE_TOKEN_REGEX).filter(Boolean);
+
+  return parts.map((part, index) => {
+    if (part.startsWith("[[") && part.endsWith("]]")) {
+      const raw = part.slice(2, -2);
+      const splitIndex = raw.indexOf("|");
+      if (splitIndex === -1) return <Fragment key={index}>{part}</Fragment>;
+
+      const label = raw.slice(0, splitIndex).trim();
+      const href = raw.slice(splitIndex + 1).trim();
+
+      return (
+        <button
+          key={index}
+          onClick={() => onLinkClick(href)}
+          className="text-primary hover:underline font-medium inline"
+        >
+          {label}
+        </button>
+      );
+    }
+
+    const markdownLinkMatch = part.match(/^\[([^\]]+)\]\(([^\)]+)\)$/);
+    if (markdownLinkMatch) {
+      const [, label, href] = markdownLinkMatch;
+      return (
+        <button
+          key={index}
+          onClick={() => onLinkClick(href)}
+          className="text-primary hover:underline font-medium inline"
+        >
+          {label}
+        </button>
+      );
+    }
+
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={index} className="font-semibold text-foreground">{part.slice(2, -2)}</strong>;
+    }
+
+    if (part.startsWith("`") && part.endsWith("`")) {
+      return (
+        <code key={index} className="bg-background/50 px-1 py-0.5 rounded text-xs font-mono">
+          {part.slice(1, -1)}
+        </code>
+      );
+    }
+
+    return <Fragment key={index}>{part}</Fragment>;
+  });
+};
 
 const ChatMessage = memo(({ message, onLinkClick }: ChatMessageProps) => (
   <div className={cn("flex", message.role === "user" ? "justify-end" : "justify-start")}>
@@ -17,25 +71,9 @@ const ChatMessage = memo(({ message, onLinkClick }: ChatMessageProps) => (
         : "bg-secondary/60 text-foreground rounded-bl-sm"
     )}>
       {message.role === "assistant" ? (
-        <ReactMarkdown
-          components={{
-            a: ({ href, children }) => (
-              <button
-                onClick={() => href && onLinkClick(href)}
-                className="text-primary hover:underline font-medium inline"
-              >
-                {children}
-              </button>
-            ),
-            p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
-            strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
-            ul: ({ children }) => <ul className="list-disc pl-4 mb-1.5 space-y-0.5">{children}</ul>,
-            ol: ({ children }) => <ol className="list-decimal pl-4 mb-1.5 space-y-0.5">{children}</ol>,
-            code: ({ children }) => <code className="bg-background/50 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
-          }}
-        >
-          {message.content}
-        </ReactMarkdown>
+        <div className="whitespace-pre-wrap break-words">
+          {renderInline(message.content, onLinkClick)}
+        </div>
       ) : message.content}
     </div>
   </div>
