@@ -286,15 +286,14 @@ const ArticlePage = () => {
         </div>
       </section>
 
-      {/* Related articles */}
-      <section className="pb-16">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <h2 className="text-2xl font-bold text-foreground mb-6">More Articles</h2>
-          <div className="grid sm:grid-cols-3 gap-4">
+      <section className="pb-12 sm:pb-16">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">More Articles</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             {otherArticles.map((a) => (
-              <Link key={a.slug} to={`/articles/${a.slug}`} className="group glass rounded-xl p-5 card-hover">
-                <Badge variant="outline" className="text-[10px] mb-3 border-border text-muted-foreground">{a.tag}</Badge>
-                <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors mb-2 line-clamp-2">{a.title}</h4>
+              <Link key={a.slug} to={`/articles/${a.slug}`} className="group glass rounded-xl p-4 sm:p-5 card-hover">
+                <Badge variant="outline" className="text-[10px] mb-2 sm:mb-3 border-border text-muted-foreground">{a.tag}</Badge>
+                <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors mb-1.5 sm:mb-2 line-clamp-2">{a.title}</h4>
                 <span className="flex items-center gap-1 text-[10px] text-muted-foreground"><Clock className="w-2.5 h-2.5" />{a.readTime}</span>
               </Link>
             ))}
