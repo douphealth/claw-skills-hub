@@ -159,14 +159,13 @@ const ArticlePage = () => {
         </div>
       </section>
 
-      {/* TL;DR Summary for AI extraction */}
       <section className="pb-4">
-        <div className="container mx-auto px-6 max-w-4xl">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="glass rounded-xl p-6 border-l-4 border-primary"
+            className="glass rounded-xl p-4 sm:p-6 border-l-4 border-primary"
           >
             <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">TL;DR — Key Takeaways</h2>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
               {article.metaDescription} This guide covers {article.skills.length} curated skills including{" "}
               {article.skills.slice(0, 3).map(s => s.name).join(", ")}
               {article.skills.length > 3 ? `, and ${article.skills.length - 3} more` : ""}.
