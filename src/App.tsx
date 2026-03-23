@@ -27,6 +27,7 @@ const GlossaryIndex = lazy(() => import("./pages/GlossaryIndex"));
 const GlossaryPage = lazy(() => import("./pages/GlossaryPage"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
+const InstallCenter = lazy(() => import("./pages/InstallCenter"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
