@@ -108,8 +108,7 @@ const ArticlePage = () => {
       />
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative pt-28 pb-16 overflow-hidden">
+      <section className="relative pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-hidden">
         {articleHeroImages[article.slug] ? (
           <>
             <div className="absolute inset-0">
@@ -130,31 +129,31 @@ const ArticlePage = () => {
           </>
         )}
 
-        <div className="relative z-10 container mx-auto px-6 max-w-4xl">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 max-w-4xl">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-6 sm:mb-8">
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem><BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink></BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem><BreadcrumbLink asChild><Link to="/articles">Articles</Link></BreadcrumbLink></BreadcrumbItem>
                 <BreadcrumbSeparator />
-                <BreadcrumbItem><BreadcrumbPage className="truncate max-w-[200px]">{article.title}</BreadcrumbPage></BreadcrumbItem>
+                <BreadcrumbItem><BreadcrumbPage className="truncate max-w-[180px] sm:max-w-[200px]">{article.title}</BreadcrumbPage></BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">{article.tag}</Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+            <Badge className="mb-3 sm:mb-4 bg-primary/10 text-primary border-primary/20">{article.tag}</Badge>
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
               {article.title}
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-6 sm:mb-8">
               {article.heroDescription}
             </p>
-            <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" />{article.readTime}</span>
-              <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" />Published {article.publishedDate}</span>
-              <span className="flex items-center gap-1.5"><RefreshCw className="w-3.5 h-3.5" />Updated {article.updatedDate}</span>
+            <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
+              <span className="flex items-center gap-1.5"><Clock className="w-3.5 sm:w-4 h-3.5 sm:h-4" />{article.readTime}</span>
+              <span className="flex items-center gap-1.5"><Calendar className="w-3.5 sm:w-4 h-3.5 sm:h-4" />Published {article.publishedDate}</span>
+              <span className="flex items-center gap-1.5"><RefreshCw className="w-3 sm:w-3.5 h-3 sm:h-3.5" />Updated {article.updatedDate}</span>
             </div>
           </motion.div>
         </div>
