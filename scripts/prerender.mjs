@@ -409,6 +409,37 @@ async function main() {
   }));
   count++;
 
+  // Installation Center
+  writeRoute('/install', injectMeta(template, {
+    title: 'Installation Center — OpenClaw Setup & Skill Install Commands | ClawSkills',
+    description: 'Get enterprise-grade installation commands for OpenClaw and 5,705+ skills. Step-by-step guides for macOS, Linux, and Windows WSL with one-click copy.',
+    canonical: `${BASE_URL}/install`,
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "OpenClaw Installation Center",
+        description: "Get enterprise-grade installation commands for OpenClaw and 5,705+ skills.",
+        url: `${BASE_URL}/install`
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "How to Install OpenClaw",
+        description: "Step-by-step guide to install OpenClaw and skills on macOS, Linux, and Windows WSL.",
+        totalTime: "PT5M",
+        step: [
+          { "@type": "HowToStep", position: 1, name: "Install Node.js", text: "Install Node.js v18+ using your package manager." },
+          { "@type": "HowToStep", position: 2, name: "Install OpenClaw CLI", text: "Run npm install -g clawhub@latest" },
+          { "@type": "HowToStep", position: 3, name: "Initialize project", text: "Run clawhub init my-project" },
+          { "@type": "HowToStep", position: 4, name: "Install skills", text: "Run npx clawhub@latest install <skill-name>" }
+        ]
+      }
+    ],
+    bodyContent: `<h1>OpenClaw Installation Center</h1><p>Get enterprise-grade installation commands for OpenClaw and 5,705+ skills. Step-by-step guides for macOS, Linux, and Windows WSL.</p><h2>Quick Start</h2><ol><li>Install Node.js v18+</li><li>npm install -g clawhub@latest</li><li>clawhub init my-project</li><li>npx clawhub@latest install gpt-prompt-chainer</li></ol>`
+  }));
+  count++;
+
   console.log(`✅ Prerendered ${count} routes with meta tags, JSON-LD, and crawlable content`);
 }
 
