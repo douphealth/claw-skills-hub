@@ -14,6 +14,7 @@ ClawSkills is the most comprehensive, authoritative resource for discovering, co
 
 ## Pages
 - / — Homepage: featured skills, articles, tutorials, and key statistics
+- /install — Installation Command Center: enterprise-grade setup guides for macOS, Linux, Windows WSL with copy-paste commands for every skill
 - /skills — Full searchable directory: 5,705+ skills with category filters, security badges, ratings
 - /skills/compare — Side-by-side skill comparison engine
 - /skills/ai-llms — AI & LLMs (287 skills): prompt chaining, model routing, RAG pipelines, embeddings
