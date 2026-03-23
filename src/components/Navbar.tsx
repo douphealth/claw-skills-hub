@@ -8,10 +8,10 @@ import logoIcon from "@/assets/logo-icon.png";
 
 const navItems = [
   { label: "Skills", href: "/skills" },
+  { label: "Install", href: "/install" },
   { label: "Articles", href: "/articles" },
   { label: "Tutorials", href: "/tutorials" },
   { label: "Glossary", href: "/glossary" },
-  { label: "Newsletter", href: "/#newsletter" },
 ];
 
 const Navbar = () => {
