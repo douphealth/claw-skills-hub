@@ -7,9 +7,9 @@ const Footer = () => {
   const topCategories = categories.slice(0, 5);
 
   return (
-    <footer className="border-t border-border py-12">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+    <footer className="border-t border-border py-10 sm:py-12">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-10">
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <img src={logoIcon} alt="ClawSkills logo" className="w-7 h-7 rounded-md" />
@@ -26,6 +26,7 @@ const Footer = () => {
             <h4 className="text-sm font-semibold text-foreground mb-3">Directory</h4>
             <ul className="space-y-2">
               <li><Link to="/skills" className="text-xs text-muted-foreground hover:text-primary transition-colors">All Skills</Link></li>
+              <li><Link to="/install" className="text-xs text-muted-foreground hover:text-primary transition-colors">Install Center</Link></li>
               {topCategories.map((cat) => (
                 <li key={cat.slug}>
                   <Link to={`/skills/${cat.slug}`} className="text-xs text-muted-foreground hover:text-primary transition-colors">
@@ -59,7 +60,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border pt-8 pb-2">
+        <div className="border-t border-border pt-6 sm:pt-8 pb-2">
           <div className="flex flex-col items-center gap-4 mb-6">
             <p className="text-xs text-muted-foreground font-medium">
               Created by <span className="text-foreground font-semibold">Alexios Papaioannou</span>
@@ -92,15 +93,15 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <p className="text-xs text-muted-foreground">
-                © 2026 ClawSkills. Not affiliated with OpenClaw.{" "}
-                <span
-                  className="text-muted-foreground/50"
-                  title={`Commit: ${buildInfo.commit} • Built: ${buildInfo.time}`}
-                >
-                  v{buildInfo.version}
-                </span>
-              </p>
+            <p className="text-xs text-muted-foreground">
+              © 2026 ClawSkills. Not affiliated with OpenClaw.{" "}
+              <span
+                className="text-muted-foreground/50"
+                title={`Commit: ${buildInfo.commit} • Built: ${buildInfo.time}`}
+              >
+                v{buildInfo.version}
+              </span>
+            </p>
             <div className="flex gap-4">
               <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
               <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary transition-colors">Terms</Link>
