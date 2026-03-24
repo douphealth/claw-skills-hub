@@ -14,8 +14,9 @@ import SEOHead from "@/components/SEOHead";
 import { getArticleBySlug, articles, type ArticleVideo } from "@/data/articles";
 import { getSkillBySlug } from "@/data/skills";
 import { articleJsonLd as makeArticleJsonLd, breadcrumbJsonLd, faqJsonLd, videoObjectJsonLd } from "@/utils/jsonLd";
-import { articleHeroImages } from "@/data/articleImages";
+import { articleHeroImages, articleInfographics } from "@/data/articleImages";
 import RelatedContent from "@/components/RelatedContent";
+import ArticleInfographic from "@/components/ArticleInfographic";
 
 /** Extract Q&A pairs from FAQ sections using the **Question?**\nAnswer format */
 function extractFaqsFromArticle(sections: { heading: string; content: string }[]) {
