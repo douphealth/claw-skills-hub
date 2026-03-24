@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { articles } from "@/data/articles";
+import { articleHeroImages } from "@/data/articleImages";
 import { breadcrumbJsonLd, itemListJsonLd, collectionPageJsonLd } from "@/utils/jsonLd";
 
 const ArticlesIndex = () => {
@@ -81,22 +82,32 @@ const ArticlesIndex = () => {
               >
                 <Link
                   to={`/articles/${article.slug}`}
-                  className="group glass rounded-2xl p-8 card-hover flex flex-col sm:flex-row gap-6 items-start"
+                  className="group glass rounded-2xl p-4 sm:p-8 card-hover flex flex-col sm:flex-row gap-4 sm:gap-6 items-start overflow-hidden"
                 >
-                  <div className="flex-1">
-                    <Badge className="mb-3 bg-primary/10 text-primary border-primary/20 text-[10px]">{article.tag}</Badge>
-                    <h2 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors mb-3">
+                  {articleHeroImages[article.slug] && (
+                    <div className="w-full sm:w-40 h-32 sm:h-28 rounded-xl overflow-hidden shrink-0">
+                      <img
+                        src={articleHeroImages[article.slug]}
+                        alt={article.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <Badge className="mb-2 sm:mb-3 bg-primary/10 text-primary border-primary/20 text-[10px]">{article.tag}</Badge>
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors mb-2 sm:mb-3">
                       {article.title}
                     </h2>
-                    <p className="text-muted-foreground leading-relaxed text-sm line-clamp-2">
+                    <p className="text-muted-foreground leading-relaxed text-xs sm:text-sm line-clamp-2">
                       {article.heroDescription}
                     </p>
-                    <div className="flex items-center gap-4 mt-4 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-[10px] sm:text-xs text-muted-foreground">
                       <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{article.readTime}</span>
                       <span>{article.skills.length} skills reviewed</span>
                     </div>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors mt-1 shrink-0" />
+                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors mt-1 shrink-0 hidden sm:block" />
                 </Link>
               </motion.div>
             ))}
