@@ -178,22 +178,32 @@ const ArticlePage = () => {
 
       <section className="pb-12 sm:pb-16">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-          {article.sections.map((section, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-8 sm:mb-12">
-              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">{section.heading}</h2>
-              <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-3 sm:space-y-4">
-                {section.content.split("\n\n").map((p, j) => {
-                  const processed = p
-                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>')
-                    .replace(
-                      /\[\[(.*?)\|(.*?)\]\]/g,
-                      (_, text, path) => `<a href="${path}" data-internal="true" class="text-primary hover:underline font-medium transition-colors">${text}</a>`
-                    );
-                  return <p key={j} dangerouslySetInnerHTML={{ __html: processed }} />;
-                })}
+          {article.sections.map((section, i) => {
+            const infographicsForSection = (articleInfographics[article.slug] || []).filter(
+              (inf) => inf.afterSection === i
+            );
+            return (
+              <div key={i}>
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-8 sm:mb-12">
+                  <h2 id={`section-${i}`} className="text-xl sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">{section.heading}</h2>
+                  <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-3 sm:space-y-4">
+                    {section.content.split("\n\n").map((p, j) => {
+                      const processed = p
+                        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>')
+                        .replace(
+                          /\[\[(.*?)\|(.*?)\]\]/g,
+                          (_, text, path) => `<a href="${path}" data-internal="true" class="text-primary hover:underline font-medium transition-colors">${text}</a>`
+                        );
+                      return <p key={j} dangerouslySetInnerHTML={{ __html: processed }} />;
+                    })}
+                  </div>
+                </motion.div>
+                {infographicsForSection.map((inf, k) => (
+                  <ArticleInfographic key={k} src={inf.src} alt={inf.alt} caption={inf.caption} />
+                ))}
               </div>
-            </motion.div>
-          ))}
+            );
+          })}
 
           {/* YouTube Videos */}
           {article.videos && article.videos.length > 0 && (
