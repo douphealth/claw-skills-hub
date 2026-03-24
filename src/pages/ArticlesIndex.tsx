@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { articles } from "@/data/articles";
+import { articleHeroImages } from "@/data/articleImages";
 import { breadcrumbJsonLd, itemListJsonLd, collectionPageJsonLd } from "@/utils/jsonLd";
 
 const ArticlesIndex = () => {
