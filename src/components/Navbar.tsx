@@ -9,6 +9,7 @@ import logoIcon from "@/assets/logo-icon.png";
 const navItems = [
   { label: "Skills", href: "/skills" },
   { label: "Install", href: "/install" },
+  { label: "Versions", href: "/versions" },
   { label: "Articles", href: "/articles" },
   { label: "Tutorials", href: "/tutorials" },
   { label: "Glossary", href: "/glossary" },
