@@ -17,6 +17,7 @@ export function generateSitemapEntries(): SitemapEntry[] {
     { loc: "/", changefreq: "daily", priority: 1.0 },
     { loc: "/skills", changefreq: "daily", priority: 0.9 },
     { loc: "/install", changefreq: "weekly", priority: 0.85 },
+    { loc: "/versions", changefreq: "weekly", priority: 0.85 },
     { loc: "/skills/compare", changefreq: "weekly", priority: 0.7 },
     { loc: "/articles", changefreq: "weekly", priority: 0.8 },
     { loc: "/tutorials", changefreq: "weekly", priority: 0.8 },

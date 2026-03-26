@@ -440,6 +440,15 @@ async function main() {
   }));
   count++;
 
+  // Versions page
+  writeRoute('/versions', injectMeta(template, {
+    title: 'OpenClaw Version History — Compare All Releases & Features | ClawSkills',
+    description: 'Complete OpenClaw version history with feature comparison tables, release highlights, GitHub links, and migration guides.',
+    canonical: `${BASE_URL}/versions`,
+    bodyContent: `<h1>OpenClaw Version History</h1><p>Track every OpenClaw release from v0.25 to the latest v0.30. Compare features, view breaking changes, and access GitHub release pages.</p>`
+  }));
+  count++;
+
   console.log(`✅ Prerendered ${count} routes with meta tags, JSON-LD, and crawlable content`);
 }
 
