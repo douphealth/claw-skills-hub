@@ -2,6 +2,7 @@ import { skills, categories } from "@/data/skills";
 import { articles } from "@/data/articles";
 import { tutorials } from "@/data/tutorials";
 import { glossaryEntries } from "@/data/glossary";
+import { intentHubs } from "@/data/intentHubs";
 
 const BASE_URL = "https://openclaw-skillshub.com";
 
