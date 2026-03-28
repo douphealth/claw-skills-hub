@@ -2,6 +2,7 @@ import { skills, categories } from "@/data/skills";
 import { articles } from "@/data/articles";
 import { tutorials } from "@/data/tutorials";
 import { glossaryEntries } from "@/data/glossary";
+import { intentHubs } from "@/data/intentHubs";
 
 const BASE_URL = "https://openclaw-skillshub.com";
 
@@ -22,9 +23,19 @@ export function generateSitemapEntries(): SitemapEntry[] {
     { loc: "/articles", changefreq: "weekly", priority: 0.8 },
     { loc: "/tutorials", changefreq: "weekly", priority: 0.8 },
     { loc: "/glossary", changefreq: "weekly", priority: 0.8 },
+    { loc: "/trust-methodology", changefreq: "monthly", priority: 0.7 },
     { loc: "/privacy", changefreq: "monthly", priority: 0.3 },
     { loc: "/terms", changefreq: "monthly", priority: 0.3 },
   ];
+
+  // Intent hub pages
+  intentHubs.forEach((hub) => {
+    entries.push({
+      loc: `/use-cases/${hub.slug}`,
+      changefreq: "weekly",
+      priority: 0.85,
+    });
+  });
 
   // Category landing pages
   categories.forEach((cat) => {

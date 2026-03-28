@@ -29,6 +29,8 @@ const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const InstallCenter = lazy(() => import("./pages/InstallCenter"));
 const Versions = lazy(() => import("./pages/Versions"));
+const IntentHubPage = lazy(() => import("./pages/IntentHubPage"));
+const TrustMethodology = lazy(() => import("./pages/TrustMethodology"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -88,6 +90,8 @@ const App = () => {
                 <Route path="/glossary/:glossarySlug" element={<GlossaryPage />} />
                 <Route path="/install" element={<InstallCenter />} />
                 <Route path="/versions" element={<Versions />} />
+                <Route path="/use-cases/:hubSlug" element={<IntentHubPage />} />
+                <Route path="/trust-methodology" element={<TrustMethodology />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/index" element={<Navigate to="/" replace />} />
