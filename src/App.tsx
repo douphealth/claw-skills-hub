@@ -90,6 +90,8 @@ const App = () => {
                 <Route path="/glossary/:glossarySlug" element={<GlossaryPage />} />
                 <Route path="/install" element={<InstallCenter />} />
                 <Route path="/versions" element={<Versions />} />
+                <Route path="/use-cases/:hubSlug" element={<IntentHubPage />} />
+                <Route path="/trust-methodology" element={<TrustMethodology />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/index" element={<Navigate to="/" replace />} />
