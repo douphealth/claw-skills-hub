@@ -29,6 +29,8 @@ const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const InstallCenter = lazy(() => import("./pages/InstallCenter"));
 const Versions = lazy(() => import("./pages/Versions"));
+const IntentHubPage = lazy(() => import("./pages/IntentHubPage"));
+const TrustMethodology = lazy(() => import("./pages/TrustMethodology"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
