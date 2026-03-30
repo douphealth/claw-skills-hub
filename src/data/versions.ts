@@ -38,12 +38,40 @@ export interface OpenClawVersion {
 
 export const openclawVersions: OpenClawVersion[] = [
   {
+    version: "2026.3.28",
+    codename: "Horizon",
+    releaseDate: "2026-03-29",
+    type: "stable",
+    githubUrl: "https://github.com/openclaw/openclaw/releases/tag/v2026.3.28",
+    isLatest: true,
+    riskLevel: "medium",
+    mainFocus: "Broader provider support (xAI, MiniMax), approval hooks for plugins, bundled CLI backend loading, deprecated Qwen portal-auth OAuth, dropped auto-migrations older than 2 months",
+    highlights: [
+      "xAI and MiniMax provider updates with improved onboarding",
+      "New approval hooks for plugin install workflows",
+      "Bundled CLI backend loading for faster startup",
+      "Deprecated qwen-portal-auth OAuth — migrate to Model Studio API key",
+      "Dropped automatic config migrations older than 2 months",
+    ],
+    stats: { skills: 5820, mcpServers: 320, contributors: 1890, downloads: "2.4M" },
+    features: {
+      skillMarketplace: true, mcpSupport: true, multiAgent: true, localModels: true,
+      browserAutomation: true, pluginSandbox: true, streamingOutput: true, skillChaining: true,
+      gitOps: true, openShellCompliance: true, gpuAcceleration: true, nativeWindows: true,
+      openaiGateway: true, containerCli: true, cspHardening: true, clawhubFirstInstall: true,
+    },
+    breakingChanges: [
+      "Providers/Qwen: removed deprecated qwen-portal-auth OAuth — migrate to Model Studio API key",
+      "Config/Doctor: dropped automatic config migrations older than 2 months — old legacy keys now fail validation",
+    ],
+    migrationNotes: "Run `openclaw onboard --auth-choice modelstudio-api-key` if you used Qwen portal auth. Run `openclaw doctor` to check for legacy config keys.",
+  },
+  {
     version: "2026.3.24",
     codename: "Apex",
     releaseDate: "2026-03-24",
     type: "stable",
     githubUrl: "https://github.com/openclaw/openclaw/releases/tag/v2026.3.24",
-    isLatest: true,
     riskLevel: "low",
     mainFocus: "OpenAI-compatible gateway endpoints, better tools visibility, Control UI and skills UX upgrades, Teams improvements, container CLI support, and several delivery/security fixes",
     highlights: [

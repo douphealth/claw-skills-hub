@@ -26,12 +26,18 @@ import slackSkillHero from "@/assets/articles/slack-skill-hero.jpg";
 import mcpVsSkillsHero from "@/assets/articles/mcp-vs-skills-hero.jpg";
 import alternativesHero from "@/assets/articles/alternatives-hero.jpg";
 
+// Comparison article heroes
+import hermesVsOpenclawHero from "@/assets/articles/hermes-vs-openclaw-hero.jpg";
+import paperclipVsOpenclawHero from "@/assets/articles/paperclip-vs-openclaw-hero.jpg";
+
 // Infographics
 import aiPipelineArchitecture from "@/assets/infographics/ai-pipeline-architecture.jpg";
 import securityAuditChecklist from "@/assets/infographics/security-audit-checklist.jpg";
 import costOptimization from "@/assets/infographics/cost-optimization.jpg";
 import researchWorkflow from "@/assets/infographics/research-workflow.jpg";
 import skillTrustLevels from "@/assets/infographics/skill-trust-levels.jpg";
+import hermesVsOpenclawComparison from "@/assets/infographics/hermes-vs-openclaw-comparison.jpg";
+import paperclipVsOpenclawComparison from "@/assets/infographics/paperclip-vs-openclaw-comparison.jpg";
 
 export const articleHeroImages: Record<string, string> = {
   // Original articles
@@ -73,6 +79,10 @@ export const articleHeroImages: Record<string, string> = {
   "openclaw-mcp-vs-skills": mcpVsSkillsHero,
   "openclaw-skills-examples": installSkillsHero,
   "best-openclaw-alternatives": alternativesHero,
+
+  // Comparison articles
+  "hermes-agent-vs-openclaw": hermesVsOpenclawHero,
+  "paperclip-vs-openclaw": paperclipVsOpenclawHero,
 };
 
 /** Infographics mapped to article slugs — rendered inline between sections */
@@ -149,6 +159,22 @@ export const articleInfographics: Record<string, ArticleInfographic[]> = {
       alt: "Multi-agent orchestration architecture diagram",
       caption: "Multi-Agent Architecture: How the orchestration layer coordinates specialized agents through routing and context management.",
       afterSection: 0,
+    },
+  ],
+  "hermes-agent-vs-openclaw": [
+    {
+      src: hermesVsOpenclawComparison,
+      alt: "Hermes Agent vs OpenClaw feature comparison infographic — memory, tools, ecosystem, and licensing",
+      caption: "Feature Comparison: Hermes Agent's self-improving memory vs OpenClaw's 5,700+ skill ecosystem — two fundamentally different approaches to AI agent architecture.",
+      afterSection: 2,
+    },
+  ],
+  "paperclip-vs-openclaw": [
+    {
+      src: paperclipVsOpenclawComparison,
+      alt: "Paperclip vs OpenClaw comparison infographic — orchestration layer vs execution layer",
+      caption: "Architecture Comparison: Paperclip manages agent teams with org charts and budgets, while OpenClaw powers the individual agents that Paperclip orchestrates.",
+      afterSection: 2,
     },
   ],
 };
