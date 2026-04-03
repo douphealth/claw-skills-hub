@@ -93,6 +93,7 @@ const App = () => {
                 <Route path="/versions" element={<Versions />} />
                 <Route path="/use-cases/:hubSlug" element={<IntentHubPage />} />
                 <Route path="/trust-methodology" element={<TrustMethodology />} />
+                <Route path="/pro-bundle" element={<ProBundle />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/index" element={<Navigate to="/" replace />} />
