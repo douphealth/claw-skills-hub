@@ -24,6 +24,7 @@ export function generateSitemapEntries(): SitemapEntry[] {
     { loc: "/tutorials", changefreq: "weekly", priority: 0.8 },
     { loc: "/glossary", changefreq: "weekly", priority: 0.8 },
     { loc: "/trust-methodology", changefreq: "monthly", priority: 0.7 },
+    { loc: "/pro-bundle", changefreq: "weekly", priority: 0.9 },
     { loc: "/privacy", changefreq: "monthly", priority: 0.3 },
     { loc: "/terms", changefreq: "monthly", priority: 0.3 },
   ];
