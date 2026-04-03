@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import NewsletterSection from "@/components/NewsletterSection";
 import { breadcrumbJsonLd, faqJsonLd } from "@/utils/jsonLd";
+import { supabase } from "@/integrations/supabase/client";
 
 const SITE_URL = "https://openclaw-skillshub.com";
 
