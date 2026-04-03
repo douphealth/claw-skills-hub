@@ -31,6 +31,7 @@ const InstallCenter = lazy(() => import("./pages/InstallCenter"));
 const Versions = lazy(() => import("./pages/Versions"));
 const IntentHubPage = lazy(() => import("./pages/IntentHubPage"));
 const TrustMethodology = lazy(() => import("./pages/TrustMethodology"));
+const ProBundle = lazy(() => import("./pages/ProBundle"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
