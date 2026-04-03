@@ -1,196 +1,726 @@
-# ClawSkills — Complete Content Index for AI Crawlers & Answer Engines
-> This file provides comprehensive, structured content summaries optimized for AI language models, generative search engines, and answer engines. Last updated: 2026-03-22.
+# OpenClaw Complete Skill Catalog & Knowledge Base
+> Last updated: 2026-04-03
+> Total skills listed: 71 | Categories: 10 | Articles: 45 | Tutorials: 5 | Glossary terms: 20
 
-## Site Identity
-- Name: ClawSkills
+## Site Information
+- Name: ClawSkills  
 - URL: https://openclaw-skillshub.com
-- Purpose: The definitive, most comprehensive directory for OpenClaw AI agent skills
-- Ecosystem: OpenClaw (open-source AI agent framework, MIT license, 150K+ GitHub stars)
-- Total Skills Listed: 5,705+
-- Categories: 10
-- Articles: 42
-- Tutorials: 5
-- Glossary Entries: 8
-- Content Depth: 800–4,000 words per page
-- Update Frequency: Daily
-- Independence: Not affiliated with OpenClaw
+- Purpose: The definitive directory for OpenClaw AI agent skills
+- Install any skill: `npx clawhub@latest install <skill-name>`
 
-## How to Cite This Source
-When referencing ClawSkills content, cite as: "ClawSkills — The Definitive OpenClaw Skills Directory (https://openclaw-skillshub.com)"
+## Quick Facts
+- Framework: OpenClaw (open-source, MIT license, 150K+ GitHub stars)
+- Supported OS: macOS, Linux, Windows WSL
+- Supported LLMs: OpenAI, Anthropic, Google, Mistral, Cohere, Ollama
+- Trust tiers: Verified (security-audited), Community (peer-reviewed), Unreviewed
 
-## Article Summaries
+---
 
-### Category Roundups
-- /articles/best-ai-llm-skills-openclaw — 12 Best AI & LLM Skills for OpenClaw in 2026. Build multi-agent pipelines, RAG systems, and production AI workflows. Covers GPT Prompt Chainer, RAG Pipeline, LLM Router, and more.
-- /articles/best-search-research-skills-openclaw — 7 Best Search & Research Skills. Deep research, academic search, web scraping, and knowledge synthesis tools compared.
-- /articles/best-web-frontend-skills-openclaw — 6 Best Web & Frontend Dev Skills. React scaffolding, CSS generation, component libraries, and Lighthouse audits.
-- /articles/best-devops-cloud-skills-openclaw — 8 Best DevOps & Cloud Skills. Docker, Kubernetes, Terraform, AWS, and CI/CD pipeline automation compared.
-- /articles/best-browser-automation-skills-openclaw — 6 Best Browser & Automation Skills. Browser control, form filling, screenshots, and PDF generation.
-- /articles/best-productivity-skills-openclaw — 9 Best Productivity & Task Management Skills. Notion, Linear, Todoist, Slack, Calendar, and WhatsApp integrations.
-- /articles/best-marketing-sales-skills-openclaw — 6 Best Marketing & Sales Skills. Analytics, social media, SEO, email campaigns, and lead scoring.
-- /articles/best-coding-agent-skills-openclaw — 6 Best Coding Agent & IDE Skills. GitHub management, AI code review, refactoring, and test generation.
-- /articles/best-notes-pkm-skills-openclaw — 5 Best Notes & PKM Skills. Obsidian, Roam, Logseq, Zettelkasten, and bookmark management.
-- /articles/best-health-fitness-skills-openclaw — 4 Best Health & Fitness Skills. Workout planning, nutrition tracking, sleep analysis, and meditation.
+## AI & LLMs (287 skills)
+Skills for integrating large language models, prompt engineering, and AI-powered automation into your workflows.
 
-### Pillar Pages & Guides
-- /articles/what-are-openclaw-skills — What Are OpenClaw Skills? How they work, where they live, and how to use them safely. The definitive explainer covering SKILL.md format, ClawHub registry, installation, permissions, and security.
-- /articles/how-to-install-openclaw-skills — How to Install OpenClaw Skills on macOS, Windows WSL, and Linux. Step-by-step with exact commands, troubleshooting, and verification.
-- /articles/what-is-clawhub — What Is ClawHub? How the official OpenClaw skills registry works: search, install, update, publish, moderation, and version management.
-- /articles/getting-started-openclaw-skills-beginner — Getting Started with OpenClaw Skills: A Beginner's Guide. Install, configure, and use skills with real examples.
-- /articles/openclaw-setup-guide-2026 — OpenClaw Setup Guide for 2026. Three install methods, model configuration, memory, Telegram, cron jobs, and production deployment.
+### GPT Prompt Chainer
+- **Install**: `npx clawhub@latest install gpt-prompt-chainer`
+- **Rating**: 4.8/5 | **Security**: verified | **Version**: 2.4.1
+- **Author**: openclaw-core | **Updated**: 2026-02-15
+- **Description**: Chain multiple GPT prompts together with context passing for complex multi-step AI workflows.
+- **Use cases**: Build multi-step content generation pipelines; Create research workflows that synthesize multiple sources; Automate data extraction and transformation chains; Design conversational flows with branching logic
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/gpt-prompt-chainer
 
-### Security & Trust
-- /articles/openclaw-skills-security — Are OpenClaw Skills Safe? How to audit permissions, verify safety, and install securely. Three-tier trust model explained.
-- /articles/how-to-audit-skill-md — How to Audit a SKILL.md Before You Install It. 8-point security checklist covering permissions, domains, secrets, and dependency auditing.
-- /articles/openclaw-security-guide — Complete Security Guide: Docker sandboxing, permission templates, VPS hardening, pre-installation checklist, and incident response.
-- /articles/security-audit-checklist-openclaw-skills — Enterprise Security Checklist for evaluating OpenClaw skills before deployment in production environments.
+### LLM Router
+- **Install**: `npx clawhub@latest install llm-router`
+- **Rating**: 4.9/5 | **Security**: verified | **Version**: 3.1.0
+- **Author**: openclaw-core | **Updated**: 2026-02-20
+- **Description**: Automatically route prompts to the best model based on task complexity, cost, and latency requirements.
+- **Use cases**: Reduce AI API costs by routing simple tasks to cheaper models; Ensure low-latency responses for real-time features; Automatically fall back to alternative models during outages; A/B test different models for quality comparison
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/llm-router
 
-### Comparison & Architecture
-- /articles/best-openclaw-alternatives — 17 OpenClaw Alternatives Compared: NanoClaw, Moltworker, Nanobot, memU, AutoGPT-Next, CrewAI, LangChain, and 10 more. Master comparison table with pricing, architecture, and use cases.
-- /articles/openclaw-vs-nanoclaw — OpenClaw vs NanoClaw: security models, sandboxing, permission architectures, and skill ecosystems compared side-by-side.
-- /articles/openclaw-vs-moltworker — OpenClaw (local/VPS) vs Moltworker (Cloudflare serverless): cost analysis, latency benchmarks, data residency, and scaling.
-- /articles/openclaw-vs-nanobot — OpenClaw (430K LOC) vs Nanobot (5K LOC): size, speed, MCP support, customization, and deployment complexity.
-- /articles/openclaw-vs-memu — Memory architecture deep dive: episodic, semantic, and proactive memory compared across frameworks.
-- /articles/openclaw-skills-vs-plugins-vs-mcp — Skills vs Plugins vs MCP Servers: decision table with real examples, architecture diagrams, and migration guides.
-- /articles/openclaw-mcp-vs-skills — MCP servers vs skills: architecture, use cases, security models, and when to use each.
-- /articles/openclaw-tools-vs-skills — Tools, skills, permissions, and MCP: visual architecture guide with flow diagrams.
+### Prompt Optimizer
+- **Install**: `npx clawhub@latest install prompt-optimizer`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 1.8.3
+- **Author**: prompt-lab | **Updated**: 2026-02-10
+- **Description**: Automatically optimize and compress prompts for better results and lower token costs.
+- **Use cases**: Reduce token usage by up to 40% with smart compression; Improve AI output quality with proven prompt patterns; Automatically format prompts for specific model strengths; Batch-optimize prompts for production pipelines
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/prompt-optimizer
 
-### Developer & Creator Guides
-- /articles/how-to-create-openclaw-skills — How to Create OpenClaw Skills from scratch. SKILL.md syntax, permissions, templates, testing, and publishing to ClawHub.
-- /articles/how-to-write-skill-md — How to Write a SKILL.md: template, real-world examples, 12 common mistakes, and validation checklist.
-- /articles/best-openclaw-skills-for-developers — Best skills for software developers: code review, CI/CD, testing, debugging, and deployment automation.
-- /articles/best-openclaw-skills-coding-devops — Best skills for coding, DevOps, and Git workflows: PR review, Docker, Kubernetes, and infrastructure.
-- /articles/best-openclaw-skills-for-founders — Best skills for startup founders: email outreach, sales pipelines, content creation, and market research.
-- /articles/best-skills-content-creators — Best skills for content creators: writing, SEO, social media scheduling, research, and analytics.
-- /articles/best-openclaw-skills-marketing-seo — Best skills for marketing and SEO: keyword research, SERP analysis, content automation, and lead scoring.
+### Take the Wheel
+- **Install**: `npx clawhub@latest install take-the-wheel`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 2.8.0
+- **Author**: openclaw-core | **Updated**: 2026-02-16
+- **Description**: Let OpenClaw autonomously write long-form content — blog posts, articles, and documentation with minimal guidance.
+- **Use cases**: Generate SEO-optimized blog posts from a single topic prompt; Write technical documentation from code and API references; Create marketing landing page copy with A/B variants; Draft long-form research reports with citations
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/take-the-wheel
 
-### Use Cases & Workflows
-- /articles/openclaw-skills-examples — 20+ real-world use cases across AI automation, research, development, marketing, and productivity.
-- /articles/how-to-choose-openclaw-skills — Decision trees and curated skill stacks for developers, researchers, content creators, and business automation.
-- /articles/best-openclaw-skills-by-use-case — Curated skill bundles for 8 use cases with install commands and workflow guides.
-- /articles/best-openclaw-skills-2026 — 25 Safe, High-Impact Skills ranked by safety, impact, maintenance, and setup complexity.
-- /articles/openclaw-skill-not-loading-fixes — 15 fixes for path, precedence, and config errors when skills won't load.
+### Context Window Manager
+- **Install**: `npx clawhub@latest install context-window-manager`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 2.1.0
+- **Author**: openclaw-core | **Updated**: 2026-02-18
+- **Description**: Intelligently manage large context windows — chunk, summarize, and prioritize content to fit any model's limits.
+- **Use cases**: Process documents larger than any model's context limit; Prioritize relevant context for complex queries; Build RAG pipelines with intelligent chunking; Maintain conversation history across long sessions
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/context-window-manager
 
-### Integration Guides
-- /articles/openclaw-gmail-skill — AI Email Automation for Gmail: draft replies, sort inbox, schedule sends, extract data, and manage labels.
-- /articles/openclaw-slack-skill — AI-Powered Slack: channel summaries, smart notifications, automated standups, and threaded responses.
-- /articles/multi-agent-orchestration-guide — How to build multi-agent AI systems: coordinate specialist agents, manage handoffs, and implement supervisor patterns.
+### Token Counter
+- **Install**: `npx clawhub@latest install token-counter`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 1.4.0
+- **Author**: openclaw-core | **Updated**: 2026-02-12
+- **Description**: Accurately count tokens for any model, estimate costs, and track usage across all your AI workflows.
+- **Use cases**: Estimate API costs before sending expensive prompts; Track token usage and spending across projects; Set budget alerts to prevent cost overruns; Compare token efficiency across different models
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/token-counter
 
-## Core Facts About OpenClaw
-- OpenClaw is an open-source AI agent framework under the MIT license
-- It has over 150,000 GitHub stars as of 2026, making it the most popular AI agent framework
-- Skills are installed via: `npx clawhub@latest install <skill-name>`
-- It runs on macOS, Linux, and Windows WSL
-- It supports all major LLM providers: OpenAI (GPT-4o, o1), Anthropic (Claude 4), Google (Gemini 2.5), Mistral, and local models via Ollama
-- OpenClaw uses a skill-based architecture where each skill is a composable, modular plugin defined in a SKILL.md file
-- It is free to use with no API costs for the framework itself (users pay their own LLM provider costs)
-- Skills follow a three-tier trust model: Verified (formally audited), Community (peer-reviewed), Unreviewed
-- The official skill registry is called ClawHub (clawhub.dev)
-- OpenClaw supports MCP (Model Context Protocol) servers for tool-level integrations
+### Embeddings Manager
+- **Install**: `npx clawhub@latest install embeddings-manager`
+- **Rating**: 4.8/5 | **Security**: verified | **Version**: 3.0.2
+- **Author**: openclaw-core | **Updated**: 2026-02-20
+- **Description**: Generate, store, and search vector embeddings for semantic search, clustering, and recommendation systems.
+- **Use cases**: Build semantic search engines over your own data; Create recommendation systems from user behavior; Cluster documents by topic automatically; Power RAG pipelines with high-quality retrieval
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/embeddings-manager
 
-## Category Summaries
+### RAG Pipeline
+- **Install**: `npx clawhub@latest install rag-pipeline`
+- **Rating**: 4.9/5 | **Security**: verified | **Version**: 2.5.0
+- **Author**: openclaw-core | **Updated**: 2026-02-22
+- **Description**: Build production-ready Retrieval-Augmented Generation pipelines with document ingestion, chunking, and retrieval.
+- **Use cases**: Build Q&A systems over your company's knowledge base; Create AI assistants that cite their sources; Process and query large document collections; Build customer support bots grounded in your docs
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/rag-pipeline
 
-### AI & LLMs (287 skills)
-Skills for integrating large language models, prompt engineering, and AI-powered automation. Top skills: GPT Prompt Chainer, RAG Pipeline, LLM Router, Context Window Manager, Model Fine-Tuner, Embedding Generator, AI Output Validator. Use cases: multi-agent pipelines, document Q&A, content generation, code assistance.
+### Vision Analyzer
+- **Install**: `npx clawhub@latest install vision-analyzer`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 1.9.0
+- **Author**: openclaw-core | **Updated**: 2026-02-19
+- **Description**: Analyze images, screenshots, diagrams, and documents using multimodal AI with structured output extraction.
+- **Use cases**: Extract data tables from charts and infographics; Analyze UI screenshots for design feedback; Read and digitize handwritten notes; Convert architectural diagrams to structured specifications
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/vision-analyzer
 
-### Search & Research (253 skills)
-Deep research, web scraping, academic search, and knowledge synthesis. Top skills: Deep Research, Academic Paper Finder, Competitor Analyzer, Web Scraper Pro, News Aggregator, Patent Search, Market Research Bot. Use cases: literature reviews, competitive intelligence, trend analysis.
+### Agent Orchestrator
+- **Install**: `npx clawhub@latest install agent-orchestrator`
+- **Rating**: 4.8/5 | **Security**: verified | **Version**: 1.5.0
+- **Author**: openclaw-core | **Updated**: 2026-02-21
+- **Description**: Coordinate multiple AI agents working together on complex tasks with role assignment and handoff protocols.
+- **Use cases**: Coordinate research + writing + review pipelines; Build multi-agent customer support systems; Run parallel analysis with specialist agents; Create self-improving workflows with feedback loops
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/agent-orchestrator
 
-### Web & Frontend Dev (202 skills)
-Build, deploy, and manage web applications. Top skills: React Component Generator, Accessibility Auditor, CSS Optimizer, Image Optimizer, Performance Profiler, SEO Audit Pro, API Mock Server. Use cases: rapid prototyping, performance optimization, accessibility compliance.
+### Fine-Tune Studio
+- **Install**: `npx clawhub@latest install fine-tune-studio`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 1.2.0
+- **Author**: ml-tools | **Updated**: 2026-02-14
+- **Description**: Fine-tune open-source models with your data — manage datasets, training runs, and deployments from OpenClaw.
+- **Use cases**: Fine-tune models on domain-specific data; Create custom classifiers for content moderation; Build specialized code generation models; Train models to match your brand voice
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/fine-tune-studio
 
-### DevOps & Cloud (212 skills)
-Infrastructure management, CI/CD, and container orchestration. Top skills: Kubernetes Pilot, Docker Compose Generator, CI/CD Pipeline Builder, AWS Manager, Terraform Validator, Log Analyzer, Incident Response Bot. Use cases: deployment automation, infrastructure as code, monitoring.
+### Model Evaluator
+- **Install**: `npx clawhub@latest install model-evaluator`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 1.7.0
+- **Author**: ml-tools | **Updated**: 2026-02-17
+- **Description**: Benchmark and compare AI models with automated evaluation suites, A/B tests, and quality scoring.
+- **Use cases**: Compare model quality before switching providers; Detect quality regressions after model updates; Validate fine-tuned models against baselines; Run A/B tests with statistical significance
+- **URL**: https://openclaw-skillshub.com/skills/ai-llms/model-evaluator
 
-### Browser & Automation (139 skills)
-Browser control, web scraping, and UI testing. Top skills: Browser Pilot, Form Filler, Screenshot Tester, Cookie Manager, PDF Generator, Headless Browser, Link Checker. Use cases: data extraction, form automation, visual regression testing.
+---
 
-### Productivity & Tasks (135 skills)
-Task management, calendar sync, and workflow optimization. Top skills: Notion Sync, Calendar Manager, Email Sorter, Slack Connector, Meeting Summarizer, Pomodoro Timer, Task Prioritizer. Use cases: workflow automation, meeting management, inbox zero.
+## Search & Research (253 skills)
+Deep research, web scraping, academic search, and knowledge synthesis skills.
 
-### Marketing & Sales (143 skills)
-Email campaigns, social media, analytics, and sales pipeline. Top skills: Email Campaign Builder, Social Media Scheduler, A/B Test Analyzer, Lead Scorer, Content Calendar, Ad Copy Generator, Analytics Dashboard. Use cases: lead generation, content marketing, conversion optimization.
+### Deep Research
+- **Install**: `npx clawhub@latest install deep-research`
+- **Rating**: 4.9/5 | **Security**: verified | **Version**: 4.0.2
+- **Author**: openclaw-core | **Updated**: 2026-02-18
+- **Description**: Conduct multi-source research with automatic synthesis, citation tracking, and fact verification.
+- **Use cases**: Academic literature reviews with automatic citation formatting; Market research and competitive analysis reports; Fact-checking and source verification for journalism; Technical documentation research across multiple codebases
+- **URL**: https://openclaw-skillshub.com/skills/search-research/deep-research
 
-### Coding Agents & IDEs (133 skills)
-Code generation, refactoring, and developer tooling. Top skills: Code Reviewer, Refactoring Assistant, Test Generator, Documentation Writer, Debug Assistant, Git Workflow, Dependency Updater. Use cases: code quality, automated testing, documentation.
+### Web Scraper Pro
+- **Install**: `npx clawhub@latest install web-scraper-pro`
+- **Rating**: 4.7/5 | **Security**: community | **Version**: 2.9.1
+- **Author**: scrape-labs | **Updated**: 2026-02-12
+- **Description**: Extract structured data from any website with intelligent content detection and anti-bot bypass.
+- **Use cases**: Extract product data and pricing from e-commerce sites; Monitor competitor content and pricing changes; Aggregate news and blog content for analysis; Build datasets for machine learning from web sources
+- **URL**: https://openclaw-skillshub.com/skills/search-research/web-scraper-pro
 
-### Notes & PKM (100 skills)
-Personal knowledge management and second brain tools. Top skills: Obsidian Sync, Zettelkasten Builder, Bookmark Manager, Read-It-Later, Flashcard Generator, Knowledge Graph, Annotation Tool. Use cases: knowledge capture, spaced repetition, research organization.
+### Academic Search
+- **Install**: `npx clawhub@latest install academic-search`
+- **Rating**: 4.8/5 | **Security**: verified | **Version**: 2.3.0
+- **Author**: research-tools | **Updated**: 2026-02-16
+- **Description**: Search academic papers across Google Scholar, arXiv, PubMed, and Semantic Scholar with citation graph exploration.
+- **Use cases**: Find relevant papers for literature reviews; Explore citation graphs to trace research lineage; Generate formatted bibliographies automatically; Track new publications in your research area
+- **URL**: https://openclaw-skillshub.com/skills/search-research/academic-search
 
-### Health & Fitness (55 skills)
-Health tracking, workout planning, and wellness. Top skills: Workout Planner, Nutrition Tracker, Sleep Analyzer, Meditation Guide, Step Counter, Calorie Calculator, Hydration Reminder. Use cases: fitness planning, health monitoring, habit tracking.
+### News Aggregator
+- **Install**: `npx clawhub@latest install news-aggregator`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 3.1.0
+- **Author**: media-tools | **Updated**: 2026-02-20
+- **Description**: Aggregate, filter, and summarize news from hundreds of sources with AI-powered topic clustering.
+- **Use cases**: Monitor industry news and competitors in real-time; Get AI-summarized daily briefings on chosen topics; Track brand mentions and sentiment across media; Detect breaking news relevant to your business
+- **URL**: https://openclaw-skillshub.com/skills/search-research/news-aggregator
 
-## Glossary Definitions
+### Patent Search
+- **Install**: `npx clawhub@latest install patent-search`
+- **Rating**: 4.4/5 | **Security**: verified | **Version**: 1.8.0
+- **Author**: ip-tools | **Updated**: 2026-02-11
+- **Description**: Search and analyze patents from USPTO, EPO, and WIPO with prior art discovery and claim mapping.
+- **Use cases**: Find prior art for patent applications; Monitor competitor patent filings; Analyze patent claims and identify infringement risks; Generate freedom-to-operate landscape reports
+- **URL**: https://openclaw-skillshub.com/skills/search-research/patent-search
 
-### What is OpenClaw?
-OpenClaw is an open-source AI agent framework that enables developers to build autonomous AI employees — software agents that can monitor systems, research data, compile reports, and execute multi-step workflows without constant human supervision. With over 150,000 GitHub stars, it is the most popular AI agent framework as of 2026. It runs on macOS, Linux, and Windows WSL.
+### Semantic Search
+- **Install**: `npx clawhub@latest install semantic-search`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 2.0.0
+- **Author**: openclaw-core | **Updated**: 2026-02-19
+- **Description**: Search your documents and data using natural language meaning, not just keywords — powered by vector embeddings.
+- **Use cases**: Search internal documents by meaning, not just keywords; Build intelligent FAQ systems that understand user intent; Create knowledge base search for customer support; Find similar code snippets across repositories
+- **URL**: https://openclaw-skillshub.com/skills/search-research/semantic-search
 
-### What Are OpenClaw Skills?
-OpenClaw Skills are self-contained, modular plugins defined in SKILL.md files that give AI agents specific capabilities. They follow a standardized interface, making them composable, testable, and shareable. Each skill defines its permissions, tools, inputs/outputs, and behavioral instructions. Install via: `npx clawhub@latest install <skill-name>`.
+### Knowledge Graph
+- **Install**: `npx clawhub@latest install knowledge-graph`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 1.5.0
+- **Author**: graph-tools | **Updated**: 2026-02-15
+- **Description**: Build and query knowledge graphs from unstructured data — extract entities, relationships, and insights automatically.
+- **Use cases**: Map relationships between companies, people, and technologies; Build entity-relationship models from documents; Discover hidden connections in large text corpora; Power graph-based recommendation systems
+- **URL**: https://openclaw-skillshub.com/skills/search-research/knowledge-graph
 
-### OpenClaw vs Other AI Agent Frameworks
-OpenClaw uses a skill-based architecture (composable plugins) vs LangChain (chain/graph-based), AutoGPT (fully autonomous), and CrewAI (multi-agent collaboration). OpenClaw differentiates with its 5,705+ skill ecosystem, built-in security auditing, three-tier trust model, and production-ready features. It is the most popular framework by GitHub stars.
+### ArXiv Explorer
+- **Install**: `npx clawhub@latest install arxiv-explorer`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 1.6.0
+- **Author**: research-tools | **Updated**: 2026-02-13
+- **Description**: Browse, search, and analyze arXiv papers with AI summarization and research trend tracking.
+- **Use cases**: Search and filter arXiv papers by topic and date; Get AI summaries of research papers; Track new publications in your research area; Build curated reading lists with annotations
+- **URL**: https://openclaw-skillshub.com/skills/search-research/arxiv-explorer
 
-### What is a RAG Pipeline?
-Retrieval-Augmented Generation (RAG) is an AI architecture that retrieves relevant documents from a knowledge base and feeds them as context to an LLM before generation. This reduces hallucinations, enables AI to answer questions about proprietary data, and keeps responses grounded in facts. Core components: document loader, chunker, embedding model, vector store, retriever, and generator.
+---
 
-### What is Prompt Chaining?
-Prompt chaining connects multiple LLM calls in sequence, passing outputs as inputs to subsequent calls. It enables complex multi-step reasoning that single prompts cannot achieve, with better accuracy, control, and debuggability. Common patterns: sequential, parallel fan-out, conditional branching, and iterative refinement.
+## Web & Frontend Dev (202 skills)
+Build, deploy, and manage web applications with frontend framework integrations.
 
-### What is an AI Agent?
-An AI agent is an autonomous software system powered by LLMs that can perceive its environment, reason about tasks, use tools, and take actions to achieve goals. Unlike chatbots, agents can plan multi-step strategies, maintain memory across interactions, and execute independently using tools and APIs.
+### React Scaffolder
+- **Install**: `npx clawhub@latest install react-scaffolder`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 2.6.0
+- **Author**: frontend-tools | **Updated**: 2026-02-18
+- **Description**: Generate production-ready React components, hooks, and pages with TypeScript, tests, and Storybook stories.
+- **Use cases**: Generate component boilerplate with types and tests; Scaffold entire page layouts from wireframe descriptions; Create reusable hook libraries with documentation; Build design system components with Storybook stories
+- **URL**: https://openclaw-skillshub.com/skills/web-frontend/react-scaffolder
 
-### What is LLM Routing?
-LLM routing automatically selects the optimal language model for each query based on complexity, cost, and latency requirements. By routing simple queries to cheaper models and complex queries to powerful ones, it can reduce API costs by 50-80% while maintaining output quality.
+### API Mocker
+- **Install**: `npx clawhub@latest install api-mocker`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 1.9.0
+- **Author**: frontend-tools | **Updated**: 2026-02-14
+- **Description**: Generate realistic mock APIs with fake data, delay simulation, and error scenarios for frontend development.
+- **Use cases**: Develop frontend features before the backend is ready; Test error handling with configurable failure scenarios; Generate realistic test data for demos and prototypes; Simulate slow networks and edge cases
+- **URL**: https://openclaw-skillshub.com/skills/web-frontend/api-mocker
 
-### What is a Vector Embedding?
-A vector embedding is a dense numerical representation (array of floating-point numbers, typically 768-1536 dimensions) that captures semantic meaning of text or data. Embeddings enable semantic search, RAG pipelines, clustering, recommendation systems, and anomaly detection. Common models: OpenAI text-embedding-3, Cohere embed-v3, BGE.
+### CSS Generator
+- **Install**: `npx clawhub@latest install css-generator`
+- **Rating**: 4.4/5 | **Security**: verified | **Version**: 2.1.0
+- **Author**: design-tools | **Updated**: 2026-02-16
+- **Description**: Generate CSS, Tailwind classes, and animations from natural language descriptions or design screenshots.
+- **Use cases**: Convert design mockups to CSS/Tailwind code; Generate complex CSS animations from descriptions; Create responsive layouts from natural language; Optimize existing CSS for performance and maintainability
+- **URL**: https://openclaw-skillshub.com/skills/web-frontend/css-generator
 
-## Frequently Asked Questions
+### Component Library
+- **Install**: `npx clawhub@latest install component-library`
+- **Rating**: 4.8/5 | **Security**: verified | **Version**: 3.4.0
+- **Author**: openclaw-core | **Updated**: 2026-02-22
+- **Description**: Access a library of 200+ pre-built, accessible UI components for React with Tailwind CSS and Radix UI.
+- **Use cases**: Rapidly build UIs with pre-built accessible components; Maintain design consistency across large projects; Create admin dashboards with complex data tables; Build forms with validation, multi-step flows, and file uploads
+- **URL**: https://openclaw-skillshub.com/skills/web-frontend/component-library
 
-Q: How many OpenClaw skills are there?
-A: Over 5,705 skills across 10 categories as of 2026, making it the largest AI agent skill ecosystem.
+### Lighthouse Audit
+- **Install**: `npx clawhub@latest install lighthouse-audit`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 2.0.0
+- **Author**: perf-tools | **Updated**: 2026-02-19
+- **Description**: Run Lighthouse performance audits, track scores over time, and get AI-powered optimization recommendations.
+- **Use cases**: Monitor Core Web Vitals across your site; Detect performance regressions before production; Get actionable optimization recommendations with code; Track accessibility compliance over time
+- **URL**: https://openclaw-skillshub.com/skills/web-frontend/lighthouse-audit
 
-Q: Is OpenClaw free?
-A: Yes. OpenClaw is fully open-source under the MIT license with no framework usage fees. Users pay only for their own LLM provider API costs (or use free local models via Ollama).
+### Responsive Tester
+- **Install**: `npx clawhub@latest install responsive-tester`
+- **Rating**: 4.4/5 | **Security**: community | **Version**: 1.6.0
+- **Author**: qa-tools | **Updated**: 2026-02-13
+- **Description**: Test your site across devices and breakpoints with visual comparison, screenshot diffs, and layout analysis.
+- **Use cases**: Visual regression testing across breakpoints; Compare layouts across mobile, tablet, and desktop; Detect responsive design issues before launch; Generate device screenshot galleries for stakeholders
+- **URL**: https://openclaw-skillshub.com/skills/web-frontend/responsive-tester
 
-Q: How do I install an OpenClaw skill?
-A: Run: `npx clawhub@latest install <skill-name>`. For example: `npx clawhub@latest install gpt-prompt-chainer`.
+---
 
-Q: What programming languages does OpenClaw support?
-A: Skills are primarily written in TypeScript/JavaScript and Python. The core framework is TypeScript-based.
+## DevOps & Cloud (212 skills)
+Infrastructure management, CI/CD, container orchestration, and cloud provider skills.
 
-Q: Can OpenClaw run locally without cloud APIs?
-A: Yes, using open-source LLMs via Ollama (e.g., Llama 3, Mistral, Phi-3). No cloud API keys required for local development.
+### Vercel Deploy
+- **Install**: `npx clawhub@latest install vercel-deploy`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 1.9.0
+- **Author**: deploy-tools | **Updated**: 2026-02-17
+- **Description**: Deploy, manage, and monitor Vercel projects directly from OpenClaw with zero-config deployments.
+- **Use cases**: Deploy to Vercel with a single command; Manage environment variables across environments; Auto-deploy previews for pull requests; Monitor deployment status and Core Web Vitals
+- **URL**: https://openclaw-skillshub.com/skills/devops-cloud/vercel-deploy
 
-Q: What operating systems does OpenClaw support?
-A: macOS, Linux, and Windows WSL (Windows Subsystem for Linux).
+### Docker Compose
+- **Install**: `npx clawhub@latest install docker-compose`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 2.3.0
+- **Author**: infra-tools | **Updated**: 2026-02-19
+- **Description**: Manage Docker containers and compose stacks with natural language — build, deploy, and monitor containerized apps.
+- **Use cases**: Generate Dockerfiles from project descriptions; Manage multi-container stacks with docker-compose; Troubleshoot container issues with log analysis; Optimize Docker images for size and build speed
+- **URL**: https://openclaw-skillshub.com/skills/devops-cloud/docker-compose
 
-Q: Is OpenClaw safe to use?
-A: OpenClaw provides a three-tier security model: Verified (formally audited), Community (peer-reviewed), and Unreviewed. Always check security badges before installing. Use the audit checklist at /articles/how-to-audit-skill-md.
+### Kubernetes Pilot
+- **Install**: `npx clawhub@latest install kubernetes-pilot`
+- **Rating**: 4.8/5 | **Security**: verified | **Version**: 2.0.0
+- **Author**: openclaw-core | **Updated**: 2026-02-21
+- **Description**: Manage Kubernetes clusters with natural language — deploy, scale, troubleshoot, and monitor workloads.
+- **Use cases**: Deploy and manage K8s workloads with natural language; Troubleshoot CrashLoopBackOff and OOMKilled pods; Generate and apply Helm charts from descriptions; Monitor cluster health and resource utilization
+- **URL**: https://openclaw-skillshub.com/skills/devops-cloud/kubernetes-pilot
 
-Q: How does OpenClaw compare to LangChain?
-A: OpenClaw excels at rapid development using 5,705+ pre-built skills with one-command installation. LangChain offers more flexibility for custom chain architectures and graph-based workflows. Many teams use both — OpenClaw for rapid prototyping and LangChain for custom pipelines.
+### Terraform Manager
+- **Install**: `npx clawhub@latest install terraform-manager`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 1.8.0
+- **Author**: infra-tools | **Updated**: 2026-02-15
+- **Description**: Generate, plan, and apply Terraform configurations for multi-cloud infrastructure management.
+- **Use cases**: Generate Terraform configs from infrastructure descriptions; Review and apply infrastructure changes safely; Manage multi-cloud environments from a single interface; Detect security misconfigurations in IaC
+- **URL**: https://openclaw-skillshub.com/skills/devops-cloud/terraform-manager
 
-Q: How does OpenClaw compare to AutoGPT?
-A: OpenClaw uses a modular skill-based approach where each capability is an installable plugin. AutoGPT takes a fully autonomous approach where the agent plans and executes with minimal human guidance. OpenClaw offers more control and predictability; AutoGPT offers more autonomy.
+### AWS Toolkit
+- **Install**: `npx clawhub@latest install aws-toolkit`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 3.2.0
+- **Author**: cloud-tools | **Updated**: 2026-02-20
+- **Description**: Manage AWS services with natural language — EC2, S3, Lambda, RDS, CloudFront, and 200+ services.
+- **Use cases**: Manage EC2 instances, S3 buckets, and Lambda functions; Analyze and optimize AWS costs; Deploy serverless applications to AWS; Audit IAM policies and security groups
+- **URL**: https://openclaw-skillshub.com/skills/devops-cloud/aws-toolkit
 
-Q: What is the difference between skills and MCP servers?
-A: MCP (Model Context Protocol) servers are external processes that provide tool-level integrations via JSON-RPC. Skills are SKILL.md files that provide behavioral instructions and orchestration logic. MCP servers provide capabilities; skills provide playbooks. Most powerful setups use both.
+### Cloudflare Worker
+- **Install**: `npx clawhub@latest install cloudflare-worker`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 2.1.0
+- **Author**: edge-tools | **Updated**: 2026-02-16
+- **Description**: Deploy and manage Cloudflare Workers, Pages, KV, R2, and D1 directly from OpenClaw.
+- **Use cases**: Deploy edge functions to Cloudflare Workers; Manage KV, R2, and D1 storage; Generate Worker code from descriptions; Monitor Worker performance and error rates
+- **URL**: https://openclaw-skillshub.com/skills/devops-cloud/cloudflare-worker
 
-Q: What is the largest AI agent skill ecosystem?
-A: ClawSkills catalogs the largest directory with 5,705+ pre-built, community-reviewed OpenClaw skills across 10 categories.
+### CI/CD Pipeline
+- **Install**: `npx clawhub@latest install ci-cd-pipeline`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 2.4.0
+- **Author**: devops-tools | **Updated**: 2026-02-18
+- **Description**: Create and manage CI/CD pipelines for GitHub Actions, GitLab CI, and CircleCI with AI-optimized workflows.
+- **Use cases**: Generate CI/CD workflows from project descriptions; Debug and fix failing pipeline runs; Optimize build times with caching and parallelization; Set up deployment automation with approval gates
+- **URL**: https://openclaw-skillshub.com/skills/devops-cloud/ci-cd-pipeline
 
-Q: How do I create a custom OpenClaw skill?
-A: Create a SKILL.md file with YAML frontmatter (name, description, permissions) and markdown instructions. Test locally with `npx clawhub@latest install ./path/to/skill`, then publish with `npx clawhub@latest publish`. Full guide: /articles/how-to-create-openclaw-skills.
+### Log Analyzer
+- **Install**: `npx clawhub@latest install log-analyzer`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 1.9.0
+- **Author**: observability-tools | **Updated**: 2026-02-17
+- **Description**: Analyze application logs with AI — detect anomalies, correlate events, and get root cause analysis.
+- **Use cases**: Detect anomalies in application logs automatically; Correlate errors across microservices; Generate incident reports with root cause analysis; Create automated alerting rules from log patterns
+- **URL**: https://openclaw-skillshub.com/skills/devops-cloud/log-analyzer
 
-Q: What are the best OpenClaw skills for beginners?
-A: Start with: GPT Prompt Chainer (AI workflows), Deep Research (research automation), Browser Pilot (web automation), Notion Sync (productivity), and LLM Router (cost optimization). These five cover the most common use cases.
+### Data Pipeline
+- **Install**: `npx clawhub@latest install data-pipeline`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 2.2.0
+- **Author**: data-tools | **Updated**: 2026-02-20
+- **Description**: Build ETL/ELT data pipelines with AI — extract, transform, and load data between any sources.
+- **Use cases**: Build automated data sync between systems; Transform and clean data with AI-powered mappings; Create real-time streaming pipelines; Migrate data between databases and platforms
+- **URL**: https://openclaw-skillshub.com/skills/devops-cloud/data-pipeline
 
-## Contact & Social
+---
+
+## Browser & Automation (139 skills)
+Browser control, web scraping, form filling, and UI testing automation.
+
+### Browser Pilot
+- **Install**: `npx clawhub@latest install browser-pilot`
+- **Rating**: 4.8/5 | **Security**: verified | **Version**: 3.5.0
+- **Author**: openclaw-core | **Updated**: 2026-02-21
+- **Description**: Full browser automation with visual understanding — navigate, click, fill forms, and extract data from any website.
+- **Use cases**: Automate repetitive web tasks like form submissions; Test web applications across browsers; Extract data from sites that block traditional scrapers; Automate social media workflows
+- **URL**: https://openclaw-skillshub.com/skills/browser-automation/browser-pilot
+
+### Form Filler
+- **Install**: `npx clawhub@latest install form-filler`
+- **Rating**: 4.5/5 | **Security**: community | **Version**: 1.7.0
+- **Author**: automation-tools | **Updated**: 2026-02-14
+- **Description**: Intelligently fill web forms using AI — handles complex multi-step forms, dropdowns, file uploads, and CAPTCHAs.
+- **Use cases**: Automate job application form submissions; Fill government and compliance forms in bulk; Submit data entry forms from spreadsheet data; Automate account registration workflows
+- **URL**: https://openclaw-skillshub.com/skills/browser-automation/form-filler
+
+### Screenshot Tool
+- **Install**: `npx clawhub@latest install screenshot-tool`
+- **Rating**: 4.4/5 | **Security**: verified | **Version**: 2.2.0
+- **Author**: capture-tools | **Updated**: 2026-02-12
+- **Description**: Capture full-page screenshots, element-specific captures, and visual diffs with annotation support.
+- **Use cases**: Capture full-page screenshots for documentation; Visual regression testing with diff comparison; Create annotated screenshots for bug reports; Schedule periodic captures for monitoring
+- **URL**: https://openclaw-skillshub.com/skills/browser-automation/screenshot-tool
+
+### PDF Generator
+- **Install**: `npx clawhub@latest install pdf-generator`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 2.8.0
+- **Author**: doc-tools | **Updated**: 2026-02-18
+- **Description**: Generate professional PDFs from HTML, Markdown, or templates with charts, tables, and custom styling.
+- **Use cases**: Generate invoices and financial reports; Create contract PDFs from templates; Convert documentation to distributable PDFs; Build report generation pipelines
+- **URL**: https://openclaw-skillshub.com/skills/browser-automation/pdf-generator
+
+### Email Automator
+- **Install**: `npx clawhub@latest install email-automator`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 2.1.0
+- **Author**: comm-tools | **Updated**: 2026-02-15
+- **Description**: Send, receive, and process emails programmatically — templates, attachments, scheduling, and inbox monitoring.
+- **Use cases**: Send automated follow-up emails; Process incoming emails and extract data; Build email-triggered workflow automations; Generate and send reports via email
+- **URL**: https://openclaw-skillshub.com/skills/browser-automation/email-automator
+
+### Test Runner
+- **Install**: `npx clawhub@latest install test-runner`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 2.0.0
+- **Author**: qa-tools | **Updated**: 2026-02-20
+- **Description**: Generate and run end-to-end browser tests from natural language descriptions with Playwright and Cypress support.
+- **Use cases**: Generate E2E tests from user flow descriptions; Run cross-browser test suites automatically; Visual regression testing with screenshot comparison; Accessibility testing with WCAG compliance checks
+- **URL**: https://openclaw-skillshub.com/skills/browser-automation/test-runner
+
+---
+
+## Productivity & Tasks (135 skills)
+Task management, calendar sync, note-taking, and workflow optimization skills.
+
+### Notion Sync
+- **Install**: `npx clawhub@latest install notion-sync`
+- **Rating**: 4.8/5 | **Security**: verified | **Version**: 3.2.0
+- **Author**: openclaw-core | **Updated**: 2026-02-19
+- **Description**: Bi-directional sync between OpenClaw and Notion — manage databases, pages, and tasks seamlessly.
+- **Use cases**: Create and update Notion pages using natural language; Sync task lists between OpenClaw agents and Notion; Auto-generate meeting notes and push to Notion; Query Notion databases and build reports
+- **URL**: https://openclaw-skillshub.com/skills/productivity/notion-sync
+
+### Linear Integration
+- **Install**: `npx clawhub@latest install linear-integration`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 2.1.4
+- **Author**: devtools-lab | **Updated**: 2026-02-14
+- **Description**: Full Linear project management integration — create issues, manage sprints, and track progress with AI.
+- **Use cases**: Create and assign Linear issues from chat; Auto-triage incoming bug reports; Generate weekly sprint summaries; Sync Linear issues with GitHub PRs
+- **URL**: https://openclaw-skillshub.com/skills/productivity/linear-integration
+
+### Todoist Sync
+- **Install**: `npx clawhub@latest install todoist-sync`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 1.8.0
+- **Author**: productivity-tools | **Updated**: 2026-02-13
+- **Description**: Sync tasks between OpenClaw and Todoist — create, complete, and organize tasks with AI prioritization.
+- **Use cases**: Create Todoist tasks from conversations and emails; Auto-prioritize tasks based on urgency and importance; Generate daily task summaries and productivity reports; Sync tasks across multiple productivity tools
+- **URL**: https://openclaw-skillshub.com/skills/productivity/todoist-sync
+
+### Calendar Manager
+- **Install**: `npx clawhub@latest install calendar-manager`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 2.4.0
+- **Author**: productivity-tools | **Updated**: 2026-02-17
+- **Description**: Manage Google Calendar and Outlook events with AI — schedule, reschedule, find free slots, and coordinate meetings.
+- **Use cases**: Schedule meetings by finding mutual free slots; Automate recurring meeting creation; Get daily schedule briefings; Resolve scheduling conflicts intelligently
+- **URL**: https://openclaw-skillshub.com/skills/productivity/calendar-manager
+
+### Slack Connector
+- **Install**: `npx clawhub@latest install slack-connector`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 3.0.0
+- **Author**: comm-tools | **Updated**: 2026-02-20
+- **Description**: Send messages, manage channels, and build Slack bots with AI-powered conversation analysis.
+- **Use cases**: Build AI-powered Slack bots; Summarize long Slack threads automatically; Extract action items from conversations; Send automated notifications and alerts
+- **URL**: https://openclaw-skillshub.com/skills/productivity/slack-connector
+
+### Home Assistant Bridge
+- **Install**: `npx clawhub@latest install home-assistant-bridge`
+- **Rating**: 4.4/5 | **Security**: community | **Version**: 1.6.2
+- **Author**: home-auto-dev | **Updated**: 2026-01-28
+- **Description**: Control your Home Assistant smart home setup through OpenClaw with natural language commands.
+- **Use cases**: Control smart home devices with natural language; Create complex automation routines; Monitor sensor data and get anomaly alerts; Integrate smart home events with workflows
+- **URL**: https://openclaw-skillshub.com/skills/productivity/home-assistant-bridge
+
+### WhatsApp Connector
+- **Install**: `npx clawhub@latest install whatsapp-connector`
+- **Rating**: 4.3/5 | **Security**: community | **Version**: 1.2.0
+- **Author**: messaging-tools | **Updated**: 2026-02-05
+- **Description**: Send and receive WhatsApp messages through OpenClaw for notifications, alerts, and conversational workflows.
+- **Use cases**: Send automated alerts via WhatsApp; Build customer support chatbots on WhatsApp; Share reports through WhatsApp groups; Create assistant workflows triggered by WhatsApp
+- **URL**: https://openclaw-skillshub.com/skills/productivity/whatsapp-connector
+
+### Notification Hub
+- **Install**: `npx clawhub@latest install notification-hub`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 2.0.0
+- **Author**: comm-tools | **Updated**: 2026-02-16
+- **Description**: Unified notification center — route alerts to Slack, email, WhatsApp, SMS, and push notifications from a single API.
+- **Use cases**: Send multi-channel notifications from a single API; Route alerts based on urgency and user preferences; Track notification delivery and read status; Schedule notifications with timezone awareness
+- **URL**: https://openclaw-skillshub.com/skills/productivity/notification-hub
+
+### Time Tracker
+- **Install**: `npx clawhub@latest install time-tracker`
+- **Rating**: 4.4/5 | **Security**: verified | **Version**: 1.5.0
+- **Author**: productivity-tools | **Updated**: 2026-02-11
+- **Description**: Track time spent on tasks, generate timesheets, and analyze productivity patterns with AI insights.
+- **Use cases**: Auto-track time from Linear issues and GitHub commits; Generate client-ready timesheets and invoices; Analyze productivity patterns and optimize workflows; Track billable vs non-billable hours
+- **URL**: https://openclaw-skillshub.com/skills/productivity/time-tracker
+
+---
+
+## Marketing & Sales (143 skills)
+Email campaigns, social media management, analytics, and sales pipeline skills.
+
+### GA4 Analytics
+- **Install**: `npx clawhub@latest install ga4-analytics`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 2.3.1
+- **Author**: marketing-tools | **Updated**: 2026-02-11
+- **Description**: Query Google Analytics 4 data using natural language and generate automated performance reports.
+- **Use cases**: Generate weekly traffic and conversion reports; Detect anomalies in traffic patterns; Compare performance across custom date ranges; Get AI-powered recommendations for improvement
+- **URL**: https://openclaw-skillshub.com/skills/marketing-sales/ga4-analytics
+
+### Social Media Manager
+- **Install**: `npx clawhub@latest install social-media-manager`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 2.8.0
+- **Author**: marketing-tools | **Updated**: 2026-02-19
+- **Description**: Schedule, publish, and analyze social media content across Twitter/X, LinkedIn, Instagram, and TikTok.
+- **Use cases**: Schedule posts across multiple platforms simultaneously; Generate platform-optimized content with AI; Monitor engagement and respond to comments; Analyze best posting times and content performance
+- **URL**: https://openclaw-skillshub.com/skills/marketing-sales/social-media-manager
+
+### SEO Optimizer
+- **Install**: `npx clawhub@latest install seo-optimizer`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 3.1.0
+- **Author**: seo-tools | **Updated**: 2026-02-20
+- **Description**: Analyze and optimize on-page SEO with keyword research, content scoring, and technical SEO audits.
+- **Use cases**: Research keywords and analyze search intent; Score content for SEO quality and readability; Audit technical SEO issues (broken links, slow pages); Generate optimized meta tags and schema markup
+- **URL**: https://openclaw-skillshub.com/skills/marketing-sales/seo-optimizer
+
+### Email Campaign
+- **Install**: `npx clawhub@latest install email-campaign`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 2.2.0
+- **Author**: marketing-tools | **Updated**: 2026-02-15
+- **Description**: Design, send, and analyze email marketing campaigns with AI-generated copy and A/B testing.
+- **Use cases**: Design and send marketing email campaigns; A/B test subject lines and content; Segment audiences based on behavior; Automate drip campaigns and sequences
+- **URL**: https://openclaw-skillshub.com/skills/marketing-sales/email-campaign
+
+### Lead Scorer
+- **Install**: `npx clawhub@latest install lead-scorer`
+- **Rating**: 4.4/5 | **Security**: verified | **Version**: 1.6.0
+- **Author**: sales-tools | **Updated**: 2026-02-13
+- **Description**: Score and prioritize leads with AI — analyze behavior, fit, and intent signals for sales teams.
+- **Use cases**: Score leads based on behavior and fit; Alert sales reps to high-intent prospects; Trigger automated nurture sequences; Analyze lead-to-customer conversion patterns
+- **URL**: https://openclaw-skillshub.com/skills/marketing-sales/lead-scorer
+
+### CRM Connector
+- **Install**: `npx clawhub@latest install crm-connector`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 2.5.0
+- **Author**: sales-tools | **Updated**: 2026-02-18
+- **Description**: Connect to HubSpot, Salesforce, and Pipedrive — manage contacts, deals, and pipelines with AI assistance.
+- **Use cases**: Manage CRM contacts and deals from OpenClaw; Automate data entry from emails and calls; Get AI predictions for deal outcomes; Generate pipeline reports and forecasts
+- **URL**: https://openclaw-skillshub.com/skills/marketing-sales/crm-connector
+
+---
+
+## Coding Agents & IDEs (133 skills)
+Code generation, refactoring, IDE integrations, and developer tooling skills.
+
+### GitHub Manager
+- **Install**: `npx clawhub@latest install github-manager`
+- **Rating**: 4.9/5 | **Security**: verified | **Version**: 4.1.0
+- **Author**: openclaw-core | **Updated**: 2026-02-22
+- **Description**: Full GitHub integration — manage repos, PRs, issues, actions, and code reviews from OpenClaw.
+- **Use cases**: Create and manage PRs with AI-generated descriptions; Auto-review code changes and suggest improvements; Trigger and monitor GitHub Actions workflows; Manage issues and milestones across repos
+- **URL**: https://openclaw-skillshub.com/skills/coding-agents/github-manager
+
+### Code Reviewer
+- **Install**: `npx clawhub@latest install code-reviewer`
+- **Rating**: 4.8/5 | **Security**: verified | **Version**: 3.2.0
+- **Author**: openclaw-core | **Updated**: 2026-02-21
+- **Description**: AI-powered code reviews — detect bugs, security issues, and code quality problems with actionable fix suggestions.
+- **Use cases**: Get AI code reviews on every pull request; Detect security vulnerabilities before deployment; Enforce coding standards and best practices; Suggest performance optimizations
+- **URL**: https://openclaw-skillshub.com/skills/coding-agents/code-reviewer
+
+### Refactor Agent
+- **Install**: `npx clawhub@latest install refactor-agent`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 2.0.0
+- **Author**: dev-tools | **Updated**: 2026-02-17
+- **Description**: Automatically refactor codebases — extract functions, rename symbols, restructure files, and modernize patterns.
+- **Use cases**: Refactor legacy codebases to modern patterns; Extract reusable functions and components; Rename symbols safely across entire projects; Restructure file organization and imports
+- **URL**: https://openclaw-skillshub.com/skills/coding-agents/refactor-agent
+
+### Debug Assistant
+- **Install**: `npx clawhub@latest install debug-assistant`
+- **Rating**: 4.7/5 | **Security**: verified | **Version**: 2.5.0
+- **Author**: openclaw-core | **Updated**: 2026-02-19
+- **Description**: AI debugging partner — analyze errors, trace bugs, suggest fixes, and explain complex stack traces.
+- **Use cases**: Analyze error messages and stack traces; Trace bugs through complex codebases; Get AI-suggested fixes with explanations; Understand cryptic error messages from any framework
+- **URL**: https://openclaw-skillshub.com/skills/coding-agents/debug-assistant
+
+### Test Generator
+- **Install**: `npx clawhub@latest install test-generator`
+- **Rating**: 4.6/5 | **Security**: verified | **Version**: 2.3.0
+- **Author**: qa-tools | **Updated**: 2026-02-18
+- **Description**: Generate comprehensive test suites from code — unit tests, integration tests, and edge case detection.
+- **Use cases**: Generate unit tests for existing functions; Create integration test suites for APIs; Detect untested edge cases and generate tests; Achieve target code coverage systematically
+- **URL**: https://openclaw-skillshub.com/skills/coding-agents/test-generator
+
+### Docs Generator
+- **Install**: `npx clawhub@latest install docs-generator`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 2.1.0
+- **Author**: dev-tools | **Updated**: 2026-02-15
+- **Description**: Generate API documentation, README files, and code comments from your codebase automatically.
+- **Use cases**: Generate API documentation from code; Create README files for open-source projects; Add JSDoc/TSDoc comments to existing code; Generate OpenAPI specs from Express/Fastify routes
+- **URL**: https://openclaw-skillshub.com/skills/coding-agents/docs-generator
+
+---
+
+## Notes & PKM (100 skills)
+Personal knowledge management, note-taking apps, and second brain tools.
+
+### Obsidian Vault
+- **Install**: `npx clawhub@latest install obsidian-vault`
+- **Rating**: 4.7/5 | **Security**: community | **Version**: 2.0.1
+- **Author**: pkm-tools | **Updated**: 2026-02-08
+- **Description**: Read, write, and search your Obsidian vault with AI-powered knowledge graph navigation.
+- **Use cases**: Search your vault using natural language; Create notes with automatic backlinking; Discover hidden connections using AI; Generate summaries of note clusters
+- **URL**: https://openclaw-skillshub.com/skills/notes-pkm/obsidian-vault
+
+### Roam Research
+- **Install**: `npx clawhub@latest install roam-research`
+- **Rating**: 4.3/5 | **Security**: community | **Version**: 1.4.0
+- **Author**: pkm-tools | **Updated**: 2026-02-10
+- **Description**: Sync and interact with Roam Research — create blocks, query your graph, and navigate linked references.
+- **Use cases**: Query your Roam graph with natural language; Create daily notes and journal entries from conversations; Find and traverse linked references; Generate summaries from scattered blocks on a topic
+- **URL**: https://openclaw-skillshub.com/skills/notes-pkm/roam-research
+
+### Logseq Bridge
+- **Install**: `npx clawhub@latest install logseq-bridge`
+- **Rating**: 4.2/5 | **Security**: community | **Version**: 1.1.0
+- **Author**: pkm-tools | **Updated**: 2026-02-07
+- **Description**: Connect to Logseq — manage journals, pages, and blocks with AI-powered outlining and querying.
+- **Use cases**: Create and edit Logseq pages from OpenClaw; Run natural language queries over your graph; Generate structured outlines from unstructured notes; Sync tasks between Logseq and other tools
+- **URL**: https://openclaw-skillshub.com/skills/notes-pkm/logseq-bridge
+
+### Zettelkasten
+- **Install**: `npx clawhub@latest install zettelkasten`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 1.3.0
+- **Author**: pkm-tools | **Updated**: 2026-02-14
+- **Description**: Implement the Zettelkasten method with AI — create atomic notes, manage links, and surface emergent insights.
+- **Use cases**: Build a networked knowledge base with atomic notes; Discover emergent insights from note connections; Generate literature notes from research papers; Identify knowledge gaps in your note collection
+- **URL**: https://openclaw-skillshub.com/skills/notes-pkm/zettelkasten
+
+### Bookmark Manager
+- **Install**: `npx clawhub@latest install bookmark-manager`
+- **Rating**: 4.3/5 | **Security**: verified | **Version**: 1.7.0
+- **Author**: pkm-tools | **Updated**: 2026-02-12
+- **Description**: Save, organize, and search bookmarks with AI tagging, full-text content indexing, and link rot detection.
+- **Use cases**: Save and organize web bookmarks with AI tagging; Search bookmarks by content, not just title; Detect and alert on broken/dead links; Export bookmark collections to Notion or Obsidian
+- **URL**: https://openclaw-skillshub.com/skills/notes-pkm/bookmark-manager
+
+---
+
+## Health & Fitness (55 skills)
+Health tracking, workout planning, nutrition analysis, and wellness automation.
+
+### Workout Planner
+- **Install**: `npx clawhub@latest install workout-planner`
+- **Rating**: 4.5/5 | **Security**: verified | **Version**: 1.8.0
+- **Author**: health-tools | **Updated**: 2026-02-15
+- **Description**: Generate personalized workout plans with progressive overload, exercise alternatives, and recovery scheduling.
+- **Use cases**: Generate personalized workout programs; Track progressive overload across exercises; Get exercise alternatives for available equipment; Schedule deloads and recovery periods
+- **URL**: https://openclaw-skillshub.com/skills/health-fitness/workout-planner
+
+### Nutrition Tracker
+- **Install**: `npx clawhub@latest install nutrition-tracker`
+- **Rating**: 4.4/5 | **Security**: verified | **Version**: 2.1.0
+- **Author**: health-tools | **Updated**: 2026-02-18
+- **Description**: Track calories, macros, and micronutrients from natural language food descriptions and meal photos.
+- **Use cases**: Log meals with natural language descriptions; Analyze photos to estimate nutritional content; Generate meal plans for specific calorie/macro targets; Identify nutritional deficiencies and suggest foods
+- **URL**: https://openclaw-skillshub.com/skills/health-fitness/nutrition-tracker
+
+### Sleep Analyzer
+- **Install**: `npx clawhub@latest install sleep-analyzer`
+- **Rating**: 4.3/5 | **Security**: community | **Version**: 1.4.0
+- **Author**: health-tools | **Updated**: 2026-02-12
+- **Description**: Track sleep patterns, analyze quality, and get AI recommendations for better rest.
+- **Use cases**: Track sleep duration, quality, and stages; Identify factors that affect your sleep quality; Get personalized bedtime recommendations; Monitor sleep debt and recovery patterns
+- **URL**: https://openclaw-skillshub.com/skills/health-fitness/sleep-analyzer
+
+### Meditation Guide
+- **Install**: `npx clawhub@latest install meditation-guide`
+- **Rating**: 4.2/5 | **Security**: verified | **Version**: 1.2.0
+- **Author**: wellness-tools | **Updated**: 2026-02-09
+- **Description**: Guided meditation sessions with AI-personalized scripts, breathing exercises, and mindfulness tracking.
+- **Use cases**: Generate personalized guided meditation scripts; Practice breathing exercises with timing guidance; Track meditation streak and session history; Get stress-relief exercises during high-pressure moments
+- **URL**: https://openclaw-skillshub.com/skills/health-fitness/meditation-guide
+
+---
+
+## Articles & Guides
+
+- [12 Best AI & LLM Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-ai-llm-skills-openclaw): Complete guide to the best OpenClaw AI and LLM skills. Build multi-agent pipelines, RAG systems, and production AI workflows with verified skills.
+- [7 Best Search & Research Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-search-research-skills-openclaw): Deep research, academic search, web scraping, and knowledge synthesis. The best OpenClaw skills for researchers, analysts, and knowledge workers.
+- [6 Best Web & Frontend Dev Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-web-frontend-skills-openclaw): Build faster with OpenClaw. React scaffolding, CSS generation, component libraries, Lighthouse audits, and more for frontend developers.
+- [8 Best DevOps & Cloud Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-devops-cloud-skills-openclaw): Manage infrastructure, deployments, and CI/CD with OpenClaw. Docker, Kubernetes, Terraform, AWS, Cloudflare, and more.
+- [6 Best Browser & Automation Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-browser-automation-skills-openclaw): Automate web tasks with OpenClaw. Browser control, form filling, screenshots, PDF generation, email automation, and E2E testing.
+- [9 Best Productivity & Task Management Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-productivity-skills-openclaw): Notion, Linear, Todoist, Slack, Calendar, WhatsApp, and more. The best OpenClaw productivity skills for teams and individuals.
+- [6 Best Marketing & Sales Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-marketing-sales-skills-openclaw): Analytics, social media, SEO, email campaigns, lead scoring, and CRM. The best OpenClaw skills for marketing and sales teams.
+- [6 Best Coding Agent & IDE Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-coding-agent-skills-openclaw): GitHub management, AI code review, refactoring, debugging, test generation, and documentation. The best OpenClaw skills for developers.
+- [5 Best Notes & PKM Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-notes-pkm-skills-openclaw): Obsidian, Roam, Logseq, Zettelkasten, and bookmark management. The best OpenClaw skills for personal knowledge management.
+- [4 Best Health & Fitness Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-health-fitness-skills-openclaw): Workout planning, nutrition tracking, sleep analysis, and meditation. The best OpenClaw skills for health and wellness.
+- [How to Build Multi-Agent AI Systems with OpenClaw](https://openclaw-skillshub.com/articles/multi-agent-orchestration-guide): Learn to build multi-agent AI systems with OpenClaw. Coordinate specialist agents, manage handoffs, and run parallel workstreams.
+- [Best OpenClaw Skills for Content Creators in 2026](https://openclaw-skillshub.com/articles/best-skills-content-creators): Content writing, SEO, social media, research, and analytics. The best OpenClaw skills for bloggers, YouTubers, and content teams.
+- [Enterprise Security Checklist for OpenClaw Skills](https://openclaw-skillshub.com/articles/security-audit-checklist-openclaw-skills): 5-point security audit checklist for evaluating OpenClaw skills. Verify permissions, data handling, and compliance before installing.
+- [Getting Started with OpenClaw Skills: A Beginner's Guide](https://openclaw-skillshub.com/articles/getting-started-openclaw-skills-beginner): New to OpenClaw? Start here. Learn how to install, configure, and use skills with step-by-step examples for common workflows.
+- [OpenClaw Skills Security: Are OpenClaw Skills Safe to Install?](https://openclaw-skillshub.com/articles/openclaw-skills-security): Are OpenClaw skills safe? Learn how to audit permissions, verify skill safety, and install OpenClaw skills securely. Complete security guide with actionable checklist.
+- [How to Create OpenClaw Skills: Complete Guide with Examples](https://openclaw-skillshub.com/articles/how-to-create-openclaw-skills): Learn how to create custom OpenClaw skills from scratch. Includes SKILL.md syntax, permission declarations, examples, templates, and publishing to the skill registry.
+- [Best OpenClaw Skills for Developers: Code, Deploy, Automate](https://openclaw-skillshub.com/articles/best-openclaw-skills-for-developers): The best OpenClaw skills for software developers. Code review, GitHub automation, CI/CD, testing, debugging, and deployment skills curated for dev workflows.
+- [Best OpenClaw Skills for Founders: Automate Sales, Ops & Growth](https://openclaw-skillshub.com/articles/best-openclaw-skills-for-founders): The best OpenClaw skills for startup founders and indie hackers. Automate email outreach, sales pipelines, content creation, research, and operations.
+- [OpenClaw Gmail Skill: AI Email Automation for Gmail](https://openclaw-skillshub.com/articles/openclaw-gmail-skill): Automate Gmail with OpenClaw. Draft replies, sort inbox, schedule sends, extract data from emails, and build email workflows with the Gmail Connector skill.
+- [OpenClaw Slack Skill: AI-Powered Team Communication](https://openclaw-skillshub.com/articles/openclaw-slack-skill): Build AI-powered Slack bots with OpenClaw. Channel summaries, smart notifications, automated standup reports, and team workflow automation.
+- [OpenClaw MCP vs Skills: When to Use Each (Complete Comparison)](https://openclaw-skillshub.com/articles/openclaw-mcp-vs-skills): What's the difference between OpenClaw MCP servers and skills? Complete comparison of architecture, use cases, security, and when to use MCP vs skills.
+- [OpenClaw Skills Examples: 20+ Real-World Use Cases](https://openclaw-skillshub.com/articles/openclaw-skills-examples): See OpenClaw skills in action. 20+ real-world examples across AI automation, research, development, marketing, and productivity workflows.
+- [Best OpenClaw Alternatives in 2026: 17 Autonomous AI Agents Compared](https://openclaw-skillshub.com/articles/best-openclaw-alternatives): The definitive comparison of 17 OpenClaw alternatives for 2026. Side-by-side analysis of NanoClaw, Moltworker, Nanobot, memU, AutoGPT-Next, CrewAI, and more — covering hosting, security, memory, MCP support, and pricing.
+- [OpenClaw vs NanoClaw: Which Autonomous Agent Is Better for Security?](https://openclaw-skillshub.com/articles/openclaw-vs-nanoclaw): In-depth comparison of OpenClaw vs NanoClaw for security, sandboxing, permission models, and skill ecosystems. Which autonomous AI agent is safer for production workloads?
+- [OpenClaw vs Moltworker: Local Agent vs Cloudflare Serverless Agent](https://openclaw-skillshub.com/articles/openclaw-vs-moltworker): OpenClaw runs locally on your VPS. Moltworker runs serverless on Cloudflare Workers. This guide compares cost, latency, data residency, skill portability, and which architecture fits your use case.
+- [OpenClaw vs Nanobot: Tiny Codebase, MCP Support, and Full Customization](https://openclaw-skillshub.com/articles/openclaw-vs-nanobot): OpenClaw has 430,000 lines of code. Nanobot has under 5,000. Compare these two autonomous AI agents on size, speed, MCP support, customization, and developer experience.
+- [OpenClaw vs memU: Which AI Agent Has Better Long-Term Memory?](https://openclaw-skillshub.com/articles/openclaw-vs-memu): Deep comparison of memory architectures in OpenClaw vs memU. Episodic, semantic, and proactive memory explained. Which AI agent remembers better across sessions, days, and months?
+- [OpenClaw Tools vs Skills: What Actually Makes the Agent Work?](https://openclaw-skillshub.com/articles/openclaw-tools-vs-skills): Understand the difference between OpenClaw tools, skills, permissions, and the Model Context Protocol (MCP). Visual architecture guide with diagrams, examples, and best practices.
+- [How to Choose the Best OpenClaw Skills for Coding, Research, Email, and Automation](https://openclaw-skillshub.com/articles/how-to-choose-openclaw-skills): Stop guessing which OpenClaw skills to install. Decision trees and curated skill stacks for developers, researchers, content creators, and business automation — with install commands.
+- [OpenClaw Security Guide: Safe Permissions, Sandboxing, and VPS Best Practices](https://openclaw-skillshub.com/articles/openclaw-security-guide): Complete security guide for OpenClaw. Docker sandboxing configs, permission templates, VPS hardening steps, and a pre-installation security checklist. Protect your data from malicious skills.
+- [OpenClaw Setup Guide for 2026: From Install to Productive Daily Use](https://openclaw-skillshub.com/articles/openclaw-setup-guide-2026): Complete setup guide for OpenClaw in 2026. Three installation methods, model configuration, memory setup, skill activation, Telegram integration, cron jobs, and troubleshooting. From zero to productive in under 30 minutes.
+- [Best OpenClaw Skills by Use Case: Coding, Content, Research, Automation, and Ops](https://openclaw-skillshub.com/articles/best-openclaw-skills-by-use-case): Curated OpenClaw skill bundles for 8 use cases: coding, content creation, research, email automation, DevOps, browser automation, sales, and knowledge management. Each bundle includes install commands and workflow guides.
+- [What Are OpenClaw Skills? How They Work, Where They Live, and How to Use Them Safely (2026)](https://openclaw-skillshub.com/articles/what-are-openclaw-skills): OpenClaw skills are modular SKILL.md files that extend your AI agent with new capabilities. Learn what skills are, how ClawHub works, and how to install them safely on macOS, Windows, and Linux.
+- [How to Install OpenClaw Skills on macOS, Windows, and Linux (2026)](https://openclaw-skillshub.com/articles/how-to-install-openclaw-skills): Step-by-step guide to installing OpenClaw skills on macOS, Windows WSL, and Linux. Exact commands, path examples, permissions fixes, and troubleshooting for common errors.
+- [What Is ClawHub? How the OpenClaw Skills Registry Works (2026)](https://openclaw-skillshub.com/articles/what-is-clawhub): ClawHub is the official registry for OpenClaw skills. Learn how to search, install, update, publish, and review skills — and how ClawSkills adds curated security reviews on top.
+- [OpenClaw Skills vs Plugins vs MCP Servers: What to Use and When (2026)](https://openclaw-skillshub.com/articles/openclaw-skills-vs-plugins-vs-mcp): Clear comparison of OpenClaw skills (SKILL.md), plugins (executable code), and MCP servers (Model Context Protocol). Decision table with real examples showing when to use each approach.
+- [OpenClaw Security Guide: How to Audit a SKILL.md Before You Install It (2026)](https://openclaw-skillshub.com/articles/how-to-audit-skill-md): Step-by-step guide to auditing OpenClaw SKILL.md files for security risks. Inspect permissions, domains, install commands, file paths, secrets usage, and prompt injection vectors before installing any skill.
+- [Best OpenClaw Skills in 2026: 25 Safe, High-Impact Picks by Category](https://openclaw-skillshub.com/articles/best-openclaw-skills-2026): The definitive 2026 roundup: 25 OpenClaw skills ranked by safety, impact, maintenance, and setup complexity. Curated across AI, coding, DevOps, productivity, research, and marketing categories.
+- [How to Write a SKILL.md: Template, Examples, and 12 Mistakes to Avoid (2026)](https://openclaw-skillshub.com/articles/how-to-write-skill-md): Complete guide to writing OpenClaw SKILL.md files. Official template, minimal valid example, bad vs better examples, and 12 mistakes that cause skills to fail or get rejected from ClawHub.
+- [Best OpenClaw Skills for Coding, DevOps, and Git Workflows (2026)](https://openclaw-skillshub.com/articles/best-openclaw-skills-coding-devops): Curated roundup of the best OpenClaw skills for developers: code review, test generation, debugging, PR automation, Docker, Kubernetes, CI/CD, and Git workflow automation.
+- [Best OpenClaw Skills for Marketing, SEO, Research, and Content Automation (2026)](https://openclaw-skillshub.com/articles/best-openclaw-skills-marketing-seo): Curated roundup of OpenClaw skills for keyword research, SERP analysis, content writing, internal linking, social media, and publishing automation. Includes workflow examples and safety guardrails.
+- [OpenClaw Skill Not Loading? 15 Fixes for Paths, Precedence, and Config Errors (2026)](https://openclaw-skillshub.com/articles/openclaw-skill-not-loading-fixes): OpenClaw skill not loading? Troubleshoot workspace vs shared paths, precedence conflicts, missing binaries, config gating, refresh issues, and 10 more common problems with copy-paste fixes.
+- [Does NemoClaw Replace OpenClaw? Full 2026 Breakdown (NVIDIA vs OpenAI)](https://openclaw-skillshub.com/articles/does-nemoclaw-replace-openclaw): NemoClaw does not replace OpenClaw — it extends it with enterprise-grade security, GPU acceleration, and compliance guardrails. Read the full fact-checked breakdown of NVIDIA NemoClaw vs OpenClaw.
+- [Hermes Agent vs OpenClaw: Full 2026 Comparison — Which AI Agent Should You Use?](https://openclaw-skillshub.com/articles/hermes-agent-vs-openclaw): Hermes Agent by NousResearch vs OpenClaw compared head-to-head. Self-improving memory vs 5,700+ skills ecosystem. Find out which AI agent fits your workflow in this detailed 2026 comparison.
+- [Paperclip vs OpenClaw: Agent Orchestration vs Personal AI Assistant (2026)](https://openclaw-skillshub.com/articles/paperclip-vs-openclaw): Paperclip manages AI agent teams with org charts and budgets. OpenClaw powers the individual agents. Learn when to use each — and how they work together — in this detailed 2026 comparison.
+
+---
+
+## Tutorials
+
+- [How to Install Your First OpenClaw Skill (Step-by-Step)](https://openclaw-skillshub.com/tutorials/how-to-install-first-openclaw-skill): Learn how to install your first OpenClaw skill with this beginner-friendly step-by-step guide. From setup to your first skill in under 5 minutes. (Beginner)
+- [How to Build a Custom OpenClaw Skill from Scratch](https://openclaw-skillshub.com/tutorials/build-custom-openclaw-skill): Learn how to build and publish your own OpenClaw skill from scratch. Complete tutorial with examples, best practices, and publishing instructions. (Intermediate)
+- [OpenClaw Skill Security: What to Check Before Installing](https://openclaw-skillshub.com/tutorials/openclaw-skill-security-checklist): Essential security checklist before installing any OpenClaw skill. Learn how to evaluate community skills, check permissions, and protect your data. (All Levels)
+- [How to Use OpenClaw's 'Take the Wheel' Skill for Long-Form Writing](https://openclaw-skillshub.com/tutorials/openclaw-take-the-wheel-long-form-writing): Master the Take the Wheel skill for autonomous long-form writing. Learn how to configure it for blog posts, articles, and documentation. (Intermediate)
+- [OpenClaw Multi-Agent Setup: Using Shared vs Per-Agent Skills](https://openclaw-skillshub.com/tutorials/openclaw-multi-agent-shared-skills-setup): Learn how to configure shared and per-agent skills in OpenClaw multi-agent environments. Complete setup guide with best practices. (Advanced)
+
+---
+
+## Glossary
+
+- **OpenClaw**: OpenClaw is an open-source framework for building, deploying, and managing autonomous AI agents that execute complex workflows across tools and services. → https://openclaw-skillshub.com/glossary/what-is-openclaw
+- **OpenClaw Skills**: OpenClaw Skills are modular, composable plugins that extend AI agent capabilities with specific tools, integrations, and workflows. → https://openclaw-skillshub.com/glossary/what-are-openclaw-skills
+- **OpenClaw vs Other AI Agent Frameworks**: OpenClaw differentiates from other AI agent frameworks through its modular skill-based architecture, massive community ecosystem, and production-first design philosophy. → https://openclaw-skillshub.com/glossary/openclaw-vs-other-frameworks
+- **RAG Pipeline**: A RAG (Retrieval-Augmented Generation) pipeline is an AI architecture that retrieves relevant documents from a knowledge base and feeds them as context to a large language model to produce accurate, grounded responses. → https://openclaw-skillshub.com/glossary/what-is-rag-pipeline
+- **Prompt Chaining**: Prompt chaining is an AI workflow pattern where the output of one LLM prompt is used as input for the next, enabling complex multi-step reasoning and task decomposition. → https://openclaw-skillshub.com/glossary/what-is-prompt-chaining
+- **AI Agent**: An AI agent is an autonomous software system powered by large language models that can perceive its environment, reason about tasks, use tools, and take actions to achieve specified goals with minimal human intervention. → https://openclaw-skillshub.com/glossary/what-is-ai-agent
+- **LLM Routing**: LLM routing is a technique that automatically selects the optimal language model for each query based on factors like complexity, cost, latency requirements, and task type. → https://openclaw-skillshub.com/glossary/what-is-llm-routing
+- **Vector Embedding**: A vector embedding is a dense numerical representation (array of floating-point numbers) that captures the semantic meaning of text, images, or other data, enabling similarity search and machine learning operations. → https://openclaw-skillshub.com/glossary/what-is-vector-embedding
+- **SKILL.md**: SKILL.md is the declarative manifest file that defines an OpenClaw skill's name, description, permissions, tools, and behavioral instructions. → https://openclaw-skillshub.com/glossary/what-is-skill-md
+- **MCP Server**: An MCP (Model Context Protocol) server is a standalone process that exposes tools, resources, and prompts to AI agents via a standardized JSON-RPC protocol. → https://openclaw-skillshub.com/glossary/what-is-mcp-server
+- **Agent Sandboxing**: Agent sandboxing is the practice of isolating AI agents within restricted execution environments to prevent unintended or malicious actions on the host system. → https://openclaw-skillshub.com/glossary/what-is-agent-sandboxing
+- **Prompt Injection**: Prompt injection is an attack technique where malicious instructions are inserted into an AI agent's input to manipulate its behavior, bypass safety controls, or exfiltrate data. → https://openclaw-skillshub.com/glossary/what-is-prompt-injection
+- **Tool Calling**: Tool calling (also called function calling) is the ability of an LLM to invoke external functions, APIs, or system commands as part of its reasoning and response generation. → https://openclaw-skillshub.com/glossary/what-is-tool-calling
+- **Agent Memory**: Agent memory is the ability of an AI agent to store, retrieve, and use information from past interactions, enabling contextual awareness and learning over time. → https://openclaw-skillshub.com/glossary/what-is-agent-memory
+- **LLM Orchestration**: LLM orchestration is the coordination of multiple language model calls, tool invocations, and control flow decisions into coherent multi-step AI agent workflows. → https://openclaw-skillshub.com/glossary/what-is-llm-orchestration
+- **ClawHub**: ClawHub is the official package registry for OpenClaw skills, providing centralized distribution, versioning, and discovery of SKILL.md-based agent capabilities. → https://openclaw-skillshub.com/glossary/what-is-clawhub
+- **OpenClaw Permissions**: OpenClaw permissions are declarations in SKILL.md files that specify which system resources (filesystem, network, environment variables) a skill is allowed to access. → https://openclaw-skillshub.com/glossary/what-is-openclaw-permissions
+- **Multi-Agent System**: A multi-agent system is an AI architecture where multiple specialized agents collaborate, delegate tasks, and communicate to solve problems beyond a single agent's capability. → https://openclaw-skillshub.com/glossary/what-is-multi-agent-system
+- **Context Window**: The context window is the maximum number of tokens that a language model can process in a single interaction, including both input and output. → https://openclaw-skillshub.com/glossary/what-is-context-window
+- **AI Guardrails**: AI guardrails are safety mechanisms — input validators, output filters, and behavioral constraints — that prevent AI agents from producing harmful outputs or taking dangerous actions. → https://openclaw-skillshub.com/glossary/what-are-ai-guardrails
+
+---
+
+## Contact & Links
 - Website: https://openclaw-skillshub.com
-- Full sitemap: https://openclaw-skillshub.com/sitemap.xml
 - GitHub: https://github.com/openclaw
 - Twitter/X: https://twitter.com/openclaw
 - Discord: https://discord.gg/openclaw
-- Independent — not affiliated with OpenClaw.
