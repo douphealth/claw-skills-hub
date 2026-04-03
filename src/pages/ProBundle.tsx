@@ -73,12 +73,11 @@ const ProBundle = () => {
 
   const handleCheckout = async () => {
     try {
-      const res = await fetch(
-        `https://npdfzpaglqgnhfphmpwo.supabase.co/functions/v1/create-checkout`,
-        { method: "POST", headers: { "Content-Type": "application/json" } }
-      );
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
+      const { data, error } = await supabase.functions.invoke('create-checkout', {
+        method: 'POST',
+      });
+      if (error) throw error;
+      if (data?.url) window.open(data.url, '_blank');
     } catch (err) {
       console.error("Checkout error:", err);
     }
