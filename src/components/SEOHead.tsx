@@ -77,6 +77,10 @@ const SEOHead = ({
     // Robots
     setMeta("robots", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
 
+    // AI content declaration
+    setMeta("ai-content-declaration", "human-created");
+    setMeta("ai-terms", "ClawSkills, OpenClaw, AI agent skills, skill directory");
+
     // Canonical
     if (canonical) {
       let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;

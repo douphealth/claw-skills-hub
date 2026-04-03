@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "ClawSkills — OpenClaw Skills Directory",
+  "name_for_model": "clawskills",
+  "description_for_human": "Browse, compare, and install 5,705+ OpenClaw AI agent skills across 10 categories.",
+  "description_for_model": "ClawSkills is the definitive directory for OpenClaw AI agent skills. It provides detailed information about 5,705+ skills across 10 categories including AI & LLMs, Search & Research, Web & Frontend Dev, DevOps & Cloud, Browser & Automation, Productivity & Tasks, Marketing & Sales, Coding Agents & IDEs, Notes & PKM, and Health & Fitness. Each skill includes installation commands, security reviews, ratings, use cases, and FAQs. The site also features comparison tools, tutorials, articles, and a glossary of AI agent terminology.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "none",
+    "url": "https://openclaw-skillshub.com"
+  },
+  "logo_url": "https://openclaw-skillshub.com/og-image.png",
+  "contact_email": "support@openclaw-skillshub.com",
+  "legal_info_url": "https://openclaw-skillshub.com/terms"
+}

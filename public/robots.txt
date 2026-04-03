@@ -74,3 +74,5 @@ Sitemap: https://openclaw-skillshub.com/sitemap.xml
 # AI Content Files
 # llms.txt: https://openclaw-skillshub.com/llms.txt
 # llms-full.txt: https://openclaw-skillshub.com/llms-full.txt
+# ai-context.md: https://openclaw-skillshub.com/ai-context.md
+# ai-plugin.json: https://openclaw-skillshub.com/.well-known/ai-plugin.json
