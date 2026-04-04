@@ -79,10 +79,15 @@ const Navbar = () => {
               <Link
                 key={item.label}
                 to={item.href}
-                className="text-sm text-muted-foreground hover:text-primary py-2"
+                className={`text-sm py-2 ${
+                  item.highlight
+                    ? "text-primary font-semibold"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
+                {item.highlight && <span className="ml-1 text-xs">🔥</span>}
               </Link>
             ))}
             <Link to="/skills" onClick={() => setIsOpen(false)}>
