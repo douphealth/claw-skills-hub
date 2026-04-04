@@ -39,9 +39,14 @@ const Navbar = () => {
             <Link
               key={item.label}
               to={item.href}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+              className={`text-sm transition-colors duration-200 ${
+                item.highlight
+                  ? "text-primary font-semibold hover:text-primary/80"
+                  : "text-muted-foreground hover:text-primary"
+              }`}
             >
               {item.label}
+              {item.highlight && <span className="ml-1 text-xs">🔥</span>}
             </Link>
           ))}
         </div>
