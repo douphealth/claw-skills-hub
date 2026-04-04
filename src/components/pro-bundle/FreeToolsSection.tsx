@@ -127,7 +127,7 @@ const FreeToolsSection = () => {
                   onClick={() => handleCopy(c.cmd, i)}
                   className="flex-shrink-0"
                 >
-                  {copiedIdx === i ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
+                  {copiedIdx === i ? <Check className="h-4 w-4 text-primary" /> : <Copy className="h-4 w-4" />}
                 </Button>
               </div>
             ))}
