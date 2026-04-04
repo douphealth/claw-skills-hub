@@ -13,6 +13,7 @@ const navItems = [
   { label: "Articles", href: "/articles" },
   { label: "Tutorials", href: "/tutorials" },
   { label: "Glossary", href: "/glossary" },
+  { label: "Pro Bundle", href: "/pro-bundle", highlight: true },
 ];
 
 const Navbar = () => {
