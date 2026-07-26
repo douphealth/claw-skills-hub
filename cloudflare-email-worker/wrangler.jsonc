@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "openclaw-email",
+  "main": "worker.js",
+  "compatibility_date": "2026-07-26",
+  "routes": [
+    {
+      "pattern": "openclaw-skillshub.com/api/email/*",
+      "zone_name": "openclaw-skillshub.com"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SUBSCRIBER_STORE",
+        "class_name": "SubscriberStore"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["SubscriberStore"]
+    }
+  ],
+  "triggers": {
+    "crons": ["0 * * * *"]
+  }
+}

@@ -1,7 +1,7 @@
 export type Msg = { role: "user" | "assistant"; content: string };
 
 export const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-assistant`;
-export const SUBSCRIBE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/subscribe`;
+export const SUBSCRIBE_URL = "/api/email/subscribe";
 export const AUTH_HEADER = `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`;
 
 export const QUICK_ACTIONS = [

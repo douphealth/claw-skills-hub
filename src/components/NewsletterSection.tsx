@@ -17,12 +17,11 @@ const NewsletterSection = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/subscribe`,
+        "/api/email/subscribe",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
           body: JSON.stringify({
             email,
@@ -75,16 +74,16 @@ const NewsletterSection = () => {
                   You're almost in! 🎉
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-lg mx-auto">
-                  Check your inbox and click the confirmation link. Once confirmed, you'll get a welcome email plus our best skills delivered weekly.
+                  Check your inbox and click the confirmation link. Once confirmed, you'll receive the four-part OpenClaw skills starter series.
                 </p>
               </>
             ) : (
               <>
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-                  Skill of the Week
+                  OpenClaw Skills Starter Series
                 </h2>
                 <p className="text-muted-foreground text-lg mb-8 max-w-lg mx-auto">
-                  Get the best new OpenClaw skill delivered to your inbox every week — with install instructions, use cases, and security notes.
+                  Get four concise emails covering skill discovery, security checks, practical workflows, and essential resources.
                 </p>
 
                 <form

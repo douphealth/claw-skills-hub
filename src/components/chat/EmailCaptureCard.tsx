@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Loader2, ArrowRight } from "lucide-react";
-import { CHAT_URL, AUTH_HEADER } from "./types";
+import { SUBSCRIBE_URL } from "./types";
 
 type CaptureReason = "intent" | "engaged" | "manual" | "exit";
 
@@ -13,20 +13,20 @@ interface EmailCaptureCardProps {
 
 const COPY_BY_REASON: Record<CaptureReason, { title: string; description: string }> = {
   intent: {
-    title: "Get a tailored weekly skill pick",
-    description: "Based on what you asked, we'll send one high-impact skill each week.",
+    title: "Get the OpenClaw starter series",
+    description: "Four concise emails to help you choose and use skills safely.",
   },
   engaged: {
-    title: "Get the best skills weekly",
-    description: "Free \"Skill of the Week\" newsletter — useful, concise, no spam.",
+    title: "Build a safer OpenClaw setup",
+    description: "Free four-part guide to discovery, security, and practical workflows.",
   },
   manual: {
-    title: "Want weekly expert picks?",
-    description: "One practical skill recommendation every Thursday with real use-cases.",
+    title: "Want a practical OpenClaw guide?",
+    description: "Get the essentials in four useful emails. No filler or fake urgency.",
   },
   exit: {
-    title: "Before you go: keep the best picks",
-    description: "Get a weekly curated skill so you never miss high-value new releases.",
+    title: "Before you go: get the essentials",
+    description: "A four-part starter series with security checks and useful resources.",
   },
 };
 
@@ -49,14 +49,13 @@ const EmailCaptureCard = ({ reason = "engaged", onSubscribed, onDismiss }: Email
     setErrorMsg("");
 
     try {
-      const sendLead = () => fetch(CHAT_URL, {
+      const sendLead = () => fetch(SUBSCRIBE_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: AUTH_HEADER,
         },
         body: JSON.stringify({
-          captureEmail: trimmed,
+          email: trimmed,
           source_page: "chat-assistant",
           utm_source: "chat-widget",
           utm_medium: "conversational",
