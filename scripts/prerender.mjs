@@ -475,6 +475,16 @@ async function main() {
   // Known routes above remain prerendered and continue to return HTTP 200.
   write404(template);
 
+  // Cloudflare's native Git integration and GitHub Actions expose different
+  // commit variables. Emit one stable fingerprint for either deployment path.
+  const commit = process.env.CF_PAGES_COMMIT_SHA || process.env.VITE_BUILD_COMMIT || 'local';
+  fs.writeFileSync(path.join(DIST, 'build-info.json'), JSON.stringify({
+    version: commit.slice(0, 12),
+    buildTime: process.env.VITE_BUILD_TIME || new Date().toISOString(),
+    commit,
+    source: process.env.CF_PAGES_COMMIT_SHA ? 'cloudflare-pages-git' : 'build',
+  }));
+
   console.log(`✅ Prerendered ${count} routes with meta tags, JSON-LD, and crawlable content`);
 }
 
