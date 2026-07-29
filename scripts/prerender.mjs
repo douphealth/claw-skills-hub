@@ -148,7 +148,7 @@ async function main() {
   // --- Homepage ---
   // Already has index.html, but we enhance it
   const homeHtml = injectMeta(template, {
-    title: 'ClawSkills — Curated OpenClaw Skills Directory with Security Reviews',
+    title: 'OpenClaw Skill Hub — 5,705+ Reviewed Skills | ClawSkills',
     description: 'Discover, compare, and safely install 5,705+ OpenClaw skills. Curated reviews, security audits, and one-command installation across 10 categories.',
     canonical: `${BASE_URL}/`,
     jsonLd: [
