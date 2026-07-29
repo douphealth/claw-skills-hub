@@ -707,9 +707,9 @@ export const articles: Article[] = [
     metaTitle: "OpenClaw Gmail Skill — AI Email Automation & Management (2026)",
     metaDescription: "Automate Gmail with OpenClaw. Draft replies, sort inbox, schedule sends, extract data from emails, and build email workflows with the Gmail Connector skill.",
     tag: "Integrations",
-    readTime: "12 min read",
+    readTime: "14 min read",
     publishedDate: "2026-03-04",
-    updatedDate: "2026-03-07",
+    updatedDate: "2026-07-29",
     heroDescription: "The OpenClaw Gmail Connector skill turns Gmail into an AI-powered communication hub. Draft contextual replies, auto-sort your inbox, extract data from emails, schedule sends, and build email automation workflows — all through conversation with OpenClaw.",
     sections: [
       {
@@ -719,6 +719,10 @@ export const articles: Article[] = [
       {
         heading: "Key Capabilities: What You Can Automate",
         content: "**Smart Inbox Triage:** The Gmail skill categorizes incoming emails by priority, topic, and required action. It can auto-label, archive, or flag emails based on rules you define in conversation.\n\n**Contextual Reply Drafting:** Say 'draft a reply to John's email about the Q3 report' and get a context-aware response based on the email thread. Review and send with one confirmation.\n\n**Email Data Extraction:** Extract structured data from recurring emails — invoices, shipping notifications, meeting invitations — and pipe it to [[Notion Sync|/skills/productivity/notion-sync]] or [[CRM Sync|/skills/marketing-sales/crm-sync]].\n\n**Scheduled Sends & Follow-ups:** Schedule emails for optimal send times and set up automatic follow-ups if you don't get a reply within a specified timeframe.\n\n**Search & Summarize:** Search across your email history and get AI-generated summaries of long threads or conversations with specific contacts."
+      },
+      {
+        heading: "Gmail Connector Setup and api_tool list_resources Troubleshooting",
+        content: "The Gmail skill has two layers: the installed skill tells OpenClaw how to work with Gmail, while the connector exposes the authenticated Gmail resources and actions. Installing the skill alone does not complete Google authorization.\n\n**If api_tool list_resources does not show Gmail:** first confirm that the Gmail connector is enabled in the same OpenClaw environment where the skill runs. Then complete Google OAuth again and approve the Gmail scopes required for the actions you want, such as reading, labeling, drafting, or sending. Restart or reload the OpenClaw session after changing connector configuration so the available resources are discovered again.\n\n**If Gmail appears but calls fail:** test the smallest read-only action first, such as listing labels or searching for one recent message. An authentication error usually means the OAuth token is missing, expired, revoked, or authorized for insufficient scopes. A resource-not-found error usually means the Gmail connector was not exposed to that agent or session. Do not test sending until a read-only request succeeds.\n\n**Safe verification sequence:** (1) list available connector resources, (2) confirm Gmail is present, (3) run one read-only Gmail request, (4) create a draft, and only then (5) send a message to an address you control. This isolates setup problems without risking unintended email. Connector names and commands can vary by OpenClaw version, so treat the resource list shown by your installation as authoritative."
       },
       {
         heading: "Gmail + OpenClaw Workflow Examples",
