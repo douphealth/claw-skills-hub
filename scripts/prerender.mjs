@@ -111,6 +111,28 @@ function writeRoute(routePath, html) {
   fs.writeFileSync(path.join(dir, 'index.html'), html);
 }
 
+function write404(template) {
+  let html = template
+    .replace(/<title>[^<]*<\/title>/, '<title>Page Not Found (404) | ClawSkills</title>')
+    .replace(
+      /<meta name="description" content="[^"]*"/,
+      '<meta name="description" content="The requested ClawSkills page could not be found."'
+    )
+    .replace(
+      /<meta name="robots" content="[^"]*"/,
+      '<meta name="robots" content="noindex, follow"'
+    )
+    .replace(/\s*<link rel="canonical"[^>]*>/i, '')
+    .replace(/\s*<link rel="alternate"[^>]*>/gi, '')
+    .replace(/\s*<script(?:\s+id="[^"]*")?\s+type="application\/ld\+json">[\s\S]*?<\/script>/gi, '')
+    .replace(
+      '<div id="root"></div>',
+      '<div id="root"></div><noscript><main><h1>404 — Page not found</h1><p>The requested ClawSkills page does not exist.</p><p><a href="/">Return to ClawSkills</a></p></main></noscript>'
+    );
+
+  fs.writeFileSync(path.join(DIST, '404.html'), html);
+}
+
 async function main() {
   const data = await loadData();
   if (!data) {
@@ -448,6 +470,10 @@ async function main() {
     bodyContent: `<h1>OpenClaw Version History</h1><p>Track every OpenClaw release from v0.25 to the latest v0.30. Compare features, view breaking changes, and access GitHub release pages.</p>`
   }));
   count++;
+
+  // Cloudflare Pages serves this document with HTTP 404 for unknown paths.
+  // Known routes above remain prerendered and continue to return HTTP 200.
+  write404(template);
 
   console.log(`✅ Prerendered ${count} routes with meta tags, JSON-LD, and crawlable content`);
 }

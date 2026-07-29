@@ -29,8 +29,23 @@ while (Date.now() < deadline) {
     const deployedCommit = String(data?.commit ?? "").trim();
 
     if (deployedCommit === expected) {
-      console.log(`✅ Live deployment verified (${deployedCommit.slice(0, 12)})`);
-      process.exit(0);
+      const missingUrl = `${siteUrl.replace(/\/$/, "")}/__clawskills-404-verification__`;
+      const missingResponse = await fetch(missingUrl, {
+        redirect: "manual",
+        headers: { "Cache-Control": "no-cache" },
+      });
+      const missingHtml = await missingResponse.text();
+
+      if (missingResponse.status === 404 && /<meta\s+name=["']robots["']\s+content=["'][^"']*noindex/i.test(missingHtml)) {
+        console.log(`✅ Live deployment and 404 contract verified (${deployedCommit.slice(0, 12)})`);
+        process.exit(0);
+      }
+
+      console.log(
+        `⏳ Commit deployed, but 404 contract is not ready (status: ${missingResponse.status}).`,
+      );
+      await sleep(pollMs);
+      continue;
     }
 
     console.log(
