@@ -369,18 +369,26 @@ export const articles: Article[] = [
   // ═══════════════════════════════════════════════════════════════
   {
     slug: "best-health-fitness-skills-openclaw",
-    title: "4 Best Health & Fitness Skills for OpenClaw in 2026",
-    metaTitle: "4 Best Health & Fitness Skills for OpenClaw (2026)",
-    metaDescription: "Workout planning, nutrition tracking, sleep analysis, and meditation. The best OpenClaw skills for health and wellness.",
+    title: "OpenClaw Personal Trainer: 4 Health & Fitness Skills",
+    metaTitle: "OpenClaw Personal Trainer: 4 Best Fitness Skills (2026)",
+    metaDescription: "Build a progressive overload tracker and AI workout workflow with four OpenClaw health and fitness skills for training, nutrition, sleep, and recovery.",
     tag: "Health & Fitness",
-    readTime: "9 min read",
+    readTime: "12 min read",
     publishedDate: "2026-02-16",
-    updatedDate: "2026-02-22",
-    heroDescription: "Optimize your health with AI-powered OpenClaw skills. Personalized workout programs, nutrition tracking from meal photos, sleep quality analysis, and guided meditation — all through natural language.",
+    updatedDate: "2026-07-29",
+    heroDescription: "Build an OpenClaw personal trainer workflow for progressive overload, workout planning, nutrition tracking, sleep analysis, and recovery reminders — while keeping human judgment and safety checks in the loop.",
     sections: [
       {
         heading: "The AI Health Coach in Your Terminal",
         content: "Health optimization is increasingly data-driven, and OpenClaw skills make that data actionable. [[Workout Planner|/skills/health-fitness/workout-planner]] generates personalized programs with progressive overload, exercise alternatives, and recovery scheduling.\n\n[[Nutrition Tracker|/skills/health-fitness/nutrition-tracker]] logs meals from natural language descriptions or photos, tracking calories, macros, and micronutrients. [[Sleep Analyzer|/skills/health-fitness/sleep-analyzer]] integrates with wearables to identify factors affecting sleep quality.\n\nFor mental wellness, [[Meditation Guide|/skills/health-fitness/meditation-guide]] provides AI-personalized meditation scripts and breathing exercises. Pair with [[Notification Hub|/skills/productivity/notification-hub]] from our [[productivity guide|/articles/best-productivity-skills-openclaw]] for mindfulness reminders."
+      },
+      {
+        heading: "How to Build a Progressive Overload Tracker with OpenClaw",
+        content: "A useful progressive overload tracker records the exercise, variation, sets, repetitions, load, effort rating, rest time, and any pain or technique notes for every working set. Ask [[Workout Planner|/skills/health-fitness/workout-planner]] to compare the latest session with the previous session and suggest only one small progression variable at a time: more repetitions, slightly more load, an extra set, or better execution at the same workload.\n\n**Example workflow:** (1) install Workout Planner, (2) define your current program and available equipment, (3) log each completed set in a consistent format, (4) request a weekly comparison table, and (5) require the plan to explain why it recommends progressing, maintaining, or reducing the workload. Pair the tracker with [[Sleep Analyzer|/skills/health-fitness/sleep-analyzer]] so poor sleep or recovery can trigger a review instead of an automatic increase.\n\nKeep the decision rule conservative: no progression should be automatic when form deteriorates, pain appears, or recovery is poor. OpenClaw can organize records and surface patterns, but it cannot examine an injury or replace a qualified coach or clinician."
+      },
+      {
+        heading: "OpenClaw Personal Trainer Setup: Safe Operating Rules",
+        content: "Treat an OpenClaw personal trainer as a planning and record-keeping assistant, not as a medical authority. Give it your training goal, experience level, schedule, available equipment, exercise preferences, and explicit constraints. Require every workout to include a warm-up, target effort range, rest guidance, alternatives, and a stop rule for pain, dizziness, or unusual symptoms.\n\nUse [[Nutrition Tracker|/skills/health-fitness/nutrition-tracker]] for consistent food logging rather than diagnosis, and use Sleep Analyzer for trend review rather than medical interpretation. Review every proposed change before acting on it. If you are returning after injury, managing a health condition, pregnant, or unsure whether exercise is appropriate, get individualized advice from a qualified professional before using an AI-generated plan."
       },
     ],
     skills: [
