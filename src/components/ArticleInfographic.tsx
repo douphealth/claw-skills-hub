@@ -6,9 +6,11 @@ interface Props {
   src: string;
   alt: string;
   caption: string;
+  width?: number;
+  height?: number;
 }
 
-const ArticleInfographic = ({ src, alt, caption }: Props) => {
+const ArticleInfographic = ({ src, alt, caption, width, height }: Props) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -26,6 +28,8 @@ const ArticleInfographic = ({ src, alt, caption }: Props) => {
           <img
             src={src}
             alt={alt}
+            width={width}
+            height={height}
             loading="lazy"
             decoding="async"
             className="w-full h-auto object-contain"

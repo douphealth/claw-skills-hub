@@ -199,7 +199,7 @@ const ArticlePage = () => {
                   </div>
                 </motion.div>
                 {infographicsForSection.map((inf, k) => (
-                  <ArticleInfographic key={k} src={inf.src} alt={inf.alt} caption={inf.caption} />
+                  <ArticleInfographic key={k} src={inf.src} alt={inf.alt} caption={inf.caption} width={inf.width} height={inf.height} />
                 ))}
               </div>
             );

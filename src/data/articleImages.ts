@@ -90,11 +90,32 @@ export interface ArticleInfographic {
   src: string;
   alt: string;
   caption: string;
+  width?: number;
+  height?: number;
   /** Insert after this section index (0-based) */
   afterSection: number;
 }
 
+/** Infographics mapped to article slugs — rendered inline between sections */
 export const articleInfographics: Record<string, ArticleInfographic[]> = {
+  "what-are-openclaw-skills": [
+    {
+      src: skillTrustLevels,
+      alt: "OpenClaw skill trust levels: verified, community, and unreviewed",
+      caption: "Skill trust levels provide a practical starting point for deciding what to inspect before installation: verified, community, and unreviewed skills require different levels of caution.",
+      width: 1024,
+      height: 1024,
+      afterSection: 4,
+    },
+    {
+      src: securityAuditChecklist,
+      alt: "Five-step security audit checklist for an OpenClaw skill",
+      caption: "Use this five-step checklist with the article's beginner-safe setup guidance before installing a skill into a real workflow.",
+      width: 1024,
+      height: 1024,
+      afterSection: 5,
+    },
+  ],
   "best-ai-llm-skills-openclaw": [
     {
       src: aiPipelineArchitecture,
