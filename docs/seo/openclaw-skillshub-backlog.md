@@ -44,16 +44,19 @@
 
 ## DEPLOYMENT
 
-- **Status:** commit-ready fallback; production deployment not completed.
-- `git push --dry-run origin main` failed: `could not read Username for 'https://github.com'`.
-- `gh` CLI is unavailable; SSH fallback failed with `Permission denied (publickey)`.
-- No production write, merge, or authentication bypass was attempted.
-- **Rollback:** do not deploy the three commits; if deployed later, revert `be6cdf6`, `90c928b`, and `8060040` in reverse order or revert the resulting deployment commit.
+- **Status:** production deployment completed for the production-relevant source patch.
+- **Published commit:** `7e2f8581afdb18d88b6e4a4fbd91a72f22612c5d`, fast-forwarded from the prior live commit `e9096f78264041f211ec5b0919e82cfc31013c27`.
+- **Published scope:** 22 application, build, route, redirect, test, and backlog files; remote blob hashes matched the validated local files.
+- The optional `.github/workflows/deploy.yml` CI verification step remains in the isolated local fallback because the available GitHub credential could not write workflow files; no permission or branch-protection bypass was attempted.
+- Cloudflare Pages deployment was verified by `build-info.json` and the live 404 contract; rollback is a normal revert of commit `7e2f8581afdb18d88b6e4a4fbd91a72f22612c5d`.
 
 ## LIVE VALIDATION
 
-- **Pre-change live validation completed:** 308 noncanonical skill path, 200 canonical-slash path, stale self-canonical, stale sitemap `<loc>`, and 404/noindex contract confirmed.
-- **Post-change live validation:** pending because the deployment head is not reachable from this scheduled environment; no post-change production claim is made.
+- **Post-change live validation completed:** `verify-deploy.mjs` exited `0` for `https://openclaw-skillshub.com` and commit `7e2f8581afdb18d88b6e4a4fbd91a72f22612c5d`.
+- Representative dynamic route `/skills/health-fitness/sleep-analyzer`: non-slash URL **301** to the slash URL; slash URL **200**; self-canonical points to the slash URL; H1 is present.
+- Live `sitemap.xml` contains the slash URL and excludes the non-slash variant.
+- Unknown route returns **404** with `noindex, follow`.
+- The local contract covers all 71 skill routes and 10 categories; the public smoke check above validates the deployed behavior for a representative skill route. No ranking, traffic, conversion, or indexing gain is claimed yet.
 
 ## BASELINE
 
