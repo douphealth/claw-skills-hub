@@ -41,7 +41,7 @@ export function generateSitemapEntries(): SitemapEntry[] {
   // Category landing pages
   categories.forEach((cat) => {
     entries.push({
-      loc: `/skills/${cat.slug}`,
+      loc: `/skills/${cat.slug}/`,
       changefreq: "weekly",
       priority: 0.7,
     });
@@ -50,7 +50,7 @@ export function generateSitemapEntries(): SitemapEntry[] {
   // Individual skill pages
   skills.forEach((skill) => {
     entries.push({
-      loc: `/skills/${skill.categorySlug}/${skill.slug}`,
+      loc: `/skills/${skill.categorySlug}/${skill.slug}/`,
       lastmod: skill.lastUpdated,
       changefreq: "weekly",
       priority: 0.8,

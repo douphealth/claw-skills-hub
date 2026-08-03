@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { categories } from "@/data/skills";
 import categoriesBg from "@/assets/categories-bg.jpg";
+import { categoryPath } from "@/lib/routeUrls";
 
 const iconMap: Record<string, React.ElementType> = {
   Brain, Search, Globe, Cloud, Monitor, ListChecks, Megaphone, Code2, BookOpen, HeartPulse,
@@ -55,7 +56,7 @@ const CategoriesSection = () => {
             return (
               <motion.div key={cat.name} variants={item}>
                 <Link
-                  to={`/skills/${cat.slug}`}
+                  to={categoryPath(cat.slug)}
                   className="group glass rounded-xl p-4 sm:p-5 card-hover cursor-pointer block"
                 >
                   <div

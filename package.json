@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "verify:deploy": "node scripts/verify-deploy.mjs"
+    "verify:deploy": "node scripts/verify-deploy.mjs",
+    "verify:canonical": "node scripts/verify-canonical-routes.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

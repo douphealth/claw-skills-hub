@@ -1,4 +1,5 @@
 import type { Skill } from "@/data/skills";
+import { skillUrl } from "@/lib/routeUrls";
 
 export type ExportFormat = "markdown" | "json" | "yaml" | "txt";
 
@@ -218,13 +219,13 @@ openclaw skills uninstall ${skill.slug}
 
 ${skill.faqs?.length ? `## FAQ\n\n${skill.faqs.map((f) => `**Q: ${f.question}**\n\n${f.answer}`).join("\n\n---\n\n")}\n\n---\n\n` : ""}## Related Skills
 
-${skill.relatedSlugs.map((s) => `- [\`${s}\`](https://openclaw-skillshub.com/skills/${skill.categorySlug}/${s})`).join("\n")}
+${skill.relatedSlugs.map((s) => `- [\`${s}\`](${skillUrl(skill.categorySlug, s)})`).join("\n")}
 
 ---
 
 ## Links
 
-- **Registry:** https://openclaw-skillshub.com/skills/${skill.categorySlug}/${skill.slug}
+- **Registry:** ${skillUrl(skill.categorySlug, skill.slug)}
 - **Issues:** https://github.com/openclaw-skills/${skill.slug}/issues
 - **OpenClaw Docs:** https://docs.openclaw.dev
 
@@ -302,7 +303,7 @@ function toJson(skill: Skill): string {
         },
       ],
       links: {
-        registry: `https://openclaw-skillshub.com/skills/${skill.categorySlug}/${skill.slug}`,
+        registry: skillUrl(skill.categorySlug, skill.slug),
         issues: `https://github.com/openclaw-skills/${skill.slug}/issues`,
         docs: "https://docs.openclaw.dev",
       },
@@ -410,7 +411,7 @@ changelog:
 
 # ── Links ─────────────────────────────────────────────────────
 links:
-  registry: "https://openclaw-skillshub.com/skills/${skill.categorySlug}/${skill.slug}"
+  registry: "${skillUrl(skill.categorySlug, skill.slug)}"
   issues: "https://github.com/openclaw-skills/${skill.slug}/issues"
   docs: "https://docs.openclaw.dev"
 `;

@@ -19,6 +19,7 @@ import SEOHead from "@/components/SEOHead";
 import { skills, categories, type Skill } from "@/data/skills";
 import { breadcrumbJsonLd, webPageJsonLd, faqJsonLd } from "@/utils/jsonLd";
 import installHero from "@/assets/install-center-hero.jpg";
+import { skillPath } from "@/lib/routeUrls";
 
 type Platform = "macos" | "linux" | "windows";
 
@@ -359,7 +360,7 @@ function SkillInstallCard({
                 </div>
               ))}
               <Link
-                to={`/skills/${skill.categorySlug}/${skill.slug}`}
+                to={skillPath(skill.categorySlug, skill.slug)}
                 className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-1"
               >
                 Full skill details <ArrowRight className="w-3 h-3" />

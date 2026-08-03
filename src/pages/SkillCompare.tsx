@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { skills, getSkillBySlug, type Skill } from "@/data/skills";
 import { breadcrumbJsonLd } from "@/utils/jsonLd";
+import { skillPath } from "@/lib/routeUrls";
 
 const securityConfig = {
   verified: { icon: ShieldCheck, label: "Verified", color: "text-green-400", rank: 3 },
@@ -196,10 +197,10 @@ function ComparisonTable({ skillA, skillB }: { skillA: Skill; skillB: Skill }) {
         <div className="grid grid-cols-3 border-b border-border">
           <div className="p-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Attribute</div>
           <div className="p-4 text-center border-l border-border">
-            <Link to={`/skills/${skillA.categorySlug}/${skillA.slug}`} className="text-sm font-semibold text-primary hover:underline">{skillA.name}</Link>
+            <Link to={skillPath(skillA.categorySlug, skillA.slug)} className="text-sm font-semibold text-primary hover:underline">{skillA.name}</Link>
           </div>
           <div className="p-4 text-center border-l border-border">
-            <Link to={`/skills/${skillB.categorySlug}/${skillB.slug}`} className="text-sm font-semibold text-primary hover:underline">{skillB.name}</Link>
+            <Link to={skillPath(skillB.categorySlug, skillB.slug)} className="text-sm font-semibold text-primary hover:underline">{skillB.name}</Link>
           </div>
         </div>
 
@@ -219,7 +220,7 @@ function ComparisonTable({ skillA, skillB }: { skillA: Skill; skillB: Skill }) {
           <div key={skill.slug} className="glass rounded-xl p-6">
             <h3 className="font-semibold text-foreground mb-3">{skill.name}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">{skill.description}</p>
-            <Link to={`/skills/${skill.categorySlug}/${skill.slug}`} className="inline-flex items-center gap-1 text-primary text-sm mt-4 hover:underline">
+            <Link to={skillPath(skill.categorySlug, skill.slug)} className="inline-flex items-center gap-1 text-primary text-sm mt-4 hover:underline">
               View full review <ArrowRight className="w-3 h-3" />
             </Link>
           </div>

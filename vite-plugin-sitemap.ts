@@ -27,7 +27,7 @@ function buildEntries(): SitemapEntry[] {
 
   categories.forEach((cat) => {
     entries.push({
-      loc: `/skills/${cat.slug}`,
+      loc: `/skills/${cat.slug}/`,
       changefreq: "weekly",
       priority: 0.7,
     });
@@ -35,7 +35,7 @@ function buildEntries(): SitemapEntry[] {
 
   skills.forEach((skill) => {
     entries.push({
-      loc: `/skills/${skill.categorySlug}/${skill.slug}`,
+      loc: `/skills/${skill.categorySlug}/${skill.slug}/`,
       lastmod: skill.lastUpdated,
       changefreq: "weekly",
       priority: 0.8,

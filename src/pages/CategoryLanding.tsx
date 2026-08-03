@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { getSkillsByCategory, getCategoryBySlug, categories } from "@/data/skills";
 import { itemListJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/utils/jsonLd";
+import { categoryPath, categoryUrl, skillPath } from "@/lib/routeUrls";
 
 const CategoryLanding = () => {
   const { categorySlug } = useParams<{ categorySlug: string }>();
@@ -51,13 +52,13 @@ const CategoryLanding = () => {
   const bJsonLd = breadcrumbJsonLd([
     { name: "Home", url: "/" },
     { name: "Skills", url: "/skills" },
-    { name: category.name, url: `/skills/${category.slug}` },
+    { name: category.name, url: categoryPath(category.slug) },
   ]);
 
   const listJsonLd = itemListJsonLd(
     allSkills.slice(0, 50).map((s, i) => ({
       name: s.name,
-      url: `/skills/${s.categorySlug}/${s.slug}`,
+      url: skillPath(s.categorySlug, s.slug),
       position: i + 1,
     }))
   );
@@ -74,7 +75,7 @@ const CategoryLanding = () => {
       <SEOHead
         title={`Best ${category.name} Skills for OpenClaw (${category.count}+ Skills)`}
         description={category.description}
-        canonical={`https://openclaw-skillshub.com/skills/${category.slug}`}
+        canonical={categoryUrl(category.slug)}
         jsonLd={[bJsonLd, listJsonLd, ...(faq ? [faq] : [])]}
       />
       <Navbar />
@@ -134,7 +135,7 @@ const CategoryLanding = () => {
                 transition={{ delay: Math.min(i * 0.03, 0.3) }}
               >
                 <Link
-                  to={`/skills/${skill.categorySlug}/${skill.slug}`}
+                  to={skillPath(skill.categorySlug, skill.slug)}
                   className="group glass rounded-xl p-6 card-hover flex flex-col h-full"
                 >
                   <div className="flex items-center justify-between mb-3">

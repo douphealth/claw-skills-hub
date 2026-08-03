@@ -191,10 +191,10 @@ async function main() {
         "@type": "ListItem",
         position: i + 1,
         name: s.name,
-        url: `${BASE_URL}/skills/${s.categorySlug}/${s.slug}`
+        url: `${BASE_URL}/skills/${s.categorySlug}/${s.slug}/`
       }))
     },
-    bodyContent: `<h1>OpenClaw Skills Directory</h1><p>Browse ${skills.length} skills across ${categories.length} categories.</p><ul>${skills.slice(0, 100).map(s => `<li><a href="/skills/${s.categorySlug}/${s.slug}">${s.name}</a> — ${s.description}</li>`).join('')}</ul>`
+    bodyContent: `<h1>OpenClaw Skills Directory</h1><p>Browse ${skills.length} skills across ${categories.length} categories.</p><ul>${skills.slice(0, 100).map(s => `<li><a href="/skills/${s.categorySlug}/${s.slug}/">${s.name}</a> — ${s.description}</li>`).join('')}</ul>`
   }));
   count++;
 
@@ -204,7 +204,7 @@ async function main() {
     writeRoute(`/skills/${cat.slug}`, injectMeta(template, {
       title: `${cat.name} — OpenClaw Skills | ClawSkills`,
       description: `Browse ${cat.count}+ ${cat.name} skills for OpenClaw. ${cat.description}`,
-      canonical: `${BASE_URL}/skills/${cat.slug}`,
+      canonical: `${BASE_URL}/skills/${cat.slug}/`,
       jsonLd: {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -214,10 +214,10 @@ async function main() {
           "@type": "ListItem",
           position: i + 1,
           name: s.name,
-          url: `${BASE_URL}/skills/${s.categorySlug}/${s.slug}`
+          url: `${BASE_URL}/skills/${s.categorySlug}/${s.slug}/`
         }))
       },
-      bodyContent: `<h1>${cat.name} — OpenClaw Skills</h1><p>${cat.description}</p><ul>${catSkills.map(s => `<li><a href="/skills/${s.categorySlug}/${s.slug}">${s.name}</a> — ${s.description}</li>`).join('')}</ul>`
+      bodyContent: `<h1>${cat.name} — OpenClaw Skills</h1><p>${cat.description}</p><ul>${catSkills.map(s => `<li><a href="/skills/${s.categorySlug}/${s.slug}/">${s.name}</a> — ${s.description}</li>`).join('')}</ul>`
     }));
     count++;
   }
@@ -227,7 +227,7 @@ async function main() {
     writeRoute(`/skills/${skill.categorySlug}/${skill.slug}`, injectMeta(template, {
       title: `${skill.name} — Full Review & Install Guide | ClawSkills`,
       description: skill.description.slice(0, 160),
-      canonical: `${BASE_URL}/skills/${skill.categorySlug}/${skill.slug}`,
+      canonical: `${BASE_URL}/skills/${skill.categorySlug}/${skill.slug}/`,
       type: 'article',
       jsonLd: {
         "@context": "https://schema.org",
@@ -246,7 +246,7 @@ async function main() {
         },
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
       },
-      bodyContent: `<h1>${skill.name}</h1><p>${skill.description}</p><p>Author: ${skill.author} | Version: ${skill.version} | Rating: ${skill.rating}/5</p><p>Install: ${skill.installCommand}</p>`
+      bodyContent: `<h1>${skill.name}</h1><p>${skill.description}</p><p>Author: ${skill.author} | Version: ${skill.version} | Rating: ${skill.rating}/5</p><p>Install: ${skill.installCmd}</p>`
     }));
     count++;
   }

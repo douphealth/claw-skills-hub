@@ -13,6 +13,7 @@ import {
 import { skills, categories } from "@/data/skills";
 import { articles } from "@/data/articles";
 import { tutorials } from "@/data/tutorials";
+import { skillPath } from "@/lib/routeUrls";
 
 const CommandPalette = () => {
   const [open, setOpen] = useState(false);
@@ -58,7 +59,7 @@ const CommandPalette = () => {
               <CommandItem
                 key={skill.slug}
                 value={`${skill.name} ${skill.category}`}
-                onSelect={() => go(`/skills/${skill.categorySlug}/${skill.slug}`)}
+                onSelect={() => go(skillPath(skill.categorySlug, skill.slug))}
               >
                 <Zap className="mr-2 h-4 w-4 text-primary" />
                 <div className="flex flex-col">

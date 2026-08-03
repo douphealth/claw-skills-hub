@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { categories } from "@/data/skills";
 import logoIcon from "@/assets/logo-icon.png";
 import { buildInfo } from "@/lib/buildInfo";
+import { categoryPath } from "@/lib/routeUrls";
 
 const Footer = () => {
   const topCategories = categories.slice(0, 5);
@@ -29,7 +30,7 @@ const Footer = () => {
               <li><Link to="/install" className="text-xs text-muted-foreground hover:text-primary transition-colors">Install Center</Link></li>
               {topCategories.map((cat) => (
                 <li key={cat.slug}>
-                  <Link to={`/skills/${cat.slug}`} className="text-xs text-muted-foreground hover:text-primary transition-colors">
+                  <Link to={categoryPath(cat.slug)} className="text-xs text-muted-foreground hover:text-primary transition-colors">
                     {cat.name}
                   </Link>
                 </li>

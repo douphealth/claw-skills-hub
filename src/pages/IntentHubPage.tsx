@@ -16,6 +16,7 @@ import { computeTrustTotal } from "@/components/TrustScore";
 import { getHubBySlug, getHubSkills } from "@/data/intentHubs";
 import { faqJsonLd, breadcrumbJsonLd, itemListJsonLd } from "@/utils/jsonLd";
 import type { Skill } from "@/data/skills";
+import { skillPath } from "@/lib/routeUrls";
 
 const secIcons = { verified: ShieldCheck, community: Shield, unreviewed: ShieldAlert };
 const secColors = { verified: "text-green-400", community: "text-yellow-400", unreviewed: "text-red-400" };
@@ -46,7 +47,7 @@ const SkillRow = ({ skill, index }: { skill: Skill; index: number }) => {
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2 mb-2">
-            <Link to={`/skills/${skill.categorySlug}/${skill.slug}`} className="text-lg font-bold text-foreground hover:text-primary transition-colors">
+            <Link to={skillPath(skill.categorySlug, skill.slug)} className="text-lg font-bold text-foreground hover:text-primary transition-colors">
               {skill.name}
             </Link>
             <div className={`flex items-center gap-1 text-xs ${secColors[skill.securityStatus]}`}>
@@ -72,7 +73,7 @@ const SkillRow = ({ skill, index }: { skill: Skill; index: number }) => {
                 {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5 text-muted-foreground hover:text-primary" />}
               </button>
             </div>
-            <Link to={`/skills/${skill.categorySlug}/${skill.slug}`}>
+            <Link to={skillPath(skill.categorySlug, skill.slug)}>
               <Button size="sm" variant="outline" className="text-xs whitespace-nowrap">
                 Full Review <ArrowRight className="w-3 h-3 ml-1" />
               </Button>
@@ -109,7 +110,7 @@ const IntentHubPage = () => {
     { name: hub.title, url: `/use-cases/${hub.slug}` },
   ]);
   const itemList = itemListJsonLd(
-    hubSkills.map((s, i) => ({ name: s.name, url: `/skills/${s.categorySlug}/${s.slug}`, position: i + 1 }))
+    hubSkills.map((s, i) => ({ name: s.name, url: skillPath(s.categorySlug, s.slug), position: i + 1 }))
   );
   const jsonLd = [breadcrumbs, itemList, ...(faq ? [faq] : [])];
 

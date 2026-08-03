@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { skills, categories } from "@/data/skills";
 import { itemListJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
+import { categoryPath, skillPath } from "@/lib/routeUrls";
 
 const SkillsDirectory = () => {
   const [searchParams] = useSearchParams();
@@ -41,7 +42,7 @@ const SkillsDirectory = () => {
   const listJsonLd = itemListJsonLd(
     skills.slice(0, 50).map((s, i) => ({
       name: s.name,
-      url: `/skills/${s.categorySlug}/${s.slug}`,
+      url: skillPath(s.categorySlug, s.slug),
       position: i + 1,
     }))
   );
@@ -105,7 +106,7 @@ const SkillsDirectory = () => {
               All ({skills.length})
             </Button>
             {categories.map((cat) => (
-              <Link key={cat.slug} to={`/skills/${cat.slug}`}>
+              <Link key={cat.slug} to={categoryPath(cat.slug)}>
                 <Button
                   variant={activeCategory === cat.slug ? "default" : "outline"}
                   size="sm"
@@ -131,7 +132,7 @@ const SkillsDirectory = () => {
                 transition={{ delay: Math.min(i * 0.03, 0.3) }}
               >
                 <Link
-                  to={`/skills/${skill.categorySlug}/${skill.slug}`}
+                  to={skillPath(skill.categorySlug, skill.slug)}
                   className="group glass rounded-xl p-6 card-hover flex flex-col h-full"
                 >
                   <div className="flex items-center justify-between mb-3">

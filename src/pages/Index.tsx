@@ -14,6 +14,7 @@ import { websiteJsonLd, organizationJsonLd, faqJsonLd, collectionPageJsonLd } fr
 import { skills } from "@/data/skills";
 import { intentHubs } from "@/data/intentHubs";
 import { computeTrustTotal } from "@/components/TrustScore";
+import { skillPath } from "@/lib/routeUrls";
 
 const homepageFaqs = [
   { question: "What are OpenClaw skills?", answer: "OpenClaw skills are modular capabilities defined in SKILL.md files that extend what OpenClaw can do. Each skill adds a specific function — from AI prompt chaining and browser automation to Gmail integration and code review. Install any skill with one command: npx clawhub@latest install <skill-name>." },
@@ -109,7 +110,7 @@ const Index = () => {
               const trust = computeTrustTotal(skill.securityStatus, skill.rating, skill.lastUpdated);
               return (
                 <motion.div key={skill.slug} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
-                  <Link to={`/skills/${skill.categorySlug}/${skill.slug}`} className="group glass rounded-xl p-5 card-hover block">
+                  <Link to={skillPath(skill.categorySlug, skill.slug)} className="group glass rounded-xl p-5 card-hover block">
                     <div className="flex items-center justify-between mb-3">
                       <Badge variant="secondary" className="text-[10px]">{skill.category}</Badge>
                       <div className="flex items-center gap-2">
@@ -142,7 +143,7 @@ const Index = () => {
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
             {recentlyUpdated.map((skill) => (
-              <Link key={skill.slug} to={`/skills/${skill.categorySlug}/${skill.slug}`} className="group glass rounded-xl p-4 card-hover block">
+              <Link key={skill.slug} to={skillPath(skill.categorySlug, skill.slug)} className="group glass rounded-xl p-4 card-hover block">
                 <p className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors mb-1">{skill.name}</p>
                 <p className="text-xs text-muted-foreground mb-2">Updated {skill.lastUpdated}</p>
                 <Badge variant="outline" className="text-[10px]">v{skill.version}</Badge>

@@ -1,0 +1,2 @@
+# Canonicalize dynamic skill detail URLs before the SPA renders.
+/skills/:category/:skill /skills/:category/:skill/ 301

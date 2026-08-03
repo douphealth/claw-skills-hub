@@ -1,6 +1,7 @@
 import type { Skill } from "@/data/skills";
 import type { Article } from "@/data/articles";
 import type { Tutorial } from "@/data/tutorials";
+import { skillUrl } from "@/lib/routeUrls";
 
 const SITE_URL = "https://openclaw-skillshub.com";
 
@@ -122,7 +123,7 @@ export function skillJsonLd(skill: Skill) {
     author: { "@type": "Person", name: skill.author },
     softwareVersion: skill.version,
     dateModified: skill.lastUpdated,
-    url: `${SITE_URL}/skills/${skill.categorySlug}/${skill.slug}`,
+    url: skillUrl(skill.categorySlug, skill.slug),
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: skill.rating,

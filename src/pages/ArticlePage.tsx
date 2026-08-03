@@ -17,6 +17,7 @@ import { articleJsonLd as makeArticleJsonLd, breadcrumbJsonLd, faqJsonLd, videoO
 import { articleHeroImages, articleInfographics } from "@/data/articleImages";
 import RelatedContent from "@/components/RelatedContent";
 import ArticleInfographic from "@/components/ArticleInfographic";
+import { skillPath } from "@/lib/routeUrls";
 
 /** Extract Q&A pairs from FAQ sections using the **Question?**\nAnswer format */
 function extractFaqsFromArticle(sections: { heading: string; content: string }[]) {
@@ -272,7 +273,7 @@ const ArticlePage = () => {
                   {(() => {
                     const fullSkill = getSkillBySlug(skill.slug);
                     const href = fullSkill
-                      ? `/skills/${fullSkill.categorySlug}/${fullSkill.slug}`
+                      ? skillPath(fullSkill.categorySlug, fullSkill.slug)
                       : `/skills`;
                     return (
                       <Link to={href} className="text-xs sm:text-sm text-primary hover:underline flex items-center gap-1">

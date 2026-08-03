@@ -16,6 +16,7 @@ import { getSkillBySlug, getRelatedSkills, getCategoryBySlug } from "@/data/skil
 import { skillJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
 import SkillDownloadPanel from "@/components/SkillDownloadPanel";
 import TrustScore, { computeTrustTotal } from "@/components/TrustScore";
+import { categoryPath, skillPath, skillUrl } from "@/lib/routeUrls";
 
 const securityConfig = {
   verified: { icon: ShieldCheck, label: "Verified", color: "text-green-400", bg: "bg-green-400/10" },
@@ -47,6 +48,7 @@ const SkillDetail = () => {
   const sec = securityConfig[skill.securityStatus];
   const SecIcon = sec.icon;
   const trustTotal = computeTrustTotal(skill.securityStatus, skill.rating, skill.lastUpdated);
+  const currentSkillPath = skillPath(skill.categorySlug, skill.slug);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(skill.installCmd);
@@ -59,8 +61,8 @@ const SkillDetail = () => {
   const breadcrumbs = breadcrumbJsonLd([
     { name: "Home", url: "/" },
     { name: "Skills", url: "/skills" },
-    ...(category ? [{ name: category.name, url: `/skills/${category.slug}` }] : []),
-    { name: skill.name, url: `/skills/${skill.categorySlug}/${skill.slug}` },
+    ...(category ? [{ name: category.name, url: categoryPath(category.slug) }] : []),
+    { name: skill.name, url: currentSkillPath },
   ]);
 
   // Review schema
@@ -88,12 +90,12 @@ const SkillDetail = () => {
   const allJsonLd = [sJsonLd, breadcrumbs, reviewJsonLd, ...(faq ? [faq] : [])];
 
   const relatedLinks = [
-    { title: `Browse all ${skill.category} skills`, url: `/skills/${skill.categorySlug}`, description: `See all skills in the ${skill.category} category` },
+    { title: `Browse all ${skill.category} skills`, url: categoryPath(skill.categorySlug), description: `See all skills in the ${skill.category} category` },
     { title: "Install Center", url: "/install", description: "Platform-specific setup guides for OpenClaw" },
     { title: "Security Methodology", url: "/trust-methodology", description: "How we calculate Trust Scores" },
     ...related.slice(0, 3).map((r) => ({
       title: `${r.name} (Alternative)`,
-      url: `/skills/${r.categorySlug}/${r.slug}`,
+      url: skillPath(r.categorySlug, r.slug),
       description: r.description.slice(0, 80),
     })),
   ];
@@ -103,7 +105,7 @@ const SkillDetail = () => {
       <SEOHead
         title={`${skill.name} for OpenClaw — Review, Trust Score & Install Guide`}
         description={`${skill.name} is a ${skill.securityStatus} OpenClaw skill (Trust Score: ${trustTotal}/100). ${skill.description} Install: ${skill.installCmd}`}
-        canonical={`https://openclaw-skillshub.com/skills/${skill.categorySlug}/${skill.slug}`}
+        canonical={skillUrl(skill.categorySlug, skill.slug)}
         jsonLd={allJsonLd}
       />
       <Navbar />
@@ -123,7 +125,7 @@ const SkillDetail = () => {
                 <BreadcrumbSeparator />
                 {category && (
                   <>
-                    <BreadcrumbItem><BreadcrumbLink asChild><Link to={`/skills/${category.slug}`}>{category.name}</Link></BreadcrumbLink></BreadcrumbItem>
+                    <BreadcrumbItem><BreadcrumbLink asChild><Link to={categoryPath(category.slug)}>{category.name}</Link></BreadcrumbLink></BreadcrumbItem>
                     <BreadcrumbSeparator />
                   </>
                 )}
@@ -346,7 +348,7 @@ const SkillDetail = () => {
                               <td className="py-3 px-2 text-center"><span className="flex items-center justify-center gap-1"><Star className="w-3 h-3 text-yellow-400 fill-current" />{rel.rating}</span></td>
                               <td className="py-3 px-2 text-center">{relTrust}/100</td>
                               <td className="py-3 px-2 text-center"><RelIcon className={`w-4 h-4 mx-auto ${securityConfig[rel.securityStatus].color}`} /></td>
-                              <td className="py-3 px-2 text-right"><Link to={`/skills/${rel.categorySlug}/${rel.slug}`} className="text-primary hover:underline text-xs">Review →</Link></td>
+                              <td className="py-3 px-2 text-right"><Link to={skillPath(rel.categorySlug, rel.slug)} className="text-primary hover:underline text-xs">Review →</Link></td>
                             </tr>
                           );
                         })}
@@ -395,7 +397,7 @@ const SkillDetail = () => {
               <div className="glass rounded-xl p-6 sticky top-24">
                 <h3 className="font-semibold text-foreground mb-4">Quick Info</h3>
                 <div className="space-y-3 text-sm">
-                  <div className="flex justify-between"><span className="text-muted-foreground">Category</span><Link to={`/skills/${skill.categorySlug}`} className="text-primary hover:underline">{skill.category}</Link></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Category</span><Link to={categoryPath(skill.categorySlug)} className="text-primary hover:underline">{skill.category}</Link></div>
                   <div className="flex justify-between"><span className="text-muted-foreground">Rating</span><span className="flex items-center gap-1 text-foreground"><Star className="w-3 h-3 text-yellow-400 fill-current" />{skill.rating}</span></div>
                   <div className="flex justify-between"><span className="text-muted-foreground">Trust Score</span><span className="text-foreground font-semibold">{trustTotal}/100</span></div>
                   <div className="flex justify-between"><span className="text-muted-foreground">Security</span><span className={`flex items-center gap-1 ${sec.color}`}><SecIcon className="w-3 h-3" />{sec.label}</span></div>
