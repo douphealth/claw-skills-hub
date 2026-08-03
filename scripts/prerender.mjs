@@ -224,29 +224,98 @@ async function main() {
 
   // --- Individual Skill Pages ---
   for (const skill of skills) {
-    writeRoute(`/skills/${skill.categorySlug}/${skill.slug}`, injectMeta(template, {
-      title: `${skill.name} — Full Review & Install Guide | ClawSkills`,
-      description: skill.description.slice(0, 160),
-      canonical: `${BASE_URL}/skills/${skill.categorySlug}/${skill.slug}/`,
-      type: 'article',
-      jsonLd: {
+    const skillUrl = `${BASE_URL}/skills/${skill.categorySlug}/${skill.slug}/`;
+    const relatedSkills = skill.relatedSlugs
+      .map((slug) => skills.find((candidate) => candidate.slug === slug))
+      .filter(Boolean);
+    const skillJsonLd = [
+      {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         name: skill.name,
         description: skill.description,
         applicationCategory: "DeveloperApplication",
+        applicationSubCategory: "AI Agent Skill",
+        operatingSystem: "Cross-platform (macOS, Linux, Windows WSL)",
         author: { "@type": "Person", name: skill.author },
         softwareVersion: skill.version,
         dateModified: skill.lastUpdated,
+        url: skillUrl,
         aggregateRating: {
           "@type": "AggregateRating",
           ratingValue: skill.rating,
           bestRating: "5",
+          worstRating: "1",
           ratingCount: Math.floor(skill.rating * 20 + 10)
         },
-        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock"
+        },
+        isPartOf: {
+          "@type": "WebApplication",
+          name: "ClawSkills Directory",
+          url: BASE_URL
+        }
       },
-      bodyContent: `<h1>${skill.name}</h1><p>${skill.description}</p><p>Author: ${skill.author} | Version: ${skill.version} | Rating: ${skill.rating}/5</p><p>Install: ${skill.installCmd}</p>`
+      {
+        "@context": "https://schema.org",
+        "@type": "Review",
+        name: `${skill.name} Review`,
+        reviewBody: skill.longDescription,
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: skill.rating,
+          bestRating: 5,
+          worstRating: 1
+        },
+        author: { "@type": "Organization", name: "ClawSkills" },
+        datePublished: skill.lastUpdated,
+        dateModified: skill.lastUpdated,
+        itemReviewed: {
+          "@type": "SoftwareApplication",
+          name: skill.name,
+          applicationCategory: "DeveloperApplication"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${BASE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Skills", item: `${BASE_URL}/skills/` },
+          { "@type": "ListItem", position: 3, name: skill.category, item: `${BASE_URL}/skills/${skill.categorySlug}/` },
+          { "@type": "ListItem", position: 4, name: skill.name, item: skillUrl }
+        ]
+      },
+      ...(skill.faqs?.length ? [{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: skill.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer }
+        }))
+      }] : [])
+    ];
+    const useCaseContent = skill.useCases?.length
+      ? `<h2>Who Should Use ${skill.name}</h2><ul>${skill.useCases.map((useCase) => `<li>${useCase}</li>`).join('')}</ul>`
+      : '';
+    const faqContent = skill.faqs?.length
+      ? `<h2>Frequently Asked Questions</h2>${skill.faqs.map((faq) => `<h3>${faq.question}</h3><p>${faq.answer}</p>`).join('')}`
+      : '';
+    const relatedContent = relatedSkills.length
+      ? `<h2>Related OpenClaw Skills</h2><ul>${relatedSkills.map((related) => `<li><a href="/skills/${related.categorySlug}/${related.slug}/">${related.name}</a> — ${related.description}</li>`).join('')}</ul>`
+      : '';
+    writeRoute(`/skills/${skill.categorySlug}/${skill.slug}`, injectMeta(template, {
+      title: `${skill.name} — Full Review & Install Guide | ClawSkills`,
+      description: skill.description.slice(0, 160),
+      canonical: skillUrl,
+      type: 'article',
+      jsonLd: skillJsonLd,
+      bodyContent: `<h1>${skill.name} for OpenClaw — Review & Guide</h1><p>${skill.description}</p><p>${skill.longDescription}</p><p>Category: <a href="/skills/${skill.categorySlug}/">${skill.category}</a> · Author: ${skill.author} · Version: ${skill.version} · Rating: ${skill.rating}/5 · Security: ${skill.securityStatus}</p><h2>Install ${skill.name}</h2><pre><code>${skill.installCmd}</code></pre>${useCaseContent}${faqContent}${relatedContent}`
     }));
     count++;
   }
