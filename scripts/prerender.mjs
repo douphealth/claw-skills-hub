@@ -315,7 +315,7 @@ async function main() {
       canonical: skillUrl,
       type: 'article',
       jsonLd: skillJsonLd,
-      bodyContent: `<h1>${skill.name} for OpenClaw — Review & Guide</h1><p>${skill.description}</p><p>${skill.longDescription}</p><p>Category: <a href="/skills/${skill.categorySlug}/">${skill.category}</a> · Author: ${skill.author} · Version: ${skill.version} · Rating: ${skill.rating}/5 · Security: ${skill.securityStatus}</p><h2>Install ${skill.name}</h2><pre><code>${skill.installCmd}</code></pre>${useCaseContent}${faqContent}${relatedContent}`
+      bodyContent: `<h1>${skill.name}</h1><p>${skill.description}</p><p>${skill.longDescription}</p><p>Category: <a href="/skills/${skill.categorySlug}/">${skill.category}</a> · Author: ${skill.author} · Version: ${skill.version} · Rating: ${skill.rating}/5 · Security: ${skill.securityStatus}</p><h2>Install ${skill.name}</h2><pre><code>${skill.installCmd}</code></pre>${useCaseContent}${faqContent}${relatedContent}`
     }));
     count++;
   }
