@@ -433,8 +433,8 @@ async function main() {
 
   // Installation Center
   writeRoute('/install', injectMeta(template, {
-    title: 'Installation Center — OpenClaw Setup & Skill Install Commands | ClawSkills',
-    description: 'Get enterprise-grade installation commands for OpenClaw and 5,705+ skills. Step-by-step guides for macOS, Linux, and Windows WSL with one-click copy.',
+    title: 'ClawHub Install Guide — How to Install OpenClaw Skills (npx clawhub install) | ClawSkills',
+    description: 'How to install OpenClaw skills with the ClawHub CLI: npx clawhub@latest install commands for macOS, Linux and Windows WSL — plus fixes for clawhub command not found.',
     canonical: `${BASE_URL}/install`,
     jsonLd: [
       {
@@ -458,7 +458,7 @@ async function main() {
         ]
       }
     ],
-    bodyContent: `<h1>OpenClaw Installation Center</h1><p>Get enterprise-grade installation commands for OpenClaw and 5,705+ skills. Step-by-step guides for macOS, Linux, and Windows WSL.</p><h2>Quick Start</h2><ol><li>Install Node.js v18+</li><li>npm install -g clawhub@latest</li><li>clawhub init my-project</li><li>npx clawhub@latest install gpt-prompt-chainer</li></ol>`
+    bodyContent: `<h1>ClawHub Install Guide: How to Install OpenClaw Skills</h1><p><strong>Direct answer:</strong> the fastest way to install an OpenClaw skill is <code>npx clawhub@latest install &lt;skill-name&gt;</code>. ClawHub is the official registry; the <code>clawhub install</code> command downloads a skill's SKILL.md into your project.</p><h2>Quick start: clawhub install in 4 steps</h2><ol><li>Install Node.js v18 or newer.</li><li>Run <code>npm install -g clawhub@latest</code>.</li><li>Run <code>clawhub init my-project</code>.</li><li>Run <code>npx clawhub@latest install &lt;skill-name&gt;</code> — e.g. <code>npx clawhub@latest install gpt-prompt-chainer</code>.</li></ol><h2>Troubleshooting: clawhub command not found</h2><ul><li>If you get "clawhub: command not found", run it with <code>npx clawhub@latest</code> instead of the global binary, or add npm's global bin folder to your PATH.</li><li>On Windows, use PowerShell or Windows WSL with Node.js v18+.</li></ul><p>Browse all 5,705+ installable skills in the <a href="/skills/">OpenClaw skills directory</a>.</p>`
   }));
   count++;
 
