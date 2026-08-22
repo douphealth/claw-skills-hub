@@ -484,10 +484,14 @@ async function main() {
 
   // --- Static pages ---
   for (const pg of ['privacy', 'terms']) {
+    const isPrivacy = pg === 'privacy';
     writeRoute(`/${pg}`, injectMeta(template, {
-      title: `${pg === 'privacy' ? 'Privacy Policy' : 'Terms of Service'} | ClawSkills`,
-      description: `ClawSkills ${pg === 'privacy' ? 'privacy policy' : 'terms of service'}.`,
-      canonical: `${BASE_URL}/${pg}`
+      title: `${isPrivacy ? 'Privacy Policy' : 'Terms of Service'} | ClawSkills`,
+      description: `ClawSkills ${isPrivacy ? 'privacy policy' : 'terms of service'}.`,
+      canonical: `${BASE_URL}/${pg}`,
+      bodyContent: isPrivacy
+        ? '<h1>Privacy Policy</h1><p>How ClawSkills handles newsletter subscriptions, analytics, cookies, retention, and privacy requests.</p>'
+        : '<h1>Terms of Use</h1><p>Rules, disclaimers, intellectual-property terms, and user responsibilities for using ClawSkills.</p>'
     }));
     count++;
   }
@@ -496,7 +500,8 @@ async function main() {
   writeRoute('/skills/compare', injectMeta(template, {
     title: 'Compare OpenClaw Skills Side by Side | ClawSkills',
     description: 'Compare any two OpenClaw skills side by side. See ratings, security status, compatibility, and features at a glance.',
-    canonical: `${BASE_URL}/skills/compare`
+    canonical: `${BASE_URL}/skills/compare`,
+    bodyContent: '<h1>Compare OpenClaw Skills Side by Side</h1><p>Select two skills to compare ratings, security status, versions, authors, use cases, and installation commands.</p>'
   }));
   count++;
 
