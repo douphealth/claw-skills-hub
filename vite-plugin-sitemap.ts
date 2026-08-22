@@ -16,13 +16,13 @@ interface SitemapEntry {
 function buildEntries(): SitemapEntry[] {
   const entries: SitemapEntry[] = [
     { loc: "/", changefreq: "daily", priority: 1.0 },
-    { loc: "/skills", changefreq: "daily", priority: 0.9 },
-    { loc: "/skills/compare", changefreq: "weekly", priority: 0.7 },
-    { loc: "/articles", changefreq: "weekly", priority: 0.8 },
-    { loc: "/tutorials", changefreq: "weekly", priority: 0.8 },
-    { loc: "/glossary", changefreq: "weekly", priority: 0.8 },
-    { loc: "/privacy", changefreq: "monthly", priority: 0.3 },
-    { loc: "/terms", changefreq: "monthly", priority: 0.3 },
+    { loc: "/skills/", changefreq: "daily", priority: 0.9 },
+    { loc: "/skills/compare/", changefreq: "weekly", priority: 0.7 },
+    { loc: "/articles/", changefreq: "weekly", priority: 0.8 },
+    { loc: "/tutorials/", changefreq: "weekly", priority: 0.8 },
+    { loc: "/glossary/", changefreq: "weekly", priority: 0.8 },
+    { loc: "/privacy/", changefreq: "monthly", priority: 0.3 },
+    { loc: "/terms/", changefreq: "monthly", priority: 0.3 },
   ];
 
   categories.forEach((cat) => {
@@ -44,7 +44,7 @@ function buildEntries(): SitemapEntry[] {
 
   articles.forEach((article) => {
     entries.push({
-      loc: `/articles/${article.slug}`,
+      loc: `/articles/${article.slug}/`,
       lastmod: article.updatedDate,
       changefreq: "monthly",
       priority: 0.7,
@@ -53,7 +53,7 @@ function buildEntries(): SitemapEntry[] {
 
   tutorials.forEach((tutorial) => {
     entries.push({
-      loc: `/tutorials/${tutorial.slug}`,
+      loc: `/tutorials/${tutorial.slug}/`,
       lastmod: tutorial.updatedDate,
       changefreq: "monthly",
       priority: 0.7,
@@ -62,7 +62,7 @@ function buildEntries(): SitemapEntry[] {
 
   glossaryEntries.forEach((entry) => {
     entries.push({
-      loc: `/glossary/${entry.slug}`,
+      loc: `/glossary/${entry.slug}/`,
       changefreq: "monthly",
       priority: 0.7,
     });

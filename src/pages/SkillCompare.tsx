@@ -65,7 +65,7 @@ const SkillCompare = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title={title} description={desc} canonical="https://openclaw-skillshub.com/skills/compare" jsonLd={bJsonLd} />
+      <SEOHead title={title} description={desc} canonical="https://openclaw-skillshub.com/skills/compare/" jsonLd={bJsonLd} />
       <Navbar />
 
       <section className="relative pt-28 pb-12 overflow-hidden">

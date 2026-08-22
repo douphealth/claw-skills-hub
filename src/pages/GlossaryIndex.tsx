@@ -21,7 +21,7 @@ const GlossaryIndex = () => {
       <SEOHead
         title="OpenClaw Glossary — Key Terms & Definitions"
         description="Learn the key terms, concepts, and definitions of the OpenClaw AI agent ecosystem. Your canonical reference for understanding OpenClaw skills, frameworks, and architecture."
-        canonical="https://openclaw-skillshub.com/glossary"
+        canonical="https://openclaw-skillshub.com/glossary/"
         jsonLd={bJsonLd}
       />
       <Navbar />

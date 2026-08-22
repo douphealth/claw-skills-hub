@@ -44,7 +44,7 @@ const GlossaryPage = () => {
       <SEOHead
         title={entry.metaTitle}
         description={entry.metaDescription}
-        canonical={`https://openclaw-skillshub.com/glossary/${entry.slug}`}
+        canonical={`https://openclaw-skillshub.com/glossary/${entry.slug}/`}
         jsonLd={jsonLdArray}
       />
       <Navbar />

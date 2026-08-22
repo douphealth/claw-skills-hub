@@ -181,7 +181,7 @@ async function main() {
   writeRoute('/skills', injectMeta(template, {
     title: 'OpenClaw Skills Directory — Browse 5,705+ AI Agent Skills',
     description: 'Browse, search, and filter 5,705+ OpenClaw skills across 10 categories. Find the right AI agent skill with security ratings and one-click install.',
-    canonical: `${BASE_URL}/skills`,
+    canonical: `${BASE_URL}/skills/`,
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "ItemList",
@@ -324,7 +324,7 @@ async function main() {
   writeRoute('/articles', injectMeta(template, {
     title: 'OpenClaw Articles & Guides — ClawSkills',
     description: 'In-depth articles, guides, and analysis on OpenClaw skills, security, and AI agent workflows.',
-    canonical: `${BASE_URL}/articles`,
+    canonical: `${BASE_URL}/articles/`,
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "ItemList",
@@ -333,10 +333,10 @@ async function main() {
         "@type": "ListItem",
         position: i + 1,
         name: a.title,
-        url: `${BASE_URL}/articles/${a.slug}`
+        url: `${BASE_URL}/articles/${a.slug}/`
       }))
     },
-    bodyContent: `<h1>OpenClaw Articles & Guides</h1><ul>${articles.map(a => `<li><a href="/articles/${a.slug}">${a.title}</a> — ${a.metaDescription}</li>`).join('')}</ul>`
+    bodyContent: `<h1>OpenClaw Articles & Guides</h1><ul>${articles.map(a => `<li><a href="/articles/${a.slug}/">${a.title}</a> — ${a.metaDescription}</li>`).join('')}</ul>`
   }));
   count++;
 
@@ -353,15 +353,15 @@ async function main() {
         dateModified: article.updatedDate,
         author: { "@type": "Organization", name: "ClawSkills" },
         publisher: { "@type": "Organization", name: "ClawSkills", url: BASE_URL },
-        mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE_URL}/articles/${article.slug}` }
+        mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE_URL}/articles/${article.slug}/` }
       },
       {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-          { "@type": "ListItem", position: 2, name: "Articles", item: `${BASE_URL}/articles` },
-          { "@type": "ListItem", position: 3, name: article.title, item: `${BASE_URL}/articles/${article.slug}` }
+          { "@type": "ListItem", position: 2, name: "Articles", item: `${BASE_URL}/articles/` },
+          { "@type": "ListItem", position: 3, name: article.title, item: `${BASE_URL}/articles/${article.slug}/` }
         ]
       }
     ];
@@ -373,7 +373,7 @@ async function main() {
     writeRoute(`/articles/${article.slug}`, injectMeta(template, {
       title: article.metaTitle,
       description: article.metaDescription,
-      canonical: `${BASE_URL}/articles/${article.slug}`,
+      canonical: `${BASE_URL}/articles/${article.slug}/`,
       type: 'article',
       jsonLd: articleJsonLd,
       bodyContent: `<h1>${article.title}</h1><p>${article.heroDescription}</p>${sectionContent}`
@@ -385,8 +385,8 @@ async function main() {
   writeRoute('/tutorials', injectMeta(template, {
     title: 'OpenClaw Tutorials — Step-by-Step Guides | ClawSkills',
     description: 'Step-by-step tutorials for OpenClaw skills. From beginner setup to advanced multi-agent workflows.',
-    canonical: `${BASE_URL}/tutorials`,
-    bodyContent: `<h1>OpenClaw Tutorials</h1><ul>${tutorials.map(t => `<li><a href="/tutorials/${t.slug}">${t.title}</a> — ${t.metaDescription}</li>`).join('')}</ul>`
+    canonical: `${BASE_URL}/tutorials/`,
+    bodyContent: `<h1>OpenClaw Tutorials</h1><ul>${tutorials.map(t => `<li><a href="/tutorials/${t.slug}/">${t.title}</a> — ${t.metaDescription}</li>`).join('')}</ul>`
   }));
   count++;
 
@@ -399,7 +399,7 @@ async function main() {
     writeRoute(`/tutorials/${tutorial.slug}`, injectMeta(template, {
       title: `${tutorial.title} | ClawSkills`,
       description: tutorial.metaDescription,
-      canonical: `${BASE_URL}/tutorials/${tutorial.slug}`,
+      canonical: `${BASE_URL}/tutorials/${tutorial.slug}/`,
       type: 'article',
       jsonLd: [
         {
@@ -419,8 +419,8 @@ async function main() {
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-            { "@type": "ListItem", position: 2, name: "Tutorials", item: `${BASE_URL}/tutorials` },
-            { "@type": "ListItem", position: 3, name: tutorial.title, item: `${BASE_URL}/tutorials/${tutorial.slug}` }
+            { "@type": "ListItem", position: 2, name: "Tutorials", item: `${BASE_URL}/tutorials/` },
+            { "@type": "ListItem", position: 3, name: tutorial.title, item: `${BASE_URL}/tutorials/${tutorial.slug}/` }
           ]
         }
       ],
@@ -433,8 +433,8 @@ async function main() {
   writeRoute('/glossary', injectMeta(template, {
     title: 'OpenClaw Glossary — AI Agent Terms Explained | ClawSkills',
     description: 'Comprehensive glossary of OpenClaw and AI agent terms. Learn about skills, RAG pipelines, prompt chaining, LLM routing, and more.',
-    canonical: `${BASE_URL}/glossary`,
-    bodyContent: `<h1>OpenClaw Glossary</h1><ul>${glossaryEntries.map(g => `<li><a href="/glossary/${g.slug}">${g.term}</a> — ${g.shortDefinition}</li>`).join('')}</ul>`
+    canonical: `${BASE_URL}/glossary/`,
+    bodyContent: `<h1>OpenClaw Glossary</h1><ul>${glossaryEntries.map(g => `<li><a href="/glossary/${g.slug}/">${g.term}</a> — ${g.shortDefinition}</li>`).join('')}</ul>`
   }));
   count++;
 
@@ -450,7 +450,7 @@ async function main() {
     writeRoute(`/glossary/${entry.slug}`, injectMeta(template, {
       title: entry.metaTitle,
       description: entry.metaDescription,
-      canonical: `${BASE_URL}/glossary/${entry.slug}`,
+      canonical: `${BASE_URL}/glossary/${entry.slug}/`,
       jsonLd: [
         {
           "@context": "https://schema.org",
@@ -472,8 +472,8 @@ async function main() {
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-            { "@type": "ListItem", position: 2, name: "Glossary", item: `${BASE_URL}/glossary` },
-            { "@type": "ListItem", position: 3, name: entry.term, item: `${BASE_URL}/glossary/${entry.slug}` }
+            { "@type": "ListItem", position: 2, name: "Glossary", item: `${BASE_URL}/glossary/` },
+            { "@type": "ListItem", position: 3, name: entry.term, item: `${BASE_URL}/glossary/${entry.slug}/` }
           ]
         }
       ],
@@ -488,7 +488,7 @@ async function main() {
     writeRoute(`/${pg}`, injectMeta(template, {
       title: `${isPrivacy ? 'Privacy Policy' : 'Terms of Service'} | ClawSkills`,
       description: `ClawSkills ${isPrivacy ? 'privacy policy' : 'terms of service'}.`,
-      canonical: `${BASE_URL}/${pg}`,
+      canonical: `${BASE_URL}/${pg}/`,
       bodyContent: isPrivacy
         ? '<h1>Privacy Policy</h1><p>How ClawSkills handles newsletter subscriptions, analytics, cookies, retention, and privacy requests.</p>'
         : '<h1>Terms of Use</h1><p>Rules, disclaimers, intellectual-property terms, and user responsibilities for using ClawSkills.</p>'
@@ -500,7 +500,7 @@ async function main() {
   writeRoute('/skills/compare', injectMeta(template, {
     title: 'Compare OpenClaw Skills Side by Side | ClawSkills',
     description: 'Compare any two OpenClaw skills side by side. See ratings, security status, compatibility, and features at a glance.',
-    canonical: `${BASE_URL}/skills/compare`,
+    canonical: `${BASE_URL}/skills/compare/`,
     bodyContent: '<h1>Compare OpenClaw Skills Side by Side</h1><p>Select two skills to compare ratings, security status, versions, authors, use cases, and installation commands.</p>'
   }));
   count++;

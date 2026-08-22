@@ -5,7 +5,7 @@ import SEOHead from "@/components/SEOHead";
 const Privacy = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title="Privacy Policy — ClawSkills" description="ClawSkills privacy policy. How we handle your data, cookies, and analytics." canonical="https://openclaw-skillshub.com/privacy" />
+      <SEOHead title="Privacy Policy — ClawSkills" description="ClawSkills privacy policy. How we handle your data, cookies, and analytics." canonical="https://openclaw-skillshub.com/privacy/" />
       <Navbar />
       <section className="pt-28 pb-16">
         <div className="container mx-auto px-6 max-w-3xl">

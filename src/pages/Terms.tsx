@@ -5,7 +5,7 @@ import SEOHead from "@/components/SEOHead";
 const Terms = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title="Terms of Use — ClawSkills" description="ClawSkills terms of use. Rules and guidelines for using the OpenClaw skills directory." canonical="https://openclaw-skillshub.com/terms" />
+      <SEOHead title="Terms of Use — ClawSkills" description="ClawSkills terms of use. Rules and guidelines for using the OpenClaw skills directory." canonical="https://openclaw-skillshub.com/terms/" />
       <Navbar />
       <section className="pt-28 pb-16">
         <div className="container mx-auto px-6 max-w-3xl">
