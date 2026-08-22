@@ -60,8 +60,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="OpenClaw Skill Hub — 5,705+ Reviewed Skills | ClawSkills"
-        description="Discover, compare, and safely install 5,705+ OpenClaw skills. Trust Scores, security audits, and one-command installation across 10 categories."
+        title="OpenClaw Skills Hub — 5,705+ Reviewed Skills, Trust Scores & Install Guides | ClawSkills"
+        description="The OpenClaw skills hub: discover, compare, and safely install 5,705+ OpenClaw AI agent skills. Trust Scores, security reviews, and one-command install across 10 categories."
         canonical="https://openclaw-skillshub.com/"
         jsonLd={jsonLd}
       />
