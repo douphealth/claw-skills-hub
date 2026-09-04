@@ -7,7 +7,7 @@ interface ChatMessageProps {
   onLinkClick: (href: string) => void;
 }
 
-const INLINE_TOKEN_REGEX = /(\[\[[^\]|]+\|[^\]]+\]\]|\[[^\]]+\]\([^\)]+\)|\*\*[^*]+\*\*|`[^`]+`)/g;
+const INLINE_TOKEN_REGEX = /(\[\[[^\]|]+\|[^\]]+\]\]|\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|`[^`]+`)/g;
 
 const renderInline = (text: string, onLinkClick: (href: string) => void): ReactNode[] => {
   const parts = text.split(INLINE_TOKEN_REGEX).filter(Boolean);
@@ -32,7 +32,7 @@ const renderInline = (text: string, onLinkClick: (href: string) => void): ReactN
       );
     }
 
-    const markdownLinkMatch = part.match(/^\[([^\]]+)\]\(([^\)]+)\)$/);
+    const markdownLinkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     if (markdownLinkMatch) {
       const [, label, href] = markdownLinkMatch;
       return (

@@ -32,7 +32,29 @@
 - Preserved the preceding article-image coverage improvement required by the selected branch history.
 - **Isolated branch:** `agent/openclaw-canonical-cycle-20260803`.
 - **Commits:** `8060040` (article image coverage), `90c928b` (route contract), `be6cdf6` (implementation).
+- **System:** React/Vite prerender pipeline, dynamic `/skills/:category/:skill` routes, Cloudflare Pages deployment workflow.
+- **Selected task:** canonicalize dynamic skill detail URLs and prevent deep-route crawl regressions.
+  1. OpenClaw dynamic skill route/canonical/sitemap defect — selected; production code and deploy workflow available.
+  2. Plantastic Haven `/spider-plant-vs-dracaena/` rewrite — high CTR opportunity; WordPress write access unavailable.
+  3. Plantastic Haven `/houseplants-for-low-light/` pillar repair — high historical impressions; WordPress write access unavailable.
+  4. EfficientGPTPrompts PromptGrade URL consolidation — duplicate-intent defect; WordPress write access unavailable.
+  5. MysticalDigits thin templated-content cleanup — high quality risk; WordPress write access unavailable.
 
+
+- Pre-change live `GET /skills/health-fitness/sleep-analyzer` returned **308** to `/skills/health-fitness/sleep-analyzer/`.
+- Pre-change canonical HTML on the trailing-slash 200 page pointed to the **non-trailing-slash** URL.
+- Pre-change live sitemap contained the noncanonical skill `<loc>` and not the trailing-slash `<loc>`.
+- Pre-change unknown-route contract returned **404** with `noindex, follow`.
+- Repository data contains 71 skills and 10 categories; the build prerenders 161 routes.
+
+
+- Added one canonical trailing-slash route contract for skill/category paths.
+- Updated runtime SEO, JSON-LD, breadcrumbs, navigation links, exports, sitemap generation, and prerendered skill/category metadata to use canonical trailing-slash URLs.
+- Added a Cloudflare Pages `_redirects` rule for dynamic noncanonical skill URLs.
+- Fixed prerendered skill install text from the nonexistent `skill.installCommand` field to the actual `skill.installCmd` field.
+- Added `scripts/verify-canonical-routes.mjs` and wired it into `package.json` and the production build workflow.
+- **Commits:** `c7a2040` (RED contract test), `04d6a06` (GREEN implementation).
+- **Rollback:** before remote deployment, no production state changed. After deployment, revert `04d6a06` to remove the canonicalization implementation; retain or separately revert `c7a2040` as desired.
 ## TESTS
 
 - `npm test` — **PASS**, 2 test files, 3 tests.
@@ -77,3 +99,30 @@ After deployment, validate all 71 skill URLs and representative category URLs fo
 
 - Restore approved GitHub write authentication or have a human maintainer push/review the isolated branch, then wait for Cloudflare Pages and run `npm run verify:deploy -- https://openclaw-skillshub.com <deployed-full-sha>` plus the live canonical-route smoke test.
 - Next portfolio candidate: re-export current GSC evidence and obtain the approved WordPress revision workflow for Plantastic Haven `/spider-plant-vs-dracaena/`.
+- Generated artifact checks — **PASS**: skill/category canonical URLs end in `/`, skill H1s match source data, install commands are present, no `Install: undefined`, 404 is `noindex, follow`, redirect rule is in `dist/_redirects`.
+- `node --check scripts/prerender.mjs` and `git diff --check` — **PASS**.
+- Targeted ESLint for route/sitemap files — **PASS**. Repository-wide ESLint remains red on pre-existing unused-variable/`any` debt in 24 files; no route helper or sitemap lint error was introduced.
+
+
+- **Status:** commit-ready fallback; production deployment not completed.
+- `git push origin main` was blocked because the HTTPS remote has no usable GitHub credential in this scheduled environment.
+- `gh` CLI is unavailable and SSH fallback is blocked by `Permission denied (publickey)`.
+
+
+- Live post-change validation is pending because the commits are not on `origin/main`.
+- Existing live 404 behavior remains verified; no claim is made about post-change live canonical output.
+
+
+- Primary metric: canonical skill URL compliance — baseline failure: live sitemap/noncanonical URL mismatch and canonical pointing to the redirected variant.
+- Secondary metric: deep-route crawlability — baseline: canonical slash route 200, noncanonical route 308, unknown route 404/noindex.
+
+
+After deployment, check the 71 skill URLs and representative category URLs for: noncanonical 301, canonical 200/no redirect, self-canonical HTML, unique title/H1/body, sitemap inclusion, no accidental noindex, and unknown-slug 404/noindex. Monitor GSC Soft 404, duplicate/canonical classifications, crawled-not-indexed, and valid indexed skill profiles on the next Search Console review.
+
+
+- Saved and committed the complete production-ready source patch, CI gate, redirect rule, tests, and local build artifact validation.
+- First deployment action when approved GitHub authentication is available: `git push origin main`.
+
+
+- Restore approved GitHub write authentication, push `04d6a06` to `origin/main`, wait for the Cloudflare Pages production workflow, then run the live canonical-route smoke test and `npm run verify:deploy -- https://openclaw-skillshub.com <deployed-full-sha>`.
+- Next portfolio candidate after live verification: repair Plantastic Haven `/spider-plant-vs-dracaena/` only after re-exporting current GSC evidence and obtaining the approved WordPress revision workflow.

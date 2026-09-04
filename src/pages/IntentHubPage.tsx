@@ -114,7 +114,7 @@ const IntentHubPage = () => {
   );
   const jsonLd = [breadcrumbs, itemList, ...(faq ? [faq] : [])];
 
-  const IconComp = (LucideIcons as any)[hub.icon] || Zap;
+  const IconComp = (LucideIcons as unknown as Record<string, typeof Zap>)[hub.icon] || Zap;
 
   return (
     <div className="min-h-screen bg-background">

@@ -2093,6 +2093,122 @@ articles.push({
   ],
 });
 
+// ═══════════════════════════════════════════════════════════════
+// Guide: OpenClaw Provider APIs
+// ═══════════════════════════════════════════════════════════════
+articles.push({
+  slug: "openclaw-provider-apis-guide",
+  title: "OpenClaw Provider APIs: How to Choose Ollama Cloud, Anthropic, OpenRouter, and xAI",
+  metaTitle: "OpenClaw Provider APIs — Ollama Cloud, Anthropic, OpenRouter & xAI",
+  metaDescription: "Compare OpenClaw provider choices without guessing: verify authentication, model IDs, routing, limits, privacy, cost, and failure behavior for Ollama, Anthropic, OpenRouter, and xAI.",
+  tag: "AI & LLMs",
+  readTime: "13 min read",
+  publishedDate: "2026-08-03",
+  updatedDate: "2026-08-03",
+  heroDescription: "A practical, security-first way to choose and verify an OpenClaw model provider. Separate provider capability from current documentation, pricing, routing, and credential reality before connecting an agent to a real workflow.",
+  sections: [
+    {
+      heading: "The short answer: choose the workflow before the provider",
+      content: `For searches such as **Ollama Cloud**, **Anthropic Console**, **OpenRouter AI**, **OpenRouter API**, and the **xAI API**, the right question is not which name is universally best. Start with the work the agent must perform, then define the required context window, latency, privacy boundary, tool use, availability, budget, and failure behavior.\n\nA provider is a dependency. Model identifiers, authentication methods, rate limits, billing, and routing rules can change. Check the current [[OpenClaw provider directory|https://docs.openclaw.ai/providers]] and the provider's own documentation on the day you configure it. Record the exact provider reference, model ID, endpoint, and date checked.`,
+    },
+    {
+      heading: "What changes between provider choices",
+      content: `A provider comparison becomes useful when it separates six decisions:\n\n**Authentication:** What credential type does the current integration expect, and where will it be stored?\n\n**Model reference:** Which model identifier is valid today, and does it support the context, tool, vision, or structured-output features your workflow needs?\n\n**Transport and routing:** Is OpenClaw calling a native API, an OpenAI-compatible endpoint, a gateway, or a cloud/local runtime?\n\n**Data boundary:** What is sent to the provider, what is retained, and which logs or dashboards expose it?\n\n**Economics:** How are input, output, cached, or routed requests billed?\n\n**Failure behavior:** What happens on a timeout, rate limit, unavailable model, or invalid key? A fallback that silently changes the model can change the result or the data boundary.`,
+    },
+    {
+      heading: "Ollama and Ollama Cloud: keep local and cloud routing distinct",
+      content: `Ollama is commonly used as a local model runtime, while OpenClaw's current documentation also distinguishes a cloud-only **ollama-cloud** provider reference. Do not assume that a local Ollama configuration and an Ollama Cloud configuration have identical authentication, model availability, or network behavior.\n\nUse the [[OpenClaw Ollama provider documentation|https://docs.openclaw.ai/providers/ollama]] to verify the current setup. Before enabling a workflow, confirm:\n\n- whether the model is local, hosted, or being routed between the two;\n- the exact model reference OpenClaw expects;\n- whether the runtime has network access and what leaves the machine;\n- what happens when a local model is missing, slow, or out of memory;\n- how tool calls and structured output behave with the selected model.\n\nLocal execution can be attractive for privacy or predictable infrastructure costs, but it moves responsibility to your hardware, updates, monitoring, and model files. Cloud routing can simplify capacity while creating a provider and billing dependency. Treat these as different operating modes, not as two names for the same path.`,
+    },
+    {
+      heading: "Anthropic Console: verify credentials, model IDs, and scope",
+      content: `The **Anthropic Console** is an account and API-management surface; it is not a guarantee that every Anthropic model or administrative feature is available to every key. OpenClaw's [[Anthropic provider documentation|https://docs.openclaw.ai/providers/anthropic]] should be the starting point for the current integration.\n\nUse a narrowly scoped key where the provider supports it, keep it in the supported secret mechanism, and never paste it into a skill, screenshot, article, prompt, or repository. Confirm the model ID, request limits, organization or workspace context, and whether the key is intended for inference or administration. A key that can view usage or manage an organization should not be treated as an ordinary runtime key.\n\nFor a production workflow, test one representative request, capture the provider and model reference in a private run record, set a budget alert, and decide whether a failure should stop the task or use an explicitly approved fallback.`,
+    },
+    {
+      heading: "OpenRouter AI and OpenRouter API: routing is part of the decision",
+      content: `OpenRouter can be useful when a workflow needs access to multiple model providers through a routing layer. That convenience adds another dependency: the route may include provider selection, model availability, billing, privacy, and compatibility behavior that you need to understand.\n\nRead OpenClaw's [[model-provider documentation|https://docs.openclaw.ai/concepts/model-providers]] and verify the current OpenRouter route before publishing a configuration. Record whether the workflow pins a specific model or allows routing, which headers or attribution settings apply, what data-retention choice is active, and how errors are surfaced.\n\nDo not describe OpenRouter as automatically cheaper, private, faster, or more reliable. Those outcomes depend on the chosen model, route, account settings, workload, and date. If a model switch would affect quality or data handling, make the switch visible and testable rather than silently accepting a fallback.`,
+    },
+    {
+      heading: "xAI API and other providers: use the same verification checklist",
+      content: `For the **xAI API** or any provider added later, apply the same checklist instead of relying on a copied configuration. The current OpenClaw provider catalog is the source of truth for supported integration details; the provider's official API documentation is the source of truth for credentials, model availability, limits, and pricing.\n\nA provider is ready for a real workflow only when you can answer: Which endpoint is used? Which credential is required? Which model ID was tested? What is the context and tool behavior? What does a 401, 429, timeout, or provider outage do? Where are request and usage logs stored? How can the key be revoked?\n\nIf an answer is unknown, label the integration **needs verification** and keep it out of production. A cautious “not yet verified” is more useful than a confident setup that fails when a reader follows it.`,
+    },
+    {
+      heading: "A provider-selection worksheet for OpenClaw",
+      content: `Use this worksheet before changing a production model:\n\n**Workflow:** [the task and its acceptable failure mode]\n\n**Data:** [what is sent, what must stay local, and what may be logged]\n\n**Quality:** [the minimum evaluation cases and required output properties]\n\n**Latency:** [interactive, batch, or deadline-bound]\n\n**Tools:** [browser, files, code, structured output, or no tools]\n\n**Provider and model:** [exact current reference]\n\n**Credential:** [secret name only; never the secret value]\n\n**Budget:** [per-request, daily, and monthly guardrails]\n\n**Fallback:** [explicit provider/model, or stop safely]\n\n**Review date:** [when pricing, terms, model availability, and logs will be checked again]\n\nRun a small test set before switching. Include an ordinary request, a long-context request, a missing-evidence request, a tool-use request if relevant, and a deliberate timeout or invalid-key test in a non-production environment.`,
+    },
+    {
+      heading: "Security checks before connecting any provider",
+      content: `1. Store keys in the supported secret mechanism; do not place them in public content or source control.\n\n2. Start with the narrowest permission and a non-production test.\n\n3. Pin or record the exact provider and model so a route change is observable.\n\n4. Set timeouts, budgets, retries, and rate-limit behavior before enabling automation.\n\n5. Inspect logs for accidental prompt or secret exposure.\n\n6. Decide whether fallback is safe for the task. A different model may change quality, policy handling, or data residency.\n\n7. Revoke and rotate credentials when a key is exposed or no longer needed.\n\nOpenClaw's [[setup guide|/articles/openclaw-setup-guide-2026]] is useful for the broader installation path; this article focuses on the provider decision that comes after installation.`,
+    },
+    {
+      heading: "FAQ: OpenClaw provider APIs",
+      content: `**Does OpenClaw use every provider in the same way?**\nNot necessarily. Authentication, model naming, transport, capabilities, and fallback behavior can differ. Follow the current provider documentation.\n\n**Is Ollama Cloud the same as local Ollama?**\nNo assumption is safe. Treat cloud and local routing as separate operating modes and verify the provider reference, model availability, authentication, and network behavior.\n\n**Is OpenRouter always the cheapest option?**\nNo. Cost depends on the model, route, usage, caching, account terms, and date. Compare the actual workflow rather than a headline rate.\n\n**Should I put an API key in a configuration example?**\nNever publish a real key. Use a placeholder and point readers to the supported secret mechanism.\n\n**What should happen when a provider is unavailable?**\nUse an explicitly approved fallback for low-risk work, or stop and report the failure when changing the model or data boundary would be material.`,
+    },
+  ],
+  skills: [
+    { name: "LLM Router", slug: "llm-router", description: "Route requests by task requirements, cost, and latency.", installCmd: "npx clawhub@latest install llm-router", whyPicked: "Useful only after provider and fallback decisions are documented; routing should be observable rather than a silent model change.", rating: 4.8 },
+    { name: "Token Counter", slug: "token-counter", description: "Track token usage and estimate model cost.", installCmd: "npx clawhub@latest install token-counter", whyPicked: "Helps turn a provider-cost assumption into a measurable usage record with budget alerts and review points.", rating: 4.5 },
+    { name: "Code Reviewer", slug: "code-reviewer", description: "Review integration code and configuration for risky changes.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "A provider change should be reviewed for secret handling, endpoint changes, fallback behavior, and accidental data exposure.", rating: 4.6 },
+  ],
+});
+
+// ═══════════════════════════════════════════════════════════════
+// Guide: OpenClaw Provider APIs
+// ═══════════════════════════════════════════════════════════════
+articles.push({
+  slug: "openclaw-provider-apis-guide",
+  title: "OpenClaw Provider APIs: How to Choose Ollama Cloud, Anthropic, OpenRouter, and xAI",
+  metaTitle: "OpenClaw Provider APIs — Ollama Cloud, Anthropic, OpenRouter & xAI",
+  metaDescription: "Compare OpenClaw provider choices without guessing: verify authentication, model IDs, routing, limits, privacy, cost, and failure behavior for Ollama, Anthropic, OpenRouter, and xAI.",
+  tag: "AI & LLMs",
+  readTime: "13 min read",
+  publishedDate: "2026-08-03",
+  updatedDate: "2026-08-03",
+  heroDescription: "A practical, security-first way to choose and verify an OpenClaw model provider. Separate provider capability from current documentation, pricing, routing, and credential reality before connecting an agent to a real workflow.",
+  sections: [
+    {
+      heading: "The short answer: choose the workflow before the provider",
+      content: `For searches such as **Ollama Cloud**, **Anthropic Console**, **OpenRouter AI**, **OpenRouter API**, and the **xAI API**, the right question is not which name is universally best. Start with the work the agent must perform, then define the required context window, latency, privacy boundary, tool use, availability, budget, and failure behavior.\n\nA provider is a dependency. Model identifiers, authentication methods, rate limits, billing, and routing rules can change. Check the current [[OpenClaw provider directory|https://docs.openclaw.ai/providers]] and the provider's own documentation on the day you configure it. Record the exact provider reference, model ID, endpoint, and date checked.`,
+    },
+    {
+      heading: "What changes between provider choices",
+      content: `A provider comparison becomes useful when it separates six decisions:\n\n**Authentication:** What credential type does the current integration expect, and where will it be stored?\n\n**Model reference:** Which model identifier is valid today, and does it support the context, tool, vision, or structured-output features your workflow needs?\n\n**Transport and routing:** Is OpenClaw calling a native API, an OpenAI-compatible endpoint, a gateway, or a cloud/local runtime?\n\n**Data boundary:** What is sent to the provider, what is retained, and which logs or dashboards expose it?\n\n**Economics:** How are input, output, cached, or routed requests billed?\n\n**Failure behavior:** What happens on a timeout, rate limit, unavailable model, or invalid key? A fallback that silently changes the model can change the result or the data boundary.`,
+    },
+    {
+      heading: "Ollama and Ollama Cloud: keep local and cloud routing distinct",
+      content: `Ollama is commonly used as a local model runtime, while OpenClaw's current documentation also distinguishes a cloud-only **ollama-cloud** provider reference. Do not assume that a local Ollama configuration and an Ollama Cloud configuration have identical authentication, model availability, or network behavior.\n\nUse the [[OpenClaw Ollama provider documentation|https://docs.openclaw.ai/providers/ollama]] to verify the current setup. Before enabling a workflow, confirm:\n\n- whether the model is local, hosted, or being routed between the two;\n- the exact model reference OpenClaw expects;\n- whether the runtime has network access and what leaves the machine;\n- what happens when a local model is missing, slow, or out of memory;\n- how tool calls and structured output behave with the selected model.\n\nLocal execution can be attractive for privacy or predictable infrastructure costs, but it moves responsibility to your hardware, updates, monitoring, and model files. Cloud routing can simplify capacity while creating a provider and billing dependency. Treat these as different operating modes, not as two names for the same path.`,
+    },
+    {
+      heading: "Anthropic Console: verify credentials, model IDs, and scope",
+      content: `The **Anthropic Console** is an account and API-management surface; it is not a guarantee that every Anthropic model or administrative feature is available to every key. OpenClaw's [[Anthropic provider documentation|https://docs.openclaw.ai/providers/anthropic]] should be the starting point for the current integration.\n\nUse a narrowly scoped key where the provider supports it, keep it in the supported secret mechanism, and never paste it into a skill, screenshot, article, prompt, or repository. Confirm the model ID, request limits, organization or workspace context, and whether the key is intended for inference or administration. A key that can view usage or manage an organization should not be treated as an ordinary runtime key.\n\nFor a production workflow, test one representative request, capture the provider and model reference in a private run record, set a budget alert, and decide whether a failure should stop the task or use an explicitly approved fallback.`,
+    },
+    {
+      heading: "OpenRouter AI and OpenRouter API: routing is part of the decision",
+      content: `OpenRouter can be useful when a workflow needs access to multiple model providers through a routing layer. That convenience adds another dependency: the route may include provider selection, model availability, billing, privacy, and compatibility behavior that you need to understand.\n\nRead OpenClaw's [[model-provider documentation|https://docs.openclaw.ai/concepts/model-providers]] and verify the current OpenRouter route before publishing a configuration. Record whether the workflow pins a specific model or allows routing, which headers or attribution settings apply, what data-retention choice is active, and how errors are surfaced.\n\nDo not describe OpenRouter as automatically cheaper, private, faster, or more reliable. Those outcomes depend on the chosen model, route, account settings, workload, and date. If a model switch would affect quality or data handling, make the switch visible and testable rather than silently accepting a fallback.`,
+    },
+    {
+      heading: "xAI API and other providers: use the same verification checklist",
+      content: `For the **xAI API** or any provider added later, apply the same checklist instead of relying on a copied configuration. The current OpenClaw provider catalog is the source of truth for supported integration details; the provider's official API documentation is the source of truth for credentials, model availability, limits, and pricing.\n\nA provider is ready for a real workflow only when you can answer: Which endpoint is used? Which credential is required? Which model ID was tested? What is the context and tool behavior? What does a 401, 429, timeout, or provider outage do? Where are request and usage logs stored? How can the key be revoked?\n\nIf an answer is unknown, label the integration **needs verification** and keep it out of production. A cautious “not yet verified” is more useful than a confident setup that fails when a reader follows it.`,
+    },
+    {
+      heading: "A provider-selection worksheet for OpenClaw",
+      content: `Use this worksheet before changing a production model:\n\n**Workflow:** [the task and its acceptable failure mode]\n\n**Data:** [what is sent, what must stay local, and what may be logged]\n\n**Quality:** [the minimum evaluation cases and required output properties]\n\n**Latency:** [interactive, batch, or deadline-bound]\n\n**Tools:** [browser, files, code, structured output, or no tools]\n\n**Provider and model:** [exact current reference]\n\n**Credential:** [secret name only; never the secret value]\n\n**Budget:** [per-request, daily, and monthly guardrails]\n\n**Fallback:** [explicit provider/model, or stop safely]\n\n**Review date:** [when pricing, terms, model availability, and logs will be checked again]\n\nRun a small test set before switching. Include an ordinary request, a long-context request, a missing-evidence request, a tool-use request if relevant, and a deliberate timeout or invalid-key test in a non-production environment.`,
+    },
+    {
+      heading: "Security checks before connecting any provider",
+      content: `1. Store keys in the supported secret mechanism; do not place them in public content or source control.\n\n2. Start with the narrowest permission and a non-production test.\n\n3. Pin or record the exact provider and model so a route change is observable.\n\n4. Set timeouts, budgets, retries, and rate-limit behavior before enabling automation.\n\n5. Inspect logs for accidental prompt or secret exposure.\n\n6. Decide whether fallback is safe for the task. A different model may change quality, policy handling, or data residency.\n\n7. Revoke and rotate credentials when a key is exposed or no longer needed.\n\nOpenClaw's [[setup guide|/articles/openclaw-setup-guide-2026]] is useful for the broader installation path; this article focuses on the provider decision that comes after installation.`,
+    },
+    {
+      heading: "FAQ: OpenClaw provider APIs",
+      content: `**Does OpenClaw use every provider in the same way?**\nNot necessarily. Authentication, model naming, transport, capabilities, and fallback behavior can differ. Follow the current provider documentation.\n\n**Is Ollama Cloud the same as local Ollama?**\nNo assumption is safe. Treat cloud and local routing as separate operating modes and verify the provider reference, model availability, authentication, and network behavior.\n\n**Is OpenRouter always the cheapest option?**\nNo. Cost depends on the model, route, usage, caching, account terms, and date. Compare the actual workflow rather than a headline rate.\n\n**Should I put an API key in a configuration example?**\nNever publish a real key. Use a placeholder and point readers to the supported secret mechanism.\n\n**What should happen when a provider is unavailable?**\nUse an explicitly approved fallback for low-risk work, or stop and report the failure when changing the model or data boundary would be material.`,
+    },
+  ],
+  skills: [
+    { name: "LLM Router", slug: "llm-router", description: "Route requests by task requirements, cost, and latency.", installCmd: "npx clawhub@latest install llm-router", whyPicked: "Useful only after provider and fallback decisions are documented; routing should be observable rather than a silent model change.", rating: 4.8 },
+    { name: "Token Counter", slug: "token-counter", description: "Track token usage and estimate model cost.", installCmd: "npx clawhub@latest install token-counter", whyPicked: "Helps turn a provider-cost assumption into a measurable usage record with budget alerts and review points.", rating: 4.5 },
+    { name: "Code Reviewer", slug: "code-reviewer", description: "Review integration code and configuration for risky changes.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "A provider change should be reviewed for secret handling, endpoint changes, fallback behavior, and accidental data exposure.", rating: 4.6 },
+  ],
+});
+
 export function getArticleBySlug(slug: string): Article | undefined {
   return articles.find((a) => a.slug === slug);
 }
