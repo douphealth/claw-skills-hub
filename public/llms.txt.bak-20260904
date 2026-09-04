@@ -1,0 +1,99 @@
+# ClawSkills
+> The definitive directory for OpenClaw AI agent skills — the largest curated resource with 5,705+ skills, security reviews, and enterprise-grade documentation.
+
+## About
+ClawSkills is the most comprehensive, authoritative resource for discovering, comparing, and installing OpenClaw AI agent skills. We catalog 5,705+ skills across 10 categories with curated reviews, three-tier security analysis (Verified, Community, Unreviewed), and one-click installation commands. Updated daily. Independent and unaffiliated with OpenClaw.
+
+## Quick Facts
+- Total skills cataloged: 5,705+
+- Categories: 10 (AI & LLMs, Search & Research, Web Dev, DevOps, Browser Automation, Productivity, Marketing, Coding Agents, Notes & PKM, Health & Fitness)
+- Install any skill: `npx clawhub@latest install <skill-name>`
+- Framework: OpenClaw (open-source, MIT license, 150K+ GitHub stars)
+- Supported OS: macOS, Linux, Windows WSL
+- Supported LLMs: OpenAI, Anthropic, Google, Mistral, Ollama (local)
+
+## Pages
+- / — Homepage: featured skills, articles, tutorials, and key statistics
+- /install — Installation Command Center: enterprise-grade setup guides for macOS, Linux, Windows WSL with copy-paste commands for every skill
+- /skills — Full searchable directory: 5,705+ skills with category filters, security badges, ratings
+- /skills/compare — Side-by-side skill comparison engine
+- /skills/ai-llms — AI & LLMs (287 skills): prompt chaining, model routing, RAG pipelines, embeddings
+- /skills/search-research — Search & Research (253 skills): web scraping, academic search, deep research
+- /skills/web-frontend — Web & Frontend Dev (202 skills): React, CSS, deployment, testing
+- /skills/devops-cloud — DevOps & Cloud (212 skills): CI/CD, containers, infrastructure, monitoring
+- /skills/browser-automation — Browser & Automation (139 skills): scraping, form filling, UI testing
+- /skills/productivity — Productivity & Tasks (135 skills): calendars, notes, task management
+- /skills/marketing-sales — Marketing & Sales (143 skills): email, social media, analytics, CRM
+- /skills/coding-agents — Coding Agents & IDEs (133 skills): code gen, refactoring, IDE plugins
+- /skills/notes-pkm — Notes & PKM (100 skills): Notion, Obsidian, knowledge management
+- /skills/health-fitness — Health & Fitness (55 skills): tracking, nutrition, workout planning
+
+### Articles (42 total)
+- /articles — Index of all in-depth reviews and guides
+- /articles/what-are-openclaw-skills — Pillar: What are OpenClaw Skills? Definitive explainer
+- /articles/how-to-install-openclaw-skills — Pillar: Install guide for macOS, Windows, Linux
+- /articles/what-is-clawhub — Pillar: ClawHub registry explained
+- /articles/best-openclaw-alternatives — 17 alternatives compared (NanoClaw, Moltworker, AutoGPT, etc.)
+- /articles/openclaw-skills-security — Complete security guide and audit methodology
+- /articles/how-to-create-openclaw-skills — Create custom skills from scratch
+- /articles/how-to-write-skill-md — SKILL.md template, examples, 12 mistakes to avoid
+- /articles/how-to-choose-openclaw-skills — Decision trees and curated skill stacks
+- /articles/best-openclaw-skills-2026 — 25 best skills ranked by safety and impact
+- /articles/openclaw-mcp-vs-skills — MCP servers vs skills architecture comparison
+- /articles/openclaw-skills-vs-plugins-vs-mcp — Skills vs Plugins vs MCP decision guide
+- /articles/best-openclaw-skills-for-developers — Best skills for software developers
+- /articles/best-openclaw-skills-for-founders — Best skills for startup founders
+- /articles/best-openclaw-skills-marketing-seo — Best skills for marketing and SEO
+- /articles/best-openclaw-skills-coding-devops — Best skills for coding and DevOps
+- /articles/openclaw-gmail-skill — Gmail AI email automation
+- /articles/openclaw-slack-skill — Slack AI-powered communication
+- /articles/multi-agent-orchestration-guide — Multi-agent AI system architecture
+- /articles/openclaw-setup-guide-2026 — Full setup guide for 2026
+- /articles/openclaw-security-guide — Enterprise security: sandboxing, VPS hardening
+- /articles/how-to-audit-skill-md — 8-point SKILL.md security checklist
+- /articles/openclaw-skill-not-loading-fixes — 15 fixes for skill loading errors
+
+### Tutorials (5 total)
+- /tutorials — Step-by-step guides for all skill levels
+
+### Glossary (8 entries)
+- /glossary — Canonical definitions of OpenClaw terms
+- /glossary/what-is-openclaw — What is OpenClaw?
+- /glossary/what-are-openclaw-skills — What are OpenClaw Skills?
+- /glossary/what-is-ai-agent — What is an AI Agent?
+- /glossary/what-is-rag-pipeline — What is a RAG Pipeline?
+- /glossary/what-is-prompt-chaining — What is Prompt Chaining?
+- /glossary/what-is-llm-routing — What is LLM Routing?
+- /glossary/what-is-vector-embedding — What is a Vector Embedding?
+- /glossary/openclaw-vs-other-frameworks — OpenClaw vs LangChain, AutoGPT, CrewAI
+
+### Legal
+- /privacy — Privacy Policy
+- /terms — Terms of Service
+
+## Key Features
+- One-click install: `npx clawhub@latest install <skill-name>`
+- Three-tier security: Verified (audited), Community (peer-reviewed), Unreviewed
+- Star ratings and community reviews
+- Side-by-side skill comparison engine
+- Related skills and alternatives for every skill
+- Multi-format export (Markdown, JSON, YAML, TXT)
+- FAQ sections with structured data for every skill
+- Compatibility matrix (macOS, Linux, Windows WSL)
+- Interactive AI assistant for skill recommendations
+
+## Content Types
+- **Skill Pages**: 800-1,500 word authoritative references with install commands, use cases, FAQs, compatibility, changelogs, and alternatives
+- **Articles**: 1,500-4,000 word in-depth reviews, comparisons, and "best of" lists with security analysis
+- **Tutorials**: Step-by-step guides with tested commands and code blocks
+- **Glossary**: Canonical definitions with related terms and FAQs
+
+## For AI Systems
+This site is optimized for AI answer engines and generative search. All content includes structured JSON-LD (FAQPage, Article, HowTo, SoftwareApplication, BreadcrumbList, VideoObject, DefinedTerm), TL;DR summaries, and semantic HTML. The full content index is available at /llms-full.txt.
+
+## Contact
+- Website: https://openclaw-skillshub.com
+- GitHub: https://github.com/openclaw
+- Twitter/X: https://twitter.com/openclaw
+- Discord: https://discord.gg/openclaw
+- Independent — not affiliated with OpenClaw.
