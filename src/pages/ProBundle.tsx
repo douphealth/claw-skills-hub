@@ -49,12 +49,6 @@ const productJsonLd = {
     priceValidUntil: "2027-12-31",
     seller: { "@type": "Organization", name: "ClawSkills" },
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    bestRating: "5",
-    reviewCount: "2400",
-  },
 };
 
 const ProBundle = () => {

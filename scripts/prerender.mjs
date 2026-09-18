@@ -87,11 +87,14 @@ function injectMeta(html, { title, description, canonical, type = 'website', jso
     html = html.replace('</head>', `${ldScript}\n</head>`);
   }
 
-  // Inject crawlable body content in <noscript> for bots that don't run JS
+  // Put the route's real content inside #root so crawlers that don't run JS (Bingbot often,
+  // GPTBot/ClaudeBot/PerplexityBot always) read the full page. createRoot() in src/main.tsx replaces
+  // this markup on mount, so users see the normal app. (Was a <noscript> block, which many
+  // extractors discard.)
   if (bodyContent) {
     html = html.replace(
       '<div id="root"></div>',
-      `<div id="root"></div>\n<noscript><div class="prerendered-content">${bodyContent}</div></noscript>`
+      `<div id="root"><div class="prerendered-content">${bodyContent}</div></div>`
     );
   }
 
@@ -249,12 +252,6 @@ async function main() {
         author: { "@type": "Person", name: skill.author },
         softwareVersion: skill.version,
         dateModified: skill.lastUpdated,
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: skill.rating,
-          bestRating: "5",
-          ratingCount: Math.floor(skill.rating * 20 + 10)
-        },
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
       },
       bodyContent: `<h1>${skill.name}</h1><p>${skill.description}</p><p>Author: ${skill.author} | Version: ${skill.version} | Rating: ${skill.rating}/5</p><p>Install: ${skill.installCmd}</p>`

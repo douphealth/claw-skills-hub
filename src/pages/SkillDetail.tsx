@@ -71,12 +71,6 @@ const SkillDetail = () => {
     "@type": "Review",
     name: `${skill.name} Review`,
     reviewBody: skill.longDescription,
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: skill.rating,
-      bestRating: 5,
-      worstRating: 1,
-    },
     author: { "@type": "Organization", name: "ClawSkills" },
     datePublished: skill.lastUpdated,
     dateModified: skill.lastUpdated,

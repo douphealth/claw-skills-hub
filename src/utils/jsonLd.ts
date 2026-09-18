@@ -14,11 +14,6 @@ export function organizationJsonLd() {
     logo: `${SITE_URL}/og-image.png`,
     description: "A directory of OpenClaw AI agent skills with install guides and Trust Scores. 5,705+ indexed skills across 10 categories.",
     foundingDate: "2025",
-    sameAs: [
-      "https://github.com/openclaw",
-      "https://twitter.com/openclaw",
-      "https://discord.gg/openclaw",
-    ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer support",
@@ -124,13 +119,6 @@ export function skillJsonLd(skill: Skill) {
     softwareVersion: skill.version,
     dateModified: skill.lastUpdated,
     url: skillUrl(skill.categorySlug, skill.slug),
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: skill.rating,
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: Math.floor(skill.rating * 20 + 10),
-    },
     offers: {
       "@type": "Offer",
       price: "0",
@@ -279,11 +267,6 @@ export function profilePageJsonLd() {
       name: "ClawSkills",
       url: SITE_URL,
       description: "A directory of OpenClaw AI agent skills with install guides and Trust Scores.",
-      sameAs: [
-        "https://github.com/openclaw",
-        "https://twitter.com/openclaw",
-        "https://discord.gg/openclaw",
-      ],
     },
   };
 }
