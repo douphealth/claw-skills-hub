@@ -23,7 +23,11 @@ function getTemplate() {
 }
 
 function injectMeta(html, { title, description, canonical, type = 'website', jsonLd, bodyContent }) {
-  const fullTitle = title.includes('ClawSkills') ? title : `${title} | ClawSkills`;
+  // Home page title is specified verbatim and must not gain a brand suffix.
+  const HOME_TITLE = 'OpenClaw Skills Hub — Skill Directory, Install Guides & Trust Scores';
+  const fullTitle = (title === HOME_TITLE || title.includes('ClawSkills'))
+    ? title
+    : `${title} | ClawSkills`;
   const safeDesc = description.slice(0, 160);
   const ogImage = `${BASE_URL}/og-image.png`;
 
@@ -148,8 +152,8 @@ async function main() {
   // --- Homepage ---
   // Already has index.html, but we enhance it
   const homeHtml = injectMeta(template, {
-    title: 'OpenClaw Skills Hub — 5,705+ Reviewed Skills, Trust Scores & Install Guides | ClawSkills',
-    description: 'The OpenClaw skills hub: discover, compare, and safely install 5,705+ OpenClaw AI agent skills. Trust Scores, security reviews, and one-command install across 10 categories.',
+    title: 'OpenClaw Skills Hub — Skill Directory, Install Guides & Trust Scores',
+    description: 'Browse OpenClaw AI agent skills with install guides and Trust Scores, and see exactly how each score is calculated before you install.',
     canonical: `${BASE_URL}/`,
     jsonLd: [
       {
@@ -157,7 +161,7 @@ async function main() {
         "@type": "WebSite",
         name: "ClawSkills",
         url: BASE_URL,
-        description: "The definitive directory for OpenClaw AI agent skills. 5,705+ skills across 10 categories.",
+        description: "A directory of OpenClaw AI agent skills with install guides and Trust Scores. 5,705+ indexed skills across 10 categories.",
         potentialAction: {
           "@type": "SearchAction",
           target: `${BASE_URL}/skills?q={search_term_string}`,
@@ -172,8 +176,8 @@ async function main() {
         logo: `${BASE_URL}/og-image.png`
       }
     ],
-    bodyContent: `<h1>OpenClaw Skills Hub — Curated Skills Directory</h1>
-<p>ClawSkills is the curated OpenClaw skills hub: discover, compare, and safely install ${skills.length}+ OpenClaw AI agent skills across ${categories.length} categories, each with a Trust Score, security review, and one-command install.</p>
+    bodyContent: `<h1>OpenClaw Skills Hub — Skill Directory</h1>
+<p>ClawSkills is a directory of OpenClaw AI agent skills: browse ${skills.length} indexed skills across ${categories.length} categories with install commands. The ${skills.length} skills that have their own detail page also carry a Trust Score.</p>
 <h2>Browse OpenClaw skills by category</h2>
 <ul>${categories.map(c => `<li><a href="/skills/${c.slug}/">${c.name}</a> — ${c.description}</li>`).join('')}</ul>
 <h2>Top verified OpenClaw skills</h2>
@@ -187,8 +191,8 @@ async function main() {
 
   // --- Skills Directory ---
   writeRoute('/skills', injectMeta(template, {
-    title: 'OpenClaw Skills Directory — Awesome ClawHub & Claw Skills (5,705+)',
-    description: 'The awesome OpenClaw skills directory: browse all 5,705+ ClawHub skills across 10 categories with security ratings, Trust Scores and one-click clawhub install commands.',
+    title: 'OpenClaw Skills Directory — Awesome ClawHub & Claw Skills (5,705+ Indexed)',
+    description: 'The awesome OpenClaw skills directory: browse all 5,705+ indexed ClawHub skills across 10 categories with Trust Scores and one-click clawhub install commands.',
     canonical: `${BASE_URL}/skills/`,
     jsonLd: {
       "@context": "https://schema.org",
@@ -420,6 +424,22 @@ async function main() {
     count++;
   }
 
+  // --- Trust Score methodology ---
+  writeRoute('/methodology', injectMeta(template, {
+    title: 'Trust Score Methodology — How Every OpenClaw Skill Score Is Calculated',
+    description: 'The six dimensions behind every ClawSkills Trust Score, the exact formula for each, and which three are derived from audit status rather than independently measured.',
+    canonical: `${BASE_URL}/methodology`,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "Trust Score Methodology",
+      url: `${BASE_URL}/methodology`,
+      description: "How the ClawSkills Trust Score is calculated from six dimensions, including which are measured and which are derived."
+    },
+    bodyContent: `<h1>Trust Score Methodology</h1><p>Every skill on ClawSkills shows a Trust Score from 0 to 100, calculated from six dimensions scored 0-10 each and normalised against a 60-point maximum.</p><h2>The six dimensions</h2><ul><li><strong>Security Audit</strong> (measured) — verified 10, community 6, unreviewed 2.</li><li><strong>Update Recency</strong> (measured) — under 2 months 10, under 6 months 7, otherwise 4.</li><li><strong>Community Trust</strong> (measured) — the skill rating multiplied by 2.</li><li><strong>Documentation Quality</strong> (derived) — verified 9, otherwise 6. Not independently assessed.</li><li><strong>Permission Scope</strong> (derived) — verified 9, community 7, unreviewed 4. No permission manifest is inspected.</li><li><strong>Open Source</strong> (derived) — always 10, so it never distinguishes one skill from another.</li></ul><p>The score is primarily a restatement of audit status and how recently a skill was updated. It is not an assessment of what a skill does or whether its code is safe.</p>`
+  }));
+  count++;
+
   // --- Static pages ---
   for (const pg of ['privacy', 'terms']) {
     writeRoute(`/${pg}`, injectMeta(template, {
@@ -448,7 +468,7 @@ async function main() {
         "@context": "https://schema.org",
         "@type": "WebPage",
         name: "OpenClaw Installation Center",
-        description: "Get enterprise-grade installation commands for OpenClaw and 5,705+ skills.",
+        description: "Install commands for OpenClaw and 5,705+ indexed skills.",
         url: `${BASE_URL}/install`
       },
       {
@@ -465,7 +485,7 @@ async function main() {
         ]
       }
     ],
-    bodyContent: `<h1>ClawHub Install Guide: How to Install OpenClaw Skills</h1><p><strong>Direct answer:</strong> the fastest way to install an OpenClaw skill is <code>npx clawhub@latest install &lt;skill-name&gt;</code>. ClawHub is the official registry; the <code>clawhub install</code> command downloads a skill's SKILL.md into your project.</p><h2>Quick start: clawhub install in 4 steps</h2><ol><li>Install Node.js v18 or newer.</li><li>Run <code>npm install -g clawhub@latest</code>.</li><li>Run <code>clawhub init my-project</code>.</li><li>Run <code>npx clawhub@latest install &lt;skill-name&gt;</code> — e.g. <code>npx clawhub@latest install gpt-prompt-chainer</code>.</li></ol><h2>Troubleshooting: clawhub command not found</h2><ul><li>If you get "clawhub: command not found", run it with <code>npx clawhub@latest</code> instead of the global binary, or add npm's global bin folder to your PATH.</li><li>On Windows, use PowerShell or Windows WSL with Node.js v18+.</li></ul><p>Browse all 5,705+ installable skills in the <a href="/skills/">OpenClaw skills directory</a>.</p>`
+    bodyContent: `<h1>ClawHub Install Guide: How to Install OpenClaw Skills</h1><p><strong>Direct answer:</strong> the fastest way to install an OpenClaw skill is <code>npx clawhub@latest install &lt;skill-name&gt;</code>. ClawHub is the official registry; the <code>clawhub install</code> command downloads a skill's SKILL.md into your project.</p><h2>Quick start: clawhub install in 4 steps</h2><ol><li>Install Node.js v18 or newer.</li><li>Run <code>npm install -g clawhub@latest</code>.</li><li>Run <code>clawhub init my-project</code>.</li><li>Run <code>npx clawhub@latest install &lt;skill-name&gt;</code> — e.g. <code>npx clawhub@latest install gpt-prompt-chainer</code>.</li></ol><h2>Troubleshooting: clawhub command not found</h2><ul><li>If you get "clawhub: command not found", run it with <code>npx clawhub@latest</code> instead of the global binary, or add npm's global bin folder to your PATH.</li><li>On Windows, use PowerShell or Windows WSL with Node.js v18+.</li></ul><p>Browse all 5,705+ indexed skills in the <a href="/skills/">OpenClaw skills directory</a>.</p>`
   }));
   count++;
 

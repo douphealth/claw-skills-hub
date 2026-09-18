@@ -9,7 +9,7 @@
 import { build } from 'esbuild';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -47,7 +47,10 @@ async function extract() {
       },
     });
 
-    const mod = await import(outfile);
+    // Node's ESM loader requires a file:// URL; a bare absolute Windows path
+    // (e.g. "D:\...\x.mjs") is rejected with ERR_UNSUPPORTED_ESM_URL_SCHEME.
+    // pathToFileURL is a no-op on POSIX and fixes Windows.
+    const mod = await import(pathToFileURL(outfile).href);
     
     if (key === 'skills') {
       result.skills = mod.skills;
