@@ -81,7 +81,7 @@ export const openclawVersions: OpenClawVersion[] = [
       "Better Node-version prechecks and preflight checks",
       "Teams improvements and Control UI upgrades",
     ],
-    stats: { skills: 5705, mcpServers: 312, contributors: 1840, downloads: "2.1M" },
+    stats: { skills: 5705, mcpServers: 312, contributors: 1840, downloads: "2.1M" }, // skills = registry count (indexed), not detail pages
     features: {
       skillMarketplace: true, mcpSupport: true, multiAgent: true, localModels: true,
       browserAutomation: true, pluginSandbox: true, streamingOutput: true, skillChaining: true,

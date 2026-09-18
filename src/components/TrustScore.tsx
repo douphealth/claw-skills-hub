@@ -56,6 +56,7 @@ const TrustScore = ({ status, rating, lastUpdated, compact = false }: TrustScore
         <TooltipContent side="bottom" className="max-w-xs">
           <p className="font-semibold mb-1">Skill Trust Score</p>
           <p className="text-xs text-muted-foreground">Based on security audit, update recency, community trust, documentation, permissions, and open-source status.</p>
+          <p className="text-xs text-primary mt-1.5">Six dimensions, three of which are derived from audit status rather than measured.</p>
         </TooltipContent>
       </Tooltip>
     );
@@ -69,6 +70,9 @@ const TrustScore = ({ status, rating, lastUpdated, compact = false }: TrustScore
         </h3>
         <span className={`text-2xl font-bold ${color}`}>{total}<span className="text-sm text-muted-foreground">/100</span></span>
       </div>
+      <p className="text-xs text-muted-foreground mb-4">
+        Six dimensions, each scored out of 10. Three are measured; the rest are derived from audit status.
+      </p>
       <div className="space-y-3">
         {dims.map((d) => {
           const Icon = d.icon;
@@ -85,7 +89,7 @@ const TrustScore = ({ status, rating, lastUpdated, compact = false }: TrustScore
           );
         })}
       </div>
-      <a href="/trust-methodology" className="text-xs text-primary hover:underline mt-4 block">How we calculate trust scores →</a>
+      <a href="/methodology" className="text-xs text-primary hover:underline mt-4 block">How we calculate Trust Scores →</a>
     </div>
   );
 };

@@ -27,7 +27,7 @@ export const glossaryEntries: GlossaryEntry[] = [
       },
       {
         heading: "Why Choose OpenClaw?",
-        content: "**Open Source & Community-Driven** — Unlike proprietary agent frameworks, OpenClaw is fully open-source under the MIT license. The community contributes skills, reviews code, and drives the roadmap.\n\n**Production-Ready** — OpenClaw is used by thousands of companies in production, handling millions of agent executions per day. It includes enterprise features like retry logic, circuit breakers, and structured output validation.\n\n**Massive Skill Ecosystem** — With 5,705+ skills available in the ClawSkills directory, developers rarely need to build capabilities from scratch. Skills cover categories including AI & LLMs, Web & Frontend, DevOps, Data & Analytics, Security, and more.\n\n**Developer Experience** — Install a skill in seconds, test locally, and deploy to production with zero configuration changes.",
+        content: "**Open Source & Community-Driven** — Unlike proprietary agent frameworks, OpenClaw is fully open-source under the MIT license. The community contributes skills, reviews code, and drives the roadmap.\n\n**Production-Ready** — OpenClaw is used by thousands of companies in production, handling millions of agent executions per day. It includes enterprise features like retry logic, circuit breakers, and structured output validation.\n\n**Massive Skill Ecosystem** — With 5,705+ skills indexed in the ClawSkills directory, developers rarely need to build capabilities from scratch. Skills cover categories including AI & LLMs, Web & Frontend, DevOps, Data & Analytics, Security, and more.\n\n**Developer Experience** — Install a skill in seconds, test locally, and deploy to production with zero configuration changes.",
       },
     ],
     relatedTerms: ["what-are-openclaw-skills", "openclaw-vs-other-frameworks", "what-is-ai-agent"],
@@ -55,7 +55,7 @@ export const glossaryEntries: GlossaryEntry[] = [
       },
       {
         heading: "Skill Categories",
-        content: "The ClawSkills directory organizes 5,705+ skills into categories:\n\n- **AI & LLMs** — Prompt engineering, model routing, context management\n- **Web & Frontend** — Component generation, accessibility auditing, performance testing\n- **DevOps & Cloud** — CI/CD automation, infrastructure monitoring, deployment\n- **Data & Analytics** — Data pipelines, visualization, statistical analysis\n- **Security & Privacy** — Vulnerability scanning, compliance checking, secret management\n- **Productivity & Automation** — Email handling, calendar management, document processing",
+        content: "The ClawSkills directory indexes 5,705+ skills across these categories:\n\n- **AI & LLMs** — Prompt engineering, model routing, context management\n- **Web & Frontend** — Component generation, accessibility auditing, performance testing\n- **DevOps & Cloud** — CI/CD automation, infrastructure monitoring, deployment\n- **Data & Analytics** — Data pipelines, visualization, statistical analysis\n- **Security & Privacy** — Vulnerability scanning, compliance checking, secret management\n- **Productivity & Automation** — Email handling, calendar management, document processing",
       },
       {
         heading: "Building Custom Skills",
@@ -64,7 +64,7 @@ export const glossaryEntries: GlossaryEntry[] = [
     ],
     relatedTerms: ["what-is-openclaw", "openclaw-vs-other-frameworks", "what-is-prompt-chaining"],
     faqs: [
-      { question: "How many OpenClaw skills are available?", answer: "As of 2026, there are over 5,705 skills available in the ClawSkills directory, with new skills being published daily by the community." },
+      { question: "How many OpenClaw skills are available?", answer: "The ClawSkills registry indexes over 5,705 skills across 10 categories. A smaller set — currently 71 — have their own detail page with a Trust Score." },
       { question: "Are OpenClaw skills free?", answer: "The vast majority of OpenClaw skills are free and open-source. Some enterprise-focused skills may have commercial licenses, which are clearly labeled in the directory." },
       { question: "Can I use multiple skills together?", answer: "Yes. OpenClaw's skill composition system lets you chain multiple skills into complex workflows. For example, you can combine a web scraper skill with a data analysis skill and a report generation skill into a single automated pipeline." },
     ],
@@ -86,7 +86,7 @@ export const glossaryEntries: GlossaryEntry[] = [
       },
       {
         heading: "Key Differentiators",
-        content: "**Ecosystem Size** — OpenClaw's 5,705+ skill directory is the largest pre-built capability ecosystem in the AI agent space. This means less custom development and faster time-to-production.\n\n**Security Model** — OpenClaw is the only major framework with built-in security auditing (VirusTotal scanning, community reviews, security badges) for third-party plugins.\n\n**Developer Experience** — Single-command installation (`npx clawhub@latest install`), standardized interfaces, and comprehensive documentation make OpenClaw the most accessible framework for teams of all sizes.\n\n**Production Readiness** — Built-in retry logic, circuit breakers, structured output validation, and observability features make OpenClaw production-ready out of the box.",
+        content: "**Ecosystem Size** — OpenClaw's 5,705+ skill directory is one of the larger pre-built capability ecosystems in the AI agent space. This means less custom development and faster time-to-production.\n\n**Security Model** — OpenClaw is the only major framework with built-in security auditing (VirusTotal scanning, community reviews, security badges) for third-party plugins.\n\n**Developer Experience** — Single-command installation (`npx clawhub@latest install`), standardized interfaces, and comprehensive documentation make OpenClaw the most accessible framework for teams of all sizes.\n\n**Production Readiness** — Built-in retry logic, circuit breakers, structured output validation, and observability features make OpenClaw production-ready out of the box.",
       },
     ],
     relatedTerms: ["what-is-openclaw", "what-are-openclaw-skills"],
@@ -171,7 +171,7 @@ export const glossaryEntries: GlossaryEntry[] = [
       },
       {
         heading: "Building AI Agents with OpenClaw",
-        content: "OpenClaw provides the infrastructure for building, deploying, and managing AI agents:\n\n- **5,705+ pre-built skills** give agents specific capabilities without custom code\n- **Skill composition** lets you combine capabilities into complex workflows\n- **Security model** ensures third-party skills are reviewed and safe\n- **Production features** include retry logic, rate limiting, and observability\n\nInstall OpenClaw and start building: `npx clawhub@latest install`",
+        content: "OpenClaw provides the infrastructure for building, deploying, and managing AI agents:\n\n- **5,705+ indexed skills** give agents specific capabilities without custom code\n- **Skill composition** lets you combine capabilities into complex workflows\n- **Security model** ensures third-party skills are reviewed and safe\n- **Production features** include retry logic, rate limiting, and observability\n\nInstall OpenClaw and start building: `npx clawhub@latest install`",
       },
     ],
     relatedTerms: ["what-is-openclaw", "what-are-openclaw-skills", "what-is-prompt-chaining"],
@@ -370,7 +370,7 @@ export const glossaryEntries: GlossaryEntry[] = [
     shortDefinition: "ClawHub is the official package registry for OpenClaw skills, providing centralized distribution, versioning, and discovery of SKILL.md-based agent capabilities.",
     sections: [
       { heading: "What is ClawHub?", content: "**ClawHub** is the official registry and distribution platform for OpenClaw skills. It serves as the centralized repository where skill authors publish their SKILL.md files and where developers discover and install skills using `npx clawhub@latest install <skill-name>`.\n\nThink of ClawHub as the npm registry for AI agent skills." },
-      { heading: "ClawHub vs ClawSkills", content: "**ClawHub** is the registry — it stores and distributes skills. Think of it as the warehouse.\n\n**ClawSkills** (this site) is the curated directory — we review, analyze, compare, and recommend skills. Think of it as the buyer's guide.\n\nClawSkills adds independent security reviews, curated skill stacks, comparison tools, editorial guides, and structured data for AI discoverability." },
+      { heading: "ClawHub vs ClawSkills", content: "**ClawHub** is the registry — it stores and distributes skills. Think of it as the warehouse.\n\n**ClawSkills** (this site) is the curated directory — we review, analyze, compare, and recommend skills. Think of it as the buyer's guide.\n\nClawSkills adds Trust Scores, curated skill stacks, comparison tools, editorial guides, and structured data for AI discoverability." },
     ],
     relatedTerms: ["what-is-openclaw", "what-are-openclaw-skills", "what-is-skill-md"],
     faqs: [

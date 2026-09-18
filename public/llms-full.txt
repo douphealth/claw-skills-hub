@@ -5,14 +5,14 @@
 ## Site Information
 - Name: ClawSkills  
 - URL: https://openclaw-skillshub.com
-- Purpose: The definitive directory for OpenClaw AI agent skills
+- Purpose: A directory of OpenClaw AI agent skills with install guides and Trust Scores
 - Install any skill: `npx clawhub@latest install <skill-name>`
 
 ## Quick Facts
 - Framework: OpenClaw (open-source, MIT license, 150K+ GitHub stars)
 - Supported OS: macOS, Linux, Windows WSL
 - Supported LLMs: OpenAI, Anthropic, Google, Mistral, Cohere, Ollama
-- Trust tiers: Verified (security-audited), Community (peer-reviewed), Unreviewed
+- Status labels: Verified, Community, Unreviewed (as recorded in each skill's data)
 
 ---
 
@@ -670,7 +670,7 @@ Health tracking, workout planning, nutrition analysis, and wellness automation.
 - [Best OpenClaw Skills by Use Case: Coding, Content, Research, Automation, and Ops](https://openclaw-skillshub.com/articles/best-openclaw-skills-by-use-case): Curated OpenClaw skill bundles for 8 use cases: coding, content creation, research, email automation, DevOps, browser automation, sales, and knowledge management. Each bundle includes install commands and workflow guides.
 - [What Are OpenClaw Skills? How They Work, Where They Live, and How to Use Them Safely (2026)](https://openclaw-skillshub.com/articles/what-are-openclaw-skills): OpenClaw skills are modular SKILL.md files that extend your AI agent with new capabilities. Learn what skills are, how ClawHub works, and how to install them safely on macOS, Windows, and Linux.
 - [How to Install OpenClaw Skills on macOS, Windows, and Linux (2026)](https://openclaw-skillshub.com/articles/how-to-install-openclaw-skills): Step-by-step guide to installing OpenClaw skills on macOS, Windows WSL, and Linux. Exact commands, path examples, permissions fixes, and troubleshooting for common errors.
-- [What Is ClawHub? How the OpenClaw Skills Registry Works (2026)](https://openclaw-skillshub.com/articles/what-is-clawhub): ClawHub is the official registry for OpenClaw skills. Learn how to search, install, update, publish, and review skills — and how ClawSkills adds curated security reviews on top.
+- [What Is ClawHub? How the OpenClaw Skills Registry Works (2026)](https://openclaw-skillshub.com/articles/what-is-clawhub): ClawHub is the official registry for OpenClaw skills. Learn how to search, install, update, publish, and review skills — and how ClawSkills adds Trust Scores and install guides on top.
 - [OpenClaw Skills vs Plugins vs MCP Servers: What to Use and When (2026)](https://openclaw-skillshub.com/articles/openclaw-skills-vs-plugins-vs-mcp): Clear comparison of OpenClaw skills (SKILL.md), plugins (executable code), and MCP servers (Model Context Protocol). Decision table with real examples showing when to use each approach.
 - [OpenClaw Security Guide: How to Audit a SKILL.md Before You Install It (2026)](https://openclaw-skillshub.com/articles/how-to-audit-skill-md): Step-by-step guide to auditing OpenClaw SKILL.md files for security risks. Inspect permissions, domains, install commands, file paths, secrets usage, and prompt injection vectors before installing any skill.
 - [Best OpenClaw Skills in 2026: 25 Safe, High-Impact Picks by Category](https://openclaw-skillshub.com/articles/best-openclaw-skills-2026): The definitive 2026 roundup: 25 OpenClaw skills ranked by safety, impact, maintenance, and setup complexity. Curated across AI, coding, DevOps, productivity, research, and marketing categories.

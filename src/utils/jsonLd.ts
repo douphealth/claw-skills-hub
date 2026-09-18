@@ -12,7 +12,7 @@ export function organizationJsonLd() {
     name: "ClawSkills",
     url: SITE_URL,
     logo: `${SITE_URL}/og-image.png`,
-    description: "The definitive directory for OpenClaw AI agent skills. Discover, compare, and install 5,705+ skills across 10 categories with security reviews.",
+    description: "A directory of OpenClaw AI agent skills with install guides and Trust Scores. 5,705+ indexed skills across 10 categories.",
     foundingDate: "2025",
     sameAs: [
       "https://github.com/openclaw",
@@ -45,7 +45,7 @@ export function websiteJsonLd() {
     name: "ClawSkills",
     alternateName: ["ClawSkills Directory", "OpenClaw Skills Hub"],
     url: SITE_URL,
-    description: "The definitive directory for OpenClaw AI agent skills. Discover, compare, and install 5,705+ skills across 10 categories.",
+    description: "A directory of OpenClaw AI agent skills with install guides and Trust Scores. 5,705+ indexed skills across 10 categories.",
     inLanguage: "en-US",
     potentialAction: {
       "@type": "SearchAction",
@@ -278,7 +278,7 @@ export function profilePageJsonLd() {
       "@type": "Organization",
       name: "ClawSkills",
       url: SITE_URL,
-      description: "The definitive directory for OpenClaw AI agent skills.",
+      description: "A directory of OpenClaw AI agent skills with install guides and Trust Scores.",
       sameAs: [
         "https://github.com/openclaw",
         "https://twitter.com/openclaw",

@@ -45,6 +45,7 @@ const Footer = () => {
               <li><Link to="/tutorials" className="text-xs text-muted-foreground hover:text-primary transition-colors">Tutorials</Link></li>
               <li><Link to="/glossary" className="text-xs text-muted-foreground hover:text-primary transition-colors">Glossary</Link></li>
               <li><Link to="/tutorials/openclaw-skill-security-checklist" className="text-xs text-muted-foreground hover:text-primary transition-colors">Security Guide</Link></li>
+              <li><Link to="/methodology" className="text-xs text-muted-foreground hover:text-primary transition-colors">Trust Score Methodology</Link></li>
               <li><a href="/#newsletter" className="text-xs text-muted-foreground hover:text-primary transition-colors">Newsletter</a></li>
               <li><a href="/llms.txt" className="text-xs text-muted-foreground hover:text-primary transition-colors">llms.txt</a></li>
             </ul>

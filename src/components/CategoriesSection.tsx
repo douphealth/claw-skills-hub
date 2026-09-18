@@ -40,7 +40,7 @@ const CategoriesSection = () => {
           <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-3 block">Skills Directory</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">Explore by Category</h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto">
-            Browse 5,705+ curated skills organized across 10 categories. Find the perfect tool for your workflow.
+            Browse 5,705+ indexed skills organized across 10 categories. Find the perfect tool for your workflow.
           </p>
         </motion.div>
 
@@ -84,7 +84,7 @@ const CategoriesSection = () => {
           className="text-center mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3"
         >
           <Link to="/skills" className="text-sm text-primary hover:underline flex items-center gap-1">
-            Browse all 5,705+ skills <ArrowRight className="w-3.5 h-3.5" />
+            Browse all 5,705+ indexed skills <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <span className="text-muted-foreground/30 hidden sm:inline">·</span>
           <Link to="/install" className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">

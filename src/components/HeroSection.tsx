@@ -32,7 +32,7 @@ const HeroSection = () => {
           className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 mb-6 sm:mb-8"
         >
           <Sparkles className="w-3.5 h-3.5 text-primary" />
-          <span className="text-xs font-medium text-muted-foreground">5,705+ Skills and Growing</span>
+          <span className="text-xs font-medium text-muted-foreground">5,705+ Skills Indexed</span>
         </motion.div>
 
         <motion.h1
@@ -52,8 +52,8 @@ const HeroSection = () => {
           transition={{ delay: 0.5 }}
           className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-2"
         >
-          The curated registry with verified security reviews and one-command installs.<br className="hidden sm:block" />
-          Search 5,705+ skills across 10 categories. Compare, audit, and ship safely.
+          The OpenClaw skill directory with install guides and Trust Scores.<br className="hidden sm:block" />
+          Browse 5,705+ indexed skills across 10 categories. Compare, audit, and ship safely.
         </motion.p>
 
         <motion.div
@@ -101,10 +101,10 @@ const HeroSection = () => {
           className="mt-12 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-3xl mx-auto"
         >
           {[
-            { value: "5,705+", label: "Curated Skills" },
+            { value: "5,705+", label: "Skills Indexed" },
+            { value: "71", label: "Detail Pages" },
             { value: "10", label: "Skill Categories" },
             { value: "100%", label: "Open Source" },
-            { value: "Verified", label: "Security Reviews" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{stat.value}</div>

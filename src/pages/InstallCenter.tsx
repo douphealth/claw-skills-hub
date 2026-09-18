@@ -81,7 +81,7 @@ const InstallCenter = () => {
   ]);
   const pJsonLd = webPageJsonLd(
     "OpenClaw Installation Center",
-    "Get enterprise-grade installation commands for OpenClaw and 5,705+ skills. Step-by-step guides for macOS, Linux, and Windows WSL.",
+    "Install commands for OpenClaw and 5,705+ indexed skills. Step-by-step guides for macOS, Linux, and Windows WSL.",
     "/install"
   );
   const fJson = faqJsonLd(installFaqs);
@@ -90,7 +90,7 @@ const InstallCenter = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Installation Center — OpenClaw Setup & Skill Install Commands"
-        description="Get enterprise-grade installation commands for OpenClaw and 5,705+ skills. Step-by-step guides for macOS, Linux, and Windows WSL with one-click copy."
+        description="Install commands for OpenClaw and 5,705+ indexed skills. Step-by-step guides for macOS, Linux, and Windows WSL with one-click copy."
         canonical="https://openclaw-skillshub.com/install"
         jsonLd={[bJsonLd, pJsonLd, ...(fJson ? [fJson] : [])]}
       />
@@ -122,7 +122,7 @@ const InstallCenter = () => {
               Installation <span className="text-gradient">Command Center</span>
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Copy-paste ready commands for every platform. Set up OpenClaw and install any of 5,705+ skills in seconds.
+              Copy-paste ready commands for every platform. Set up OpenClaw and install any of 5,705+ indexed skills in seconds.
             </p>
           </motion.div>
         </div>
@@ -198,7 +198,7 @@ const InstallCenter = () => {
             <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-2">
               <Zap className="w-5 h-5 text-primary" /> Install Any Skill
             </h2>
-            <p className="text-muted-foreground mb-6 text-sm sm:text-base">Search and get instant install commands for all 5,705+ skills.</p>
+            <p className="text-muted-foreground mb-6 text-sm sm:text-base">Search and get instant install commands for all 5,705+ indexed skills.</p>
 
             {/* Search */}
             <div className="relative mb-4">

@@ -292,7 +292,7 @@ const ArticlePage = () => {
             links={[
               { title: "Installation Command Center", url: "/install", description: "Get copy-paste install commands for every skill on macOS, Linux, and Windows" },
               ...otherArticles.slice(0, 3).map(a => ({ title: a.title, url: `/articles/${a.slug}`, description: a.heroDescription })),
-              { title: "Browse All Skills", url: "/skills", description: "Search and filter 5,705+ curated OpenClaw skills" },
+              { title: "Browse All Skills", url: "/skills", description: "Search and filter 5,705+ indexed OpenClaw skills" },
             ]}
           />
         </div>

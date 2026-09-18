@@ -1,8 +1,8 @@
 # ClawSkills
-> The definitive directory for OpenClaw AI agent skills — the largest curated resource with 5,705+ skills, security reviews, and enterprise-grade documentation.
+> A directory of OpenClaw AI agent skills with install guides and Trust Scores. It indexes 5,705+ skills across 10 categories; the skills with their own detail page also carry a Trust Score and a full breakdown of how that score was calculated.
 
 ## About
-ClawSkills is the most comprehensive, authoritative resource for discovering, comparing, and installing OpenClaw AI agent skills. We catalog 5,705+ skills across 10 categories with curated reviews, three-tier security analysis (Verified, Community, Unreviewed), and one-click installation commands. Updated daily. Independent and unaffiliated with OpenClaw.
+ClawSkills is a directory of OpenClaw AI agent skills. It indexes 5,705+ skills across 10 categories. Skills that have their own detail page (71 at present) also carry a Trust Score out of 100 and an install command. Trust Scores are calculated from six dimensions, three of which are measured and three derived from audit status; the full calculation is documented at /methodology. Independent and unaffiliated with OpenClaw.
 
 ## Quick Facts
 - Total skills cataloged: 5,705+
@@ -14,8 +14,8 @@ ClawSkills is the most comprehensive, authoritative resource for discovering, co
 
 ## Pages
 - / — Homepage: featured skills, articles, tutorials, and key statistics
-- /install — Installation Command Center: enterprise-grade setup guides for macOS, Linux, Windows WSL with copy-paste commands for every skill
-- /skills — Full searchable directory: 5,705+ skills with category filters, security badges, ratings
+- /install — Installation Command Center: setup guides for macOS, Linux, Windows WSL with copy-paste commands
+- /skills — Full searchable directory: 5,705+ indexed skills with category filters, install commands, and Trust Scores for the skills that have their own detail page
 - /skills/compare — Side-by-side skill comparison engine
 - /skills/ai-llms — AI & LLMs (287 skills): prompt chaining, model routing, RAG pipelines, embeddings
 - /skills/search-research — Search & Research (253 skills): web scraping, academic search, deep research

@@ -1,7 +1,7 @@
 # ClawSkills — AI Context Document
 
 ## What is ClawSkills?
-ClawSkills is the definitive directory for OpenClaw AI agent skills. It helps developers discover, compare, and install skills for the OpenClaw framework — an open-source AI agent platform with 150K+ GitHub stars.
+ClawSkills is a directory of OpenClaw AI agent skills with install guides and Trust Scores. It helps developers discover, compare, and install skills for the OpenClaw framework — an open-source AI agent platform with 150K+ GitHub stars.
 
 ## Key Facts
 - **Total Skills**: 5,705+ across 10 categories
@@ -9,7 +9,7 @@ ClawSkills is the definitive directory for OpenClaw AI agent skills. It helps de
 - **Install Command**: `npx clawhub@latest install <skill-name>`
 - **Supported OS**: macOS, Linux, Windows WSL
 - **Supported LLMs**: OpenAI, Anthropic, Google, Mistral, Cohere, Ollama, and any OpenAI-compatible endpoint
-- **Security Model**: Three tiers — Verified (security-audited), Community (peer-reviewed), Unreviewed
+- **Security Model**: Each skill carries a status label — Verified, Community, or Unreviewed — as recorded in its data
 
 ## Categories
 1. **AI & LLMs** (287 skills) — Prompt engineering, model routing, RAG pipelines

@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Stale copies of build-time and public files that still carry retired claims.
+# These are not read by the build, but they must not be re-committed, and they
+# must not be mistaken for live copy. (Individual claim strings are deliberately
+# not repeated here, so that a plain text search of the repository returns only
+# real copy, not this comment.)
+*.bak
+*.bak-*
+*.timestamp-*.mjs
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

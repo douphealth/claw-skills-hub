@@ -18,10 +18,10 @@ import { skillPath } from "@/lib/routeUrls";
 
 const homepageFaqs = [
   { question: "What are OpenClaw skills?", answer: "OpenClaw skills are modular capabilities defined in SKILL.md files that extend what OpenClaw can do. Each skill adds a specific function — from AI prompt chaining and browser automation to Gmail integration and code review. Install any skill with one command: npx clawhub@latest install <skill-name>." },
-  { question: "Are OpenClaw skills safe?", answer: "OpenClaw skills use a three-tier trust model: verified (formally audited), community (peer-reviewed), and unreviewed. Verified skills in the ClawSkills directory have passed security audits covering permission scoping, data handling, and dependency safety. Always check the security badge before installing." },
+  { question: "Are OpenClaw skills safe?", answer: "Each skill carries one of three status labels: verified, community, or unreviewed. The Trust Score reflects that status, how recently the skill was updated, and its rating. The score is not an assessment of what a skill does or whether its code is correct — check the security badge and read the source before installing." },
   { question: "How do I install OpenClaw skills safely?", answer: "Install with npx clawhub@latest install <skill-name>. For safe installation: use verified skills, pin versions, review SKILL.md permissions (especially system.run and network access), audit dependencies, and test in a sandbox before production use." },
-  { question: "How many OpenClaw skills are there?", answer: "As of 2026, there are over 5,705 OpenClaw skills available across 10 categories including AI & LLMs, DevOps, Web Development, Browser Automation, Productivity, Marketing, and more. New skills are published daily by the community." },
-  { question: "What is the Skill Trust Score?", answer: "The Skill Trust Score is a 0-100 rating based on six dimensions: security audit status, update recency, community trust, documentation quality, permission scope, and open-source status. Scores above 80 indicate verified, well-maintained skills safe for production use." },
+  { question: "How many OpenClaw skills are there?", answer: "The registry indexes over 5,705 OpenClaw skills across 10 categories including AI & LLMs, DevOps, Web Development, Browser Automation, Productivity, and Marketing. A smaller set of skills — currently 71 — have their own detail page with an install guide and Trust Score." },
+  { question: "What is the Skill Trust Score?", answer: "A 0-100 rating built from six dimensions: security audit status, update recency, community trust, documentation quality, permission scope, and open-source status. Three of those are measured; the other three are derived from audit status. The full formula is on the methodology page." },
   { question: "How do I create custom OpenClaw skills?", answer: "Create a SKILL.md file with frontmatter (name, description, permissions) and markdown instructions. Define tools, input/output schemas, and behavioral logic. Test locally with npx clawhub@latest install ./path/to/skill, then publish with npx clawhub@latest publish." },
   { question: "What are the best OpenClaw skills for beginners?", answer: "Start with GPT Prompt Chainer (AI workflows), Deep Research (research automation), Browser Pilot (web automation), Notion Sync (productivity), and LLM Router (cost optimization). These five skills cover the most common use cases and work well together." },
   { question: "Is OpenClaw free to use?", answer: "Yes. OpenClaw is fully open-source under the MIT license with no framework usage fees. Users only pay for their own LLM provider API costs, or can use free local models via Ollama for zero-cost development." },
@@ -40,7 +40,7 @@ const Index = () => {
   const faq = faqJsonLd(homepageFaqs);
   const collection = collectionPageJsonLd(
     "OpenClaw Skills Directory",
-    "Browse 5,705+ curated OpenClaw AI agent skills across 10 categories with security reviews, Trust Scores, and one-click installation.",
+    "Browse 5,705+ indexed OpenClaw AI agent skills across 10 categories with install guides and Trust Scores.",
     "/",
     5705
   );
@@ -60,8 +60,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="OpenClaw Skills Hub — 5,705+ Reviewed Skills, Trust Scores & Install Guides | ClawSkills"
-        description="The OpenClaw skills hub: discover, compare, and safely install 5,705+ OpenClaw AI agent skills. Trust Scores, security reviews, and one-command install across 10 categories."
+        title="OpenClaw Skills Hub — Skill Directory, Install Guides & Trust Scores"
+        description="Browse OpenClaw AI agent skills with install guides and Trust Scores, and see exactly how each score is calculated before you install."
         canonical="https://openclaw-skillshub.com/"
         jsonLd={jsonLd}
       />
@@ -103,7 +103,7 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Top Verified Skills</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Security-audited skills with the highest Trust Scores. Safe for production use.</p>
+            <p className="text-muted-foreground max-w-2xl mx-auto">Skills marked verified, ordered by Trust Score. The score reflects audit status and update recency — read the source before production use.</p>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {topVerified.map((skill, i) => {

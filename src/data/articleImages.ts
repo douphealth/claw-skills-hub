@@ -170,7 +170,7 @@ export const articleInfographics: Record<string, ArticleInfographic[]> = {
     {
       src: skillTrustLevels,
       alt: "OpenClaw Skill Trust Levels — Verified, Community, Unreviewed",
-      caption: "Before installing skills, understand the trust tiers: Verified skills are audited, Community skills are peer-reviewed, and Unreviewed skills should be tested in a sandbox.",
+      caption: "Before installing skills, check each skill's status label — Verified, Community, or Unreviewed — and test anything you are unsure of in a sandbox.",
       afterSection: 0,
     },
   ],
