@@ -194,8 +194,8 @@ async function main() {
 
   // --- Skills Directory ---
   writeRoute('/skills', injectMeta(template, {
-    title: 'OpenClaw Skills Directory — Awesome ClawHub & Claw Skills (5,705+ Indexed)',
-    description: 'The awesome OpenClaw skills directory: browse all 5,705+ indexed ClawHub skills across 10 categories with Trust Scores and one-click clawhub install commands.',
+    title: 'OpenClaw Skills Directory — Documented Skill Guides & Catalog Overview',
+    description: 'Browse documented OpenClaw skill profiles with install commands, ratings, and trust signals. The wider OpenClaw ecosystem catalogs 5,705+ skills across 10 categories.',
     canonical: `${BASE_URL}/skills/`,
     jsonLd: {
       "@context": "https://schema.org",
@@ -209,7 +209,7 @@ async function main() {
         url: `${BASE_URL}/skills/${s.categorySlug}/${s.slug}/`
       }))
     },
-    bodyContent: `<h1>OpenClaw Skills Directory</h1><p>The curated list of awesome OpenClaw skills: browse ${skills.length} ClawHub skills across ${categories.length} categories, each with a Trust Score and install command.</p><ul>${skills.slice(0, 100).map(s => `<li><a href="/skills/${s.categorySlug}/${s.slug}/">${s.name}</a> — ${s.description}</li>`).join('')}</ul>`  }));
+    bodyContent: `<h1>OpenClaw Skills Directory — Documented Skill Guides</h1><p>Browse documented OpenClaw skill profiles across ${categories.length} categories, with install commands, ratings, and trust signals. The wider OpenClaw ecosystem catalogs 5,705+ skills.</p><ul>${skills.slice(0, 100).map(s => `<li><a href="/skills/${s.categorySlug}/${s.slug}/">${s.name}</a> — ${s.description}</li>`).join('')}</ul>`  }));
   count++;
 
   // --- Category Pages ---
