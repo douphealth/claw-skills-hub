@@ -67,7 +67,7 @@ const HeroSection = () => {
               Browse Documented Skills <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>
-          <Link to="/pro-bundle" className="w-full sm:w-auto">
+          <Link to="/pro-bundle" onClick={() => window.gtag?.('event', 'pro_bundle_cta_click', { currency: 'USD', value: 7.99, item_name: 'OpenClaw Complete Installation Bundle', placement: 'homepage_hero' })} className="w-full sm:w-auto">
             <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 h-12 gap-2 w-full sm:w-auto">
               Get Pro Bundle — $7.99 <Sparkles className="w-4 h-4" />
             </Button>
