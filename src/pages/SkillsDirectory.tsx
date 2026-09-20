@@ -50,8 +50,8 @@ const SkillsDirectory = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Browse 5,705+ Indexed OpenClaw Skills — Full Directory"
-        description="Search, filter, and discover the perfect OpenClaw AI agent skills. Browse by category, security status, and rating."
+        title="OpenClaw Skill Guides — Documented Skills & Ecosystem Catalog"
+        description="Browse documented OpenClaw skill guides with install commands, ratings, and trust signals. The wider OpenClaw ecosystem catalogs 5,705+ skills."
         canonical="https://openclaw-skillshub.com/skills/"
         jsonLd={[bJsonLd, listJsonLd]}
       />
@@ -75,10 +75,10 @@ const SkillsDirectory = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-3 block">Skills Directory</span>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
-              Explore <span className="text-gradient">5,705+</span> Indexed Skills
+              Explore <span className="text-gradient">OpenClaw Skill Guides</span>
             </h1>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-              Search, filter, and discover the perfect OpenClaw skills for your workflow.
+              Browse documented skill profiles with install commands, ratings, and trust signals. The wider OpenClaw ecosystem catalogs 5,705+ skills.
             </p>
           </motion.div>
 
