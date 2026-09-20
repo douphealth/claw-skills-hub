@@ -461,20 +461,28 @@ async function main() {
   count++;
 
   // --- Static pages ---
-  for (const pg of ['privacy', 'terms']) {
-    writeRoute(`/${pg}`, injectMeta(template, {
-      title: `${pg === 'privacy' ? 'Privacy Policy' : 'Terms of Service'} | ClawSkills`,
-      description: `ClawSkills ${pg === 'privacy' ? 'privacy policy' : 'terms of service'}.`,
-      canonical: `${BASE_URL}/${pg}`
-    }));
-    count++;
-  }
+  writeRoute('/privacy', injectMeta(template, {
+    title: 'Privacy Policy — ClawSkills',
+    description: 'ClawSkills privacy policy. How we handle your data, cookies, and analytics.',
+    canonical: `${BASE_URL}/privacy/`,
+    bodyContent: `<h1>Privacy Policy</h1><p><strong>Last updated:</strong> March 1, 2026</p><h2>1. Information We Collect</h2><p>ClawSkills collects minimal data to provide and improve the service, including newsletter email addresses, usage analytics, and device/browser information.</p><h2>2. How We Use Your Data</h2><p>We use collected data to send newsletter updates with consent, analyze performance, improve the user experience, and detect abuse.</p><h2>3. Cookies</h2><p>We use essential cookies for site functionality and analytics cookies through Google Analytics. Cookies can be disabled in browser settings.</p><h2>4. Third-Party Services</h2><p>Google Analytics may process usage statistics under Google’s privacy policy. ClawSkills does not sell personal data.</p><h2>5. Data Retention</h2><p>Newsletter data is retained until unsubscribe. Analytics data follows Google Analytics retention settings.</p><h2>6. Your Rights</h2><p>You may request deletion of your data or unsubscribe from the newsletter at any time.</p><h2>7. Contact</h2><p>For privacy inquiries, contact ClawSkills through its community Discord or GitHub.</p>`
+  }));
+  count++;
+  writeRoute('/terms', injectMeta(template, {
+    title: 'Terms of Use — ClawSkills',
+    description: 'ClawSkills terms of use. Rules and guidelines for using the OpenClaw skills directory.',
+    canonical: `${BASE_URL}/terms/`,
+    bodyContent: `<h1>Terms of Use</h1><p><strong>Last updated:</strong> March 1, 2026</p><h2>1. Acceptance</h2><p>By using ClawSkills, you accept these Terms of Use. If you do not agree, discontinue use of the site.</p><h2>2. Description of Service</h2><p>ClawSkills is an independent directory and resource hub for OpenClaw skills, tutorials, articles, and educational content. It is not affiliated with the OpenClaw project.</p><h2>3. Disclaimer</h2><p>Listings, ratings, and reviews are informational. ClawSkills does not guarantee the security, functionality, or reliability of any listed skill. Users install skills at their own risk.</p><h2>4. Intellectual Property</h2><p>Original ClawSkills content belongs to ClawSkills. Skill data and descriptions remain the property of their respective authors.</p><h2>5. User Conduct</h2><p>Users must not scrape or reproduce content without permission, submit misleading information, or attempt to disrupt the service.</p><h2>6. Limitation of Liability</h2><p>ClawSkills is provided as is without warranties. ClawSkills is not liable for damages arising from use of the service or installation of listed skills.</p><h2>7. Changes</h2><p>These terms may be updated. Continued use after changes constitutes acceptance of the updated terms.</p>`
+  }));
+  count++;
 
   // Skills compare
   writeRoute('/skills/compare', injectMeta(template, {
     title: 'Compare OpenClaw Skills Side by Side | ClawSkills',
-    description: 'Compare any two OpenClaw skills side by side. See ratings, security status, compatibility, and features at a glance.',
-    canonical: `${BASE_URL}/skills/compare/`
+    description: 'Compare documented OpenClaw skills by category, rating, security status, version, and installation command.',
+    canonical: `${BASE_URL}/skills/compare/`,
+    jsonLd: { "@context": "https://schema.org", "@type": "WebPage", name: "Compare OpenClaw Skills", description: "Compare documented OpenClaw skills by available directory signals.", url: `${BASE_URL}/skills/compare/` },
+    bodyContent: `<h1>Compare OpenClaw Skills</h1><p>Use the comparison tool to evaluate documented OpenClaw skills side by side. Available directory signals include category, rating, security status, version, description, and installation command.</p><h2>How comparison works</h2><ol><li>Select two documented skills from the directory.</li><li>Compare their descriptions, categories, ratings, security status, and versions.</li><li>Review each installation command and the linked detail page before installing.</li></ol><p>Skill ratings and security labels are directory signals, not guarantees. Review the individual skill page and source information before installation.</p><p><a href="/skills/">Browse the documented skills directory</a> or <a href="/methodology/">read the Trust Score methodology</a>.</p>`
   }));
   count++;
 
