@@ -64,12 +64,17 @@ const HeroSection = () => {
         >
           <Link to="/skills" className="w-full sm:w-auto">
             <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-base px-8 h-12 gap-2 w-full sm:w-auto">
-              Browse All Skills <ArrowRight className="w-4 h-4" />
+              Browse Documented Skills <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+          <Link to="/pro-bundle" className="w-full sm:w-auto">
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 h-12 gap-2 w-full sm:w-auto">
+              Get Pro Bundle — $7.99 <Sparkles className="w-4 h-4" />
             </Button>
           </Link>
           <Link to="/install" className="w-full sm:w-auto">
             <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-secondary font-medium text-base px-8 h-12 gap-2 w-full sm:w-auto">
-              <Download className="w-4 h-4" /> Install Guide
+              <Download className="w-4 h-4" /> Install Free
             </Button>
           </Link>
         </motion.div>
