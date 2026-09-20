@@ -180,7 +180,8 @@ async function main() {
       }
     ],
     bodyContent: `<h1>OpenClaw Skills Hub — Skill Directory</h1>
-<p>ClawSkills is a directory of OpenClaw AI agent skills: browse ${skills.length} indexed skills across ${categories.length} categories with install commands. The ${skills.length} skills that have their own detail page also carry a Trust Score.</p>
+<p>ClawSkills is a directory of documented OpenClaw AI agent skills across ${categories.length} categories with install commands. The wider registry catalogs 5,705+ skills, while 71 currently have full detail pages with Trust Scores.</p>
+<p><a href="/pro-bundle/">Get the OpenClaw Pro Bundle for $7.99</a> or <a href="/install/">install skills for free</a> from the install center.</p>
 <h2>Browse OpenClaw skills by category</h2>
 <ul>${categories.map(c => `<li><a href="/skills/${c.slug}/">${c.name}</a> — ${c.description}</li>`).join('')}</ul>
 <h2>Top verified OpenClaw skills</h2>
