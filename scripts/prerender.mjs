@@ -238,23 +238,46 @@ async function main() {
 
   // --- Individual Skill Pages ---
   for (const skill of skills) {
+    const skillFaqs = (skill.faqs || []).map(f => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer }
+    }));
+    const useCaseList = (skill.useCases || []).map(u => `<li>${u}</li>`).join('');
+    const faqContent = (skill.faqs || []).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`).join('');
+    const relatedContent = (skill.relatedSlugs || []).map(slug => {
+      const related = skills.find(s => s.slug === slug);
+      return related ? `<li><a href="/skills/${related.categorySlug}/${related.slug}/">${related.name}</a></li>` : '';
+    }).join('');
     writeRoute(`/skills/${skill.categorySlug}/${skill.slug}`, injectMeta(template, {
       title: `${skill.name} — Full Review & Install Guide | ClawSkills`,
       description: skill.description.slice(0, 160),
       canonical: `${BASE_URL}/skills/${skill.categorySlug}/${skill.slug}/`,
       type: 'article',
-      jsonLd: {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        name: skill.name,
-        description: skill.description,
-        applicationCategory: "DeveloperApplication",
-        author: { "@type": "Person", name: skill.author },
-        softwareVersion: skill.version,
-        dateModified: skill.lastUpdated,
-        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
-      },
-      bodyContent: `<h1>${skill.name}</h1><p>${skill.description}</p><p>Author: ${skill.author} | Version: ${skill.version} | Rating: ${skill.rating}/5</p><p>Install: ${skill.installCmd}</p>`
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: skill.name,
+          description: skill.description,
+          applicationCategory: "DeveloperApplication",
+          author: { "@type": "Person", name: skill.author },
+          softwareVersion: skill.version,
+          dateModified: skill.lastUpdated,
+          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+            { "@type": "ListItem", position: 2, name: skill.category, item: `${BASE_URL}/skills/${skill.categorySlug}/` },
+            { "@type": "ListItem", position: 3, name: skill.name, item: `${BASE_URL}/skills/${skill.categorySlug}/${skill.slug}/` }
+          ]
+        },
+        ...(skillFaqs.length ? [{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: skillFaqs }] : [])
+      ],
+      bodyContent: `<h1>${skill.name}</h1><p>${skill.description}</p><p><strong>Category:</strong> ${skill.category} | <strong>Security status:</strong> ${skill.securityStatus} | <strong>Rating:</strong> ${skill.rating}/5 | <strong>Version:</strong> ${skill.version}</p><h2>What ${skill.name} does</h2><p>${skill.longDescription || skill.description}</p><h2>Use cases</h2><ul>${useCaseList}</ul><h2>Install ${skill.name}</h2><pre><code>${skill.installCmd}</code></pre>${faqContent ? `<h2>Frequently asked questions</h2>${faqContent}` : ''}${relatedContent ? `<h2>Related OpenClaw skills</h2><ul>${relatedContent}</ul>` : ''}`
     }));
     count++;
   }
