@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Check, Shield, Zap, Clock, Download, Star, RefreshCw, Headphones, Lock, BadgeCheck, Crown, ArrowRight, Gift, Sparkles } from "lucide-react";
+import { Check, Shield, Zap, Download, RefreshCw, Headphones, Lock, BadgeCheck, Crown, ArrowRight, Gift, Sparkles, Loader2, AlertCircle } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -11,6 +12,7 @@ import PremiumValueSection from "@/components/pro-bundle/PremiumValueSection";
 import SocialProofSection from "@/components/pro-bundle/SocialProofSection";
 import { breadcrumbJsonLd, faqJsonLd } from "@/utils/jsonLd";
 import { supabase } from "@/integrations/supabase/client";
+import { downloadProBundle, PRO_BUNDLE_PRICE_USD, PRO_BUNDLE_PRODUCT_NAME } from "@/utils/proBundleExport";
 
 const SITE_URL = "https://openclaw-skillshub.com";
 
@@ -52,6 +54,58 @@ const productJsonLd = {
 };
 
 const ProBundle = () => {
+  const [checkoutState, setCheckoutState] = useState<"idle" | "starting" | "verifying" | "paid" | "error">("idle");
+  const [checkoutMessage, setCheckoutMessage] = useState("");
+  const [customerEmail, setCustomerEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("session_id") || localStorage.getItem("clawskills_pro_session");
+
+    if (params.get("canceled") === "true") {
+      setCheckoutMessage("Checkout was canceled. No charge was made.");
+    }
+
+    if (!sessionId) return;
+
+    let active = true;
+    setCheckoutState("verifying");
+    setCheckoutMessage("Verifying your Stripe payment…");
+
+    supabase.functions.invoke("verify-checkout", {
+      method: "POST",
+      body: { session_id: sessionId },
+    }).then(({ data, error }) => {
+      if (!active) return;
+
+      if (error || !data?.verified) {
+        localStorage.removeItem("clawskills_pro_session");
+        setCheckoutState("error");
+        setCheckoutMessage("We could not verify a completed payment. If you were charged, contact support with your Stripe receipt.");
+        return;
+      }
+
+      localStorage.setItem("clawskills_pro_session", sessionId);
+      setCustomerEmail(data.customerEmail ?? null);
+      setCheckoutState("paid");
+      setCheckoutMessage("Payment verified. Your Pro Bundle downloads are unlocked.");
+      window.gtag?.("event", "purchase", {
+        currency: "USD",
+        value: PRO_BUNDLE_PRICE_USD,
+        transaction_id: sessionId,
+        items: [{ item_name: PRO_BUNDLE_PRODUCT_NAME, price: PRO_BUNDLE_PRICE_USD, quantity: 1 }],
+      });
+    }).catch(() => {
+      if (!active) return;
+      setCheckoutState("error");
+      setCheckoutMessage("Payment verification failed. Please retry from this page.");
+    });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const allJsonLd = [
     productJsonLd,
     breadcrumbJsonLd([
@@ -62,27 +116,39 @@ const ProBundle = () => {
   ].filter(Boolean);
 
   const handleCheckout = async () => {
+    if (checkoutState === "starting" || checkoutState === "verifying") return;
+
+    setCheckoutState("starting");
+    setCheckoutMessage("Opening secure Stripe checkout…");
+
     try {
-      window.gtag?.('event', 'pro_bundle_checkout_start', {
-        currency: 'USD',
-        value: 7.99,
-        item_name: 'OpenClaw Complete Installation Bundle',
+      window.gtag?.("event", "pro_bundle_checkout_start", {
+        currency: "USD",
+        value: PRO_BUNDLE_PRICE_USD,
+        item_name: PRO_BUNDLE_PRODUCT_NAME,
       });
-      const { data, error } = await supabase.functions.invoke('create-checkout', {
-        method: 'POST',
+
+      const { data, error } = await supabase.functions.invoke("create-checkout", {
+        method: "POST",
       });
+
       if (error) throw error;
-      if (data?.url) {
-        window.gtag?.('event', 'pro_bundle_checkout_redirect', {
-          currency: 'USD',
-          value: 7.99,
-          item_name: 'OpenClaw Complete Installation Bundle',
-        });
-        window.open(data.url, '_blank');
+      if (!data?.url || !String(data.url).startsWith("https://checkout.stripe.com/")) {
+        throw new Error("Checkout did not return a valid Stripe URL");
       }
+
+      window.gtag?.("event", "pro_bundle_checkout_redirect", {
+        currency: "USD",
+        value: PRO_BUNDLE_PRICE_USD,
+        item_name: PRO_BUNDLE_PRODUCT_NAME,
+      });
+
+      window.location.assign(data.url);
     } catch (err) {
-      window.gtag?.('event', 'pro_bundle_checkout_error', {
-        item_name: 'OpenClaw Complete Installation Bundle',
+      setCheckoutState("error");
+      setCheckoutMessage("Stripe checkout could not be started. Please try again.");
+      window.gtag?.("event", "pro_bundle_checkout_error", {
+        item_name: PRO_BUNDLE_PRODUCT_NAME,
       });
       console.error("Checkout error:", err);
     }
@@ -132,8 +198,9 @@ const ProBundle = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-              <Button size="lg" className="text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20" onClick={handleCheckout}>
-                <Lock className="mr-2 h-5 w-5" /> Get the Bundle — $7.99
+              <Button size="lg" className="text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20" onClick={handleCheckout} disabled={checkoutState === "starting" || checkoutState === "verifying"}>
+                {checkoutState === "starting" ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Lock className="mr-2 h-5 w-5" />}
+                {checkoutState === "paid" ? "Bundle Unlocked" : "Get the Bundle — $7.99"}
               </Button>
               <a href="#free-tools">
                 <Button size="lg" variant="outline" className="text-lg px-8 py-6 rounded-xl">
@@ -166,6 +233,61 @@ const ProBundle = () => {
             </span>
             <span className="text-muted-foreground">That's <span className="font-bold text-foreground">97.5% off</span></span>
           </div>
+        </div>
+      </section>
+
+      {/* Verified purchase fulfillment */}
+      <section className="py-10 border-y bg-card/40">
+        <div className="container mx-auto px-4 max-w-3xl">
+          {checkoutMessage && (
+            <div className={`mb-6 rounded-xl border p-4 flex items-start gap-3 ${
+              checkoutState === "paid"
+                ? "border-primary/30 bg-primary/5"
+                : checkoutState === "error"
+                  ? "border-destructive/30 bg-destructive/5"
+                  : "bg-muted/40"
+            }`}>
+              {checkoutState === "verifying" || checkoutState === "starting" ? (
+                <Loader2 className="h-5 w-5 animate-spin text-primary mt-0.5" />
+              ) : checkoutState === "error" ? (
+                <AlertCircle className="h-5 w-5 text-destructive mt-0.5" />
+              ) : checkoutState === "paid" ? (
+                <BadgeCheck className="h-5 w-5 text-primary mt-0.5" />
+              ) : (
+                <Shield className="h-5 w-5 text-muted-foreground mt-0.5" />
+              )}
+              <div>
+                <p className="font-medium">{checkoutMessage}</p>
+                {customerEmail && <p className="text-sm text-muted-foreground mt-1">Receipt email: {customerEmail}</p>}
+              </div>
+            </div>
+          )}
+
+          {checkoutState === "paid" && (
+            <div className="rounded-2xl border border-primary/30 bg-background p-6 md:p-8">
+              <div className="flex items-center gap-3 mb-3">
+                <Crown className="h-6 w-6 text-primary" />
+                <h2 className="text-2xl font-bold">Your Pro Bundle is ready</h2>
+              </div>
+              <p className="text-muted-foreground mb-6">
+                Download the current documented-skill manifest and platform installers. These files are generated from the same live dataset used by this site.
+              </p>
+              <div className="grid sm:grid-cols-3 gap-3">
+                <Button variant="outline" onClick={() => downloadProBundle("manifest")}>
+                  <Download className="mr-2 h-4 w-4" /> Manifest
+                </Button>
+                <Button variant="outline" onClick={() => downloadProBundle("shell")}>
+                  <Download className="mr-2 h-4 w-4" /> macOS / Linux
+                </Button>
+                <Button variant="outline" onClick={() => downloadProBundle("powershell")}>
+                  <Download className="mr-2 h-4 w-4" /> Windows
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-4">
+                Keep your Stripe receipt. Returning on this browser re-verifies the saved Checkout Session before showing these downloads.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -240,9 +362,10 @@ const ProBundle = () => {
           <p className="text-lg text-muted-foreground mb-8">
             Join 2,400+ developers who've already set up their complete OpenClaw stack in under a minute.
           </p>
-          <Button size="lg" className="text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20" onClick={handleCheckout}>
-            <Lock className="mr-2 h-5 w-5" /> Get the Bundle — $7.99
-          </Button>
+          <Button size="lg" className="text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20" onClick={handleCheckout} disabled={checkoutState === "starting" || checkoutState === "verifying"}>
+                {checkoutState === "starting" ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Lock className="mr-2 h-5 w-5" />}
+                {checkoutState === "paid" ? "Bundle Unlocked" : "Get the Bundle — $7.99"}
+              </Button>
           <p className="mt-4 text-sm text-muted-foreground">
             Secure payment via Stripe · Instant download · 30-day money-back guarantee
           </p>
