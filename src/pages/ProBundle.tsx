@@ -170,7 +170,6 @@ const ProBundle = () => {
         <div className="container mx-auto px-4 text-center max-w-4xl relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div className="flex items-center justify-center gap-2 mb-6">
-              <Badge className="text-sm px-4 py-1">🔥 Most Popular</Badge>
               <Badge variant="outline" className="text-sm px-4 py-1 border-primary/30 text-primary">
                 <Gift className="h-3.5 w-3.5 mr-1" /> Free Tools Included
               </Badge>
@@ -304,9 +303,9 @@ const ProBundle = () => {
           <h2 className="text-3xl font-bold text-center mb-12">Get Started in 3 Steps</h2>
           <div className="space-y-8">
             {[
-              { step: "1", title: "Purchase", desc: "Click \"Get the Bundle\" and complete the secure Stripe checkout. Takes 30 seconds." },
-              { step: "2", title: "Download", desc: "Receive an instant download link with your bundle files, install script, and enterprise configs." },
-              { step: "3", title: "Install & Ship", desc: "Run one command to install all 60+ skills with production-ready configs. Start shipping immediately." },
+              { step: "1", title: "Purchase", desc: "Click \"Get the Bundle\" and complete the Stripe-hosted checkout." },
+              { step: "2", title: "Verify", desc: "After Stripe redirects back, the app verifies the completed Checkout Session and configured Price on the server." },
+              { step: "3", title: "Download", desc: `Download the JSON manifest, macOS/Linux installer, or Windows installer for the current ${PRO_BUNDLE_SKILL_COUNT}-skill documented set.` },
             ].map((s) => (
               <motion.div
                 key={s.step}
