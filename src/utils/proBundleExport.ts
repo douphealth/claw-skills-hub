@@ -4,6 +4,7 @@ export type ProBundleDownloadKind = "manifest" | "shell" | "powershell";
 
 export const PRO_BUNDLE_PRICE_USD = 7.99;
 export const PRO_BUNDLE_PRODUCT_NAME = "ClawSkills Pro Bundle";
+export const PRO_BUNDLE_SKILL_COUNT = skills.length;
 
 const SITE_URL = "https://openclaw-skillshub.com";
 
