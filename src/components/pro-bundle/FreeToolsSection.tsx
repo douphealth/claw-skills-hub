@@ -14,9 +14,9 @@ const freeTools = [
   },
   {
     icon: Shield,
-    title: "Security Scanner",
-    desc: "Check the trust score and security audit status of any skill before installing.",
-    action: "Scan a skill",
+    title: "Trust & Security Signals",
+    desc: "Review each documented skill's trust label, Trust Score, update date, and installation guidance before installing.",
+    action: "Review skills",
     href: "/skills",
   },
   {
@@ -28,9 +28,9 @@ const freeTools = [
   },
   {
     icon: FileCode,
-    title: "SKILL.md Template Generator",
-    desc: "Generate a production-ready SKILL.md manifest for your custom skills in seconds.",
-    action: "Generate template",
+    title: "SKILL.md Authoring Guide",
+    desc: "Follow the site's step-by-step guide for structuring and writing a SKILL.md file.",
+    action: "Open the guide",
     href: "/tutorials/how-to-write-a-skill-md",
   },
   {
@@ -50,9 +50,9 @@ const freeTools = [
 ];
 
 const sampleCommands = [
-  { label: "Install all AI skills", cmd: "openclaw install --category ai-llms --all" },
-  { label: "Security audit", cmd: "openclaw audit --deep --report json" },
-  { label: "Bulk export configs", cmd: "openclaw export --format yaml --all" },
+  { label: "Install one documented skill", cmd: "npx clawhub@latest install gpt-prompt-chainer" },
+  { label: "Update installed skills", cmd: "npx clawhub@latest update" },
+  { label: "Check the CLI", cmd: "npx clawhub@latest --version" },
 ];
 
 const FreeToolsSection = () => {
@@ -133,7 +133,7 @@ const FreeToolsSection = () => {
             ))}
           </div>
           <p className="text-center text-sm text-muted-foreground mt-6">
-            Love these? The <span className="text-primary font-medium">Pro Bundle</span> automates all of this with one command.
+            The <span className="text-primary font-medium">Pro Bundle</span> packages the documented set into a manifest plus platform-specific bulk installers.
           </p>
         </motion.div>
       </div>
