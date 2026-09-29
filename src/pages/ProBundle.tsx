@@ -9,38 +9,37 @@ import { Badge } from "@/components/ui/badge";
 import NewsletterSection from "@/components/NewsletterSection";
 import FreeToolsSection from "@/components/pro-bundle/FreeToolsSection";
 import PremiumValueSection from "@/components/pro-bundle/PremiumValueSection";
-import SocialProofSection from "@/components/pro-bundle/SocialProofSection";
 import { breadcrumbJsonLd, faqJsonLd } from "@/utils/jsonLd";
 import { supabase } from "@/integrations/supabase/client";
-import { downloadProBundle, PRO_BUNDLE_PRICE_USD, PRO_BUNDLE_PRODUCT_NAME } from "@/utils/proBundleExport";
+import { downloadProBundle, PRO_BUNDLE_PRICE_USD, PRO_BUNDLE_PRODUCT_NAME, PRO_BUNDLE_SKILL_COUNT } from "@/utils/proBundleExport";
 
 const SITE_URL = "https://openclaw-skillshub.com";
 
 const heroFeatures = [
-  { icon: Download, text: "60+ Premium Skills" },
-  { icon: Zap, text: "60-Second Setup" },
-  { icon: Shield, text: "Security Audited" },
-  { icon: RefreshCw, text: "1 Year Updates" },
-  { icon: Headphones, text: "Priority Support" },
-  { icon: Crown, text: "Enterprise Configs" },
+  { icon: Download, text: `${PRO_BUNDLE_SKILL_COUNT} Documented Skills` },
+  { icon: Zap, text: "Bulk Installers" },
+  { icon: Shield, text: "Payment Verified Server-Side" },
+  { icon: RefreshCw, text: "Regenerate From Current Dataset" },
+  { icon: Headphones, text: "Receipt-Based Support" },
+  { icon: Crown, text: "JSON Manifest Included" },
 ];
 
 const faqs = [
-  { question: "What exactly do I get with the Pro Bundle?", answer: "You receive a complete installation bundle containing 60+ premium OpenClaw skills, pre-configured for production use. This includes a one-command install script for macOS/Linux and Windows, optimized configuration files, 15+ skill chain workflows, enterprise deployment configs, and 1 year of automatic updates." },
-  { question: "Is there a money-back guarantee?", answer: "Yes — we offer a 30-day no-questions-asked refund policy. If the bundle doesn't meet your expectations, contact us for a full refund." },
-  { question: "Do I need to install OpenClaw first?", answer: "The bundle installer handles everything. If OpenClaw isn't installed, the script will install it automatically before setting up the skills." },
-  { question: "Can I use this for commercial projects?", answer: "Absolutely. All skills in the bundle are MIT-licensed and can be used in personal, open-source, or commercial projects without restrictions." },
-  { question: "How do updates work?", answer: "After purchase, you receive automatic update notifications for 1 year. Run the bundled update command to pull the latest versions of all included skills." },
+  { question: "What exactly do I get with the Pro Bundle?", answer: `You receive a downloadable JSON manifest plus bulk installers for macOS/Linux and Windows covering the ${PRO_BUNDLE_SKILL_COUNT} skills currently documented by ClawSkills. The files are generated from the same dataset used by the directory.` },
+  { question: "Is there a money-back guarantee?", answer: "Refunds are handled according to the published Terms and the payment provider flow. Keep your Stripe receipt so support can locate the purchase." },
+  { question: "Do I need Node.js or ClawHub first?", answer: "The generated installers require Node.js 18+ and invoke the current clawhub package with npx. They stop with a clear error if Node.js is unavailable." },
+  { question: "Can I use the included skills commercially?", answer: "Check the upstream license and source for each skill before commercial use. ClawSkills does not replace the upstream project license or security review." },
+  { question: "How do updates work?", answer: "The manifest records the current documented versions and the installers use clawhub at runtime. Use npx clawhub@latest update for installed skills and revisit the bundle page to regenerate downloads from the current ClawSkills dataset." },
   { question: "What payment methods are accepted?", answer: "We accept all major credit and debit cards (Visa, Mastercard, Amex) through our secure Stripe checkout. Your payment information is never stored on our servers." },
-  { question: "How is this different from installing skills for free?", answer: "Free installation gives you one skill at a time with manual configuration. The Pro Bundle gives you all 60+ skills pre-configured with production-ready settings, skill chains, enterprise configs, private security advisories, and priority support — saving you 40+ hours of setup." },
-  { question: "Do you offer team/enterprise licenses?", answer: "Yes! Contact us for team pricing with volume discounts, shared configs, and dedicated support SLAs for organizations with 5+ developers." },
+  { question: "How is this different from installing skills for free?", answer: `The underlying directory remains free. The paid bundle is a convenience product: one manifest plus bulk installers covering all ${PRO_BUNDLE_SKILL_COUNT} currently documented skills, with Stripe-verified access after payment.` },
+  { question: "Do you offer team licensing?", answer: "The current checkout is a one-time individual bundle purchase. Contact support before assuming team, redistribution, or SLA rights." },
 ];
 
 const productJsonLd = {
   "@context": "https://schema.org",
   "@type": "Product",
-  name: "OpenClaw Complete Installation Bundle",
-  description: "Full installation bundle with 60+ premium OpenClaw skills, pre-configured for production use. Includes security-audited skills, one-command setup, enterprise configs, and 1 year of updates.",
+  name: "ClawSkills Pro Bundle",
+  description: `Convenience bundle containing a JSON manifest and bulk installers for the ${PRO_BUNDLE_SKILL_COUNT} skills currently documented by ClawSkills.`,
   brand: { "@type": "Brand", name: "OpenClaw" },
   offers: {
     "@type": "Offer",
@@ -157,8 +156,8 @@ const ProBundle = () => {
   return (
     <>
       <SEOHead
-        title="OpenClaw Pro Bundle — All 60+ Premium Skills for $7.99"
-        description="Get the complete OpenClaw installation bundle: 60+ security-audited skills, one-command setup, enterprise configs, skill chains, and 1 year of updates for just $7.99."
+        title={`ClawSkills Pro Bundle — ${PRO_BUNDLE_SKILL_COUNT} documented skills for $7.99`}
+        description={`Get a Stripe-verified downloadable manifest and bulk installers for the ${PRO_BUNDLE_SKILL_COUNT} skills currently documented by ClawSkills.`}
         canonical={`${SITE_URL}/pro-bundle`}
         ogImage={`${SITE_URL}/og-image.png`}
         jsonLd={allJsonLd}
@@ -182,10 +181,10 @@ const ProBundle = () => {
               <span className="text-primary">Developer Toolkit</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-4 max-w-2xl mx-auto">
-              60+ premium skills, enterprise configs, and pre-built workflows — all installed in 60 seconds. Save 40+ hours of manual setup.
+              One verified purchase unlocks a current JSON manifest plus bulk installers for every skill documented in this directory.
             </p>
             <p className="text-sm text-muted-foreground mb-8 max-w-lg mx-auto">
-              Used by 2,400+ developers at companies like Stripe, Vercel, and Shopify.
+              The free directory stays free. Pro packages the current documented set into downloadable bulk-install files.
             </p>
 
             {/* Hero feature pills */}
@@ -210,9 +209,9 @@ const ProBundle = () => {
             </div>
 
             <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1"><BadgeCheck className="h-4 w-4 text-primary" /> 30-day money-back guarantee</span>
+              <span className="flex items-center gap-1"><BadgeCheck className="h-4 w-4 text-primary" /> Server-verified payment</span>
               <span className="flex items-center gap-1"><Shield className="h-4 w-4" /> Secure Stripe Checkout</span>
-              <span className="flex items-center gap-1"><Download className="h-4 w-4" /> Instant Download</span>
+              <span className="flex items-center gap-1"><Download className="h-4 w-4" /> Immediate verified downloads</span>
             </div>
           </motion.div>
         </div>
@@ -224,14 +223,14 @@ const ProBundle = () => {
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 text-sm">
             <span className="flex items-center gap-2 font-medium">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">Individual skill setup:</span>
-              <span className="line-through text-destructive/60">$320+ in dev time</span>
+              <span className="text-muted-foreground">Free option:</span>
+              <span>install skills individually</span>
             </span>
             <span className="flex items-center gap-2">
               <ArrowRight className="h-4 w-4 text-primary" />
               <span className="font-bold text-primary text-lg">$7.99 — one time</span>
             </span>
-            <span className="text-muted-foreground">That's <span className="font-bold text-foreground">97.5% off</span></span>
+            <span className="text-muted-foreground">Paid option: bulk manifest + platform installers</span>
           </div>
         </div>
       </section>
@@ -296,9 +295,6 @@ const ProBundle = () => {
         <FreeToolsSection />
       </div>
 
-      {/* Social Proof */}
-      <SocialProofSection />
-
       {/* Premium Value + Comparison */}
       <PremiumValueSection onCheckout={handleCheckout} />
 
@@ -358,16 +354,16 @@ const ProBundle = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--primary)/0.06),transparent_60%)]" />
         <div className="container mx-auto px-4 text-center max-w-2xl relative z-10">
           <Crown className="h-12 w-12 text-primary mx-auto mb-4" />
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Save 40+ Hours?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Want the whole documented set in one download flow?</h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Join 2,400+ developers who've already set up their complete OpenClaw stack in under a minute.
+            Keep browsing free, or unlock the current manifest and bulk installers with a one-time Stripe payment.
           </p>
           <Button size="lg" className="text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20" onClick={handleCheckout} disabled={checkoutState === "starting" || checkoutState === "verifying"}>
                 {checkoutState === "starting" ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Lock className="mr-2 h-5 w-5" />}
                 {checkoutState === "paid" ? "Bundle Unlocked" : "Get the Bundle — $7.99"}
               </Button>
           <p className="mt-4 text-sm text-muted-foreground">
-            Secure payment via Stripe · Instant download · 30-day money-back guarantee
+            Secure payment via Stripe · Server-side verification · Download access after confirmed payment
           </p>
         </div>
       </section>
