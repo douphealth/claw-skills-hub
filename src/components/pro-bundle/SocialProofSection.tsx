@@ -1,80 +1,58 @@
 import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { ShieldCheck, CreditCard, Download, RefreshCw } from "lucide-react";
 
-const testimonials = [
+const proofPoints = [
   {
-    name: "Sarah Chen",
-    role: "Staff Engineer, Stripe",
-    text: "The Pro Bundle saved our team 3 days of setup. Every skill was pre-configured and just worked. The enterprise configs for our CI pipeline were worth the price alone.",
-    rating: 5,
+    icon: CreditCard,
+    title: "Stripe-hosted checkout",
+    text: "Payment details are collected by Stripe Checkout rather than by this website.",
   },
   {
-    name: "Marcus Rodriguez",
-    role: "Founder, ShipFast.io",
-    text: "I was manually installing skills one by one like a caveman. The bundle's skill chains are incredible — research to draft to publish in one command. Game changer.",
-    rating: 5,
+    icon: ShieldCheck,
+    title: "Verified fulfillment",
+    text: "Premium access is granted only after Stripe confirms a successful payment.",
   },
   {
-    name: "Priya Patel",
-    role: "DevOps Lead, Vercel",
-    text: "The private security advisories alone justify the price. We got a heads-up on a vulnerability 2 days before it was public. That's enterprise-grade protection for $8.",
-    rating: 5,
+    icon: Download,
+    title: "Private delivery",
+    text: "Paid bundle downloads use short-lived signed URLs instead of public permanent files.",
   },
-];
-
-const stats = [
-  { value: "2,400+", label: "Bundles Sold" },
-  { value: "4.9/5", label: "Average Rating" },
-  { value: "< 60s", label: "Avg Setup Time" },
-  { value: "40+ hrs", label: "Time Saved" },
+  {
+    icon: RefreshCw,
+    title: "Idempotent purchase records",
+    text: "Webhook retries are safe: each Stripe Checkout Session maps to one purchase record.",
+  },
 ];
 
 const SocialProofSection = () => {
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 max-w-6xl">
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="text-center p-6 rounded-xl border bg-card"
-            >
-              <p className="text-3xl md:text-4xl font-bold text-primary mb-1">{stat.value}</p>
-              <p className="text-sm text-muted-foreground">{stat.label}</p>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-10"
+        >
+          <h2 className="text-3xl font-bold mb-3">A payment flow built for reliability</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            The paid flow is designed around Stripe confirmation and private delivery rather than browser-only success messages.
+          </p>
+        </motion.div>
 
-        {/* Testimonials */}
-        <h2 className="text-3xl font-bold text-center mb-10">
-          Trusted by <span className="text-primary">Engineers at Top Companies</span>
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {proofPoints.map((item, i) => (
             <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 20 }}
+              key={item.title}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="p-6 rounded-xl border bg-card relative"
+              transition={{ delay: i * 0.06 }}
+              className="p-6 rounded-xl border bg-card"
             >
-              <Quote className="h-8 w-8 text-primary/20 absolute top-4 right-4" />
-              <div className="flex gap-0.5 mb-3">
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} className="h-4 w-4 fill-primary text-primary" />
-                ))}
-              </div>
-              <p className="text-sm text-muted-foreground mb-4 italic">"{t.text}"</p>
-              <div>
-                <p className="font-semibold text-sm">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.role}</p>
-              </div>
+              <item.icon className="h-6 w-6 text-primary mb-4" />
+              <h3 className="font-semibold mb-2">{item.title}</h3>
+              <p className="text-sm text-muted-foreground">{item.text}</p>
             </motion.div>
           ))}
         </div>

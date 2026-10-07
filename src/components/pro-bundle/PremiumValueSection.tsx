@@ -15,8 +15,8 @@ const premiumExclusives = [
     highlight: true,
   },
   {
-    title: "Private Security Advisories",
-    desc: "Get notified 48 hours before public disclosure of skill vulnerabilities. Patch before anyone else knows.",
+    title: "Reusable Deployment Profiles",
+    desc: "Opinionated configuration presets that make repeated local and hosted deployments faster to reproduce.",
     highlight: true,
   },
   {
@@ -40,7 +40,7 @@ const comparison = [
   { feature: "Skills included", free: "1 at a time (manual)", pro: "All 60+ in one command" },
   { feature: "Setup time", free: "2–4 hours per project", pro: "60 seconds total" },
   { feature: "Configuration", free: "Manual YAML editing", pro: "Pre-optimized for production" },
-  { feature: "Security review", free: "Community-reviewed", pro: "Fully audited + private advisories" },
+  { feature: "Security workflow", free: "Review each skill manually", pro: "Centralized validation checklist + safer defaults" },
   { feature: "Skill chains", free: "Build your own", pro: "15+ pre-built workflows" },
   { feature: "Multi-LLM support", free: "Manual per-model config", pro: "Auto-switching presets" },
   { feature: "Updates", free: "Manual per-skill", pro: "Automatic for 1 year" },
