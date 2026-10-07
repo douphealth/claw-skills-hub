@@ -177,7 +177,7 @@ const ProBundle = () => {
               60+ premium skills, enterprise configs, and pre-built workflows — all installed in 60 seconds. Save 40+ hours of manual setup.
             </p>
             <p className="text-sm text-muted-foreground mb-8 max-w-lg mx-auto">
-              Used by 2,400+ developers at companies like Stripe, Vercel, and Shopify.
+              Built for developers who want a faster, more repeatable OpenClaw setup.
             </p>
 
             {/* Hero feature pills */}
@@ -296,7 +296,7 @@ const ProBundle = () => {
           <Crown className="h-12 w-12 text-primary mx-auto mb-4" />
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Save 40+ Hours?</h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Join 2,400+ developers who've already set up their complete OpenClaw stack in under a minute.
+            Get the complete setup bundle through a verified Stripe checkout and secure delivery flow.
           </p>
           <Button size="lg" className="text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20" onClick={handleCheckout}>
             <Lock className="mr-2 h-5 w-5" /> Get the Bundle — $7.99
