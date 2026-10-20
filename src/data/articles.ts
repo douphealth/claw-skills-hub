@@ -49,6 +49,10 @@ export const articles: Article[] = [
     heroDescription: "The definitive guide to building enterprise-grade AI workflows with OpenClaw. From prompt chaining and model routing to RAG pipelines and multi-agent orchestration — these 12 skills transform OpenClaw into a production-ready AI platform.",
     sections: [
       {
+        heading: "Quick Answer",
+        content: "The best OpenClaw AI & LLM skills in 2026 are LLM Router (routes each prompt to the best model by task complexity, cost, and latency), RAG Pipeline, GPT Prompt Chainer, Prompt Optimizer, and Agent Orchestrator. All install with `npx clawhub@latest install <skill-name>` and work on macOS, Linux, and Windows WSL.",
+      },
+      {
         heading: "Why AI Skills Are the Foundation of Every OpenClaw Workflow",
         content: "Every serious OpenClaw deployment starts with AI. Whether you're building a [[customer support chatbot|/skills/ai-llms/rag-pipeline]], automating [[content generation|/skills/ai-llms/take-the-wheel]], or creating [[multi-agent research systems|/skills/ai-llms/agent-orchestrator]], the AI & LLM skills form the backbone of your automation stack.\n\nIn 2026, the landscape has shifted dramatically. Models are cheaper, context windows are larger, and the tooling has matured. But with **287+ AI skills** in the [[OpenClaw directory|/skills]], choosing the right combination is critical. A poorly chosen skill stack leads to wasted tokens, unreliable outputs, and spiraling costs.\n\nThis guide covers the 12 essential AI skills that every OpenClaw power user needs, from foundational tools like [[prompt optimization|/skills/ai-llms/prompt-optimizer]] to advanced capabilities like [[fine-tuning|/skills/ai-llms/fine-tune-studio]] and [[model evaluation|/skills/ai-llms/model-evaluator]]."
       },
@@ -721,6 +725,10 @@ export const articles: Article[] = [
     heroDescription: "The OpenClaw Gmail Connector skill turns Gmail into an AI-powered communication hub. Draft contextual replies, auto-sort your inbox, extract data from emails, schedule sends, and build email automation workflows — all through conversation with OpenClaw.",
     sections: [
       {
+        heading: "Quick Answer",
+        content: "The OpenClaw Gmail skill connects Gmail to your AI agent. Install it with `npx clawhub@latest install gmail-connector`, enable the Gmail connector in the same OpenClaw environment, complete Google OAuth, and OpenClaw can draft replies, sort your inbox, extract data from emails, schedule sends, and summarize threads — all by conversation.",
+      },
+      {
         heading: "What Is the OpenClaw Gmail Skill?",
         content: "The Gmail Connector is an OpenClaw skill that integrates your Gmail account with OpenClaw's AI capabilities. Once installed with `npx clawhub@latest install gmail-connector`, you can manage your email through natural language commands.\n\nThe skill uses the Gmail API with OAuth2 authentication — your email credentials are never stored or exposed. It supports reading, composing, replying, labeling, searching, and extracting data from emails.\n\nFor founders managing sales outreach, pair the Gmail skill with **[[Email Campaign|/skills/marketing-sales/email-campaign]]** for automated sequences. For developers managing notifications, combine it with **[[Notification Hub|/skills/productivity/notification-hub]]** for smart routing."
       },
@@ -735,6 +743,10 @@ export const articles: Article[] = [
       {
         heading: "Gmail + OpenClaw Workflow Examples",
         content: "**Sales Follow-up Workflow:** Combine [[Gmail Connector|/skills/browser-automation/email-automator]] + [[Lead Generator|/skills/marketing-sales/lead-scorer]] + [[CRM Sync|/skills/marketing-sales/crm-connector]]. Generate leads, send personalized outreach via Gmail, track responses in your CRM, and auto-follow-up on non-replies.\n\n**Customer Support Triage:** Use the Gmail skill to categorize support emails, draft initial responses using [[RAG Pipeline|/skills/ai-llms/rag-pipeline]] (grounded in your knowledge base), and route complex issues to your team via [[Slack Connector|/skills/productivity/slack-connector]].\n\n**Research Inbox:** Set up the Gmail skill to extract links, attachments, and key information from newsletters and research emails, then save them to [[Notion Sync|/skills/productivity/notion-sync]] for later review.\n\nFor more email automation strategies, see our [[marketing skills guide|/articles/best-marketing-sales-skills-openclaw]] and [[productivity skills guide|/articles/best-productivity-skills-openclaw]]."
+      },
+      {
+        heading: "FAQ: OpenClaw Gmail Skill Questions",
+        content: "**How do I install the OpenClaw Gmail skill?**\nRun `npx clawhub@latest install gmail-connector`. Installing the skill alone is not enough: you must also enable the Gmail connector in the same OpenClaw environment where the skill runs, then complete Google OAuth and approve the Gmail scopes (reading, labeling, drafting, sending) for the actions you want.\n\n**Why doesn't api_tool list_resources show Gmail after I installed the skill?**\nThe installed skill and the Gmail connector are two separate layers. First confirm the Gmail connector is enabled in the same OpenClaw environment where the skill runs. Then complete Google OAuth again, approve the required scopes, and restart or reload the OpenClaw session so the available resources are discovered again.\n\n**What is the safe way to test the Gmail skill before sending real email?**\nFollow this verification sequence: (1) list available connector resources, (2) confirm Gmail is present, (3) run one read-only Gmail request such as listing labels, (4) create a draft, and only then (5) send a message to an address you control. Never test sending until a read-only request succeeds.\n\n**What can I automate with the OpenClaw Gmail skill?**\nDraft contextual replies, auto-sort your inbox, extract structured data from recurring emails like invoices and shipping notifications, schedule sends with automatic follow-ups, and search your email history with AI-generated summaries of long threads.\n\n**Which OpenClaw skills work well together with the Gmail skill?**\nThree proven combinations: Gmail Connector + Lead Generator + CRM Sync for sales follow-up workflows; Gmail + RAG Pipeline + Slack Connector for customer support triage; and Gmail + Notion Sync for a research inbox that extracts links and attachments from newsletters.",
       },
     ],
     skills: [

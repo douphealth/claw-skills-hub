@@ -1,18 +1,37 @@
 # OpenClaw Complete Skill Catalog & Knowledge Base
-> Last updated: 2026-04-03
-> Total skills listed: 71 | Categories: 10 | Articles: 45 | Tutorials: 5 | Glossary terms: 20
+> Last updated: 2026-10-20
+> Total skills listed: 71 | Categories: 10 | Articles: 47 | Tutorials: 5 | Glossary terms: 20
 
 ## Site Information
-- Name: ClawSkills  
+- Name: ClawSkills
 - URL: https://openclaw-skillshub.com
 - Purpose: A directory of OpenClaw AI agent skills with install guides and Trust Scores
 - Install any skill: `npx clawhub@latest install <skill-name>`
+- Independent and unaffiliated with OpenClaw.
 
 ## Quick Facts
 - Framework: OpenClaw (open-source, MIT license, 150K+ GitHub stars)
 - Supported OS: macOS, Linux, Windows WSL
 - Supported LLMs: OpenAI, Anthropic, Google, Mistral, Cohere, Ollama
 - Status labels: Verified, Community, Unreviewed (as recorded in each skill's data)
+- Total skills cataloged in the wider registry: 5,705+ across 10 categories
+
+## Install Guide (4 steps)
+1. Install Node.js v18 or newer.
+2. Run `npm install -g clawhub@latest`.
+3. Run `clawhub init my-project`.
+4. Run `npx clawhub@latest install <skill-name>` — e.g. `npx clawhub@latest install gpt-prompt-chainer`.
+Troubleshooting: if you get "clawhub: command not found", run it via `npx clawhub@latest` instead of the global binary, or add npm's global bin folder to your PATH. On Windows, use PowerShell or Windows WSL with Node.js v18+.
+
+## Trust Score Methodology (summary)
+Every detail page shows a Trust Score from 0 to 100, calculated from six dimensions scored 0-10 each and normalized against a 60-point maximum:
+1. Security Audit (measured) — verified 10, community 6, unreviewed 2
+2. Update Recency (measured) — under 2 months 10, under 6 months 7, otherwise 4
+3. Community Trust (measured) — the skill rating multiplied by 2
+4. Documentation Quality (derived) — verified 9, otherwise 6 (not independently assessed)
+5. Permission Scope (derived) — verified 9, community 7, unreviewed 4 (no permission manifest is inspected)
+6. Open Source (derived) — always 10
+Honest limits, as stated on the methodology page: the score is primarily a restatement of audit status and how recently a skill was updated. It is not an assessment of what a skill does or whether its code is safe.
 
 ---
 
@@ -115,8 +134,6 @@ Skills for integrating large language models, prompt engineering, and AI-powered
 - **Use cases**: Compare model quality before switching providers; Detect quality regressions after model updates; Validate fine-tuned models against baselines; Run A/B tests with statistical significance
 - **URL**: https://openclaw-skillshub.com/skills/ai-llms/model-evaluator
 
----
-
 ## Search & Research (253 skills)
 Deep research, web scraping, academic search, and knowledge synthesis skills.
 
@@ -184,8 +201,6 @@ Deep research, web scraping, academic search, and knowledge synthesis skills.
 - **Use cases**: Search and filter arXiv papers by topic and date; Get AI summaries of research papers; Track new publications in your research area; Build curated reading lists with annotations
 - **URL**: https://openclaw-skillshub.com/skills/search-research/arxiv-explorer
 
----
-
 ## Web & Frontend Dev (202 skills)
 Build, deploy, and manage web applications with frontend framework integrations.
 
@@ -236,8 +251,6 @@ Build, deploy, and manage web applications with frontend framework integrations.
 - **Description**: Test your site across devices and breakpoints with visual comparison, screenshot diffs, and layout analysis.
 - **Use cases**: Visual regression testing across breakpoints; Compare layouts across mobile, tablet, and desktop; Detect responsive design issues before launch; Generate device screenshot galleries for stakeholders
 - **URL**: https://openclaw-skillshub.com/skills/web-frontend/responsive-tester
-
----
 
 ## DevOps & Cloud (212 skills)
 Infrastructure management, CI/CD, container orchestration, and cloud provider skills.
@@ -314,8 +327,6 @@ Infrastructure management, CI/CD, container orchestration, and cloud provider sk
 - **Use cases**: Build automated data sync between systems; Transform and clean data with AI-powered mappings; Create real-time streaming pipelines; Migrate data between databases and platforms
 - **URL**: https://openclaw-skillshub.com/skills/devops-cloud/data-pipeline
 
----
-
 ## Browser & Automation (139 skills)
 Browser control, web scraping, form filling, and UI testing automation.
 
@@ -366,8 +377,6 @@ Browser control, web scraping, form filling, and UI testing automation.
 - **Description**: Generate and run end-to-end browser tests from natural language descriptions with Playwright and Cypress support.
 - **Use cases**: Generate E2E tests from user flow descriptions; Run cross-browser test suites automatically; Visual regression testing with screenshot comparison; Accessibility testing with WCAG compliance checks
 - **URL**: https://openclaw-skillshub.com/skills/browser-automation/test-runner
-
----
 
 ## Productivity & Tasks (135 skills)
 Task management, calendar sync, note-taking, and workflow optimization skills.
@@ -444,8 +453,6 @@ Task management, calendar sync, note-taking, and workflow optimization skills.
 - **Use cases**: Auto-track time from Linear issues and GitHub commits; Generate client-ready timesheets and invoices; Analyze productivity patterns and optimize workflows; Track billable vs non-billable hours
 - **URL**: https://openclaw-skillshub.com/skills/productivity/time-tracker
 
----
-
 ## Marketing & Sales (143 skills)
 Email campaigns, social media management, analytics, and sales pipeline skills.
 
@@ -496,8 +503,6 @@ Email campaigns, social media management, analytics, and sales pipeline skills.
 - **Description**: Connect to HubSpot, Salesforce, and Pipedrive — manage contacts, deals, and pipelines with AI assistance.
 - **Use cases**: Manage CRM contacts and deals from OpenClaw; Automate data entry from emails and calls; Get AI predictions for deal outcomes; Generate pipeline reports and forecasts
 - **URL**: https://openclaw-skillshub.com/skills/marketing-sales/crm-connector
-
----
 
 ## Coding Agents & IDEs (133 skills)
 Code generation, refactoring, IDE integrations, and developer tooling skills.
@@ -550,8 +555,6 @@ Code generation, refactoring, IDE integrations, and developer tooling skills.
 - **Use cases**: Generate API documentation from code; Create README files for open-source projects; Add JSDoc/TSDoc comments to existing code; Generate OpenAPI specs from Express/Fastify routes
 - **URL**: https://openclaw-skillshub.com/skills/coding-agents/docs-generator
 
----
-
 ## Notes & PKM (100 skills)
 Personal knowledge management, note-taking apps, and second brain tools.
 
@@ -595,8 +598,6 @@ Personal knowledge management, note-taking apps, and second brain tools.
 - **Use cases**: Save and organize web bookmarks with AI tagging; Search bookmarks by content, not just title; Detect and alert on broken/dead links; Export bookmark collections to Notion or Obsidian
 - **URL**: https://openclaw-skillshub.com/skills/notes-pkm/bookmark-manager
 
----
-
 ## Health & Fitness (55 skills)
 Health tracking, workout planning, nutrition analysis, and wellness automation.
 
@@ -632,8 +633,6 @@ Health tracking, workout planning, nutrition analysis, and wellness automation.
 - **Use cases**: Generate personalized guided meditation scripts; Practice breathing exercises with timing guidance; Track meditation streak and session history; Get stress-relief exercises during high-pressure moments
 - **URL**: https://openclaw-skillshub.com/skills/health-fitness/meditation-guide
 
----
-
 ## Articles & Guides
 
 - [12 Best AI & LLM Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-ai-llm-skills-openclaw): Complete guide to the best OpenClaw AI and LLM skills. Build multi-agent pipelines, RAG systems, and production AI workflows with verified skills.
@@ -645,7 +644,7 @@ Health tracking, workout planning, nutrition analysis, and wellness automation.
 - [6 Best Marketing & Sales Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-marketing-sales-skills-openclaw): Analytics, social media, SEO, email campaigns, lead scoring, and CRM. The best OpenClaw skills for marketing and sales teams.
 - [6 Best Coding Agent & IDE Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-coding-agent-skills-openclaw): GitHub management, AI code review, refactoring, debugging, test generation, and documentation. The best OpenClaw skills for developers.
 - [5 Best Notes & PKM Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-notes-pkm-skills-openclaw): Obsidian, Roam, Logseq, Zettelkasten, and bookmark management. The best OpenClaw skills for personal knowledge management.
-- [4 Best Health & Fitness Skills for OpenClaw in 2026](https://openclaw-skillshub.com/articles/best-health-fitness-skills-openclaw): Workout planning, nutrition tracking, sleep analysis, and meditation. The best OpenClaw skills for health and wellness.
+- [OpenClaw Personal Trainer: 4 Health & Fitness Skills](https://openclaw-skillshub.com/articles/best-health-fitness-skills-openclaw): Build a progressive overload tracker and AI workout workflow with four OpenClaw health and fitness skills for training, nutrition, sleep, and recovery.
 - [How to Build Multi-Agent AI Systems with OpenClaw](https://openclaw-skillshub.com/articles/multi-agent-orchestration-guide): Learn to build multi-agent AI systems with OpenClaw. Coordinate specialist agents, manage handoffs, and run parallel workstreams.
 - [Best OpenClaw Skills for Content Creators in 2026](https://openclaw-skillshub.com/articles/best-skills-content-creators): Content writing, SEO, social media, research, and analytics. The best OpenClaw skills for bloggers, YouTubers, and content teams.
 - [Enterprise Security Checklist for OpenClaw Skills](https://openclaw-skillshub.com/articles/security-audit-checklist-openclaw-skills): 5-point security audit checklist for evaluating OpenClaw skills. Verify permissions, data handling, and compliance before installing.
@@ -681,6 +680,8 @@ Health tracking, workout planning, nutrition analysis, and wellness automation.
 - [Does NemoClaw Replace OpenClaw? Full 2026 Breakdown (NVIDIA vs OpenAI)](https://openclaw-skillshub.com/articles/does-nemoclaw-replace-openclaw): NemoClaw does not replace OpenClaw — it extends it with enterprise-grade security, GPU acceleration, and compliance guardrails. Read the full fact-checked breakdown of NVIDIA NemoClaw vs OpenClaw.
 - [Hermes Agent vs OpenClaw: Full 2026 Comparison — Which AI Agent Should You Use?](https://openclaw-skillshub.com/articles/hermes-agent-vs-openclaw): Hermes Agent by NousResearch vs OpenClaw compared head-to-head. Self-improving memory vs 5,700+ skills ecosystem. Find out which AI agent fits your workflow in this detailed 2026 comparison.
 - [Paperclip vs OpenClaw: Agent Orchestration vs Personal AI Assistant (2026)](https://openclaw-skillshub.com/articles/paperclip-vs-openclaw): Paperclip manages AI agent teams with org charts and budgets. OpenClaw powers the individual agents. Learn when to use each — and how they work together — in this detailed 2026 comparison.
+- [OpenClaw Provider APIs: How to Choose Ollama Cloud, Anthropic, OpenRouter, and xAI](https://openclaw-skillshub.com/articles/openclaw-provider-apis-guide): Compare OpenClaw provider choices without guessing: verify authentication, model IDs, routing, limits, privacy, cost, and failure behavior for Ollama, Anthropic, OpenRouter, and xAI.
+- [OpenClaw Provider APIs: How to Choose Ollama Cloud, Anthropic, OpenRouter, and xAI](https://openclaw-skillshub.com/articles/openclaw-provider-apis-guide): Compare OpenClaw provider choices without guessing: verify authentication, model IDs, routing, limits, privacy, cost, and failure behavior for Ollama, Anthropic, OpenRouter, and xAI.
 
 ---
 

@@ -14,6 +14,39 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.resolve(__dirname, '..', 'dist');
 const BASE_URL = 'https://openclaw-skillshub.com';
 
+// Mirror of homepageFaqs in src/pages/Index.tsx — keep in sync.
+// The React app emits FAQPage + CollectionPage JSON-LD via SEOHead; the prerender
+// must emit the same blocks so crawlers that don't run JS see them.
+const HOMEPAGE_FAQS = [
+  { question: "What are OpenClaw skills?", answer: "OpenClaw skills are modular capabilities defined in SKILL.md files that extend what OpenClaw can do. Each skill adds a specific function — from AI prompt chaining and browser automation to Gmail integration and code review. Install any skill with one command: npx clawhub@latest install <skill-name>." },
+  { question: "Are OpenClaw skills safe?", answer: "Each skill carries one of three status labels: verified, community, or unreviewed. The Trust Score reflects that status, how recently the skill was updated, and its rating. The score is not an assessment of what a skill does or whether its code is correct — check the security badge and read the source before installing." },
+  { question: "How do I install OpenClaw skills safely?", answer: "Install with npx clawhub@latest install <skill-name>. For safe installation: use verified skills, pin versions, review SKILL.md permissions (especially system.run and network access), audit dependencies, and test in a sandbox before production use." },
+  { question: "How many OpenClaw skills are there?", answer: "The registry indexes over 5,705 OpenClaw skills across 10 categories including AI & LLMs, DevOps, Web Development, Browser Automation, Productivity, and Marketing. A smaller set of skills — currently 71 — have their own detail page with an install guide and Trust Score." },
+  { question: "What is the Skill Trust Score?", answer: "A 0-100 rating built from six dimensions: security audit status, update recency, community trust, documentation quality, permission scope, and open-source status. Three of those are measured; the other three are derived from audit status. The full formula is on the methodology page." },
+  { question: "How do I create custom OpenClaw skills?", answer: "Create a SKILL.md file with frontmatter (name, description, permissions) and markdown instructions. Define tools, input/output schemas, and behavioral logic. Test locally with npx clawhub@latest install ./path/to/skill, then publish with npx clawhub@latest publish." },
+  { question: "What are the best OpenClaw skills for beginners?", answer: "Start with GPT Prompt Chainer (AI workflows), Deep Research (research automation), Browser Pilot (web automation), Notion Sync (productivity), and LLM Router (cost optimization). These five skills cover the most common use cases and work well together." },
+  { question: "Is OpenClaw free to use?", answer: "Yes. OpenClaw is fully open-source under the MIT license with no framework usage fees. Users only pay for their own LLM provider API costs, or can use free local models via Ollama for zero-cost development." },
+];
+
+// Port of extractFaqsFromArticle in src/pages/ArticlePage.tsx — keep in sync.
+// Extracts Q&A pairs from sections whose heading starts with "FAQ", written in
+// the **Question?**\nAnswer format.
+function extractFaqsFromArticle(sections) {
+  const faqs = [];
+  (sections || []).forEach((s) => {
+    if (!s.heading || !s.heading.toLowerCase().startsWith('faq')) return;
+    const regex = /\*\*(.+?\?)\*\*\n(.+?)(?=\n\n\*\*|\n*$)/gs;
+    let m;
+    while ((m = regex.exec(s.content)) !== null) {
+      faqs.push({
+        question: m[1].trim(),
+        answer: m[2].replace(/\[\[([^|]+)\|[^\]]+\]\]/g, '$1').trim(),
+      });
+    }
+  });
+  return faqs;
+}
+
 // We need to load the data. Since these are TS files with path aliases,
 // we'll parse them at build time via a separate extraction step.
 // For now, we read the generated sitemap to get all routes.
@@ -177,10 +210,29 @@ async function main() {
         name: "ClawSkills",
         url: BASE_URL,
         logo: `${BASE_URL}/og-image.png`
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "OpenClaw Skills Directory",
+        description: "Browse 5,705+ indexed OpenClaw AI agent skills across 10 categories with install guides and Trust Scores.",
+        url: `${BASE_URL}/`,
+        numberOfItems: 5705,
+        inLanguage: "en-US",
+        isPartOf: { "@type": "WebSite", name: "ClawSkills", url: BASE_URL }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: HOMEPAGE_FAQS.map(f => ({
+          "@type": "Question",
+          name: f.question,
+          acceptedAnswer: { "@type": "Answer", text: f.answer }
+        }))
       }
     ],
     bodyContent: `<h1>OpenClaw Skills Hub — Skill Directory</h1>
-<p>ClawSkills is a directory of documented OpenClaw AI agent skills across ${categories.length} categories with install commands. The wider registry catalogs 5,705+ skills, while 71 currently have full detail pages with Trust Scores.</p>
+<p>ClawSkills is the directory for OpenClaw AI agent skills: 5,705+ skills cataloged across ${categories.length} categories, 71 with full detail pages carrying an inspectable Trust Score out of 100. Install any skill with <code>npx clawhub@latest install &lt;skill-name&gt;</code>. Independent and unaffiliated with OpenClaw.</p>
 <p><a href="/pro-bundle/">Get the OpenClaw Pro Bundle for $7.99</a> or <a href="/install/">install skills for free</a> from the install center.</p>
 <h2>Browse OpenClaw skills by category</h2>
 <ul>${categories.map(c => `<li><a href="/skills/${c.slug}/">${c.name}</a> — ${c.description}</li>`).join('')}</ul>
@@ -188,6 +240,13 @@ async function main() {
 <ul>${skills.filter(s => s.securityStatus === 'verified').sort((a, b) => b.rating - a.rating).slice(0, 30).map(s => `<li><a href="/skills/${s.categorySlug}/${s.slug}/">${s.name}</a> — ${s.description}</li>`).join('')}</ul>
 <h2>OpenClaw guides and tutorials</h2>
 <ul>${articles.slice(0, 15).map(a => `<li><a href="/articles/${a.slug}/">${a.title}</a></li>`).join('')}</ul>
+<h2>Frequently Asked Questions</h2>
+${HOMEPAGE_FAQS.slice(0, 6).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`).join('')}
+<h2>OpenClaw Skills Starter Series</h2>
+<p>Get four concise emails covering skill discovery, security checks, practical workflows, and essential resources.</p>
+<form id="newsletter-static" method="post" action="/api/email/subscribe"><label>Email <input type="email" name="email" placeholder="your@email.com" required></label> <button type="submit">Subscribe</button></form>
+<p id="newsletter-static-msg">Free forever. Unsubscribe anytime. No spam.</p>
+<script>document.getElementById('newsletter-static').addEventListener('submit',function(e){e.preventDefault();var f=e.target;fetch('/api/email/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:f.email.value,source_page:location.pathname})}).then(function(r){return r.json()}).then(function(d){document.getElementById('newsletter-static-msg').textContent=d.message||'Check your inbox to confirm your subscription.';f.reset();}).catch(function(){document.getElementById('newsletter-static-msg').textContent='Something went wrong. Try again.';});});</script>
 <p>New to OpenClaw? Start with the <a href="/skills/">full skills directory</a> or the <a href="/install/">install center</a>.</p>`
   });
   fs.writeFileSync(path.join(DIST, 'index.html'), homeHtml);
@@ -203,7 +262,7 @@ async function main() {
       "@type": "ItemList",
       name: "OpenClaw Skills Directory",
       numberOfItems: skills.length,
-      itemListElement: skills.slice(0, 50).map((s, i) => ({
+      itemListElement: skills.map((s, i) => ({
         "@type": "ListItem",
         position: i + 1,
         name: s.name,
@@ -305,7 +364,8 @@ async function main() {
 
   // --- Individual Article Pages ---
   for (const article of articles) {
-    const faqSections = article.sections.filter(s => s.heading.toLowerCase().includes('faq') || s.heading.toLowerCase().includes('question'));
+    // Mirror ArticlePage.tsx: FAQPage from sections whose heading starts with "FAQ".
+    const extractedFaqs = extractFaqsFromArticle(article.sections);
     const articleJsonLd = [
       {
         "@context": "https://schema.org",
@@ -326,7 +386,16 @@ async function main() {
           { "@type": "ListItem", position: 2, name: "Articles", item: `${BASE_URL}/articles/` },
           { "@type": "ListItem", position: 3, name: article.title, item: `${BASE_URL}/articles/${article.slug}/` }
         ]
-      }
+      },
+      ...(extractedFaqs.length ? [{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: extractedFaqs.map(f => ({
+          "@type": "Question",
+          name: f.question,
+          acceptedAnswer: { "@type": "Answer", text: f.answer }
+        }))
+      }] : [])
     ];
 
     const sectionContent = article.sections.map(s =>
