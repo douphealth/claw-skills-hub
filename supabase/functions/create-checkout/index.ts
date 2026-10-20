@@ -18,7 +18,13 @@ serve(async (req) => {
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2025-08-27.basil" });
 
-    const origin = req.headers.get("origin") || "https://openclaw-skillshub.com";
+    // Never trust caller-supplied Origin when constructing payment return URLs.
+    const appUrl = Deno.env.get("APP_URL") || "https://openclaw-skillshub.com";
+    const url = new URL(appUrl);
+    if (url.protocol !== "https:" || url.username || url.password || url.search || url.hash) {
+      throw new Error("APP_URL must be an HTTPS origin without credentials or query parameters");
+    }
+    const origin = url.origin;
 
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -28,7 +34,7 @@ serve(async (req) => {
         },
       ],
       mode: "payment",
-      success_url: `${origin}/pro-bundle?success=true`,
+      success_url: `${origin}/pro-bundle?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/pro-bundle?canceled=true`,
       customer_creation: "always",
     });
