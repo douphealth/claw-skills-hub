@@ -61,31 +61,11 @@ const ProBundle = () => {
     faqJsonLd(faqs),
   ].filter(Boolean);
 
+  // Sales remain suspended until the paid bundle is packaged, server-side
+  // purchase verification is installed, and fulfillment tests pass. Never
+  // charge for an undeliverable product.
   const handleCheckout = async () => {
-    try {
-      window.gtag?.('event', 'pro_bundle_checkout_start', {
-        currency: 'USD',
-        value: 7.99,
-        item_name: 'OpenClaw Complete Installation Bundle',
-      });
-      const { data, error } = await supabase.functions.invoke('create-checkout', {
-        method: 'POST',
-      });
-      if (error) throw error;
-      if (data?.url) {
-        window.gtag?.('event', 'pro_bundle_checkout_redirect', {
-          currency: 'USD',
-          value: 7.99,
-          item_name: 'OpenClaw Complete Installation Bundle',
-        });
-        window.open(data.url, '_blank');
-      }
-    } catch (err) {
-      window.gtag?.('event', 'pro_bundle_checkout_error', {
-        item_name: 'OpenClaw Complete Installation Bundle',
-      });
-      console.error("Checkout error:", err);
-    }
+    window.alert("Pro Bundle checkout is temporarily unavailable while secure delivery is being prepared. No payment has been started.");
   };
 
   return (
