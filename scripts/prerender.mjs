@@ -542,7 +542,7 @@ ${HOMEPAGE_FAQS.slice(0, 6).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`)
         name: "OpenClaw Complete Installation Bundle",
         description: "Installation bundle with 60+ premium OpenClaw skills, pre-configured for production use, enterprise configs, and 1 year of updates.",
         brand: { "@type": "Brand", name: "ClawSkills" },
-        offers: { "@type": "Offer", url: `${BASE_URL}/pro-bundle/`, priceCurrency: "USD", price: "7.99", availability: "https://schema.org/InStock", priceValidUntil: "2027-12-31", seller: { "@type": "Organization", name: "ClawSkills" } }
+        offers: { "@type": "Offer", url: `${BASE_URL}/pro-bundle/`, priceCurrency: "USD", price: "7.99", availability: "https://schema.org/OutOfStock", priceValidUntil: "2027-12-31", seller: { "@type": "Organization", name: "ClawSkills" } }
       },
       {
         "@context": "https://schema.org",
@@ -554,7 +554,7 @@ ${HOMEPAGE_FAQS.slice(0, 6).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`)
         ]
       }
     ],
-    bodyContent: `<h1>OpenClaw Pro Bundle — 60+ Premium Skills</h1><p>Install a production-focused OpenClaw toolkit in about 60 seconds instead of configuring each skill manually. The bundle includes 60+ premium skills, enterprise configurations, pre-built workflows, security-audited components, and 1 year of updates.</p><p><strong>Price:</strong> $7.99 one time. A 30-day money-back guarantee is provided as described on the product page.</p><h2>What is included</h2><ul><li>60+ premium OpenClaw skills</li><li>One-command setup for macOS, Linux, and Windows</li><li>15+ skill-chain workflows</li><li>Enterprise deployment configurations</li><li>1 year of updates and priority support</li></ul><h2>Who it is for</h2><p>The bundle is designed for developers and teams who want a faster, pre-configured starting point than installing and configuring skills individually.</p><h2>Compare with free installation</h2><p>Free installation remains available through the <a href="/install/">OpenClaw install center</a> and <a href="/skills/">documented skills directory</a>. The Pro Bundle packages setup, configuration, and support into one purchase.</p><p><a href="/pro-bundle/#checkout">View the Pro Bundle checkout</a></p>`
+    bodyContent: `<h1>OpenClaw Pro Bundle — 60+ Premium Skills</h1><p role="status"><strong>Checkout temporarily unavailable</strong>. Purchases are paused while we verify the replacement. Free tools remain available.</p><p>Install a production-focused OpenClaw toolkit in about 60 seconds instead of configuring each skill manually. The bundle includes 60+ premium skills, enterprise configurations, pre-built workflows, security-audited components, and 1 year of updates.</p><p><strong>Price:</strong> $7.99 one time. A 30-day money-back guarantee is provided as described on the product page.</p><h2>What is included</h2><ul><li>60+ premium OpenClaw skills</li><li>One-command setup for macOS, Linux, and Windows</li><li>15+ skill-chain workflows</li><li>Enterprise deployment configurations</li><li>1 year of updates and priority support</li></ul><h2>Who it is for</h2><p>The bundle is designed for developers and teams who want a faster, pre-configured starting point than installing and configuring skills individually.</p><h2>Compare with free installation</h2><p>Free installation remains available through the <a href="/install/">OpenClaw install center</a> and <a href="/skills/">documented skills directory</a>. The Pro Bundle packages setup, configuration, and support into one purchase.</p>`
   }));
   count++;
 

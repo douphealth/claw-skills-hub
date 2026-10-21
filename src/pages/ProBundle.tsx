@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, Shield, Zap, Clock, Download, Star, RefreshCw, Headphones, Lock, BadgeCheck, Crown, ArrowRight, Gift, Sparkles } from "lucide-react";
+import { Check, Shield, Zap, Clock, Download, Star, RefreshCw, Headphones, Lock, Crown, ArrowRight, Gift, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -10,7 +10,6 @@ import FreeToolsSection from "@/components/pro-bundle/FreeToolsSection";
 import PremiumValueSection from "@/components/pro-bundle/PremiumValueSection";
 import SocialProofSection from "@/components/pro-bundle/SocialProofSection";
 import { breadcrumbJsonLd, faqJsonLd } from "@/utils/jsonLd";
-import { supabase } from "@/integrations/supabase/client";
 
 const SITE_URL = "https://openclaw-skillshub.com";
 
@@ -45,7 +44,7 @@ const productJsonLd = {
     url: `${SITE_URL}/pro-bundle`,
     priceCurrency: "USD",
     price: "7.99",
-    availability: "https://schema.org/InStock",
+    availability: "https://schema.org/OutOfStock",
     priceValidUntil: "2027-12-31",
     seller: { "@type": "Organization", name: "ClawSkills" },
   },
@@ -60,33 +59,6 @@ const ProBundle = () => {
     ]),
     faqJsonLd(faqs),
   ].filter(Boolean);
-
-  const handleCheckout = async () => {
-    try {
-      window.gtag?.('event', 'pro_bundle_checkout_start', {
-        currency: 'USD',
-        value: 7.99,
-        item_name: 'OpenClaw Complete Installation Bundle',
-      });
-      const { data, error } = await supabase.functions.invoke('create-checkout', {
-        method: 'POST',
-      });
-      if (error) throw error;
-      if (data?.url) {
-        window.gtag?.('event', 'pro_bundle_checkout_redirect', {
-          currency: 'USD',
-          value: 7.99,
-          item_name: 'OpenClaw Complete Installation Bundle',
-        });
-        window.open(data.url, '_blank');
-      }
-    } catch (err) {
-      window.gtag?.('event', 'pro_bundle_checkout_error', {
-        item_name: 'OpenClaw Complete Installation Bundle',
-      });
-      console.error("Checkout error:", err);
-    }
-  };
 
   return (
     <>
@@ -132,8 +104,8 @@ const ProBundle = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-              <Button size="lg" className="text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20" onClick={handleCheckout}>
-                <Lock className="mr-2 h-5 w-5" /> Get the Bundle — $7.99
+              <Button type="button" size="lg" className="text-sm sm:text-lg px-6 py-6 h-auto whitespace-normal rounded-xl" disabled aria-describedby="bundle-checkout-hero-status">
+                <Lock className="mr-2 h-5 w-5 shrink-0" /> Checkout temporarily unavailable
               </Button>
               <a href="#free-tools">
                 <Button size="lg" variant="outline" className="text-lg px-8 py-6 rounded-xl">
@@ -142,11 +114,9 @@ const ProBundle = () => {
               </a>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1"><BadgeCheck className="h-4 w-4 text-primary" /> 30-day money-back guarantee</span>
-              <span className="flex items-center gap-1"><Shield className="h-4 w-4" /> Secure Stripe Checkout</span>
-              <span className="flex items-center gap-1"><Download className="h-4 w-4" /> Instant Download</span>
-            </div>
+            <p id="bundle-checkout-hero-status" role="status" className="text-sm text-muted-foreground">
+              Purchases are paused while we verify the replacement. Free tools remain available.
+            </p>
           </motion.div>
         </div>
       </section>
@@ -178,7 +148,7 @@ const ProBundle = () => {
       <SocialProofSection />
 
       {/* Premium Value + Comparison */}
-      <PremiumValueSection onCheckout={handleCheckout} />
+      <PremiumValueSection />
 
       {/* How It Works */}
       <section className="py-16 md:py-24 bg-background">
@@ -240,11 +210,11 @@ const ProBundle = () => {
           <p className="text-lg text-muted-foreground mb-8">
             Join 2,400+ developers who've already set up their complete OpenClaw stack in under a minute.
           </p>
-          <Button size="lg" className="text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20" onClick={handleCheckout}>
-            <Lock className="mr-2 h-5 w-5" /> Get the Bundle — $7.99
+          <Button type="button" size="lg" className="text-sm sm:text-lg px-6 py-6 h-auto whitespace-normal rounded-xl" disabled aria-describedby="bundle-checkout-footer-status">
+            <Lock className="mr-2 h-5 w-5 shrink-0" /> Checkout temporarily unavailable
           </Button>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Secure payment via Stripe · Instant download · 30-day money-back guarantee
+          <p id="bundle-checkout-footer-status" role="status" className="mt-4 text-sm text-muted-foreground">
+            Purchases are paused while we verify the replacement. Free tools remain available.
           </p>
         </div>
       </section>

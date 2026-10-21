@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, X, Crown, Sparkles, ArrowRight } from "lucide-react";
+import { Check, X, Crown, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -48,11 +48,7 @@ const comparison = [
   { feature: "Enterprise configs", free: "Not included", pro: "CI/CD, Docker, K8s ready" },
 ];
 
-interface PremiumValueSectionProps {
-  onCheckout: () => void;
-}
-
-const PremiumValueSection = ({ onCheckout }: PremiumValueSectionProps) => {
+const PremiumValueSection = () => {
   return (
     <>
       {/* Premium Exclusives */}
@@ -127,9 +123,12 @@ const PremiumValueSection = ({ onCheckout }: PremiumValueSectionProps) => {
           </div>
 
           <div className="text-center mt-8">
-            <Button size="lg" className="px-8 text-lg" onClick={onCheckout}>
-              Get the Pro Bundle <ArrowRight className="ml-2 h-5 w-5" />
+            <Button type="button" size="lg" className="px-6 text-sm sm:text-lg h-auto whitespace-normal py-3" disabled aria-describedby="bundle-checkout-comparison-status">
+              Checkout temporarily unavailable
             </Button>
+            <p id="bundle-checkout-comparison-status" role="status" className="mt-4 text-sm text-muted-foreground">
+              Purchases are paused while we verify the replacement. Free tools remain available.
+            </p>
           </div>
         </div>
       </section>
