@@ -29,7 +29,7 @@ serve(async (req) => {
     // Already confirmed — redirect
     return new Response(null, {
       status: 302,
-      headers: { Location: "https://claw-compass.lovable.app/?confirmed=already" },
+      headers: { Location: "https://openclaw-skillshub.com/?confirmed=already" },
     });
   }
 
@@ -58,11 +58,10 @@ serve(async (req) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}`,
+        "x-newsletter-internal-token": Deno.env.get("NEWSLETTER_INTERNAL_TOKEN") ?? "",
       },
       body: JSON.stringify({
         subscriber_id: subscriber.id,
-        email: subscriber.email,
         sequence_step: 0,
       }),
     });
@@ -74,6 +73,6 @@ serve(async (req) => {
   // Redirect to success page
   return new Response(null, {
     status: 302,
-    headers: { Location: "https://claw-compass.lovable.app/?confirmed=true" },
+    headers: { Location: "https://openclaw-skillshub.com/?confirmed=true" },
   });
 });
