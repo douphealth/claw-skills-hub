@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import NewsletterSection from "@/components/NewsletterSection";
 import FreeToolsSection from "@/components/pro-bundle/FreeToolsSection";
 import PremiumValueSection from "@/components/pro-bundle/PremiumValueSection";
-import SocialProofSection from "@/components/pro-bundle/SocialProofSection";
 import { breadcrumbJsonLd, faqJsonLd } from "@/utils/jsonLd";
 
 const SITE_URL = "https://openclaw-skillshub.com";
@@ -77,7 +76,7 @@ const ProBundle = () => {
         <div className="container mx-auto px-4 text-center max-w-4xl relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div className="flex items-center justify-center gap-2 mb-6">
-              <Badge className="text-sm px-4 py-1">🔥 Most Popular</Badge>
+              <Badge className="text-sm px-4 py-1">Pro Bundle Preview</Badge>
               <Badge variant="outline" className="text-sm px-4 py-1 border-primary/30 text-primary">
                 <Gift className="h-3.5 w-3.5 mr-1" /> Free Tools Included
               </Badge>
@@ -88,10 +87,10 @@ const ProBundle = () => {
               <span className="text-primary">Developer Toolkit</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-4 max-w-2xl mx-auto">
-              60+ premium skills, enterprise configs, and pre-built workflows — all installed in 60 seconds. Save 40+ hours of manual setup.
+              60+ premium skills, enterprise configs, and pre-built workflows — all installed in 60 seconds. Compare the planned Pro toolkit with free installation guides.
             </p>
             <p className="text-sm text-muted-foreground mb-8 max-w-lg mx-auto">
-              Used by 2,400+ developers at companies like Stripe, Vercel, and Shopify.
+              Explore the free installation guides while the paid bundle is being verified.
             </p>
 
             {/* Hero feature pills */}
@@ -145,7 +144,7 @@ const ProBundle = () => {
       </div>
 
       {/* Social Proof */}
-      <SocialProofSection />
+      <div className="container mx-auto max-w-3xl px-4 py-8 text-center text-sm text-muted-foreground">We are independently verifying paid deliverables before accepting new purchases.</div>
 
       {/* Premium Value + Comparison */}
       <PremiumValueSection />
@@ -206,9 +205,9 @@ const ProBundle = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--primary)/0.06),transparent_60%)]" />
         <div className="container mx-auto px-4 text-center max-w-2xl relative z-10">
           <Crown className="h-12 w-12 text-primary mx-auto mb-4" />
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Save 40+ Hours?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Explore the Pro Bundle</h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Join 2,400+ developers who've already set up their complete OpenClaw stack in under a minute.
+            Browse our free tools while paid delivery is unavailable.
           </p>
           <Button type="button" size="lg" className="text-sm sm:text-lg px-6 py-6 h-auto whitespace-normal rounded-xl" disabled aria-describedby="bundle-checkout-footer-status">
             <Lock className="mr-2 h-5 w-5 shrink-0" /> Checkout temporarily unavailable
