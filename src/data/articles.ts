@@ -520,12 +520,20 @@ export const articles: Article[] = [
     heroDescription: "New to OpenClaw? This guide walks you through installing your first skills, setting up common workflows, and understanding the skill ecosystem. In 15 minutes, you'll go from zero to a working AI-powered automation.",
     sections: [
       {
+        heading: "Quick Answer",
+        content: "To get started with OpenClaw skills, install one with `npx clawhub@latest install <skill-name>` — no config files to edit, skills are configured through conversation. Start with five foundational skills that work together: GPT Prompt Chainer, Deep Research, Browser Pilot, Notion Sync or Todoist Sync, and LLM Router."
+      },
+      {
         heading: "What Are OpenClaw Skills?",
         content: "OpenClaw skills are modular capabilities you install to extend what OpenClaw can do. Think of them like apps on your phone — each skill adds a specific superpower. The [[skills directory|/skills]] indexes over 5,705 skills across 10 categories.\n\nSkills are installed with a single command: `npx clawhub@latest install <skill-name>`. They're configured through conversation — no YAML files or config editing required. Every skill listed in the directory includes an install command ready to copy and paste."
       },
       {
         heading: "Your First 5 Skills: The Starter Stack",
         content: "We recommend starting with five foundational skills that work great together:\n\n1. **[[GPT Prompt Chainer|/skills/ai-llms/gpt-prompt-chainer]]** — The backbone for any AI workflow. Chain prompts together with context passing.\n\n2. **[[Deep Research|/skills/search-research/deep-research]]** — Turn OpenClaw into a research powerhouse with multi-source synthesis.\n\n3. **[[Browser Pilot|/skills/browser-automation/browser-pilot]]** — Give OpenClaw the ability to navigate and interact with websites.\n\n4. **[[Notion Sync|/skills/productivity/notion-sync]]** or **[[Todoist Sync|/skills/productivity/todoist-sync]]** — Connect your task management tool.\n\n5. **[[LLM Router|/skills/ai-llms/llm-router]]** — Save money by routing prompts to the right model automatically.\n\nFor deeper exploration, check our category guides: [[AI skills|/articles/best-ai-llm-skills-openclaw]], [[research skills|/articles/best-search-research-skills-openclaw]], [[productivity skills|/articles/best-productivity-skills-openclaw]], and [[coding skills|/articles/best-coding-agent-skills-openclaw]]."
+      },
+      {
+        heading: "FAQ: Getting Started with OpenClaw Skills",
+        content: "**What is an OpenClaw skill?**\nAn OpenClaw skill is a modular capability you install to extend what OpenClaw can do. Think of it like an app on your phone: each skill adds a specific superpower, and the skills directory indexes over 5,705 skills across 10 categories.\n\n**How do I install my first OpenClaw skill?**\nRun `npx clawhub@latest install <skill-name>`. Every skill listed in the directory includes an install command ready to copy and paste.\n\n**Which five skills should a beginner start with?**\nGPT Prompt Chainer for chaining prompts with context passing, Deep Research for multi-source research synthesis, Browser Pilot for navigating and interacting with websites, Notion Sync or Todoist Sync for task management, and LLM Router for routing prompts to the right model automatically to save money.\n\n**Do I need to edit config files to use a skill?**\nNo. Skills are configured through conversation, with no YAML files or config editing required.\n\n**Where do I find more skills after the starter stack?**\nBrowse the skills directory, which indexes over 5,705 skills across 10 categories, and follow the category guides for AI, research, productivity, and coding skills."
       },
     ],
     skills: [
@@ -603,6 +611,10 @@ export const articles: Article[] = [
     heroDescription: "Build your own OpenClaw skills from scratch. This guide covers SKILL.md syntax, permission declarations, tool definitions, input/output schemas, testing, and publishing. Includes 5 complete skill templates you can use as starting points.",
     sections: [
       {
+        heading: "Quick Answer",
+        content: "To create an OpenClaw skill, write a SKILL.md file: frontmatter with name, description, version, author, tags, and permissions, followed by markdown behavioral instructions and tool definitions. Test it locally with `npx clawhub@latest install ./path/to/skill`, then publish it with `npx clawhub@latest publish`."
+      },
+      {
         heading: "What Are OpenClaw Skills and How Do They Work?",
         content: "OpenClaw skills are modular capabilities defined in SKILL.md files that tell OpenClaw how to perform specific tasks. Each skill declares its name, description, required permissions, available tools, and behavioral instructions. When you install a skill with `npx clawhub@latest install <skill-name>`, the SKILL.md file is added to your OpenClaw configuration, extending the agent's capabilities.\n\nSkills can range from simple prompt templates (a few lines of SKILL.md) to complex multi-tool systems with API integrations, custom schemas, and orchestration logic. The [[ClawSkills directory|/skills]] indexes over 5,705 community and verified skills across [[10 categories|/skills]]."
       },
@@ -621,6 +633,10 @@ export const articles: Article[] = [
       {
         heading: "Testing and Publishing Your OpenClaw Skill",
         content: "Before publishing, test your skill thoroughly:\n\n1. **Local testing:** Install your skill locally with `npx clawhub@latest install ./path/to/skill` and verify all tools work as expected.\n\n2. **Edge cases:** Test with unexpected inputs, large files, API failures, and permission boundaries.\n\n3. **Security review:** Run your skill through the [[5-point security audit|/articles/openclaw-skills-security]] from the security guide.\n\n4. **Documentation:** Write clear usage examples and include them in your README.\n\n5. **Publishing:** Submit to the ClawHub registry with `npx clawhub@latest publish`. Your skill will appear in the [[ClawSkills directory|/skills]] after review.\n\nTo aim for verified status, follow the security best practices in our [[security guide|/articles/openclaw-skills-security]] and submit your skill for formal audit through the OpenClaw GitHub repository."
+      },
+      {
+        heading: "FAQ: Creating OpenClaw Skills",
+        content: "**What is a SKILL.md file made of?**\nA SKILL.md file has a frontmatter section defining metadata and permissions, and a markdown body containing behavioral instructions, which is effectively the system prompt that guides OpenClaw when the skill is active. It also includes tool declarations with a name, description, and input and output schemas.\n\n**What permissions should my skill request?**\nRequest only what your skill needs. Network is required for calling external APIs, filesystem for reading and writing local files, and system.run for executing shell commands, which is the most powerful and dangerous permission and should only be requested if absolutely necessary. Skills requesting fewer permissions are easier to get verified and more likely to be trusted, and over-requesting permissions is the number one reason skills get rejected from the verified registry.\n\n**What is a good first skill to build?**\nStart with a simple prompt skill, such as one that formats meeting notes, which needs no permissions and just instructions. From there, the guide's templates progress to an API integration skill, a file processing skill, a multi-tool skill like GPT Prompt Chainer, and a full-stack skill like Browser Pilot.\n\n**How do I test a skill before publishing it?**\nInstall it locally with `npx clawhub@latest install ./path/to/skill` and verify all tools work, test edge cases such as unexpected inputs, large files, API failures, and permission boundaries, run it through the 5-point security audit, and write clear usage examples and documentation.\n\n**How do I publish an OpenClaw skill?**\nSubmit it to the ClawHub registry with `npx clawhub@latest publish`. Your skill will appear in the ClawSkills directory after review, and you can aim for verified status by following the security best practices and submitting your skill for formal audit through the OpenClaw GitHub repository."
       },
     ],
     skills: [
@@ -2114,64 +2130,6 @@ articles.push({
     { name: "LLM Router", slug: "llm-router", description: "Route prompts to the best model based on complexity, cost, and latency.", installCmd: "npx clawhub@latest install llm-router", whyPicked: "Critical for cost management in multi-agent Paperclip deployments. Routes each agent's prompts to the most cost-effective model.", rating: 4.9 },
     { name: "Token Counter", slug: "token-counter", description: "Track token usage and costs across all model providers in real-time.", installCmd: "npx clawhub@latest install token-counter", whyPicked: "Pairs with Paperclip's budget controls. Track exactly what each OpenClaw agent spends so Paperclip can enforce limits.", rating: 4.5 },
     { name: "GPT Prompt Chainer", slug: "gpt-prompt-chainer", description: "Chain multiple prompts together with context passing for complex multi-step workflows.", installCmd: "npx clawhub@latest install gpt-prompt-chainer", whyPicked: "Essential for building the complex skill chains that make each OpenClaw agent a specialist in Paperclip's org chart.", rating: 4.8 },
-  ],
-});
-
-// ═══════════════════════════════════════════════════════════════
-// Guide: OpenClaw Provider APIs
-// ═══════════════════════════════════════════════════════════════
-articles.push({
-  slug: "openclaw-provider-apis-guide",
-  title: "OpenClaw Provider APIs: How to Choose Ollama Cloud, Anthropic, OpenRouter, and xAI",
-  metaTitle: "OpenClaw Provider APIs — Ollama Cloud, Anthropic, OpenRouter & xAI",
-  metaDescription: "Compare OpenClaw provider choices without guessing: verify authentication, model IDs, routing, limits, privacy, cost, and failure behavior for Ollama, Anthropic, OpenRouter, and xAI.",
-  tag: "AI & LLMs",
-  readTime: "13 min read",
-  publishedDate: "2026-08-03",
-  updatedDate: "2026-08-03",
-  heroDescription: "A practical, security-first way to choose and verify an OpenClaw model provider. Separate provider capability from current documentation, pricing, routing, and credential reality before connecting an agent to a real workflow.",
-  sections: [
-    {
-      heading: "The short answer: choose the workflow before the provider",
-      content: `For searches such as **Ollama Cloud**, **Anthropic Console**, **OpenRouter AI**, **OpenRouter API**, and the **xAI API**, the right question is not which name is universally best. Start with the work the agent must perform, then define the required context window, latency, privacy boundary, tool use, availability, budget, and failure behavior.\n\nA provider is a dependency. Model identifiers, authentication methods, rate limits, billing, and routing rules can change. Check the current [[OpenClaw provider directory|https://docs.openclaw.ai/providers]] and the provider's own documentation on the day you configure it. Record the exact provider reference, model ID, endpoint, and date checked.`,
-    },
-    {
-      heading: "What changes between provider choices",
-      content: `A provider comparison becomes useful when it separates six decisions:\n\n**Authentication:** What credential type does the current integration expect, and where will it be stored?\n\n**Model reference:** Which model identifier is valid today, and does it support the context, tool, vision, or structured-output features your workflow needs?\n\n**Transport and routing:** Is OpenClaw calling a native API, an OpenAI-compatible endpoint, a gateway, or a cloud/local runtime?\n\n**Data boundary:** What is sent to the provider, what is retained, and which logs or dashboards expose it?\n\n**Economics:** How are input, output, cached, or routed requests billed?\n\n**Failure behavior:** What happens on a timeout, rate limit, unavailable model, or invalid key? A fallback that silently changes the model can change the result or the data boundary.`,
-    },
-    {
-      heading: "Ollama and Ollama Cloud: keep local and cloud routing distinct",
-      content: `Ollama is commonly used as a local model runtime, while OpenClaw's current documentation also distinguishes a cloud-only **ollama-cloud** provider reference. Do not assume that a local Ollama configuration and an Ollama Cloud configuration have identical authentication, model availability, or network behavior.\n\nUse the [[OpenClaw Ollama provider documentation|https://docs.openclaw.ai/providers/ollama]] to verify the current setup. Before enabling a workflow, confirm:\n\n- whether the model is local, hosted, or being routed between the two;\n- the exact model reference OpenClaw expects;\n- whether the runtime has network access and what leaves the machine;\n- what happens when a local model is missing, slow, or out of memory;\n- how tool calls and structured output behave with the selected model.\n\nLocal execution can be attractive for privacy or predictable infrastructure costs, but it moves responsibility to your hardware, updates, monitoring, and model files. Cloud routing can simplify capacity while creating a provider and billing dependency. Treat these as different operating modes, not as two names for the same path.`,
-    },
-    {
-      heading: "Anthropic Console: verify credentials, model IDs, and scope",
-      content: `The **Anthropic Console** is an account and API-management surface; it is not a guarantee that every Anthropic model or administrative feature is available to every key. OpenClaw's [[Anthropic provider documentation|https://docs.openclaw.ai/providers/anthropic]] should be the starting point for the current integration.\n\nUse a narrowly scoped key where the provider supports it, keep it in the supported secret mechanism, and never paste it into a skill, screenshot, article, prompt, or repository. Confirm the model ID, request limits, organization or workspace context, and whether the key is intended for inference or administration. A key that can view usage or manage an organization should not be treated as an ordinary runtime key.\n\nFor a production workflow, test one representative request, capture the provider and model reference in a private run record, set a budget alert, and decide whether a failure should stop the task or use an explicitly approved fallback.`,
-    },
-    {
-      heading: "OpenRouter AI and OpenRouter API: routing is part of the decision",
-      content: `OpenRouter can be useful when a workflow needs access to multiple model providers through a routing layer. That convenience adds another dependency: the route may include provider selection, model availability, billing, privacy, and compatibility behavior that you need to understand.\n\nRead OpenClaw's [[model-provider documentation|https://docs.openclaw.ai/concepts/model-providers]] and verify the current OpenRouter route before publishing a configuration. Record whether the workflow pins a specific model or allows routing, which headers or attribution settings apply, what data-retention choice is active, and how errors are surfaced.\n\nDo not describe OpenRouter as automatically cheaper, private, faster, or more reliable. Those outcomes depend on the chosen model, route, account settings, workload, and date. If a model switch would affect quality or data handling, make the switch visible and testable rather than silently accepting a fallback.`,
-    },
-    {
-      heading: "xAI API and other providers: use the same verification checklist",
-      content: `For the **xAI API** or any provider added later, apply the same checklist instead of relying on a copied configuration. The current OpenClaw provider catalog is the source of truth for supported integration details; the provider's official API documentation is the source of truth for credentials, model availability, limits, and pricing.\n\nA provider is ready for a real workflow only when you can answer: Which endpoint is used? Which credential is required? Which model ID was tested? What is the context and tool behavior? What does a 401, 429, timeout, or provider outage do? Where are request and usage logs stored? How can the key be revoked?\n\nIf an answer is unknown, label the integration **needs verification** and keep it out of production. A cautious “not yet verified” is more useful than a confident setup that fails when a reader follows it.`,
-    },
-    {
-      heading: "A provider-selection worksheet for OpenClaw",
-      content: `Use this worksheet before changing a production model:\n\n**Workflow:** [the task and its acceptable failure mode]\n\n**Data:** [what is sent, what must stay local, and what may be logged]\n\n**Quality:** [the minimum evaluation cases and required output properties]\n\n**Latency:** [interactive, batch, or deadline-bound]\n\n**Tools:** [browser, files, code, structured output, or no tools]\n\n**Provider and model:** [exact current reference]\n\n**Credential:** [secret name only; never the secret value]\n\n**Budget:** [per-request, daily, and monthly guardrails]\n\n**Fallback:** [explicit provider/model, or stop safely]\n\n**Review date:** [when pricing, terms, model availability, and logs will be checked again]\n\nRun a small test set before switching. Include an ordinary request, a long-context request, a missing-evidence request, a tool-use request if relevant, and a deliberate timeout or invalid-key test in a non-production environment.`,
-    },
-    {
-      heading: "Security checks before connecting any provider",
-      content: `1. Store keys in the supported secret mechanism; do not place them in public content or source control.\n\n2. Start with the narrowest permission and a non-production test.\n\n3. Pin or record the exact provider and model so a route change is observable.\n\n4. Set timeouts, budgets, retries, and rate-limit behavior before enabling automation.\n\n5. Inspect logs for accidental prompt or secret exposure.\n\n6. Decide whether fallback is safe for the task. A different model may change quality, policy handling, or data residency.\n\n7. Revoke and rotate credentials when a key is exposed or no longer needed.\n\nOpenClaw's [[setup guide|/articles/openclaw-setup-guide-2026]] is useful for the broader installation path; this article focuses on the provider decision that comes after installation.`,
-    },
-    {
-      heading: "FAQ: OpenClaw provider APIs",
-      content: `**Does OpenClaw use every provider in the same way?**\nNot necessarily. Authentication, model naming, transport, capabilities, and fallback behavior can differ. Follow the current provider documentation.\n\n**Is Ollama Cloud the same as local Ollama?**\nNo assumption is safe. Treat cloud and local routing as separate operating modes and verify the provider reference, model availability, authentication, and network behavior.\n\n**Is OpenRouter always the cheapest option?**\nNo. Cost depends on the model, route, usage, caching, account terms, and date. Compare the actual workflow rather than a headline rate.\n\n**Should I put an API key in a configuration example?**\nNever publish a real key. Use a placeholder and point readers to the supported secret mechanism.\n\n**What should happen when a provider is unavailable?**\nUse an explicitly approved fallback for low-risk work, or stop and report the failure when changing the model or data boundary would be material.`,
-    },
-  ],
-  skills: [
-    { name: "LLM Router", slug: "llm-router", description: "Route requests by task requirements, cost, and latency.", installCmd: "npx clawhub@latest install llm-router", whyPicked: "Useful only after provider and fallback decisions are documented; routing should be observable rather than a silent model change.", rating: 4.8 },
-    { name: "Token Counter", slug: "token-counter", description: "Track token usage and estimate model cost.", installCmd: "npx clawhub@latest install token-counter", whyPicked: "Helps turn a provider-cost assumption into a measurable usage record with budget alerts and review points.", rating: 4.5 },
-    { name: "Code Reviewer", slug: "code-reviewer", description: "Review integration code and configuration for risky changes.", installCmd: "npx clawhub@latest install code-reviewer", whyPicked: "A provider change should be reviewed for secret handling, endpoint changes, fallback behavior, and accidental data exposure.", rating: 4.6 },
   ],
 });
 
