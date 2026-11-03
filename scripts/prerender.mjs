@@ -344,8 +344,8 @@ ${HOMEPAGE_FAQS.slice(0, 6).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`)
 
   // --- Articles Index ---
   writeRoute('/articles', injectMeta(template, {
-    title: 'OpenClaw Articles & Guides — ClawSkills',
-    description: 'In-depth articles, guides, and analysis on OpenClaw skills, security, and AI agent workflows.',
+    title: 'OpenClaw Guides: Install, Security & Comparisons — ClawSkills',
+    description: 'OpenClaw guides in one place: installing skills, skill security, AI and developer workflows, and head-to-head comparisons like Paperclip vs OpenClaw.',
     canonical: `${BASE_URL}/articles/`,
     jsonLd: {
       "@context": "https://schema.org",
