@@ -652,8 +652,8 @@ export const articles: Article[] = [
   {
     slug: "best-openclaw-skills-for-developers",
     title: "Best OpenClaw Skills for Developers: Code, Deploy, Automate",
-    metaTitle: "Best OpenClaw Skills for Developers — Coding, GitHub & DevOps (2026)",
-    metaDescription: "The best OpenClaw skills for software developers. Code review, GitHub automation, CI/CD, testing, debugging, and deployment skills curated for dev workflows.",
+    metaTitle: "Best OpenClaw Skills for Developers (2026)",
+    metaDescription: "The best OpenClaw skills for developers: code review, GitHub automation, CI/CD, testing, debugging, and deployment — curated for dev workflows.",
     tag: "For Developers",
     readTime: "15 min read",
     publishedDate: "2026-03-03",
@@ -2072,8 +2072,8 @@ articles.push({
 articles.push({
   slug: "paperclip-vs-openclaw",
   title: "Paperclip vs OpenClaw: Agent Orchestration vs Personal AI Assistant (2026)",
-  metaTitle: "Paperclip vs OpenClaw (2026) — Orchestration vs Execution Compared",
-  metaDescription: "Paperclip manages AI agent teams with org charts and budgets. OpenClaw powers the individual agents. Learn when to use each — and how they work together — in this detailed 2026 comparison.",
+  metaTitle: "Paperclip vs OpenClaw (2026): Orchestration vs Execution",
+  metaDescription: "Paperclip orchestrates AI agent teams with org charts, budgets, and governance. OpenClaw powers the individual agents. When to use each, or both together.",
   tag: "Comparison",
   readTime: "12 min read",
   publishedDate: "2026-03-28",

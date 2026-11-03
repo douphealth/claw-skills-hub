@@ -365,8 +365,8 @@ export const glossaryEntries: GlossaryEntry[] = [
   {
     slug: "what-is-clawhub",
     term: "ClawHub",
-    metaTitle: "What is ClawHub? — OpenClaw Skill Registry Explained | ClawSkills",
-    metaDescription: "ClawHub is the official registry for distributing and installing OpenClaw skills. Learn how it works, how it relates to ClawSkills, and how to publish skills.",
+    metaTitle: "What Is ClawHub? Skill Registry Explained | ClawSkills",
+    metaDescription: "ClawHub is the official registry for OpenClaw skills: search, install, and publish SKILL.md files. How it works, and how it differs from ClawSkills.",
     shortDefinition: "ClawHub is the official package registry for OpenClaw skills, providing centralized distribution, versioning, and discovery of SKILL.md-based agent capabilities.",
     sections: [
       { heading: "What is ClawHub?", content: "**ClawHub** is the official registry and distribution platform for OpenClaw skills. It serves as the centralized repository where skill authors publish their SKILL.md files and where developers discover and install skills using `npx clawhub@latest install <skill-name>`.\n\nThink of ClawHub as the npm registry for AI agent skills." },
