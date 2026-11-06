@@ -1,48 +1,55 @@
-import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import Stripe from "https://esm.sh/stripe@18.5.0";
+import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
-};
+// Payment creation is deliberately disabled until the premium artifact,
+// webhook signature verification, receipt-to-entitlement mapping, and
+// delivery/recovery flows have all passed staging tests.
+// Disabling only the React button does not protect a public Edge Function.
+const TRUSTED_ORIGINS = new Set([
+  "https://openclaw-skillshub.com",
+  "https://www.openclaw-skillshub.com",
+]);
 
-serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+function reply(message: string, status: number, origin?: string) {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    "Cache-Control": "no-store",
+    "Vary": "Origin",
+  };
+  if (origin && TRUSTED_ORIGINS.has(origin)) {
+    headers["Access-Control-Allow-Origin"] = origin;
+  }
+  return new Response(JSON.stringify({ error: message }), { status, headers });
+}
+
+serve((request: Request) => {
+  const origin = request.headers.get("origin") ?? undefined;
+  if (origin && !TRUSTED_ORIGINS.has(origin)) {
+    return reply("Origin not allowed.", 403);
   }
 
-  try {
-    const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
-    if (!stripeKey) throw new Error("STRIPE_SECRET_KEY is not set");
-
-    const stripe = new Stripe(stripeKey, { apiVersion: "2025-08-27.basil" });
-
-    const origin = req.headers.get("origin") || "https://openclaw-skillshub.com";
-
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price: "price_1TI3vuGCqwm95OGXGt3JS82Q",
-          quantity: 1,
-        },
-      ],
-      mode: "payment",
-      success_url: `${origin}/pro-bundle?success=true`,
-      cancel_url: `${origin}/pro-bundle?canceled=true`,
-      customer_creation: "always",
-    });
-
-    return new Response(JSON.stringify({ url: session.url }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error("Checkout error:", errorMessage);
-    return new Response(JSON.stringify({ error: errorMessage }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 500,
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": origin ?? "https://openclaw-skillshub.com",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers":
+          "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+        "Cache-Control": "no-store",
+        "Vary": "Origin",
+      },
     });
   }
+
+  if (request.method !== "POST") {
+    return reply("Method not allowed.", 405, origin);
+  }
+
+  // Fail closed: a direct API call must not charge a customer while there
+  // is no deployable, independently verified paid fulfillment system.
+  return reply(
+    "Pro Bundle checkout is temporarily unavailable while paid delivery is being verified.",
+    503,
+    origin,
+  );
 });
