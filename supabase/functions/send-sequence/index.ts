@@ -282,12 +282,17 @@ const SEQUENCE = [
 ];
 
 serve(async (req) => {
+  if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
+  const internalToken = Deno.env.get("NEWSLETTER_INTERNAL_TOKEN");
+  if (!internalToken || req.headers.get("x-newsletter-internal-token") !== internalToken) {
+    return new Response("Unauthorized", { status: 401 });
+  }
   try {
-    const { subscriber_id, email, sequence_step } = await req.json();
+    const { subscriber_id, sequence_step } = await req.json();
     const step = sequence_step ?? 0;
 
-    if (!subscriber_id || !email) {
-      return new Response(JSON.stringify({ error: "subscriber_id and email required" }), {
+    if (!subscriber_id) {
+      return new Response(JSON.stringify({ error: "subscriber_id required" }), {
         status: 400,
       });
     }
@@ -299,15 +304,16 @@ serve(async (req) => {
 
     const { data: sub } = await supabase
       .from("subscribers")
-      .select("status, confirmation_token")
+      .select("status, confirmation_token, email")
       .eq("id", subscriber_id)
       .single();
 
-    if (!sub || sub.status === "unsubscribed") {
+    if (!sub || sub.status !== "confirmed") {
       return new Response(JSON.stringify({ message: "Subscriber inactive, skipping" }), { status: 200 });
     }
 
-    const seqItem = SEQUENCE[step];
+    const email = sub.email;
+    const seqItem = Number.isInteger(step) && step >= 0 ? SEQUENCE[step] : undefined;
     if (!seqItem) {
       return new Response(JSON.stringify({ message: "Sequence complete" }), { status: 200 });
     }
@@ -333,6 +339,7 @@ serve(async (req) => {
       headers: {
         Authorization: `Bearer ${RESEND_API_KEY}`,
         "Content-Type": "application/json",
+        "Idempotency-Key": `clawskills-sequence-${subscriber_id}-${step}`,
       },
       body: JSON.stringify({
         from: "ClawSkills <hello@openclaw-skillshub.com>",
