@@ -312,8 +312,8 @@ export const articles: Article[] = [
   {
     slug: "best-coding-agent-skills-openclaw",
     title: "6 Best Coding Agent & IDE Skills for OpenClaw in 2026",
-    metaTitle: "6 Best Coding Agent Skills for OpenClaw (2026)",
-    metaDescription: "GitHub management, AI code review, refactoring, debugging, test generation, and documentation. The best OpenClaw skills for developers.",
+    metaTitle: "6 OpenClaw Coding Agent Skills: Review, Debug & Test",
+    metaDescription: "Compare six OpenClaw coding agent skills for code review, debugging, refactoring, automated tests and documentation. Find a skill for each coding task.",
     tag: "Coding Agents",
     readTime: "12 min read",
     publishedDate: "2026-02-12",
@@ -652,8 +652,8 @@ export const articles: Article[] = [
   {
     slug: "best-openclaw-skills-for-developers",
     title: "Best OpenClaw Skills for Developers: Code, Deploy, Automate",
-    metaTitle: "Best OpenClaw Skills for Developers (2026)",
-    metaDescription: "The best OpenClaw skills for developers: code review, GitHub automation, CI/CD, testing, debugging, and deployment — curated for dev workflows.",
+    metaTitle: "Best OpenClaw Skills for Developers: GitHub & CI/CD",
+    metaDescription: "Choose OpenClaw skills for GitHub pull requests, code review, CI/CD and deployment. Compare developer workflows and find the right skills for your stack.",
     tag: "For Developers",
     readTime: "15 min read",
     publishedDate: "2026-03-03",
@@ -1682,8 +1682,8 @@ export const articles: Article[] = [
   {
     slug: "best-openclaw-skills-2026",
     title: "Best OpenClaw Skills in 2026: 25 Safe, High-Impact Picks by Category",
-    metaTitle: "25 Best OpenClaw Skills (2026) — Safe, Rated & Ranked by Category",
-    metaDescription: "The definitive 2026 roundup: 25 OpenClaw skills ranked by safety, impact, maintenance, and setup complexity. Curated across AI, coding, DevOps, productivity, research, and marketing categories.",
+    metaTitle: "25 Best OpenClaw Skills in 2026: Picks by Category",
+    metaDescription: "Compare 25 OpenClaw skills for AI, coding, DevOps, research and productivity. See the selection criteria, use cases and what to check before installing.",
     tag: "Roundup",
     readTime: "24 min read",
     publishedDate: "2026-03-10",
