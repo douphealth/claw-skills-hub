@@ -68,6 +68,20 @@ if (!fs.existsSync(dist) || !fs.existsSync(dataPath)) {
     }
   }
 
+  const installHtml = read("install/index.html");
+  const installCanonical = "https://openclaw-skillshub.com/install/";
+  if (canonicalFrom(installHtml) !== installCanonical) {
+    fail("Installation center canonical does not match " + installCanonical);
+  }
+  if (!sitemap.includes("<loc>" + installCanonical + "</loc>")) {
+    fail("Installation center is missing from the sitemap.");
+  }
+  if (!installHtml.includes("openclaw skills install @openclaw/demo") ||
+      !installHtml.includes("Node 24.16.0+") ||
+      installHtml.includes("clawhub init my-project")) {
+    fail("Installation center contains missing or outdated setup instructions.");
+  }
+
   const notFound = read("404.html");
   if (!/<meta name="robots" content="noindex, follow"/i.test(notFound)) {
     fail("dist/404.html is not marked noindex,follow.");
