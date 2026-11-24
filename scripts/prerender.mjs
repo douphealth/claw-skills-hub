@@ -584,34 +584,19 @@ ${HOMEPAGE_FAQS.slice(0, 6).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`)
   }));
   count++;
 
-  // Installation Center
+  // Installation Center — match the hydrated route and current upstream docs.
   writeRoute('/install', injectMeta(template, {
-    title: 'ClawHub Install Guide — How to Install OpenClaw Skills (npx clawhub install) | ClawSkills',
-    description: 'How to install OpenClaw skills with the ClawHub CLI: npx clawhub@latest install commands for macOS, Linux and Windows WSL — plus fixes for clawhub command not found.',
+    title: 'How to Install OpenClaw & ClawHub Skills (2026)',
+    description: 'Install OpenClaw on macOS, Linux or Windows WSL. Learn current Node.js requirements, ClawHub skill search, install, update and verification commands.',
     canonical: `${BASE_URL}/install/`,
-    jsonLd: [
-      {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        name: "OpenClaw Installation Center",
-        description: "Install commands for OpenClaw and 5,705+ indexed skills.",
-        url: `${BASE_URL}/install`
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        name: "How to Install OpenClaw",
-        description: "Step-by-step guide to install OpenClaw and skills on macOS, Linux, and Windows WSL.",
-        totalTime: "PT5M",
-        step: [
-          { "@type": "HowToStep", position: 1, name: "Install Node.js", text: "Install Node.js v18+ using your package manager." },
-          { "@type": "HowToStep", position: 2, name: "Install OpenClaw CLI", text: "Run npm install -g clawhub@latest" },
-          { "@type": "HowToStep", position: 3, name: "Initialize project", text: "Run clawhub init my-project" },
-          { "@type": "HowToStep", position: 4, name: "Install skills", text: "Run npx clawhub@latest install <skill-name>" }
-        ]
-      }
-    ],
-    bodyContent: `<h1>ClawHub Install Guide: How to Install OpenClaw Skills</h1><p><strong>Direct answer:</strong> the fastest way to install an OpenClaw skill is <code>npx clawhub@latest install &lt;skill-name&gt;</code>. ClawHub is the official registry; the <code>clawhub install</code> command downloads a skill's SKILL.md into your project.</p><h2>Quick start: clawhub install in 4 steps</h2><ol><li>Install Node.js v18 or newer.</li><li>Run <code>npm install -g clawhub@latest</code>.</li><li>Run <code>clawhub init my-project</code>.</li><li>Run <code>npx clawhub@latest install &lt;skill-name&gt;</code> — e.g. <code>npx clawhub@latest install gpt-prompt-chainer</code>.</li></ol><h2>Troubleshooting: clawhub command not found</h2><ul><li>If you get "clawhub: command not found", run it with <code>npx clawhub@latest</code> instead of the global binary, or add npm's global bin folder to your PATH.</li><li>On Windows, use PowerShell or Windows WSL with Node.js v18+.</li></ul><p>Browse all 5,705+ indexed skills in the <a href="/skills/">OpenClaw skills directory</a>.</p>`
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "OpenClaw Installation Center",
+      description: "Install OpenClaw on macOS, Linux or Windows WSL. Learn current Node.js requirements, ClawHub skill search, install, update and verification commands.",
+      url: `${BASE_URL}/install/`
+    },
+    bodyContent: `<h1>Install OpenClaw &amp; ClawHub Skills</h1><p>OpenClaw is the agent runtime and CLI; ClawHub is its public skill and plugin registry. Install OpenClaw first, then use native <code>openclaw skills</code> commands to find, install and update registry skills.</p><h2>Requirements and quick start</h2><ol><li>Check Node.js with <code>node --version</code>. Current documentation requires Node 24.16.0+ on 24.x or Node 26.1.0+; Node 26 is recommended. Use a current patched release. The official installer can provision Node.</li><li>On macOS, Linux or WSL, review the official installer, then run <code>curl -fsSL https://openclaw.ai/install.sh | bash</code> and complete onboarding.</li><li>Check <code>openclaw --version</code>.</li><li>Search with <code>openclaw skills search &quot;calendar&quot;</code>. Review the publisher, source, permissions and current scan result before installing.</li><li>Install a verified owner-qualified identifier. The official documentation uses <code>openclaw skills install @openclaw/demo</code> as an example.</li><li>Review and update ClawHub-tracked skills with <code>openclaw skills update --all</code>.</li></ol><h2>Windows</h2><p>Use the official native Windows Hub or PowerShell installer, or WSL2. For WSL, enable it with <code>wsl --install</code> in an administrator PowerShell session and run Linux commands inside the distribution.</p><h2>ClawHub CLI versus OpenClaw CLI</h2><p>Use native OpenClaw commands to install and update skills. The separate registry CLI supports registry workflows and removal of tracked skills. Install it with <code>npm i -g clawhub</code> if needed, then use <code>clawhub uninstall</code> with the installed skill identifier and review the confirmation.</p><p>A directory listing is not a security guarantee. Browse <a href="/skills/">documented skill profiles</a> and <a href="/methodology/">the Trust Score methodology</a> before installation.</p><p>Sources: <a href="https://docs.openclaw.ai/install">OpenClaw installation</a>, <a href="https://docs.openclaw.ai/clawhub/quickstart">ClawHub quickstart</a> and <a href="https://docs.openclaw.ai/cli/skills">Skills CLI</a>. Documentation checked November 24, 2026.</p>`
   }));
   count++;
 
