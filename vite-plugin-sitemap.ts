@@ -20,6 +20,7 @@ function buildEntries(): SitemapEntry[] {
     { loc: "/skills/compare/", changefreq: "weekly", priority: 0.7 },
     { loc: "/articles/", changefreq: "weekly", priority: 0.8 },
     { loc: "/tutorials/", changefreq: "weekly", priority: 0.8 },
+    { loc: "/install/", changefreq: "weekly", priority: 0.8 },
     { loc: "/glossary/", changefreq: "weekly", priority: 0.8 },
     { loc: "/privacy/", changefreq: "monthly", priority: 0.3 },
     { loc: "/terms/", changefreq: "monthly", priority: 0.3 },
