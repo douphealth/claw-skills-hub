@@ -31,23 +31,25 @@ const platforms: { id: Platform; label: string; icon: React.ElementType }[] = [
 
 function getPlatformInstallSteps(platform: Platform) {
   const common = [
-    { title: "Install Node.js (v18+)", cmd: platform === "macos" ? "brew install node" : platform === "linux" ? "curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - && sudo apt-get install -y nodejs" : "wsl --install && curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - && sudo apt-get install -y nodejs", note: platform === "windows" ? "Run this in PowerShell as Administrator, then open WSL" : undefined },
-    { title: "Verify installation", cmd: "node --version && npm --version", note: "Should show v18+ and v9+" },
-    { title: "Install OpenClaw CLI", cmd: "npm install -g clawhub@latest", note: "Installs the OpenClaw command-line tool globally" },
-    { title: "Verify OpenClaw", cmd: "clawhub --version", note: "Confirms OpenClaw CLI is ready" },
-    { title: "Initialize your project", cmd: "clawhub init my-project && cd my-project", note: "Creates a new project with default configuration" },
-    { title: "Install your first skill", cmd: "npx clawhub@latest install gpt-prompt-chainer", note: "Installs the #1 most popular skill" },
+    { title: "Check Node.js if already installed", cmd: "node --version", note: "OpenClaw requires Node 24.16.0+ on 24.x or Node 26.1.0+. Node 26 is recommended; use a current patched release. The official installer can provision Node." },
+    { title: "Install OpenClaw", cmd: "curl -fsSL https://openclaw.ai/install.sh | bash", note: "Official installer for macOS, Linux and WSL. Review the installer and official documentation before running." },
+    { title: "Verify OpenClaw", cmd: "openclaw --version", note: "Complete onboarding if prompted by the installer." },
+    { title: "Search the ClawHub registry", cmd: 'openclaw skills search "calendar"', note: "Review the publisher, source, permissions and current scan result before installing." },
+    { title: "Install an example skill", cmd: "openclaw skills install @openclaw/demo", note: "Official documentation example. Replace it with the verified owner-qualified identifier of the skill you choose." },
+    { title: "Update registry-installed skills", cmd: "openclaw skills update --all", note: "Review updates and permissions before applying them to production agents." },
   ];
-  return common;
+  return platform === "windows"
+    ? [{ title: "Enable WSL if needed", cmd: "wsl --install", note: "Run in Windows PowerShell as Administrator. Restart if required, then open the Linux distribution and run the remaining commands there." }, ...common]
+    : common;
 }
 
 const installFaqs = [
-  { question: "How do I install OpenClaw on macOS?", answer: "Install Node.js via Homebrew (brew install node), then run npm install -g clawhub@latest. Verify with clawhub --version. You can then install any skill with npx clawhub@latest install <skill-name>." },
-  { question: "How do I install OpenClaw on Windows?", answer: "OpenClaw requires WSL (Windows Subsystem for Linux). Run wsl --install in PowerShell as Administrator, then install Node.js inside WSL. Finally, run npm install -g clawhub@latest to install the CLI." },
-  { question: "How do I install a specific OpenClaw skill?", answer: "Use the command npx clawhub@latest install <skill-slug>. For example: npx clawhub@latest install gpt-prompt-chainer. You can find skill slugs in the Skills Directory." },
-  { question: "Can I install multiple OpenClaw skills at once?", answer: "Yes! Use npx clawhub@latest install skill-1 skill-2 skill-3 to install multiple skills in a single command. All dependencies are resolved automatically." },
-  { question: "How do I update OpenClaw skills?", answer: "Run npx clawhub@latest update to update all installed skills, or npx clawhub@latest update <skill-name> to update a specific skill to its latest version." },
-  { question: "How do I uninstall an OpenClaw skill?", answer: "Run npx clawhub@latest uninstall <skill-name> to remove a skill. This cleanly removes the SKILL.md file and any associated configuration." },
+  { question: "How do I install OpenClaw on macOS or Linux?", answer: "Use the official OpenClaw installer, then complete onboarding. Current documentation requires Node 24.16.0+ on 24.x or Node 26.1.0+; Node 26 is recommended. The installer can provision Node." },
+  { question: "How do I install OpenClaw on Windows?", answer: "Use the official native Windows Hub or PowerShell installer, or use WSL2. For WSL, enable it in PowerShell and run the Linux setup commands inside your distribution." },
+  { question: "What is the difference between OpenClaw and ClawHub?", answer: "OpenClaw is the agent runtime and CLI. ClawHub is its public skill and plugin registry. Use native openclaw skills commands for installing and updating; the separate clawhub CLI is used for registry workflows and removing tracked skills." },
+  { question: "How do I install a specific OpenClaw skill?", answer: "Search with openclaw skills search, review the source and security scan, then run openclaw skills install with the verified owner-qualified identifier. A directory listing is not a security guarantee." },
+  { question: "How do I update OpenClaw skills?", answer: "Use openclaw skills update --all for ClawHub-tracked skills. Git or local installs must be refreshed from their own source." },
+  { question: "How do I uninstall a ClawHub skill?", answer: "Install the separate ClawHub CLI if needed with npm i -g clawhub. Run clawhub uninstall with the installed skill's identifier, then review the confirmation before removal." },
 ];
 
 const InstallCenter = () => {
@@ -77,21 +79,21 @@ const InstallCenter = () => {
 
   const bJsonLd = breadcrumbJsonLd([
     { name: "Home", url: "/" },
-    { name: "Installation Center", url: "/install" },
+    { name: "Installation Center", url: "/install/" },
   ]);
   const pJsonLd = webPageJsonLd(
     "OpenClaw Installation Center",
-    "Install commands for OpenClaw and 5,705+ indexed skills. Step-by-step guides for macOS, Linux, and Windows WSL.",
-    "/install"
+    "Install OpenClaw on macOS, Linux or Windows WSL. Learn current Node.js requirements, ClawHub skill search, install, update and verification commands.",
+    "/install/"
   );
   const fJson = faqJsonLd(installFaqs);
 
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Installation Center — OpenClaw Setup & Skill Install Commands"
-        description="Install commands for OpenClaw and 5,705+ indexed skills. Step-by-step guides for macOS, Linux, and Windows WSL with one-click copy."
-        canonical="https://openclaw-skillshub.com/install"
+        title="How to Install OpenClaw & ClawHub Skills (2026)"
+        description="Install OpenClaw on macOS, Linux or Windows WSL. Learn current Node.js requirements, ClawHub skill search, install, update and verification commands."
+        canonical="https://openclaw-skillshub.com/install/"
         jsonLd={[bJsonLd, pJsonLd, ...(fJson ? [fJson] : [])]}
       />
       <Navbar />
@@ -119,10 +121,10 @@ const InstallCenter = () => {
               <span className="text-xs font-medium text-muted-foreground">Enterprise-Grade Commands</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-tight">
-              Installation <span className="text-gradient">Command Center</span>
+              Install OpenClaw &amp; <span className="text-gradient">ClawHub Skills</span>
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Copy-paste ready commands for every platform. Set up OpenClaw and install any of 5,705+ indexed skills in seconds.
+              Set up OpenClaw, find skills in the ClawHub registry, and install them with the native OpenClaw CLI. Review the publisher, source and security status before installation.
             </p>
           </motion.div>
         </div>
@@ -135,8 +137,13 @@ const InstallCenter = () => {
             <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-2">
               <Download className="w-5 h-5 text-primary" /> Quick Start Setup
             </h2>
-            <p className="text-muted-foreground mb-6 text-sm sm:text-base">Choose your platform and follow the steps to get OpenClaw running.</p>
+            <p className="text-muted-foreground mb-6 text-sm sm:text-base">Choose your platform and follow the steps to get OpenClaw running. For native Windows setup or the latest requirements, see the official documentation.</p>
 
+            <p className="text-sm text-muted-foreground mb-6">
+              Sources: <a className="text-primary underline" href="https://docs.openclaw.ai/install">OpenClaw installation</a>{" · "}
+              <a className="text-primary underline" href="https://docs.openclaw.ai/clawhub/quickstart">ClawHub quickstart</a>{" · "}
+              <a className="text-primary underline" href="https://docs.openclaw.ai/cli/skills">Skills CLI</a>. Documentation checked November 24, 2026.
+            </p>
             {/* Platform tabs */}
             <div className="flex flex-wrap gap-2 mb-8">
               {platforms.map((p) => {
@@ -198,7 +205,7 @@ const InstallCenter = () => {
             <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-2">
               <Zap className="w-5 h-5 text-primary" /> Install Any Skill
             </h2>
-            <p className="text-muted-foreground mb-6 text-sm sm:text-base">Search and get instant install commands for all 5,705+ indexed skills.</p>
+            <p className="text-muted-foreground mb-6 text-sm sm:text-base">Search the documented skill profiles. Confirm the registry publisher and exact identifier before installing; the wider catalog is not individually audited.</p>
 
             {/* Search */}
             <div className="relative mb-4">
@@ -307,8 +314,9 @@ function SkillInstallCard({
   onCopy: (cmd: string) => void;
   copiedCmd: string | null;
 }) {
-  const installCmd = `npx clawhub@latest install ${skill.slug}`;
-  const verifyCmd = `clawhub list --installed | grep ${skill.slug}`;
+  const searchCmd = `openclaw skills search "${skill.slug}"`;
+  const installCmd = `openclaw skills install ${skill.slug}`;
+  const verifyCmd = `openclaw skills verify ${skill.slug}`;
   const uninstallCmd = `npx clawhub@latest uninstall ${skill.slug}`;
 
   return (
@@ -344,9 +352,10 @@ function SkillInstallCard({
           >
             <div className="px-4 pb-4 space-y-3 border-t border-border pt-3">
               {[
-                { label: "Install", cmd: installCmd },
+                { label: "Find registry listing first", cmd: searchCmd },
+                { label: "Install (confirm exact publisher first)", cmd: installCmd },
                 { label: "Verify", cmd: verifyCmd },
-                { label: "Uninstall", cmd: uninstallCmd },
+                { label: "Remove a ClawHub-tracked skill", cmd: uninstallCmd },
               ].map((item) => (
                 <div key={item.label}>
                   <span className="text-[10px] font-semibold uppercase tracking-wider text-primary mb-1 block">{item.label}</span>
