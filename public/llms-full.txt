@@ -1,6 +1,6 @@
 # OpenClaw Complete Skill Catalog & Knowledge Base
-> Last updated: 2026-10-20
-> Total skills listed: 71 | Categories: 10 | Articles: 47 | Tutorials: 5 | Glossary terms: 20
+> Last updated: 2026-11-25
+> Total skills listed: 71 | Categories: 10 | Articles: 46 | Tutorials: 5 | Glossary terms: 20
 
 ## Site Information
 - Name: ClawSkills
@@ -651,7 +651,7 @@ Health tracking, workout planning, nutrition analysis, and wellness automation.
 - [Getting Started with OpenClaw Skills: A Beginner's Guide](https://openclaw-skillshub.com/articles/getting-started-openclaw-skills-beginner): New to OpenClaw? Start here. Learn how to install, configure, and use skills with step-by-step examples for common workflows.
 - [OpenClaw Skills Security: Are OpenClaw Skills Safe to Install?](https://openclaw-skillshub.com/articles/openclaw-skills-security): Are OpenClaw skills safe? Learn how to audit permissions, verify skill safety, and install OpenClaw skills securely. Complete security guide with actionable checklist.
 - [How to Create OpenClaw Skills: Complete Guide with Examples](https://openclaw-skillshub.com/articles/how-to-create-openclaw-skills): Learn how to create custom OpenClaw skills from scratch. Includes SKILL.md syntax, permission declarations, examples, templates, and publishing to the skill registry.
-- [Best OpenClaw Skills for Developers: Code, Deploy, Automate](https://openclaw-skillshub.com/articles/best-openclaw-skills-for-developers): The best OpenClaw skills for software developers. Code review, GitHub automation, CI/CD, testing, debugging, and deployment skills curated for dev workflows.
+- [Best OpenClaw Skills for Developers: Code, Deploy, Automate](https://openclaw-skillshub.com/articles/best-openclaw-skills-for-developers): The best OpenClaw skills for developers: code review, GitHub automation, CI/CD, testing, debugging, and deployment — curated for dev workflows.
 - [Best OpenClaw Skills for Founders: Automate Sales, Ops & Growth](https://openclaw-skillshub.com/articles/best-openclaw-skills-for-founders): The best OpenClaw skills for startup founders and indie hackers. Automate email outreach, sales pipelines, content creation, research, and operations.
 - [OpenClaw Gmail Skill: AI Email Automation for Gmail](https://openclaw-skillshub.com/articles/openclaw-gmail-skill): Automate Gmail with OpenClaw. Draft replies, sort inbox, schedule sends, extract data from emails, and build email workflows with the Gmail Connector skill.
 - [OpenClaw Slack Skill: AI-Powered Team Communication](https://openclaw-skillshub.com/articles/openclaw-slack-skill): Build AI-powered Slack bots with OpenClaw. Channel summaries, smart notifications, automated standup reports, and team workflow automation.
@@ -679,8 +679,7 @@ Health tracking, workout planning, nutrition analysis, and wellness automation.
 - [OpenClaw Skill Not Loading? 15 Fixes for Paths, Precedence, and Config Errors (2026)](https://openclaw-skillshub.com/articles/openclaw-skill-not-loading-fixes): OpenClaw skill not loading? Troubleshoot workspace vs shared paths, precedence conflicts, missing binaries, config gating, refresh issues, and 10 more common problems with copy-paste fixes.
 - [Does NemoClaw Replace OpenClaw? Full 2026 Breakdown (NVIDIA vs OpenAI)](https://openclaw-skillshub.com/articles/does-nemoclaw-replace-openclaw): NemoClaw does not replace OpenClaw — it extends it with enterprise-grade security, GPU acceleration, and compliance guardrails. Read the full fact-checked breakdown of NVIDIA NemoClaw vs OpenClaw.
 - [Hermes Agent vs OpenClaw: Full 2026 Comparison — Which AI Agent Should You Use?](https://openclaw-skillshub.com/articles/hermes-agent-vs-openclaw): Hermes Agent by NousResearch vs OpenClaw compared head-to-head. Self-improving memory vs 5,700+ skills ecosystem. Find out which AI agent fits your workflow in this detailed 2026 comparison.
-- [Paperclip vs OpenClaw: Agent Orchestration vs Personal AI Assistant (2026)](https://openclaw-skillshub.com/articles/paperclip-vs-openclaw): Paperclip manages AI agent teams with org charts and budgets. OpenClaw powers the individual agents. Learn when to use each — and how they work together — in this detailed 2026 comparison.
-- [OpenClaw Provider APIs: How to Choose Ollama Cloud, Anthropic, OpenRouter, and xAI](https://openclaw-skillshub.com/articles/openclaw-provider-apis-guide): Compare OpenClaw provider choices without guessing: verify authentication, model IDs, routing, limits, privacy, cost, and failure behavior for Ollama, Anthropic, OpenRouter, and xAI.
+- [Paperclip vs OpenClaw: Agent Orchestration vs Personal AI Assistant (2026)](https://openclaw-skillshub.com/articles/paperclip-vs-openclaw): Paperclip orchestrates AI agent teams with org charts, budgets, and governance. OpenClaw powers the individual agents. When to use each, or both together.
 - [OpenClaw Provider APIs: How to Choose Ollama Cloud, Anthropic, OpenRouter, and xAI](https://openclaw-skillshub.com/articles/openclaw-provider-apis-guide): Compare OpenClaw provider choices without guessing: verify authentication, model IDs, routing, limits, privacy, cost, and failure behavior for Ollama, Anthropic, OpenRouter, and xAI.
 
 ---

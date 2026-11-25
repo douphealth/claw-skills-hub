@@ -135,7 +135,7 @@ When the user asks you to [specific action], follow these steps:
       },
       {
         heading: "Step 5: Publish Your Skill",
-        content: "When you're satisfied with your skill, publish it to the OpenClaw skills registry:\n\nThis will:\n1. Validate your skill's format and metadata\n2. Run automated security checks\n3. Submit it for community review\n4. Make it available via `clawhub install your-skill-slug`\n\nCommunity-submitted skills start with a \"community\" security status and can be promoted to \"verified\" after review by the OpenClaw security team.",
+        content: "When you're satisfied with your skill, publish it to the OpenClaw skills registry:\n\nThis will:\n1. Validate your skill's format and metadata\n2. Run automated security checks\n3. Submit it for community review\n4. Make it available via `clawhub install your-skill-slug`\n\nPublishing does not mean a skill has been security-audited. Anyone installing it should still read the SKILL.md and any bundled scripts first.",
         codeBlock: { language: "bash", code: "npx clawhub@latest publish" },
       },
       {
@@ -157,7 +157,7 @@ When the user asks you to [specific action], follow these steps:
     sections: [
       {
         heading: "Understanding Security Levels",
-        content: "Every OpenClaw skill has one of three security statuses:\n\n- **🟢 Verified** — Audited by the OpenClaw security team. These skills have been reviewed for malicious behavior, data leaks, and permission overreach. Safest to install.\n- **🟡 Community** — Published by community members and not yet audited. These skills are generally safe but haven't been formally reviewed. Use with moderate caution.\n- **🔴 Unreviewed** — Newly published or flagged for review. Exercise caution and inspect the skill file manually before installing.\n\nAlways prefer verified skills when available. If you must use a community skill, follow the checklist below."
+        content: "This directory shows one of three labels on each skill profile: **verified**, **community** or **unreviewed**. These are directory labels, not the result of a code audit, and no label means a skill is safe to run. Registry-side checks such as automated malware scanning can catch some known threats, but they do not replace reading the skill yourself.\n\nTreat every skill as untrusted code until you have checked it. The checklist below applies whatever label a skill carries."
       },
       {
         heading: "The 7-Point Security Checklist",
@@ -175,7 +175,7 @@ When the user asks you to [specific action], follow these steps:
       },
       {
         heading: "Reporting Suspicious Skills",
-        content: "If you find a skill that seems malicious or has a security vulnerability, report it immediately:\n\nThe OpenClaw security team reviews reports within 24 hours and can remove dangerous skills from the registry. You can also report issues directly on the skill's GitHub page or in the OpenClaw Discord #security channel.",
+        content: "If you find a skill that seems malicious or has a security vulnerability, report it immediately:\n\nReport it through the registry listing where you found it and, if the skill has a source repository, open an issue there. Uninstall the skill and rotate any credentials it could have read.",
         codeBlock: { language: "bash", code: "npx clawhub@latest report suspicious-skill-name --reason \"description of the issue\"" },
       },
     ],
@@ -189,7 +189,7 @@ When the user asks you to [specific action], follow these steps:
     readTime: "8 min read",
     publishedDate: "2026-02-10",
     updatedDate: "2026-02-23",
-    heroDescription: "Take the Wheel is OpenClaw's most popular writing skill. Learn how to configure it for maximum quality and let it handle everything from research to final draft.",
+    heroDescription: "Take the Wheel is a community long-form writing skill for OpenClaw. Learn how to configure it for maximum quality and let it handle everything from research to final draft.",
     sections: [
       {
         heading: "What Makes Take the Wheel Different",

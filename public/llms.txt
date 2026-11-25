@@ -109,8 +109,7 @@ ClawSkills is a directory of OpenClaw AI agent skills. It indexes 5,705+ skills 
 
 ## Key Features
 - One-click install: `npx clawhub@latest install <skill-name>`
-- Three-tier security: Verified (audited), Community (peer-reviewed), Unreviewed
-- Star ratings and community reviews
+- Directory labels (verified / community / unreviewed). These are not code audits.
 - Side-by-side skill comparison engine
 - Related skills and alternatives for every skill
 - Multi-format export (Markdown, JSON, YAML, TXT)

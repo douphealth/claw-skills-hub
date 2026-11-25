@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import NewsletterSection from "@/components/NewsletterSection";
 import FreeToolsSection from "@/components/pro-bundle/FreeToolsSection";
 import PremiumValueSection from "@/components/pro-bundle/PremiumValueSection";
-import SocialProofSection from "@/components/pro-bundle/SocialProofSection";
 import { breadcrumbJsonLd, faqJsonLd } from "@/utils/jsonLd";
 
 const SITE_URL = "https://openclaw-skillshub.com";
@@ -90,9 +89,7 @@ const ProBundle = () => {
             <p className="text-xl text-muted-foreground mb-4 max-w-2xl mx-auto">
               60+ premium skills, enterprise configs, and pre-built workflows — all installed in 60 seconds. Save 40+ hours of manual setup.
             </p>
-            <p className="text-sm text-muted-foreground mb-8 max-w-lg mx-auto">
-              Used by 2,400+ developers at companies like Stripe, Vercel, and Shopify.
-            </p>
+            <div className="mb-8" />
 
             {/* Hero feature pills */}
             <div className="flex flex-wrap justify-center gap-3 mb-8">
@@ -143,9 +140,6 @@ const ProBundle = () => {
       <div id="free-tools">
         <FreeToolsSection />
       </div>
-
-      {/* Social Proof */}
-      <SocialProofSection />
 
       {/* Premium Value + Comparison */}
       <PremiumValueSection />
@@ -208,7 +202,7 @@ const ProBundle = () => {
           <Crown className="h-12 w-12 text-primary mx-auto mb-4" />
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Save 40+ Hours?</h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Join 2,400+ developers who've already set up their complete OpenClaw stack in under a minute.
+            Set up your OpenClaw stack from one bundle instead of installing skills one by one.
           </p>
           <Button type="button" size="lg" className="text-sm sm:text-lg px-6 py-6 h-auto whitespace-normal rounded-xl" disabled aria-describedby="bundle-checkout-footer-status">
             <Lock className="mr-2 h-5 w-5 shrink-0" /> Checkout temporarily unavailable

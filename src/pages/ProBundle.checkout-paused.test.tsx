@@ -10,7 +10,6 @@ vi.mock("@/components/Navbar", () => ({ default: () => null }));
 vi.mock("@/components/Footer", () => ({ default: () => null }));
 vi.mock("@/components/NewsletterSection", () => ({ default: () => null }));
 vi.mock("@/components/pro-bundle/FreeToolsSection", () => ({ default: () => null }));
-vi.mock("@/components/pro-bundle/SocialProofSection", () => ({ default: () => null }));
 vi.mock("framer-motion", async () => {
   const React = await import("react");
   return { motion: { div: ({ children, className }: { children: React.ReactNode; className?: string }) => React.createElement("div", { className }, children) } };
