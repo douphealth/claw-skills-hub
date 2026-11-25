@@ -33,6 +33,7 @@ const Ready = ({ sid, email, test }: { sid: string; email: string | null; test: 
         <li>Check what you already installed: <code>node tools/clawkit.mjs audit</code></li>
         <li>Open <code>catalog/catalog.html</code> in your browser.</li>
       </ol>
+      <p>Not what you needed? Reply to your Stripe receipt within 14 days for a full refund.</p>
       <p>Bookmark this page to download again, or use <Link className="text-primary underline" to="/pro-bundle/restore">restore</Link> with your email and card's last 4 digits.</p>
     </div>
   </div>

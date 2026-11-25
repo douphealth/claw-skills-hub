@@ -96,6 +96,10 @@ const faqs = [
     answer: "Yes. Use the restore page with the email you paid with and the last 4 digits of the card. You can also reply to your Stripe receipt.",
   },
   {
+    question: "Can I get a refund?",
+    answer: "Yes. If the kit isn't useful to you, reply to your Stripe receipt within 14 days of buying and we refund the full $7.99, no questions asked. The download link stops working once the refund goes through.",
+  },
+  {
     question: "How do I pay?",
     answer: "By card through Stripe Checkout. ClawSkills never sees or stores your card details, and Stripe emails you a receipt.",
   },
@@ -190,7 +194,7 @@ const ProBundle = () => {
               <BuyButton available={available} placement="hero" />
               <Button asChild size="lg" variant="outline" className="text-lg px-8 py-6 h-auto rounded-xl"><a href="#inside">See what's inside</a></Button>
             </div>
-            <p className="text-sm text-muted-foreground">Instant download · pay with Stripe · re-download any time</p>
+            <p className="text-sm text-muted-foreground">Instant download · pay with Stripe · 14-day full refund</p>
           </div>
         </section>
 
@@ -249,7 +253,7 @@ const ProBundle = () => {
               {[
                 { icon: Lock, t: "Pay with Stripe", d: `$${PRICE} once, no subscription. Stripe handles the card; we never see it.` },
                 { icon: Download, t: "Download straight away", d: "You land on a download page as soon as the payment goes through." },
-                { icon: RotateCcw, t: "Re-download any time", d: "Lost it? Restore with your email and the card's last 4 digits." },
+                { icon: RotateCcw, t: "Re-download any time", d: "Lost it? Restore with your email and the card's last 4 digits. 14-day full refund if it isn't for you." },
               ].map((s, i) => (
                 <li key={s.t} className="rounded-xl border bg-card p-6 text-center">
                   <s.icon className="h-7 w-7 text-primary mx-auto mb-3" />
