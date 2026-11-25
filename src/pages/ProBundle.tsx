@@ -143,14 +143,14 @@ const BuyButton = ({ available, placement }: { available: boolean | null; placem
     );
   }
   return (
-    <a
-      href="/api/pro-bundle/buy"
-      onClick={() => window.gtag?.("event", "begin_checkout", { currency: "USD", value: Number(PRICE), items: [{ item_name: PRODUCT_NAME, price: Number(PRICE) }], placement })}
-    >
-      <Button size="lg" className="text-lg px-8 py-6 h-auto rounded-xl">
+    <Button asChild size="lg" className="text-lg px-8 py-6 h-auto rounded-xl">
+      <a
+        href="/api/pro-bundle/buy"
+        onClick={() => window.gtag?.("event", "begin_checkout", { currency: "USD", value: Number(PRICE), items: [{ item_name: PRODUCT_NAME, price: Number(PRICE) }], placement })}
+      >
         <Download className="mr-2 h-5 w-5" /> Get the kit for ${PRICE}
-      </Button>
-    </a>
+      </a>
+    </Button>
   );
 };
 
@@ -188,7 +188,7 @@ const ProBundle = () => {
             )}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
               <BuyButton available={available} placement="hero" />
-              <a href="#inside"><Button size="lg" variant="outline" className="text-lg px-8 py-6 h-auto rounded-xl">See what's inside</Button></a>
+              <Button asChild size="lg" variant="outline" className="text-lg px-8 py-6 h-auto rounded-xl"><a href="#inside">See what's inside</a></Button>
             </div>
             <p className="text-sm text-muted-foreground">Instant download · pay with Stripe · re-download any time</p>
           </div>

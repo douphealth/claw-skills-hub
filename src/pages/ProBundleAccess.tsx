@@ -22,9 +22,9 @@ const Ready = ({ sid, email, test }: { sid: string; email: string | null; test: 
     <p className="text-muted-foreground mb-6">
       Paid{email ? <> with <strong>{email}</strong></> : null}. {test && <strong>(Stripe test mode)</strong>}
     </p>
-    <a href={downloadHref(sid)} onClick={() => window.gtag?.("event", "pro_bundle_download")}>
-      <Button size="lg" className="text-lg px-8 py-6 h-auto rounded-xl"><Download className="mr-2 h-5 w-5" /> Download the kit (.zip)</Button>
-    </a>
+    <Button asChild size="lg" className="text-lg px-8 py-6 h-auto rounded-xl">
+      <a href={downloadHref(sid)} onClick={() => window.gtag?.("event", "pro_bundle_download")}><Download className="mr-2 h-5 w-5" /> Download the kit (.zip)</a>
+    </Button>
     <div className="text-left text-sm text-muted-foreground mt-8 space-y-2 max-w-md mx-auto">
       <p className="font-semibold text-foreground">Start here</p>
       <ol className="list-decimal pl-5 space-y-1">
