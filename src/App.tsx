@@ -32,6 +32,7 @@ const Versions = lazy(() => import("./pages/Versions"));
 const IntentHubPage = lazy(() => import("./pages/IntentHubPage"));
 const TrustMethodology = lazy(() => import("./pages/Methodology"));
 const ProBundle = lazy(() => import("./pages/ProBundle"));
+const ProBundleAccess = lazy(() => import("./pages/ProBundleAccess"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -95,6 +96,8 @@ const App = () => {
                 <Route path="/methodology" element={<TrustMethodology />} />
                 <Route path="/trust-methodology" element={<TrustMethodology />} />
                 <Route path="/pro-bundle" element={<ProBundle />} />
+                <Route path="/pro-bundle/success" element={<ProBundleAccess mode="success" />} />
+                <Route path="/pro-bundle/restore" element={<ProBundleAccess mode="restore" />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/index" element={<Navigate to="/" replace />} />
