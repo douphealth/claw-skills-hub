@@ -236,7 +236,7 @@ async function main() {
     ],
     bodyContent: `<h1>OpenClaw Skills Hub — Skill Directory</h1>
 <p>ClawSkills is the directory for OpenClaw AI agent skills: 5,705+ skills cataloged across ${categories.length} categories, 71 with full detail pages carrying an inspectable Trust Score out of 100. Install any skill with <code>npx clawhub@latest install &lt;skill-name&gt;</code>. Independent and unaffiliated with OpenClaw.</p>
-<p><a href="/pro-bundle/">Get the OpenClaw Pro Bundle for $7.99</a> or <a href="/install/">install skills for free</a> from the install center.</p>
+<p><a href="/pro-bundle/">Get the OpenClaw Skill Safety Kit for $7.99</a> or <a href="/install/">install skills for free</a> from the install center.</p>
 <h2>Browse OpenClaw skills by category</h2>
 <ul>${categories.map(c => `<li><a href="/skills/${c.slug}/">${c.name}</a> — ${c.description}</li>`).join('')}</ul>
 <h2>Top verified OpenClaw skills</h2>
@@ -534,33 +534,46 @@ ${HOMEPAGE_FAQS.slice(0, 6).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`)
   }));
   count++;
 
-  // Pro Bundle monetization landing page
+  // Pro Bundle (OpenClaw Skill Safety Kit). Numbers come from src/data/proBundleStats.json (ClawHub snapshot).
+  // PRO_BUNDLE_LIVE=1 in the Pages build env marks the offer InStock once Stripe + delivery are configured.
+  const pb = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'src', 'data', 'proBundleStats.json'), 'utf8'));
+  const pbLive = process.env.PRO_BUNDLE_LIVE === '1';
+  const pbName = 'OpenClaw Skill Safety Kit';
+  const pbFaq = [
+    ['What exactly do I download?', `A zip file with four folders: tools (clawkit.mjs), catalog (the ${pb.skills}-skill catalogue as an offline web page and CSV files), guides (three Markdown playbooks) and templates (three SKILL.md starter skills). You download it straight after paying.`],
+    ['Does it include skills?', "No. Skills are free on ClawHub and you should install them from there with the owner-qualified command. The kit helps you choose and check them; it does not repackage other people's skills."],
+    ['Does a good verdict mean a skill is safe?', "No. The verdict summarises ClawHub's scanners, moderation, copycat publishers and install counts, and lists the reasons. It tells you where to look, not that there is nothing to find."],
+    ['What do I need to run clawkit?', "Node.js 18 or newer on macOS, Linux or Windows, and an internet connection to reach ClawHub's public API. No account, API key or install step."],
+    ['Is this made by OpenClaw or ClawHub?', "No. ClawSkills is an independent site. The kit uses ClawHub's public API and documentation and links to them as sources."],
+  ];
   writeRoute('/pro-bundle', injectMeta(template, {
-    title: 'OpenClaw Pro Bundle — 60+ Premium Skills for $7.99 | ClawSkills',
-    description: 'Get 60+ security-audited OpenClaw skills, one-command setup, enterprise configs, skill chains, and 1 year of updates for $7.99.',
+    title: `${pbName}: check ClawHub skills before you install ($7.99) | ClawSkills`,
+    description: `clawkit checks any ClawHub skill's publisher, scanners and copycats in seconds. Plus a catalogue of the ${pb.skills} most-downloaded skills with scan results, playbooks and SKILL.md templates. $7.99 one-time download.`,
     canonical: `${BASE_URL}/pro-bundle/`,
     jsonLd: [
       {
         "@context": "https://schema.org",
         "@type": "Product",
-        name: "OpenClaw Complete Installation Bundle",
-        description: "Installation bundle with 60+ premium OpenClaw skills, pre-configured for production use, enterprise configs, and 1 year of updates.",
+        name: pbName,
+        description: `Downloadable kit for checking OpenClaw skills before installing them: the clawkit command-line checker, a catalogue of the ${pb.skills} most-downloaded ClawHub skills with scan results, three playbooks and three SKILL.md templates.`,
         brand: { "@type": "Brand", name: "ClawSkills" },
-        offers: { "@type": "Offer", url: `${BASE_URL}/pro-bundle/`, priceCurrency: "USD", price: "7.99", availability: "https://schema.org/OutOfStock", priceValidUntil: "2027-12-31", seller: { "@type": "Organization", name: "ClawSkills" } }
+        offers: { "@type": "Offer", url: `${BASE_URL}/pro-bundle/`, priceCurrency: "USD", price: "7.99", availability: pbLive ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", seller: { "@type": "Organization", name: "ClawSkills" } }
       },
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: [
-          { "@type": "Question", name: "What is included in the OpenClaw Pro Bundle?", acceptedAnswer: { "@type": "Answer", text: "The bundle includes 60+ premium skills, a one-command setup, optimized configuration files, skill-chain workflows, enterprise deployment configurations, and 1 year of updates." } },
-          { "@type": "Question", name: "Can I get a refund?", acceptedAnswer: { "@type": "Answer", text: "The offer includes a 30-day money-back guarantee as described on the checkout page." } },
-          { "@type": "Question", name: "Can I use the bundle commercially?", acceptedAnswer: { "@type": "Answer", text: "The product page states that the included skills can be used in personal, open-source, or commercial projects subject to their applicable licenses." } }
-        ]
-      }
+      { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: pbFaq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) }
     ],
-    bodyContent: `<h1>OpenClaw Pro Bundle — 60+ Premium Skills</h1><p role="status"><strong>Checkout temporarily unavailable</strong>. Purchases are paused while we verify the replacement. Free tools remain available.</p><p>Install a production-focused OpenClaw toolkit in about 60 seconds instead of configuring each skill manually. The bundle includes 60+ premium skills, enterprise configurations, pre-built workflows, security-audited components, and 1 year of updates.</p><p><strong>Price:</strong> $7.99 one time. A 30-day money-back guarantee is provided as described on the product page.</p><h2>What is included</h2><ul><li>60+ premium OpenClaw skills</li><li>One-command setup for macOS, Linux, and Windows</li><li>15+ skill-chain workflows</li><li>Enterprise deployment configurations</li><li>1 year of updates and priority support</li></ul><h2>Who it is for</h2><p>The bundle is designed for developers and teams who want a faster, pre-configured starting point than installing and configuring skills individually.</p><h2>Compare with free installation</h2><p>Free installation remains available through the <a href="/install/">OpenClaw install center</a> and <a href="/skills/">documented skills directory</a>. The Pro Bundle packages setup, configuration, and support into one purchase.</p>`
+    bodyContent: `<h1>Check every OpenClaw skill before your agent runs it</h1><p>The ${pbName}: a command-line checker, a scanned catalogue of the ${pb.skills.toLocaleString('en-US')} most-downloaded ClawHub skills, and the playbooks to install and publish skills safely. <strong>$7.99 one time</strong>, instant download.</p>${pbLive ? '<p><a href="/api/pro-bundle/buy">Get the kit for $7.99</a></p>' : '<p role="status"><strong>Checkout opens soon.</strong> Payments are not switched on yet.</p>'}<h2>Why check first? ClawHub's own data, ${pb.snapshot}</h2><ul><li>${pb.sharedSlugSkills} of the ${pb.skills} most-downloaded skills share their name with other publishers; the slug <code>${pb.mostPublishersSlug}</code> has ${pb.mostPublishers}.</li><li>${pb.scannerDoNotInstall} had at least one ClawHub scanner rate the latest version CRITICAL or "do not install".</li><li>${pb.okToEvaluate} passed every check in the kit.</li></ul><h2>What's in the kit</h2><ul><li><strong>clawkit</strong>: vet, audit, find and lint commands that read ClawHub's public API live (Node 18+, one file, no dependencies)</li><li><strong>Catalogue</strong> of the ${pb.skills} most-downloaded skills with owner-qualified install commands, scan results and verdicts (offline web page and CSV), ${pb.copycatSlugs} copycat slugs, and clean picks in ${pb.categories} categories</li><li><strong>Three playbooks</strong>: safe install, reading ClawHub scans, publishing your first skill</li><li><strong>Three SKILL.md templates</strong> that pass clawkit lint</li></ul><h2>Questions</h2>${pbFaq.map(([q, a]) => `<h3>${q}</h3><p>${a}</p>`).join('')}<p>Already bought it? <a href="/pro-bundle/restore/">Restore your download</a>. Prefer free? <a href="/install/">Install skills free</a> or browse <a href="/skills/">documented skills</a>.</p>`
   }));
   count++;
+  for (const [route, h1] of [['/pro-bundle/success', 'Download your OpenClaw Skill Safety Kit'], ['/pro-bundle/restore', 'Restore your OpenClaw Skill Safety Kit download']]) {
+    writeRoute(route, injectMeta(template, {
+      title: `${h1} | ClawSkills`,
+      description: `Download page for buyers of the ${pbName}.`,
+      canonical: `${BASE_URL}${route}/`,
+      robots: 'noindex, follow',
+      bodyContent: `<h1>${h1}</h1><p>This page needs JavaScript to confirm your payment with Stripe. <a href="/pro-bundle/">Back to the ${pbName}</a>.</p>`
+    }));
+    count++;
+  }
 
   // --- Static pages ---
   writeRoute('/privacy', injectMeta(template, {

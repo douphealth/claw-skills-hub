@@ -1,2 +1,10 @@
+# Pricing aliases for the Skill Safety Kit (were 404).
+/pricing /pro-bundle/ 301
+/pricing/ /pro-bundle/ 301
+/pro /pro-bundle/ 301
+/pro/ /pro-bundle/ 301
+/bundle /pro-bundle/ 301
+/bundle/ /pro-bundle/ 301
+
 # Canonicalize dynamic skill detail URLs before the SPA renders.
 /skills/:category/:skill /skills/:category/:skill/ 301
