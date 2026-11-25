@@ -93,7 +93,7 @@ const faqs = [
   },
   {
     question: "I lost my download. Can I get it again?",
-    answer: "Yes. Use the restore page with the email you paid with and the last 4 digits of the card. You can also reply to your Stripe receipt.",
+    answer: "Yes. Use the restore page with the email you paid with and either the card's last 4 digits or the receipt number from your Stripe receipt email. You can also reply to that receipt.",
   },
   {
     question: "Can I get a refund?",
@@ -255,7 +255,7 @@ const ProBundle = () => {
               {[
                 { icon: Lock, t: "Pay with Stripe", d: `$${PRICE} once, no subscription. Stripe handles the card; we never see it.` },
                 { icon: Download, t: "Download straight away", d: "You land on a download page as soon as the payment goes through." },
-                { icon: RotateCcw, t: "Re-download any time", d: "Lost it? Restore with your email and the card's last 4 digits. 14-day full refund if it isn't for you." },
+                { icon: RotateCcw, t: "Re-download any time", d: "Lost it? Restore with your email and the card's last 4 digits or receipt number. 14-day full refund if it isn't for you." },
               ].map((s, i) => (
                 <li key={s.t} className="rounded-xl border bg-card p-6 text-center">
                   <s.icon className="h-7 w-7 text-primary mx-auto mb-3" />

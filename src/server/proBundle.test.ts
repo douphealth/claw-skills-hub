@@ -51,6 +51,25 @@ describe("findSessionByEmail", () => {
     expect(await findSessionByEmail(env, "buyer@example.com", "1111", list)).toMatchObject({ ok: false, status: 404 });
     expect(await findSessionByEmail(env, "not-an-email", "4242", list)).toMatchObject({ ok: false, status: 400 });
   });
+  it("matches Apple Pay device digits and the real card digits", async () => {
+    const apple = paid({ payment_intent: { latest_charge: { amount: 799, amount_refunded: 0, receipt_number: "1878-4410", payment_method_details: { card: { last4: "1234", wallet: { dynamic_last4: "9876" } } } } } });
+    const list = fakeFetch(200, { data: [apple] });
+    expect(await findSessionByEmail(env, "buyer@example.com", "9876", list)).toMatchObject({ ok: true });
+    expect(await findSessionByEmail(env, "buyer@example.com", "1234", list)).toMatchObject({ ok: true });
+  });
+  it("matches Link payments (no card digits) by receipt number only", async () => {
+    const link = paid({ payment_intent: { latest_charge: { amount: 799, amount_refunded: 0, receipt_number: "1878-4410", payment_method_details: {} } } });
+    const list = fakeFetch(200, { data: [link] });
+    expect(await findSessionByEmail(env, "buyer@example.com", "#1878-4410", list)).toMatchObject({ ok: true });
+    expect(await findSessionByEmail(env, "buyer@example.com", " 1878-4410 ", list)).toMatchObject({ ok: true });
+    expect(await findSessionByEmail(env, "buyer@example.com", "1878-4411", list)).toMatchObject({ ok: false, status: 404 });
+    expect(await findSessionByEmail(env, "buyer@example.com", "4410", list)).toMatchObject({ ok: false, status: 404 });
+    expect(await findSessionByEmail(env, "buyer@example.com", "x", list)).toMatchObject({ ok: false, status: 400 });
+  });
+  it("still refuses a refunded purchase even with the right receipt", async () => {
+    const refunded = paid({ payment_intent: { latest_charge: { refunded: true, amount: 799, amount_refunded: 799, receipt_number: "1878-4410", payment_method_details: {} } } });
+    expect(await findSessionByEmail(env, "buyer@example.com", "1878-4410", fakeFetch(200, { data: [refunded] }))).toMatchObject({ ok: false, status: 404 });
+  });
 });
 
 describe("decryptKit", () => {

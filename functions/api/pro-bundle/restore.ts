@@ -1,4 +1,4 @@
-// POST /api/pro-bundle/restore { email, last4 } -> { ok, session_id } so a buyer can download again.
+// POST /api/pro-bundle/restore { email, last4 } -> { ok, session_id }. "last4" holds the card's last 4 digits OR the Stripe receipt number.
 import { findSessionByEmail, json, type ProBundleEnv } from "../../../src/server/proBundle";
 
 export const onRequestPost = async ({ env, request }: { env: ProBundleEnv; request: Request }) => {
