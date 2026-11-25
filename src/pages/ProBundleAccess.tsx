@@ -34,7 +34,7 @@ const Ready = ({ sid, email, test }: { sid: string; email: string | null; test: 
         <li>Open <code>catalog/catalog.html</code> in your browser.</li>
       </ol>
       <p>Not what you needed? Reply to your Stripe receipt within 14 days for a full refund.</p>
-      <p>Bookmark this page to download again, or use <Link className="text-primary underline" to="/pro-bundle/restore">restore</Link> with your email and card's last 4 digits.</p>
+      <p>Bookmark this page to download again, or use <Link className="text-primary underline" to="/pro-bundle/restore">restore</Link> with your email and the card's last 4 digits or your receipt number.</p>
     </div>
   </div>
 );
@@ -61,12 +61,12 @@ const RestoreForm = ({ onFound }: { onFound: (sid: string) => void }) => {
   return (
     <form onSubmit={submit} className="rounded-xl border bg-card p-6 md:p-8 space-y-4" aria-labelledby="restore-h">
       <h2 id="restore-h" className="text-2xl font-bold flex items-center gap-2"><RotateCcw className="h-6 w-6 text-primary" /> Restore your download</h2>
-      <p className="text-sm text-muted-foreground">Enter the email you paid with and the last 4 digits of the card. We look the order up with Stripe; nothing is stored.</p>
+      <p className="text-sm text-muted-foreground">Enter the email you paid with, plus either the card's last 4 digits or the receipt number from your Stripe receipt email (use the receipt number if you paid with Link). We look the order up with Stripe; nothing is stored.</p>
       <label className="block text-sm font-medium">Email
         <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-md border bg-background px-3 py-2" />
       </label>
-      <label className="block text-sm font-medium">Card's last 4 digits
-        <input inputMode="numeric" pattern="\d{4}" maxLength={4} required autoComplete="off" value={last4} onChange={(e) => setLast4(e.target.value.replace(/\D/g, "").slice(0, 4))} className="mt-1 w-32 rounded-md border bg-background px-3 py-2" />
+      <label className="block text-sm font-medium">Card's last 4 digits or receipt number
+        <input inputMode="text" maxLength={24} required autoComplete="off" placeholder="4242 or 1234-5678" value={last4} onChange={(e) => setLast4(e.target.value.replace(/[^0-9A-Za-z#\- ]/g, "").slice(0, 24))} className="mt-1 w-48 rounded-md border bg-background px-3 py-2" />
       </label>
       {err && <p role="alert" className="text-sm text-destructive">{err}</p>}
       <Button type="submit" disabled={busy}>{busy ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null} Find my order</Button>

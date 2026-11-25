@@ -59,7 +59,7 @@ interface StripeSession {
   customer_details?: { email?: string | null } | null;
   line_items?: { data?: { price?: { id?: string } | null }[] };
   payment_intent?: {
-    latest_charge?: { refunded?: boolean; amount?: number; amount_refunded?: number; payment_method_details?: { card?: { last4?: string } } } | null;
+    latest_charge?: { refunded?: boolean; amount?: number; amount_refunded?: number; receipt_number?: string | null; payment_method_details?: { card?: { last4?: string; wallet?: { dynamic_last4?: string | null } | null } } } | null;
   } | string | null;
 }
 
@@ -93,12 +93,31 @@ export async function verifySession(env: ProBundleEnv, sessionId: string, fetchI
   return judgeSession(r.body as unknown as StripeSession, env.PRO_BUNDLE_PRICE_ID!);
 }
 
-/** Restore: find a paid session for this email whose card ends in last4. */
+/** Normalise what the buyer typed: 4 card digits, or a Stripe receipt number like "1234-5678" / "#1234-5678". */
+export function normaliseProof(raw: string): string | null {
+  const t = raw.trim().replace(/^#/, "").replace(/\s+/g, "").toUpperCase();
+  if (/^\d{4}$/.test(t)) return t;
+  if (/^[A-Z0-9]{4,10}(-[A-Z0-9]{2,10}){0,3}$/.test(t) && t.length >= 6) return t;
+  return null;
+}
+
+/** Does this paid session match the proof? Card last 4 (real or Apple/Google Pay device digits) or receipt number.
+ *  Link and other wallets without card digits are covered by the receipt number. */
+export function sessionMatchesProof(s: StripeSession, proof: string): boolean {
+  const ch = typeof s.payment_intent === "object" ? s.payment_intent?.latest_charge : null;
+  if (!ch) return false;
+  const card = ch.payment_method_details?.card;
+  if (/^\d{4}$/.test(proof)) return card?.last4 === proof || card?.wallet?.dynamic_last4 === proof;
+  return !!ch.receipt_number && ch.receipt_number.toUpperCase() === proof;
+}
+
+/** Restore: find a paid session for this email matching the card's last 4 digits or the receipt number. */
 export async function findSessionByEmail(env: ProBundleEnv, email: string, last4: string, fetchImpl: Fetch = fetch): Promise<Verdict> {
   if (!configured(env)) return { ok: false, status: 503, reason: "Restore is not configured yet." };
   const cleanEmail = email.trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail) || cleanEmail.length > 254 || !/^\d{4}$/.test(last4)) {
-    return { ok: false, status: 400, reason: "Enter the email you paid with and the last 4 digits of the card." };
+  const proof = normaliseProof(last4);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail) || cleanEmail.length > 254 || !proof) {
+    return { ok: false, status: 400, reason: "Enter the email you paid with and either the card's last 4 digits or the receipt number from your Stripe receipt." };
   }
   const variants = Array.from(new Set([cleanEmail, cleanEmail.toLowerCase()]));
   for (const e of variants) {
@@ -110,11 +129,10 @@ export async function findSessionByEmail(env: ProBundleEnv, email: string, last4
     const sessions = ((r.body as { data?: StripeSession[] }).data || []);
     for (const s of sessions) {
       const v = judgeSession(s, env.PRO_BUNDLE_PRICE_ID!);
-      const card = typeof s.payment_intent === "object" ? s.payment_intent?.latest_charge?.payment_method_details?.card?.last4 : undefined;
-      if (v.ok && card === last4) return v;
+      if (v.ok && sessionMatchesProof(s, proof)) return v;
     }
   }
-  return { ok: false, status: 404, reason: "No paid order matches that email and card. Check both, or reply to your Stripe receipt." };
+  return { ok: false, status: 404, reason: "No paid order matches that email and card digits or receipt number. Check both, or reply to your Stripe receipt." };
 }
 
 function b64ToBytes(b64: string): Uint8Array<ArrayBuffer> {
