@@ -97,7 +97,8 @@ const SkillDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${skill.name} for OpenClaw — Review, Trust Score & Install Guide`}
+        title={`${skill.name} for OpenClaw — Skill Profile & Install Notes`}
+        noindex
         description={`${skill.name} is a ${skill.securityStatus} OpenClaw skill (Trust Score: ${trustTotal}/100). ${skill.description} Install: ${skill.installCmd}`}
         canonical={skillUrl(skill.categorySlug, skill.slug)}
         jsonLd={allJsonLd}
@@ -293,8 +294,8 @@ const SkillDetail = () => {
                     <span className="text-sm text-muted-foreground">— Trust Score: {trustTotal}/100</span>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                    {skill.securityStatus === "verified" ? `${skill.name} has passed the ClawSkills security audit. No malicious code, prompt injection vectors, or unsafe dependencies were detected.` :
-                     skill.securityStatus === "community" ? `${skill.name} has been reviewed by the community but not officially audited. Generally considered safe for standard use cases.` :
+                    {skill.securityStatus === "verified" ? `"Verified" is a directory label, not a code audit. Nobody has reviewed ${skill.name}'s code on this site's behalf. Read its SKILL.md and scripts, and test it in a sandbox, before installing.` :
+                     skill.securityStatus === "community" ? `"Community" is a directory label, not a review. Read ${skill.name}'s SKILL.md and scripts, and test it in a sandbox, before installing.` :
                      `${skill.name} has not been formally reviewed. Review the SKILL.md permissions and test in a sandbox before production use.`}
                   </p>
                   <Link to="/trust-methodology" className="text-xs text-primary hover:underline">Read our security methodology →</Link>

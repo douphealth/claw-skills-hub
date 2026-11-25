@@ -33,7 +33,8 @@ function buildEntries(): SitemapEntry[] {
     });
   });
 
-  skills.forEach((skill) => {
+  // S1 (2026-11): skill detail pages are noindex until rebuilt from registry data.
+  [].forEach((skill: (typeof skills)[number]) => {
     entries.push({
       loc: `/skills/${skill.categorySlug}/${skill.slug}/`,
       lastmod: skill.lastUpdated,

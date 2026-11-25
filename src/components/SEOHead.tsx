@@ -9,6 +9,7 @@ interface SEOHeadProps {
   updatedDate?: string;
   ogImage?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
 }
 
 const SITE_URL = "https://openclaw-skillshub.com";
@@ -23,6 +24,7 @@ const SEOHead = ({
   updatedDate,
   ogImage,
   jsonLd,
+  noindex = false,
 }: SEOHeadProps) => {
   const fullTitle = title.includes("ClawSkills") ? title : `${title} | ClawSkills`;
   const safeDesc = description.slice(0, 160);
@@ -75,7 +77,7 @@ const SEOHead = ({
     }
 
     // Robots
-    setMeta("robots", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
+    setMeta("robots", noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
 
     // AI content declaration
     setMeta("ai-content-declaration", "human-created");
