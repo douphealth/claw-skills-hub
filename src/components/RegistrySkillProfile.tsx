@@ -69,7 +69,7 @@ const ListingCard = ({ slug, listing, rank, total }: { slug: string; listing: Re
       <div><dt className="text-muted-foreground flex items-center gap-1"><Star className="w-3.5 h-3.5" />Stars</dt><dd className="text-foreground font-semibold">{fmt(listing.stars)}</dd></div>
       <div><dt className="text-muted-foreground flex items-center gap-1"><Package className="w-3.5 h-3.5" />Version</dt><dd className="text-foreground font-semibold">{listing.version}</dd></div>
       <div><dt className="text-muted-foreground">Listed since</dt><dd className="text-foreground">{fmtDate(listing.listedSince)}</dd></div>
-      <div><dt className="text-muted-foreground">Licence</dt><dd className="text-foreground">{listing.license ?? "None shown"}</dd></div>
+      <div><dt className="text-muted-foreground">Licence</dt><dd className="text-foreground">{listing.license ?? "MIT-0 (ClawHub default)"}</dd></div>
       <div><dt className="text-muted-foreground">ClawHub review</dt><dd className="text-foreground">{listing.reviewVerdict ? `${listing.reviewVerdict} (automated)` : "No verdict shown"}</dd></div>
       <div><dt className="text-muted-foreground">SKILL.md language</dt><dd className="text-foreground">{listing.language}</dd></div>
     </dl>

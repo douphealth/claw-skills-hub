@@ -22,7 +22,7 @@ export interface RegistryListing {
   stars: number;
   /** Date the listing was first published on ClawHub (YYYY-MM-DD). */
   listedSince: string;
-  /** Licence as reported by the registry for the latest version; null = none shown. */
+  /** Licence. ClawHub licenses every published skill MIT-0 (docs/skill-format.md); null = the version record omits it. */
   license: string | null;
   /** ClawHub's automated moderation verdict; null = no verdict shown. */
   reviewVerdict: string | null;
@@ -91,7 +91,6 @@ export const registryProfiles: Record<string, RegistryProfile> = {
         ],
         caveats: [
           "Its SKILL.md says it never executes code, generates files itself or makes network requests. The code is reference patterns that you or your agent run.",
-          "No licence is shown on the registry listing.",
         ],
       },
     ],
@@ -285,7 +284,7 @@ export const registryProfiles: Record<string, RegistryProfile> = {
         summary:
           "A file-based memory graph maintained by a bundled Python script (kg.py). It adds atomic facts to an entity's items.json under life/areas/<kind>/<slug>/, supersedes old facts instead of deleting them, and regenerates each entity's summary.md from the active facts, with IDs that auto-increment per entity.",
         requires: ["python3"],
-        caveats: ["No licence is shown on the registry listing.", "Facts are stored as plain JSON files in your workspace; there is no query language."],
+        caveats: ["Facts are stored as plain JSON files in your workspace; there is no query language."],
       },
       {
         owner: "paudyyin",
@@ -370,7 +369,7 @@ export const registryProfiles: Record<string, RegistryProfile> = {
         requires: ["python3", "An AISA_API_KEY for AIsa's hosted API"],
         caveats: [
           "This is not a local or self-hosted router: it depends on AIsa's API and your AIsa account.",
-          "The registry lists the licence as MIT-0, while the SKILL.md frontmatter says Apache-2.0.",
+          "Its SKILL.md frontmatter says Apache-2.0, but ClawHub licenses every published skill MIT-0 and does not support per-skill licence overrides.",
         ],
       },
     ],
@@ -420,7 +419,6 @@ export const registryProfiles: Record<string, RegistryProfile> = {
         requires: ["A Postiz account with your social profiles connected", "A Postiz API key", "Access to an image-generation model for visuals"],
         caveats: [
           "It can publish to your real accounts. Its draft mode (SELF_ONLY) lets you review before anything goes out.",
-          "No licence is shown on the registry listing.",
         ],
       },
     ],

@@ -72,7 +72,7 @@ function registrySkillPage(skill, category) {
     : `${skill.slug} is published on ClawHub by @${primary.owner} (version ${primary.version}, ${fmtN(primary.downloads)} downloads, ${fmtN(primary.installs)} installs). Install it with ${installCmd(primary.owner, skill.slug)}.`;
   const listingHtml = listings.map((l) => `<h3>${esc(l.displayName)} by @${esc(l.owner)}</h3><p>${esc(l.summary)}</p>`
     + `<ul><li>Version: ${esc(l.version)}</li><li>Downloads: ${fmtN(l.downloads)}</li><li>Installs: ${fmtN(l.installs)}</li><li>Stars: ${fmtN(l.stars)}</li>`
-    + `<li>Listed since: ${esc(l.listedSince)}</li><li>Licence: ${esc(l.license ?? 'None shown')}</li>`
+    + `<li>Listed since: ${esc(l.listedSince)}</li><li>Licence: ${esc(l.license ?? 'MIT-0 (ClawHub default)')}</li>`
     + `<li>ClawHub review: ${esc(l.reviewVerdict ? `${l.reviewVerdict} (automated)` : 'No verdict shown')}</li><li>SKILL.md language: ${esc(l.language)}</li></ul>`
     + `<p>Install: <code>${esc(installCmd(l.owner, skill.slug))}</code></p>`
     + `<p>What it needs:</p><ul>${l.requires.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>`
