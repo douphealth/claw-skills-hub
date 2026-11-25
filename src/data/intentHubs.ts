@@ -35,7 +35,7 @@ export const intentHubs: IntentHub[] = [
     faqs: [
       { question: "What are the best OpenClaw skills for coding?", answer: "The top picks are Code Reviewer (automated PR reviews), Test Generator (spec-to-test automation), GPT Prompt Chainer (multi-step AI workflows), and Prompt Optimizer (better AI outputs). All are verified and free to install." },
       { question: "Can OpenClaw skills replace my IDE?", answer: "No — they enhance your existing IDE. Skills integrate with VS Code, JetBrains, and terminal workflows to add AI-powered capabilities like code review, test generation, and refactoring." },
-      { question: "Are coding skills safe to use on production code?", answer: "Verified coding skills have passed security audits. They run locally and don't send code to external servers unless you configure an LLM provider. Always review permissions before installing." },
+      { question: "Are coding skills safe to use on production code?", answer: "Not automatically. The labels on this site are not security audits. Read each skill's SKILL.md and scripts, check what it can access and where it sends data, and test it away from production code first." },
     ],
   },
   {
