@@ -55,7 +55,10 @@ function getTemplate() {
   return fs.readFileSync(path.join(DIST, 'index.html'), 'utf-8');
 }
 
-function injectMeta(html, { title, description, canonical, type = 'website', jsonLd, bodyContent }) {
+function injectMeta(html, { title, description, canonical, type = 'website', jsonLd, bodyContent, robots }) {
+  if (robots) {
+    html = html.replace(/<meta name="robots" content="[^"]*"/, `<meta name="robots" content="${robots}"`);
+  }
   // Home page title is specified verbatim and must not gain a brand suffix.
   const HOME_TITLE = 'OpenClaw Skills Hub — Skill Directory, Install Guides & Trust Scores';
   const fullTitle = (title === HOME_TITLE || title.includes('ClawSkills'))
@@ -310,7 +313,8 @@ ${HOMEPAGE_FAQS.slice(0, 6).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`)
       return related ? `<li><a href="/skills/${related.categorySlug}/${related.slug}/">${related.name}</a></li>` : '';
     }).join('');
     writeRoute(`/skills/${skill.categorySlug}/${skill.slug}`, injectMeta(template, {
-      title: `${skill.name} — Full Review & Install Guide | ClawSkills`,
+      title: `${skill.name} — Skill Profile & Install Notes | ClawSkills`,
+      robots: 'noindex, follow',
       description: skill.description.slice(0, 160),
       canonical: `${BASE_URL}/skills/${skill.categorySlug}/${skill.slug}/`,
       type: 'article',

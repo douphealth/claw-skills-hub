@@ -80,14 +80,14 @@ export function SecurityInfoPanel({ status }: { status: "verified" | "community"
       ]
     : status === "community"
     ? [
-        "Community-reviewed only",
-        "No official audit performed",
-        "Generally considered safe",
+        "Directory label only",
+        "No code audit performed",
+        "Read the source before installing",
       ]
     : [
-        "Passed ClawSkills security audit",
-        "No malicious code detected",
-        "Safe for production use",
+        "Directory label only",
+        "No code audit performed",
+        "Read the source before installing",
       ];
 
   return (
