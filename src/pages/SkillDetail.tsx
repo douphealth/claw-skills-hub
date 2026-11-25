@@ -17,6 +17,7 @@ import { skillJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/utils/jsonLd";
 import SkillDownloadPanel from "@/components/SkillDownloadPanel";
 import TrustScore, { computeTrustTotal } from "@/components/TrustScore";
 import { categoryPath, skillPath, skillUrl } from "@/lib/routeUrls";
+import RegistrySkillProfile from "@/components/RegistrySkillProfile";
 
 const securityConfig = {
   verified: { icon: ShieldCheck, label: "Verified", color: "text-green-400", bg: "bg-green-400/10" },
@@ -43,6 +44,11 @@ const SkillDetail = () => {
         <Footer />
       </div>
     );
+  }
+
+  // Rebuilt from ClawHub registry data: indexable, no invented rating or trust score.
+  if (skill.registry) {
+    return <RegistrySkillProfile skill={skill} profile={skill.registry} category={category} related={related} />;
   }
 
   const sec = securityConfig[skill.securityStatus];
