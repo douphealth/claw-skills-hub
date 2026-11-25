@@ -12,7 +12,7 @@ const run = (live: boolean) => {
     copyFileSync(".prerender-data.json", join(fixture, ".prerender-data.json"));
     copyFileSync("src/data/proBundleStats.json", join(fixture, "src/data/proBundleStats.json"));
     copyFileSync("index.html", join(fixture, "dist/index.html"));
-    const env = { ...process.env, PRO_BUNDLE_LIVE: live ? "1" : "" };
+    const env = { ...process.env, PRO_BUNDLE_LIVE: live ? "1" : "", PRO_BUNDLE_PAYMENT_LINK: live ? "https://buy.stripe.com/test_abc123" : "" };
     execFileSync(process.execPath, [join(fixture, "scripts/prerender.mjs")], { cwd: fixture, timeout: 15000, env });
     const read = (r: string) => readFileSync(join(fixture, "dist", r, "index.html"), "utf8");
     return { page: read("pro-bundle"), success: read("pro-bundle/success"), restore: read("pro-bundle/restore") };
@@ -32,5 +32,5 @@ it("prerenders the kit offer honestly and keeps checkout off until PRO_BUNDLE_LI
 
   const on = run(true);
   expect(on.page).toContain('"availability":"https://schema.org/InStock"');
-  expect(on.page).toContain('href="/api/pro-bundle/buy"');
+  expect(on.page).toContain('href="https://buy.stripe.com/test_abc123"');
 });

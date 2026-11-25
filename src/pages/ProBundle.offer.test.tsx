@@ -7,13 +7,15 @@ import ProBundle from "./ProBundle";
 vi.mock("@/components/Navbar", () => ({ default: () => null }));
 vi.mock("@/components/Footer", () => ({ default: () => null }));
 
+const LINK = "https://buy.stripe.com/test_abc123";
+
 describe("Skill Safety Kit offer page", () => {
   let host: HTMLDivElement;
   let root: Root;
   const statusFetch = (available: boolean) =>
     vi.fn(async (url: string) => {
       if (url !== "/api/pro-bundle/status") throw new Error(`unexpected request ${url}`);
-      return new Response(JSON.stringify({ available }), { status: 200 });
+      return new Response(JSON.stringify({ available, link: available ? LINK : null }), { status: 200 });
     });
   beforeEach(() => {
     Reflect.set(globalThis, "IS_REACT_ACT_ENVIRONMENT", true);
@@ -35,17 +37,17 @@ describe("Skill Safety Kit offer page", () => {
   it("offers no purchase link and stays out of stock while checkout is not configured", async () => {
     vi.stubGlobal("fetch", statusFetch(false));
     await render();
-    expect(host.querySelector('a[href="/api/pro-bundle/buy"]')).toBeNull();
+    expect(host.querySelector('a[href="/api/pro-bundle/buy"], a[href^="https://buy.stripe.com"]')).toBeNull();
     const disabled = [...host.querySelectorAll("button")].filter((b) => b.textContent?.includes("Checkout opens soon"));
     expect(disabled).toHaveLength(2);
     disabled.forEach((b) => expect(b).toBeDisabled());
     expect(product().offers.availability).toBe("https://schema.org/OutOfStock");
   });
 
-  it("links both buy buttons to the server checkout redirect at $7.99 once configured", async () => {
+  it("links both buy buttons straight to the Stripe Payment Link at $7.99 once configured", async () => {
     vi.stubGlobal("fetch", statusFetch(true));
     await render();
-    const links = host.querySelectorAll('a[href="/api/pro-bundle/buy"]');
+    const links = host.querySelectorAll(`a[href="${LINK}"]`);
     expect(links).toHaveLength(2);
     links.forEach((a) => expect(a).toHaveTextContent("Get the kit for $7.99"));
     expect(product().offers).toMatchObject({ price: "7.99", priceCurrency: "USD", availability: "https://schema.org/InStock" });

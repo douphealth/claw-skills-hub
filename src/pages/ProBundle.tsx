@@ -121,21 +121,23 @@ const productJsonLd = (inStock: boolean) => ({
   },
 });
 
+const STRIPE_LINK = /^https:\/\/buy\.stripe\.com\//;
+
 /** Checkout is live only when the server has Stripe and the kit key configured. */
-export function useCheckoutAvailable(): boolean | null {
-  const [available, setAvailable] = useState<boolean | null>(null);
+export function useCheckout(): { available: boolean | null; link: string | null } {
+  const [state, setState] = useState<{ available: boolean | null; link: string | null }>({ available: null, link: null });
   useEffect(() => {
     let alive = true;
     fetch("/api/pro-bundle/status", { headers: { Accept: "application/json" } })
       .then((r) => (r.ok ? r.json() : { available: false }))
-      .then((j) => alive && setAvailable(!!j?.available))
-      .catch(() => alive && setAvailable(false));
+      .then((j) => alive && setState({ available: !!j?.available, link: typeof j?.link === "string" && STRIPE_LINK.test(j.link) ? j.link : null }))
+      .catch(() => alive && setState({ available: false, link: null }));
     return () => { alive = false; };
   }, []);
-  return available;
+  return state;
 }
 
-const BuyButton = ({ available, placement }: { available: boolean | null; placement: string }) => {
+const BuyButton = ({ available, link, placement }: { available: boolean | null; link: string | null; placement: string }) => {
   if (available === false) {
     return (
       <div className="flex flex-col items-center gap-2">
@@ -149,7 +151,7 @@ const BuyButton = ({ available, placement }: { available: boolean | null; placem
   return (
     <Button asChild size="lg" className="text-lg px-8 py-6 h-auto rounded-xl">
       <a
-        href="/api/pro-bundle/buy"
+        href={link || "/api/pro-bundle/buy"}
         onClick={() => window.gtag?.("event", "begin_checkout", { currency: "USD", value: Number(PRICE), items: [{ item_name: PRODUCT_NAME, price: Number(PRICE) }], placement })}
       >
         <Download className="mr-2 h-5 w-5" /> Get the kit for ${PRICE}
@@ -159,7 +161,7 @@ const BuyButton = ({ available, placement }: { available: boolean | null; placem
 };
 
 const ProBundle = () => {
-  const available = useCheckoutAvailable();
+  const { available, link } = useCheckout();
   const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
   const bounced = params?.get("checkout") === "unavailable";
 
@@ -191,7 +193,7 @@ const ProBundle = () => {
               <p role="alert" className="mb-4 text-sm text-destructive">Checkout isn't available right now. Nothing was charged.</p>
             )}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
-              <BuyButton available={available} placement="hero" />
+              <BuyButton available={available} link={link} placement="hero" />
               <Button asChild size="lg" variant="outline" className="text-lg px-8 py-6 h-auto rounded-xl"><a href="#inside">See what's inside</a></Button>
             </div>
             <p className="text-sm text-muted-foreground">Instant download · pay with Stripe · 14-day full refund</p>
@@ -285,7 +287,7 @@ const ProBundle = () => {
             <ShieldCheck className="h-10 w-10 text-primary mx-auto mb-4" />
             <h2 id="cta" className="text-3xl font-bold mb-4">Know what you're installing</h2>
             <p className="text-muted-foreground mb-8">Checker, catalogue, playbooks and templates. ${PRICE}, once.</p>
-            <BuyButton available={available} placement="footer" />
+            <BuyButton available={available} link={link} placement="footer" />
             <p className="text-sm text-muted-foreground mt-6">
               Prefer free? <Link className="text-primary underline" to="/install">Install skills free</Link> or browse <Link className="text-primary underline" to="/skills">documented skills</Link> <ArrowRight className="inline h-3 w-3" />
             </p>
