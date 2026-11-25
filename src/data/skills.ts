@@ -55,7 +55,7 @@ export const skills: Skill[] = [
     useCases: ["Build multi-step content generation pipelines", "Create research workflows that synthesize multiple sources", "Automate data extraction and transformation chains", "Design conversational flows with branching logic"],
     faqs: [
       { question: "What does GPT Prompt Chainer do?", answer: "It allows you to chain multiple AI prompts together, passing context from one step to the next, breaking complex tasks into smaller, more reliable steps." },
-      { question: "Is GPT Prompt Chainer safe to install?", answer: "Yes — it's verified by the OpenClaw security team. It only accesses the AI models you configure and doesn't store any data externally." },
+      { question: "Is GPT Prompt Chainer safe to install?", answer: "Check before you install: read its SKILL.md and any bundled scripts, and confirm which model APIs and credentials it will use. The label on this page is a directory label, not a code audit." },
       { question: "Does it work with models other than GPT?", answer: "Yes, it works with any OpenAI-compatible API including Claude, Gemini, and local models via Ollama." },
     ],
     relatedSlugs: ["llm-router", "prompt-optimizer", "context-window-manager"],
