@@ -58,13 +58,14 @@ function generate({ skills, categories, articles, tutorials, glossaryEntries }) 
   const lines = [];
   lines.push('# OpenClaw Complete Skill Catalog & Knowledge Base');
   lines.push(`> Last updated: ${today}`);
-  lines.push(`> Total skills listed: ${skills.length} | Categories: ${categories.length} | Articles: ${articles.length} | Tutorials: ${tutorials.length} | Glossary terms: ${glossaryEntries.length}`);
+  const registrySkills = skills.filter((s) => s.registry);
+  lines.push(`> Skill profiles checked against the ClawHub registry: ${registrySkills.length} | Categories: ${categories.length} | Articles: ${articles.length} | Tutorials: ${tutorials.length} | Glossary terms: ${glossaryEntries.length}`);
   lines.push('');
   lines.push('## Site Information');
   lines.push('- Name: ClawSkills');
   lines.push(`- URL: ${BASE_URL}`);
   lines.push('- Purpose: A directory of OpenClaw AI agent skills with install guides and Trust Scores');
-  lines.push('- Install any skill: `npx clawhub@latest install <skill-name>`');
+  lines.push('- Install a skill: `npm i -g clawhub`, then `clawhub install @owner/slug` (several publishers can share a slug, so name the owner)');
   lines.push('- Independent and unaffiliated with OpenClaw.');
   lines.push('');
   lines.push('## Quick Facts');
@@ -75,10 +76,11 @@ function generate({ skills, categories, articles, tutorials, glossaryEntries }) 
   lines.push('- Total skills cataloged in the wider registry: 5,705+ across 10 categories');
   lines.push('');
   lines.push('## Install Guide (4 steps)');
-  lines.push('1. Install Node.js v18 or newer.');
-  lines.push('2. Run `npm install -g clawhub@latest`.');
-  lines.push('3. Run `clawhub init my-project`.');
-  lines.push('4. Run `npx clawhub@latest install <skill-name>` — e.g. `npx clawhub@latest install gpt-prompt-chainer`.');
+  lines.push('1. Install Node.js and npm.');
+  lines.push('2. Run `npm i -g clawhub` (or `pnpm add -g clawhub`), then `clawhub --help` to check it works.');
+  lines.push('3. Look at a skill before installing: `clawhub inspect @owner/slug`.');
+  lines.push('4. Install it: `clawhub install @owner/slug` — e.g. `clawhub install @ivangdavila/pdf-generator`. It is extracted into `skills/<slug>` under your working directory.');
+  lines.push('Source: ClawHub CLI docs, https://github.com/openclaw/clawhub/blob/main/docs/cli.md');
   lines.push('Troubleshooting: if you get "clawhub: command not found", run it via `npx clawhub@latest` instead of the global binary, or add npm\'s global bin folder to your PATH. On Windows, use PowerShell or Windows WSL with Node.js v18+.');
   lines.push('');
   lines.push('## Trust Score Methodology (summary)');
@@ -98,14 +100,14 @@ function generate({ skills, categories, articles, tutorials, glossaryEntries }) 
     lines.push(`## ${cat.name} (${cat.count} skills)`);
     lines.push(cat.description);
     lines.push('');
-    for (const s of skills.filter((x) => x.categorySlug === cat.slug)) {
-      lines.push(`### ${s.name}`);
-      lines.push(`- **Install**: \`${s.installCmd}\``);
-      lines.push(`- **Rating**: ${s.rating}/5 | **Security**: ${s.securityStatus} | **Version**: ${s.version}`);
-      lines.push(`- **Author**: ${s.author} | **Updated**: ${s.lastUpdated}`);
+    // Only skills rebuilt from ClawHub registry data are described; other records are unverified.
+    for (const s of registrySkills.filter((x) => x.categorySlug === cat.slug)) {
+      lines.push(`### ${s.name} (slug: ${s.slug})`);
       lines.push(`- **Description**: ${s.description}`);
-      if (s.useCases?.length) lines.push(`- **Use cases**: ${s.useCases.join('; ')}`);
-      lines.push(`- **URL**: ${BASE_URL}/skills/${s.categorySlug}/${s.slug}`);
+      for (const l of s.registry.listings) {
+        lines.push(`- **@${l.owner}** — ${l.displayName} v${l.version}; ${l.downloads.toLocaleString('en-US')} downloads, ${l.installs.toLocaleString('en-US')} installs (ClawHub, ${s.registry.checked}). Install: \`clawhub install @${l.owner}/${s.slug}\`. Needs: ${l.requires.join('; ')}.`);
+      }
+      lines.push(`- **URL**: ${BASE_URL}/skills/${s.categorySlug}/${s.slug}/`);
       lines.push('');
     }
   }

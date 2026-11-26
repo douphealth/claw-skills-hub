@@ -1,3 +1,5 @@
+import { registryProfiles, installCommand, type RegistryProfile } from "./skillRegistry";
+
 export interface Skill {
   name: string;
   slug: string;
@@ -14,6 +16,8 @@ export interface Skill {
   author: string;
   version: string;
   lastUpdated: string;
+  /** Present only for skills rebuilt from public ClawHub registry data (see skillRegistry.ts). */
+  registry?: RegistryProfile;
 }
 
 export interface Category {
@@ -1504,6 +1508,24 @@ export const skills: Skill[] = [
     lastUpdated: "2026-02-13",
   },
 ];
+
+// Skills rebuilt from ClawHub registry data: the registry profile replaces the old,
+// unsourced author/version/rating text. Every other skill page stays noindex.
+for (const skill of skills) {
+  const profile = registryProfiles[skill.slug];
+  if (!profile) continue;
+  const primary = profile.listings[0];
+  Object.assign(skill, profile.record, {
+    author: primary.owner,
+    version: primary.version,
+    installCmd: installCommand(primary.owner, skill.slug),
+    securityStatus: "community" as const,
+    lastUpdated: profile.checked,
+    registry: profile,
+  });
+}
+
+export const isRegistrySkill = (skill: Skill): boolean => Boolean(skill.registry);
 
 export function getSkillBySlug(slug: string): Skill | undefined {
   return skills.find((s) => s.slug === slug);

@@ -33,8 +33,9 @@ function buildEntries(): SitemapEntry[] {
     });
   });
 
-  // S1 (2026-11): skill detail pages are noindex until rebuilt from registry data.
-  [].forEach((skill: (typeof skills)[number]) => {
+  // S1 (2026-11): only skill pages rebuilt from ClawHub registry data are listed;
+  // the rest stay noindex until rebuilt the same way.
+  skills.filter((skill) => skill.registry).forEach((skill: (typeof skills)[number]) => {
     entries.push({
       loc: `/skills/${skill.categorySlug}/${skill.slug}/`,
       lastmod: skill.lastUpdated,

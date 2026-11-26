@@ -27,7 +27,8 @@ const urls = [
 (data.categories || []).forEach(c => urls.push(`${BASE}/skills/${c.slug}/`));
 
 // Skills (batch — IndexNow supports up to 10,000)
-(data.skills || []).forEach(s => urls.push(`${BASE}/skills/${s.categorySlug}/${s.slug}/`));
+// Only registry-rebuilt skill pages are indexable; the rest are noindex.
+(data.skills || []).filter(s => s.registry).forEach(s => urls.push(`${BASE}/skills/${s.categorySlug}/${s.slug}/`));
 
 // Articles
 (data.articles || []).forEach(a => urls.push(`${BASE}/articles/${a.slug}/`));

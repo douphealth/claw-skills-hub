@@ -55,6 +55,69 @@ function getTemplate() {
   return fs.readFileSync(path.join(DIST, 'index.html'), 'utf-8');
 }
 
+// --- Skill pages rebuilt from ClawHub registry data (src/data/skillRegistry.ts) ---
+// Keep in sync with src/components/RegistrySkillProfile.tsx.
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const fmtN = (n) => n.toLocaleString('en-US');
+const clawhubUrl = (owner, slug) => `https://clawhub.ai/${owner}/skills/${slug}`;
+const installCmd = (owner, slug) => `clawhub install @${owner}/${slug}`;
+
+function registrySkillPage(skill, category) {
+  const { listings, checked } = skill.registry;
+  const primary = listings[0];
+  const multi = listings.length > 1;
+  const url = `${BASE_URL}/skills/${skill.categorySlug}/${skill.slug}/`;
+  const answer = multi
+    ? `${listings.length} publishers use the ${skill.slug} slug on ClawHub, so you must name the owner when installing. The most downloaded is @${primary.owner}'s ${primary.displayName} (${fmtN(primary.downloads)} downloads, ${fmtN(primary.installs)} installs).`
+    : `${skill.slug} is published on ClawHub by @${primary.owner} (version ${primary.version}, ${fmtN(primary.downloads)} downloads, ${fmtN(primary.installs)} installs). Install it with ${installCmd(primary.owner, skill.slug)}.`;
+  const listingHtml = listings.map((l) => `<h3>${esc(l.displayName)} by @${esc(l.owner)}</h3><p>${esc(l.summary)}</p>`
+    + `<ul><li>Version: ${esc(l.version)}</li><li>Downloads: ${fmtN(l.downloads)}</li><li>Installs: ${fmtN(l.installs)}</li><li>Stars: ${fmtN(l.stars)}</li>`
+    + `<li>Listed since: ${esc(l.listedSince)}</li><li>Licence: ${esc(l.license ?? 'MIT-0 (ClawHub default)')}</li>`
+    + `<li>ClawHub review: ${esc(l.reviewVerdict ? `${l.reviewVerdict} (automated)` : 'No verdict shown')}</li><li>SKILL.md language: ${esc(l.language)}</li></ul>`
+    + `<p>Install: <code>${esc(installCmd(l.owner, skill.slug))}</code></p>`
+    + `<p>What it needs:</p><ul>${l.requires.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>`
+    + `<p>Before you install:</p><ul>${l.caveats.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>`
+    + `<p><a href="${clawhubUrl(l.owner, skill.slug)}">View @${esc(l.owner)}/${esc(skill.slug)} on ClawHub</a></p>`).join('');
+  const faqs = skill.faqs || [];
+  return {
+    title: `${skill.name} OpenClaw Skill: Install & Requirements`,
+    robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    description: esc(skill.description.slice(0, 158)),
+    canonical: url,
+    type: 'article',
+    jsonLd: [
+      ...listings.map((l) => ({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: `${l.displayName} (@${l.owner}/${skill.slug})`,
+        description: l.summary,
+        applicationCategory: "DeveloperApplication",
+        applicationSubCategory: "OpenClaw skill",
+        softwareVersion: l.version,
+        author: { "@type": "Person", name: l.owner },
+        sameAs: clawhubUrl(l.owner, skill.slug),
+      })),
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${BASE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Skills", item: `${BASE_URL}/skills/` },
+          ...(category ? [{ "@type": "ListItem", position: 3, name: category.name, item: `${BASE_URL}/skills/${category.slug}/` }] : []),
+          { "@type": "ListItem", position: category ? 4 : 3, name: skill.name, item: url },
+        ],
+      },
+      ...(faqs.length ? [{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) }] : []),
+    ],
+    bodyContent: `<h1>${esc(skill.name)} OpenClaw skill</h1><p>${esc(answer)}</p><p>${esc(skill.longDescription)}</p>`
+      + `<p>Figures and descriptions come from the public ClawHub registry and each listing's SKILL.md, checked on ${esc(checked)}. We have not installed, run or audited these skills, and this page carries no rating of ours.</p>`
+      + `<h2>${multi ? `The ${listings.length} ${esc(skill.slug)} skills on ClawHub` : `${esc(primary.displayName)} on ClawHub`}</h2>${listingHtml}`
+      + `<h2>What people use it for</h2><ul>${skill.useCases.map((u) => `<li>${esc(u)}</li>`).join('')}</ul>`
+      + `<h2>How to install ${esc(skill.slug)}</h2><ol><li>Install the ClawHub CLI: <code>npm i -g clawhub</code></li><li>Look at the files first: <code>clawhub inspect @${esc(primary.owner)}/${esc(skill.slug)}</code></li><li>Install: <code>${esc(installCmd(primary.owner, skill.slug))}</code></li></ol>`
+      + (faqs.length ? `<h2>Frequently asked questions</h2>${faqs.map((f) => `<h3>${esc(f.question)}</h3><p>${esc(f.answer)}</p>`).join('')}` : ''),
+  };
+}
+
 function injectMeta(html, { title, description, canonical, type = 'website', jsonLd, bodyContent, robots }) {
   if (robots) {
     html = html.replace(/<meta name="robots" content="[^"]*"/, `<meta name="robots" content="${robots}"`);
@@ -301,6 +364,11 @@ ${HOMEPAGE_FAQS.slice(0, 6).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`)
 
   // --- Individual Skill Pages ---
   for (const skill of skills) {
+    if (skill.registry) {
+      writeRoute(`/skills/${skill.categorySlug}/${skill.slug}`, injectMeta(template, registrySkillPage(skill, categories.find((c) => c.slug === skill.categorySlug))));
+      count++;
+      continue;
+    }
     const skillFaqs = (skill.faqs || []).map(f => ({
       "@type": "Question",
       name: f.question,
