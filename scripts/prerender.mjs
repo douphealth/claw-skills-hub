@@ -435,6 +435,7 @@ ${HOMEPAGE_FAQS.slice(0, 6).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`)
   count++;
 
   // --- Individual Article Pages ---
+  const skillBySlug = new Map(skills.map(s => [s.slug, s]));
   for (const article of articles) {
     // Mirror ArticlePage.tsx: FAQPage from sections whose heading starts with "FAQ".
     const extractedFaqs = extractFaqsFromArticle(article.sections);
@@ -474,13 +475,32 @@ ${HOMEPAGE_FAQS.slice(0, 6).map(f => `<h3>${f.question}</h3><p>${f.answer}</p>`)
       `<h2>${s.heading}</h2><p>${s.content.replace(/\[\[([^|]*)\|([^\]]*)\]\]/g, '<a href="$2">$1</a>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')}</p>`
     ).join('');
 
+    // Mirror ArticlePage.tsx: the "TL;DR" line, the video titles and the skill picks. The picks are the body of a
+    // roundup, and they were missing here: a page that shows visitors five skills gave crawlers that do not run
+    // JavaScript only its introduction (112 words for the notes & PKM roundup). Ratings are left out on purpose:
+    // only skills in skillRegistry.ts carry numbers checked against the ClawHub registry.
+    const picks = article.skills || [];
+    const tldr = picks.length
+      ? `<h2>TL;DR — Key Takeaways</h2><p>${esc(article.metaDescription)} This guide covers ${picks.length} curated skills including ${picks.slice(0, 3).map(p => esc(p.name)).join(', ')}${picks.length > 3 ? `, and ${picks.length - 3} more` : ''}.</p>`
+      : '';
+    const videoContent = (article.videos || []).length
+      ? `<h2>Watch: Related Videos</h2><ul>${article.videos.map(v => `<li>${esc(v.title)}</li>`).join('')}</ul>`
+      : '';
+    const pickContent = picks.length
+      ? `<h2>Skills covered in this guide</h2><ol>${picks.map(p => {
+          const full = skillBySlug.get(p.slug);
+          const href = full ? `/skills/${full.categorySlug}/${full.slug}/` : '/skills/';
+          return `<li><h3>${esc(p.name)}</h3><p>${esc(p.description)}</p><p>${esc(p.whyPicked)}</p><p>Install: <code>${esc(p.installCmd)}</code></p><p><a href="${href}">Full skill review</a></p></li>`;
+        }).join('')}</ol>`
+      : '';
+
     writeRoute(`/articles/${article.slug}`, injectMeta(template, {
       title: article.metaTitle,
       description: article.metaDescription,
       canonical: `${BASE_URL}/articles/${article.slug}/`,
       type: 'article',
       jsonLd: articleJsonLd,
-      bodyContent: `<h1>${article.title}</h1><p>${article.heroDescription}</p>${sectionContent}`
+      bodyContent: `<h1>${article.title}</h1><p>${article.heroDescription}</p>${tldr}${sectionContent}${videoContent}${pickContent}`
     }));
     count++;
   }
